@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditor Instantâneo de Páginas Comerciais — Preview Grátis + Relatório Completo</title>
+  <meta name="description" content="Audite qualquer página de vendas em segundos: score real 0–100, achado principal grátis e desbloqueio do relatório completo com plano de ação." />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-soft: #ecfdf5;
+      --warn: #d97706;
+      --warn-soft: #fffbeb;
+      --danger: #dc2626;
+      --danger-soft: #fef2f2;
+      --dark: #0f172a;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .topbar {
+      background: var(--dark);
+      color: #f8fafc;
+      padding: 1rem 0;
+      border-bottom: 3px solid #10b981;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      background: #10b981;
+      color: #0f172a;
+      padding: 0.22rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lang-btn {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .lang-btn:hover { background: #334155; }
+
+    .hero {
+      padding: 3.25rem 0 2rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      margin: 0 auto 0.9rem;
+      max-width: 780px;
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .hero p {
+      margin: 0 auto 1.75rem;
+      max-width: 640px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .audit-form {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .audit-input {
+      flex: 1 1 280px;
+      padding: 0.9rem 1rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .audit-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 1.4rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    .btn-dark {
+      background: var(--dark);
+      color: #ffffff;
+    }
+
+    .btn-dark:hover { background: #1e293b; }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--ink); }
+
+    .helper-row {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .status-box {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 1rem 1.15rem;
+      border-radius: 10px;
+      font-size: 0.94rem;
+    }
+
+    .status-box.info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; }
+    .status-box.warn { background: var(--warn-soft); border: 1px solid #fde68a; color: #92400e; }
+    .status-box.error { background: var(--danger-soft); border: 1px solid #fecaca; color: #991b1b; }
+
+    .result-panel { display: none; margin-top: 1.5rem; }
+
+    .score-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+
+    .score-badge {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.3rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: 12px;
+      background: var(--dark);
+      color: #ffffff;
+    }
+
+    .score-num {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #34d399;
+    }
+
+    .score-max { font-size: 0.95rem; color: #94a3b8; }
+
+    .finding-card {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--danger);
+      border-radius: 10px;
+      padding: 1rem 1.15rem;
+      background: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .finding-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--danger-soft);
+      color: var(--danger);
+      margin-bottom: 0.4rem;
+    }
+
+    .locked-box {
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 1.25rem;
+      background: #f8fafc;
+      text-align: center;
+    }
+
+    .offers-section {
+      padding: 1rem 0 3rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 0 0 0.5rem;
+      font-size: 1.55rem;
+      font-weight: 800;
+    }
+
+    .section-sub {
+      text-align: center;
+      margin: 0 auto 1.75rem;
+      max-width: 620px;
+      color: var(--muted);
+    }
+
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.15rem;
+    }
+
+    .offer-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .offer-card.featured {
+      border: 2px solid var(--accent);
+    }
+
+    .offer-pill {
+      display: inline-block;
+      width: fit-content;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #065f46;
+      margin-bottom: 0.75rem;
+    }
+
+    .offer-price {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .offer-list {
+      margin: 0 0 1.25rem;
+      padding-left: 1.15rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .offer-list li { margin-bottom: 0.35rem; }
+
+    .unlock-details {
+      margin-top: 1.25rem;
+    }
+
+    .unlock-details summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .unlock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0 2.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="../index.html">
+        <span class="logo-mark">S00</span>
+        <span data-i18n="brand">Auditor Instantâneo de Páginas Comerciais</span>
+      </a>
+      <div class="topbar-actions">
+        <button id="langToggle" class="lang-btn" type="button">EN / PT-BR</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow" data-i18n="eyebrow">Preview Grátis em Segundos • Sinais Reais da Sua Página</span>
+      <h1 data-i18n="heroTitle">Descubra o que está travando a conversão da sua página de vendas</h1>
+      <p data-i18n="heroSub">
+        Cole a URL pública da sua loja ou landing page. Analisamos sinais reais e observáveis (SEO técnico, mobile, CTA, pagamento, confiança e velocidade) e mostramos seu score + o achado principal gratuitamente.
+      </p>
+    </section>
+
+    <section class="card">
+      <form id="auditForm" class="audit-form">
+        <input
+          id="urlInput"
+          class="audit-input"
+          type="url"
+          required
+          placeholder="https://sualoja.com.br/produto"
+          aria-label="URL pública da página comercial"
+        />
+        <button id="auditBtn" class="btn btn-primary" type="submit" data-i18n="auditBtn">
+          Auditar agora (Preview Grátis)
+        </button>
+      </form>
+      <div class="helper-row">
+        <span data-i18n="helperSafe">Apenas URLs públicas http/https • Proteção anti-SSRF ativa</span>
+        <span data-i18n="helperInstant">Score objetivo 0–100 sem achismo</span>
+      </div>
+
+      <div id="statusBox" class="status-box" role="status"></div>
+
+      <div id="resultPanel" class="result-panel">
+        <div class="score-header">
+          <div>
+            <strong id="resUrl"></strong>
+            <div id="resMeta" style="font-size:0.86rem;color:var(--muted);"></div>
+          </div>
+          <div class="score-badge">
+            <span id="resScore" class="score-num">--</span>
+            <span class="score-max">/ 100</span>
+          </div>
+        </div>
+
+        <div id="primaryFinding" class="finding-card"></div>
+
+        <div id="lockedBox" class="locked-box">
+          <h3 id="lockedTitle" style="margin:0 0 0.4rem;"></h3>
+          <p id="lockedSub" style="margin:0 0 1rem;color:var(--muted);"></p>
+          <a class="btn btn-primary" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" data-i18n="unlockPrimaryCta">
+            Desbloquear Diagnóstico Completo — R$ 147,00
+          </a>
+        </div>
+      </div>
+
+      <details class="unlock-details">
+        <summary data-i18n="alreadyBought">Já comprou? Desbloquear Relatório Completo com Order ID + Token</summary>
+        <form id="fullForm" class="unlock-grid">
+          <input id="fullUrl" class="audit-input" type="url" required placeholder="https://sualoja.com.br/produto" />
+          <input id="orderIdInput" class="audit-input" type="text" required placeholder="order_id (ex: ord_12345)" />
+          <input id="tokenInput" class="audit-input" type="text" required placeholder="Token HMAC recebido pós-pagamento" />
+          <button class="btn btn-dark" type="submit" data-i18n="unlockBtn">Abrir Relatório Completo</button>
+        </form>
+        <div id="fullResult" style="margin-top:1rem;"></div>
+      </details>
+    </section>
+
+    <section class="offers-section">
+      <h2 class="section-title" data-i18n="offersTitle">Desbloqueie o Relatório Completo ou Acelere sua Operação</h2>
+      <p class="section-sub" data-i18n="offersSub">
+        Checkout seguro direto via Stripe. Assim que o pagamento é confirmado pelo webhook, seu acesso completo é liberado.
+      </p>
+
+      <div class="offers-grid">
+        <article class="offer-card featured">
+          <div>
+            <span class="offer-pill" data-i18n="pillFeatured">Mais Completo</span>
+            <h3 style="margin:0;" data-i18n="offer1Title">Diagnóstico Completo Assistido</h3>
+            <div class="offer-price">R$ 147,00</div>
+            <ul class="offer-list">
+              <li data-i18n="offer1Li1">Todos os achados reais desbloqueados e priorizados</li>
+              <li data-i18n="offer1Li2">Plano de ação prático + checklist de correção</li>
+              <li data-i18n="offer1Li3">Revisão assistida focada em conversão comercial</li>
+            </ul>
+          </div>
+          <a class="btn btn-primary" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" data-i18n="buyNow">
+            Comprar agora no Stripe
+          </a>
+        </article>
+
+        <article class="offer-card">
+          <div>
+            <span class="offer-pill" data-i18n="pillKit">Execução Rápida</span>
+            <h3 style="margin:0;">Seller-to-Live Kit</h3>
+            <div class="offer-price">R$ 47,00</div>
+            <ul class="offer-list">
+              <li data-i18n="offer2Li1">Calculadora de precificação com margem real</li>
+              <li data-i18n="offer2Li2">Checklist de página comercial e live commerce</li>
+              <li data-i18n="offer2Li3">Entrega imediata em português (PT-BR)</li>
+            </ul>
+          </div>
+          <a class="btn btn-dark" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" data-i18n="buyKit">
+            Garantir Kit — R$ 47,00
+          </a>
+        </article>
+
+        <article class="offer-card">
+          <div>
+            <span class="offer-pill">International</span>
+            <h3 style="margin:0;">English Edition</h3>
+            <div class="offer-price">US$ 9.90</div>
+            <ul class="offer-list">
+              <li data-i18n="offer3Li1">Complete Seller-to-Live Kit in English</li>
+              <li data-i18n="offer3Li2">Pricing sheet + conversion audit checklist</li>
+              <li data-i18n="offer3Li3">Instant Stripe checkout in USD</li>
+            </ul>
+          </div>
+          <a class="btn btn-outline" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" data-i18n="buyEn">
+            Get English Edition — US$ 9.90
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span data-i18n="footerText">Seller 00 • Auditoria objetiva baseada exclusivamente em sinais públicos observáveis da página.</span>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE = "https://seller-to-live-runtime-git-339990226206.europe-west1.run.app";
+    const API_PREVIEW = API_BASE + "/api/audit-preview";
+    const API_FULL = API_BASE + "/api/audit-full";
+
+    const I18N = {
+      pt: {
+        brand: "Auditor Instantâneo de Páginas Comerciais",
+        eyebrow: "Preview Grátis em Segundos • Sinais Reais da Sua Página",
+        heroTitle: "Descubra o que está travando a conversão da sua página de vendas",
+        heroSub: "Cole a URL pública da sua loja ou landing page. Analisamos sinais reais e observáveis (SEO técnico, mobile, CTA, pagamento, confiança e velocidade) e mostramos seu score + o achado principal gratuitamente.",
+        auditBtn: "Auditar agora (Preview Grátis)",
+        helperSafe: "Apenas URLs públicas http/https • Proteção anti-SSRF ativa",
+        helperInstant: "Score objetivo 0–100 sem achismo",
+        unlockPrimaryCta: "Desbloquear Diagnóstico Completo — R$ 147,00",
+        alreadyBought: "Já comprou? Desbloquear Relatório Completo com Order ID + Token",
+        unlockBtn: "Abrir Relatório Completo",
+        offersTitle: "Desbloqueie o Relatório Completo ou Acelere sua Operação",
+        offersSub: "Checkout seguro direto via Stripe. Assim que o pagamento é confirmado pelo webhook, seu acesso completo é liberado.",
+        pillFeatured: "Mais Completo",
+        offer1Title: "Diagnóstico Completo Assistido",
+        offer1Li1: "Todos os achados reais desbloqueados e priorizados",
+        offer1Li2: "Plano de ação prático + checklist de correção",
+        offer1Li3: "Revisão assistida focada em conversão comercial",
+        buyNow: "Comprar agora no Stripe",
+        pillKit: "Execução Rápida",
+        offer2Li1: "Calculadora de precificação com margem real",
+        offer2Li2: "Checklist de página comercial e live commerce",
+        offer2Li3: "Entrega imediata em português (PT-BR)",
+        buyKit: "Garantir Kit — R$ 47,00",
+        offer3Li1: "Complete Seller-to-Live Kit in English",
+        offer3Li2: "Pricing sheet + conversion audit checklist",
+        offer3Li3: "Instant Stripe checkout in USD",
+        buyEn: "Get English Edition — US$ 9.90",
+        footerText: "Seller 00 • Auditoria objetiva baseada exclusivamente em sinais públicos observáveis da página.",
+        loading: "Auditando sinais reais da página... aguarde alguns segundos.",
+        deployFallback: "O endpoint de preview instantâneo ainda está em publicação no Cloud Run. Você já pode garantir o Diagnóstico Completo Assistido (R$ 147,00) ou o Seller-to-Live Kit (R$ 47,00) abaixo.",
+      },
+      en: {
+        brand: "Instant Commercial Page Auditor",
+        eyebrow: "Free Preview in Seconds • Real Observable Page Signals",
+        heroTitle: "Find out what is holding back your sales page conversion",
+        heroSub: "Paste any public store or landing page URL. We inspect real observable signals (technical SEO, mobile viewport, CTA, payment, trust & speed) and show your score + top finding for free.",
+        auditBtn: "Audit now (Free Preview)",
+        helperSafe: "Public http/https URLs only • Anti-SSRF protection active",
+        helperInstant: "Objective 0–100 score, zero guesswork",
+        unlockPrimaryCta: "Unlock Assisted Full Diagnosis — R$ 147,00",
+        alreadyBought: "Already purchased? Unlock Full Report with Order ID + Token",
+        unlockBtn: "Open Full Report",
+        offersTitle: "Unlock the Full Report or Speed Up Your Store",
+        offersSub: "Direct Stripe checkout. Once payment is confirmed by webhook, your full report access is unlocked.",
+        pillFeatured: "Most Complete",
+        offer1Title: "Assisted Full Diagnosis",
+        offer1Li1: "All real findings unlocked and ranked by impact",
+        offer1Li2: "Action plan + step-by-step fix checklist",
+        offer1Li3: "Assisted conversion review for your page",
+        buyNow: "Buy now on Stripe",
+        pillKit: "Fast Execution",
+        offer2Li1: "Real-margin pricing calculator",
+        offer2Li2: "Commercial page & live selling checklist",
+        offer2Li3: "Instant delivery (PT-BR)",
+        buyKit: "Get Kit — R$ 47,00",
+        offer3Li1: "Complete Seller-to-Live Kit in English",
+        offer3Li2: "Pricing sheet + conversion audit checklist",
+        offer3Li3: "Instant Stripe checkout in USD",
+        buyEn: "Get English Edition — US$ 9.90",
+        footerText: "Seller 00 • Objective audit based strictly on publicly observable page signals.",
+        loading: "Auditing real page signals... please wait a few seconds.",
+        deployFallback: "The instant preview endpoint is currently rolling out on Cloud Run. You can already get the Assisted Full Diagnosis or the English Edition below.",
+      },
+    };
+
+    let currentLang = "pt";
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (I18N[lang][key]) el.textContent = I18N[lang][key];
+      });
+    }
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      applyLang(currentLang === "pt" ? "en" : "pt");
+    });
+
+    const statusBox = document.getElementById("statusBox");
+    const resultPanel = document.getElementById("resultPanel");
+
+    function showStatus(type, msg) {
+      statusBox.className = "status-box " + type;
+      statusBox.textContent = msg;
+      statusBox.style.display = "block";
+    }
+
+    function hideStatus() {
+      statusBox.style.display = "none";
+    }
+
+    document.getElementById("auditForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const url = document.getElementById("urlInput").value.trim();
+      const btn = document.getElementById("auditBtn");
+      resultPanel.style.display = "none";
+      btn.disabled = true;
+      showStatus("info", I18N[currentLang].loading);
+
+      try {
+        const resp = await fetch(API_PREVIEW, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
+
+        if (resp.status === 404 || resp.status === 502 || resp.status === 503) {
+          showStatus("warn", I18N[currentLang].deployFallback);
+          return;
+        }
+
+        const data = await resp.json();
+        if (!resp.ok) {
+          showStatus("error", data.erro || data.error || "Não foi possível auditar esta URL.");
+          return;
+        }
+
+        hideStatus();
+        document.getElementById("resUrl").textContent = data.url || url;
+        const perf = data.resumo_desempenho || {};
+        document.getElementById("resMeta").textContent =
+          `HTTP ${perf.status_http ?? 200} • ${perf.tempo_ms ?? 0} ms • ${Math.round((perf.html_bytes ?? 0) / 1024)} KB`;
+        document.getElementById("resScore").textContent = String(data.score ?? "--");
+
+        const findingEl = document.getElementById("primaryFinding");
+        findingEl.textContent = "";
+        if (data.achado_principal) {
+          const a = data.achado_principal;
+          const tag = document.createElement("span");
+          tag.className = "finding-tag";
+          tag.textContent = `${a.severidade || "alta"} • -${a.impacto_pontos || 0} pts`;
+          const h4 = document.createElement("h4");
+          h4.style.margin = "0.2rem 0 0.35rem";
+          h4.textContent = a.titulo || "";
+          const ev = document.createElement("p");
+          ev.style.margin = "0 0 0.35rem";
+          ev.style.color = "var(--muted)";
+          ev.textContent = a.evidencia || "";
+          const rec = document.createElement("p");
+          rec.style.margin = "0";
+          rec.style.fontWeight = "600";
+          rec.textContent = a.recomendacao || "";
+          findingEl.append(tag, h4, ev, rec);
+        } else {
+          findingEl.textContent = currentLang === "pt"
+            ? "Nenhum achado crítico detectado no preview."
+            : "No critical findings detected in preview.";
+        }
+
+        const ocultos = data.achados_ocultos_count ?? 0;
+        document.getElementById("lockedTitle").textContent = currentLang === "pt"
+          ? `+ ${ocultos} achado(s) oculto(s) + Plano de Ação e Checklist`
+          : `+ ${ocultos} hidden finding(s) + Action Plan & Checklist`;
+        document.getElementById("lockedSub").textContent =
+          (data.cta_desbloqueio && data.cta_desbloqueio.mensagem) || "";
+
+        resultPanel.style.display = "block";
+      } catch (_err) {
+        showStatus("warn", I18N[currentLang].deployFallback);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("fullForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const out = document.getElementById("fullResult");
+      out.textContent = I18N[currentLang].loading;
+      try {
+        const resp = await fetch(API_FULL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            url: document.getElementById("fullUrl").value.trim(),
+            order_id: document.getElementById("orderIdInput").value.trim(),
+            token: document.getElementById("tokenInput").value.trim(),
+          }),
+        });
+        if (resp.status === 404 || resp.status === 502 || resp.status === 503) {
+          out.textContent = I18N[currentLang].deployFallback;
+          return;
+        }
+        const data = await resp.json();
+        if (!resp.ok) {
+          out.textContent = data.erro || data.error || "Acesso não autorizado.";
+          return;
+        }
+        out.textContent = "";
+        const pre = document.createElement("pre");
+        pre.style.whiteSpace = "pre-wrap";
+        pre.style.background = "#0f172a";
+        pre.style.color = "#e2e8f0";
+        pre.style.padding = "1rem";
+        pre.style.borderRadius = "10px";
+        pre.textContent = JSON.stringify(data, null, 2);
+        out.appendChild(pre);
+      } catch (_err) {
+        out.textContent = I18N[currentLang].deployFallback;
+      }
+    });
+  </script>
+</body>
+</html>
