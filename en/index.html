@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller-to-Live Global — Margin Calculator, Offer Builder &amp; Code 14</title>
+  <meta name="description" content="Practical conversion tools for ecommerce sellers and creators: real net margin calculator, listing optimizer, 15-min live commerce script, and Code 14 English Edition." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --dark: #0f172a;
+      --text: #1e293b;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-soft: #d1fae5;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .brand { font-weight: 800; font-size: 1.125rem; color: var(--dark); text-decoration: none; }
+    .brand span { color: var(--accent); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.35rem;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-dark { background: var(--dark); color: #fff; }
+    .btn-dark:hover { background: #1e293b; }
+    .hero {
+      background: var(--dark);
+      color: #f8fafc;
+      padding: 4.5rem 0 4rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      margin: 0 auto 1rem;
+      max-width: 780px;
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      line-height: 1.15;
+    }
+    .hero p {
+      margin: 0 auto 2rem;
+      max-width: 640px;
+      color: #cbd5e1;
+      font-size: 1.075rem;
+    }
+    .section { padding: 4rem 0; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card.featured { border: 2px solid var(--accent); }
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #065f46;
+      background: var(--accent-soft);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+    .price { font-size: 2.15rem; font-weight: 800; margin: 0.5rem 0 0.25rem; color: var(--dark); }
+    .sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
+    ul { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.94rem; }
+    li::before { content: "✓ "; color: var(--accent); font-weight: 800; }
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-wrap">
+      <a class="brand" href="#top">Seller<span>toLive</span> Global</a>
+      <a class="btn btn-primary" href="#offers">View Offers (USD)</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <span class="badge">Direct USD Checkout &bull; Instant Digital Access</span>
+        <h1>Price with real margin and convert more buyers in every listing and live stream.</h1>
+        <p>Practical digital tools and conversion resources for e-commerce sellers, creators, and focused builders — powered by Stripe global checkout.</p>
+        <a class="btn btn-primary" href="#offers">Choose Your Package</a>
+      </div>
+    </section>
+
+    <section id="offers" class="section">
+      <div class="container">
+        <div class="pricing-grid">
+          <article class="card featured">
+            <div>
+              <span class="tag">Active USD Checkout</span>
+              <h3>Code 14 — English Edition</h3>
+              <p style="color: var(--muted); font-size: 0.95rem;">14 practical techniques to stop procrastinating, build deep focus, and learn faster when shipping products.</p>
+              <div class="price">$9.90 <span style="font-size: 1rem; font-weight: 600;">USD</span></div>
+              <div class="sub">One-time payment &bull; Card, Apple Pay, Google Pay, Link</div>
+              <ul>
+                <li>14 actionable execution frameworks</li>
+                <li>Concise, zero-fluff English edition</li>
+                <li>Instant Stripe checkout in USD</li>
+              </ul>
+            </div>
+            <a class="btn btn-primary" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02">Buy Now — $9.90 USD</a>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="tag">Live Tool Preview</span>
+              <h3>Seller-to-Live Web Kit</h3>
+              <p style="color: var(--muted); font-size: 0.95rem;">Browser-based Net Margin Calculator, Listing Copy Structurer, and 15-Minute Live Commerce Script Generator.</p>
+              <div class="price">R$ 47 <span style="font-size: 1rem; font-weight: 600;">BRL</span></div>
+              <div class="sub">Pix, Card, Apple Pay, Google Pay &bull; Instant access</div>
+              <ul>
+                <li>Exact cent-level net margin calculation</li>
+                <li>Structured titles, bullets &amp; objection FAQ</li>
+                <li>15-minute live selling script template</li>
+              </ul>
+            </div>
+            <a class="btn btn-dark" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04">Get Kit — R$ 47 BRL</a>
+          </article>
+
+          <article class="card">
+            <div>
+              <span class="tag">48h Delivery</span>
+              <h3>Commercial Page Audit</h3>
+              <p style="color: var(--muted); font-size: 0.95rem;">Objective review of 1 public product or offer URL: 3 observable conversion bottlenecks + rewritten hero copy.</p>
+              <div class="price">R$ 147 <span style="font-size: 1rem; font-weight: 600;">BRL</span></div>
+              <div class="sub">Delivered within 48 business hours &bull; No passwords needed</div>
+              <ul>
+                <li>3 concrete conversion findings on your URL</li>
+                <li>Rewritten headline, value prop &amp; CTA</li>
+                <li>1 revision round within 5 days</li>
+              </ul>
+            </div>
+            <a class="btn btn-dark" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03">Order Audit — R$ 147 BRL</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Seller-to-Live Global &bull; <a href="../" style="color: inherit;">Versão em Português (BR)</a></div>
+  </footer>
+</body>
+</html>
