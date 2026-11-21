@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller-to-Live Kit — Ferramentas para Venda em Marketplace &amp; Live Commerce</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-badge" aria-hidden="true">S2L</span>
+        <div>
+          <h1>Seller-to-Live Kit</h1>
+          <p class="subtitle">Precificação real, oferta clara e roteiro de 15 minutos para vender ao vivo</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="btn-reset-demo" class="btn btn-ghost" title="Restaurar valores de exemplo">
+          Restaurar Exemplo
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <nav class="tabs-nav" role="tablist" aria-label="Ferramentas do Seller-to-Live Kit">
+      <button
+        type="button"
+        role="tab"
+        id="tab-btn-margem"
+        aria-selected="true"
+        aria-controls="panel-margem"
+        class="tab-btn is-active"
+        data-tab="margem"
+      >
+        <span class="tab-step">1</span>
+        <span>Calculadora de Margem Real</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        id="tab-btn-oferta"
+        aria-selected="false"
+        aria-controls="panel-oferta"
+        class="tab-btn"
+        data-tab="oferta"
+      >
+        <span class="tab-step">2</span>
+        <span>Gerador de Oferta &amp; Anúncio</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        id="tab-btn-roteiro"
+        aria-selected="false"
+        aria-controls="panel-roteiro"
+        class="tab-btn"
+        data-tab="roteiro"
+      >
+        <span class="tab-step">3</span>
+        <span>Roteiro de Live Commerce (15 min)</span>
+      </button>
+    </nav>
+
+    <!-- ABA 1: CALCULADORA DE MARGEM REAL -->
+    <section
+      id="panel-margem"
+      role="tabpanel"
+      aria-labelledby="tab-btn-margem"
+      class="tab-panel is-active"
+    >
+      <div class="panel-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Dados de Precificação</h2>
+            <p>Cálculo exato em centavos sobre o preço de venda para Marketplace e Live.</p>
+          </div>
+          <form id="form-margem" class="form-grid" novalidate>
+            <div class="field">
+              <label for="calc-preco">Preço de Venda (R$)</label>
+              <input type="number" id="calc-preco" min="0" step="0.01" value="129.90" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="calc-custo">Custo do Produto (R$)</label>
+              <input type="number" id="calc-custo" min="0" step="0.01" value="48.00" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="calc-marketplace">Taxa Marketplace (%)</label>
+              <input type="number" id="calc-marketplace" min="0" max="100" step="0.1" value="18.0" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="calc-frete">Frete / Envio (R$)</label>
+              <input type="number" id="calc-frete" min="0" step="0.01" value="16.50" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="calc-imposto">Imposto (%)</label>
+              <input type="number" id="calc-imposto" min="0" max="100" step="0.1" value="6.0" inputmode="decimal" />
+            </div>
+            <div class="field">
+              <label for="calc-gateway">Taxa Gateway / Pix (%)</label>
+              <input type="number" id="calc-gateway" min="0" max="100" step="0.1" value="1.5" inputmode="decimal" />
+            </div>
+          </form>
+        </div>
+
+        <div class="card result-card">
+          <div class="card-header result-header">
+            <div>
+              <h2>Resultado Financeiro</h2>
+              <p>Visão líquida por unidade vendida</p>
+            </div>
+            <span id="margem-badge" class="status-badge status-healthy">Saudável</span>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <span class="kpi-label">Receita Bruta</span>
+              <strong id="out-receita" class="kpi-value">R$ 0,00</strong>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">Total de Custos e Taxas</span>
+              <strong id="out-custos" class="kpi-value">R$ 0,00</strong>
+            </div>
+            <div class="kpi-box kpi-highlight">
+              <span class="kpi-label">Lucro Líquido</span>
+              <strong id="out-lucro" class="kpi-value">R$ 0,00</strong>
+            </div>
+            <div class="kpi-box kpi-highlight">
+              <span class="kpi-label">Margem Líquida</span>
+              <strong id="out-margem" class="kpi-value">0,0%</strong>
+            </div>
+          </div>
+
+          <div class="breakdown">
+            <h3>Detalhamento por Item</h3>
+            <ul class="breakdown-list">
+              <li><span>Custo do Produto</span><strong id="bd-custo">R$ 0,00</strong></li>
+              <li><span>Frete / Envio</span><strong id="bd-frete">R$ 0,00</strong></li>
+              <li><span>Taxa Marketplace</span><strong id="bd-marketplace">R$ 0,00</strong></li>
+              <li><span>Imposto</span><strong id="bd-imposto">R$ 0,00</strong></li>
+              <li><span>Taxa Gateway / Pix</span><strong id="bd-gateway">R$ 0,00</strong></li>
+            </ul>
+          </div>
+
+          <div class="legend">
+            <span class="legend-item"><i class="dot dot-healthy"></i> Saudável: &ge; 20%</span>
+            <span class="legend-item"><i class="dot dot-warning"></i> Atenção: 10% a 19,9%</span>
+            <span class="legend-item"><i class="dot dot-critical"></i> Crítico / Prejuízo: &lt; 10%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 2: GERADOR DE OFERTA & ANÚNCIO -->
+    <section
+      id="panel-oferta"
+      role="tabpanel"
+      aria-labelledby="tab-btn-oferta"
+      class="tab-panel"
+      hidden
+    >
+      <div class="panel-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Briefing do Produto</h2>
+            <p>Preencha os dados reais do produto. Os campos sincronizam com o Roteiro de Live.</p>
+          </div>
+          <form id="form-oferta" class="form-stack" novalidate>
+            <div class="field">
+              <label for="of-produto">Nome do Produto</label>
+              <input
+                type="text"
+                id="of-produto"
+                value="Kit Organizador Térmico Modular 3 Peças"
+                placeholder="Ex.: Garrafa Térmica Inox 950ml"
+              />
+            </div>
+            <div class="field">
+              <label for="of-publico">Público-alvo</label>
+              <input
+                type="text"
+                id="of-publico"
+                value="Profissionais que levam marmita e lanches para o trabalho ou faculdade"
+                placeholder="Ex.: Quem trabalha fora e quer manter a comida organizada"
+              />
+            </div>
+            <div class="field">
+              <label for="of-problema">Principal Problema que Resolve</label>
+              <textarea
+                id="of-problema"
+                rows="2"
+                placeholder="Ex.: Vazamentos na mochila e alimentos que perdem temperatura rápido"
+              >Evita vazamentos na bolsa e mantém refeições na temperatura ideal por horas sem bagunça</textarea>
+            </div>
+            <div class="field">
+              <label for="of-diferencial">Diferencial Real</label>
+              <textarea
+                id="of-diferencial"
+                rows="2"
+                placeholder="Ex.: Vedação em silicone dupla, forro lavável e 3 compartimentos empilháveis"
+              >Vedação dupla antivazamento, forro térmico lavável em segundos e divisórias modulares</textarea>
+            </div>
+            <div class="field">
+              <label for="of-condicao">Preço / Condição</label>
+              <input
+                type="text"
+                id="of-condicao"
+                value="R$ 129,90 à vista no Pix ou em até 3x sem juros no cartão"
+                placeholder="Ex.: R$ 129,90 no Pix ou 3x sem juros"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header result-header">
+            <div>
+              <h2>Anúncio Pronto para Copiar</h2>
+              <p>Copy direta, sem promessas enganosas</p>
+            </div>
+            <button type="button" id="btn-copiar-oferta" class="btn btn-primary">
+              Copiar Tudo
+            </button>
+          </div>
+
+          <div id="oferta-output" class="output-blocks">
+            <div class="output-block">
+              <h3>3 Opções de Título Otimizado</h3>
+              <ol id="out-titulos" class="clean-list"></ol>
+            </div>
+
+            <div class="output-block">
+              <h3>5 Bullets de Benefícios</h3>
+              <ul id="out-bullets" class="clean-list"></ul>
+            </div>
+
+            <div class="output-block">
+              <h3>Descrição Estruturada</h3>
+              <pre id="out-descricao" class="copy-pre"></pre>
+            </div>
+
+            <div class="output-block">
+              <h3>3 Quebras de Objeção</h3>
+              <ul id="out-objecoes" class="clean-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 3: ROTEIRO DE LIVE COMMERCE (15 MIN) -->
+    <section
+      id="panel-roteiro"
+      role="tabpanel"
+      aria-labelledby="tab-btn-roteiro"
+      class="tab-panel"
+      hidden
+    >
+      <div class="panel-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2>Configuração da Live (15 min)</h2>
+            <p>Usa os dados da aba Oferta + condição especial exclusiva da transmissão.</p>
+          </div>
+          <form id="form-roteiro" class="form-stack" novalidate>
+            <div class="field">
+              <label for="lv-produto">Produto em Destaque</label>
+              <input type="text" id="lv-produto" />
+            </div>
+            <div class="field">
+              <label for="lv-publico">Quem está assistindo (Público-alvo)</label>
+              <input type="text" id="lv-publico" />
+            </div>
+            <div class="field">
+              <label for="lv-problema">Dor / Problema Demonstrado ao Vivo</label>
+              <textarea id="lv-problema" rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label for="lv-diferencial">Prova / Diferencial na Câmera</label>
+              <textarea id="lv-diferencial" rows="2"></textarea>
+            </div>
+            <div class="field">
+              <label for="lv-condicao">Preço / Condição Base</label>
+              <input type="text" id="lv-condicao" />
+            </div>
+            <div class="field">
+              <label for="lv-bonus">Desconto ou Bônus da Live (Escassez Ética)</label>
+              <input
+                type="text"
+                id="lv-bonus"
+                value="10% OFF no cupom LIVE10 + kit de etiquetas térmicas para pedidos feitos até o fim da live"
+                placeholder="Ex.: Frete grátis + brinde exclusivo durante a live"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header result-header">
+            <div>
+              <h2>Roteiro Cronometrado (15 min)</h2>
+              <p>Blocos objetivos para manter retenção e converter sem pressão artificial</p>
+            </div>
+            <button type="button" id="btn-copiar-roteiro" class="btn btn-primary">
+              Copiar Roteiro
+            </button>
+          </div>
+
+          <div id="roteiro-output" class="timeline"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <span>Seller-to-Live Kit &bull; Execução 100% local no navegador, sem custos de servidor.</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
