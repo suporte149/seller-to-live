@@ -51,6 +51,38 @@ body {
   border-bottom: 3px solid #10b981;
 }
 
+.demo-banner-bar {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 0.65rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #334155;
+}
+
+.demo-banner-bar .container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.demo-banner-bar a {
+  color: #34d399;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.badge-demo {
+  background: #059669;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
