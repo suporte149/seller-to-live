@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fechador Cego de Acordos (Zero-Knowledge Deal Closer) — Seller-to-Live</title>
+  <meta name="description" content="Feche acordos no Ponto Justo de Nash sem revelar seu piso mínimo nem o teto máximo da contraparte." />
+  <style>
+    :root {
+      --bg: #f8fafc; --surface: #ffffff; --ink: #0f172a; --muted: #475569; --border: #e2e8f0;
+      --accent: #059669; --accent-hover: #047857; --accent-soft: #ecfdf5; --dark: #0f172a;
+      --danger: #dc2626; --radius: 14px; --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    .container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+    .topbar { background: var(--dark); color: #f8fafc; padding: 1rem 0; border-bottom: 3px solid #10b981; }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .logo { font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; gap: 0.55rem; color: #fff; text-decoration: none; }
+    .logo-mark { background: #10b981; color: #0f172a; padding: 0.22rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 800; }
+    .topbar-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .nav-link { color: #cbd5e1; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .nav-link:hover { color: #fff; }
+    .lang-btn { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 8px; padding: 0.35rem 0.7rem; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+    .hero { padding: 3rem 0 1.75rem; text-align: center; }
+    .eyebrow { display: inline-block; background: var(--accent-soft); color: #065f46; border: 1px solid #a7f3d0; font-size: 0.8rem; font-weight: 700; padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 1rem; }
+    .hero h1 { margin: 0 auto 0.85rem; max-width: 780px; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.15; }
+    .hero p { margin: 0 auto; max-width: 680px; color: var(--muted); font-size: 1.05rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: 1.5rem; }
+    label { display: block; font-weight: 700; font-size: 0.88rem; margin: 0.75rem 0 0.35rem; }
+    input, select { width: 100%; padding: 0.7rem 0.85rem; border: 1px solid var(--border); border-radius: 10px; font: inherit; font-size: 0.95rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; border: 0; border-radius: 10px; padding: 0.8rem 1.25rem; font-weight: 700; cursor: pointer; text-decoration: none; margin-top: 1rem; }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-secondary { background: var(--dark); }
+    pre { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 10px; overflow-x: auto; font-size: 0.85rem; }
+    .hidden { display: none; }
+    .err { color: var(--danger); font-weight: 600; margin-top: 0.6rem; }
+    footer { text-align: center; padding: 2rem 0 3rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="../">
+        <span class="logo-mark">S2L</span>
+        <span data-i18n="brand">Fechador Cego de Acordos</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="nav-link" href="../" data-i18n="navHome">Início</a>
+        <a class="nav-link" href="../auditor/" data-i18n="navAudit">Auditor</a>
+        <a class="nav-link" href="../simulador/" data-i18n="navSim">Simulador</a>
+        <button class="lang-btn" id="langBtn" type="button">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow" data-i18n="eyebrow">INVENÇÃO #5 · ZERO-KNOWLEDGE MUTUAL DEAL CLOSER</span>
+      <h1 data-i18n="h1">Feche acordos no Ponto Justo de Nash sem revelar seu limite</h1>
+      <p data-i18n="sub">Vendedor informa seu piso mínimo e Comprador informa seu teto máximo em sigilo absoluto. Se houver cruzamento, o acordo fecha no ponto médio com hash SHA-256.</p>
+    </section>
+
+    <div class="grid-2">
+      <section class="card">
+        <h2 style="margin-top:0;" data-i18n="c1Title">1. Criar Sala Cega</h2>
+        <label for="tituloSala" data-i18n="lblTitulo">Título da negociação</label>
+        <input id="tituloSala" type="text" placeholder="Ex.: Licenciamento API B2B 12 meses" />
+        <label for="moedaSala" data-i18n="lblMoeda">Moeda</label>
+        <select id="moedaSala">
+          <option value="BRL">BRL (R$)</option>
+          <option value="USD">USD (US$)</option>
+          <option value="EUR">EUR (€)</option>
+        </select>
+        <button class="btn" id="criarBtn" type="button" data-i18n="btnCriar">Criar Sala Segura</button>
+        <div id="criarErr" class="err hidden"></div>
+        <pre id="criarOut" class="hidden"></pre>
+      </section>
+
+      <section class="card">
+        <h2 style="margin-top:0;" data-i18n="c2Title">2. Submeter Limite Secreto</h2>
+        <label for="salaIdInput">Sala ID</label>
+        <input id="salaIdInput" type="text" placeholder="sala_..." />
+        <label for="papelInput" data-i18n="lblPapel">Seu papel</label>
+        <select id="papelInput">
+          <option value="vendedor">Vendedor (piso mínimo)</option>
+          <option value="comprador">Comprador (teto máximo)</option>
+        </select>
+        <label for="tokenInput">Token do papel</label>
+        <input id="tokenInput" type="text" placeholder="Token secreto do seu papel" />
+        <label for="limiteInput" data-i18n="lblLimite">Valor limite (em centavos inteiros, ex.: 150000 = R$ 1.500,00)</label>
+        <input id="limiteInput" type="number" min="1" step="1" placeholder="150000" />
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+          <button class="btn" id="submeterBtn" type="button" data-i18n="btnSub">Submeter em Sigilo</button>
+          <button class="btn btn-secondary" id="statusBtn" type="button" data-i18n="btnStatus">Consultar Status</button>
+        </div>
+        <div id="subErr" class="err hidden"></div>
+        <pre id="subOut" class="hidden"></pre>
+      </section>
+    </div>
+
+    <section class="card" style="background:#0f172a;color:#f8fafc;">
+      <h3 style="margin-top:0;" data-i18n="ctaTitle">Quer validação contratual completa ou implantação dedicada?</h3>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <a class="btn" href="https://buy.stripe.com/28EcN57k10D1c992N6eZ207" target="_blank" rel="noopener">Diagnóstico Completo — R$ 147</a>
+        <a class="btn" style="background:#1e293b;" href="https://buy.stripe.com/5kQeVd2ZHdL51g5a80eZ208" target="_blank" rel="noopener">Kit Negociação — R$ 47</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Seller-to-Live · Runtime Cloud Run (`europe-west1`) · Zero-Knowledge Nash Point</div>
+  </footer>
+
+  <script>
+    const API_BASE = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    let lang = 'pt';
+    const i18n = {
+      pt: {
+        brand: 'Fechador Cego de Acordos', navHome: 'Início', navAudit: 'Auditor', navSim: 'Simulador',
+        eyebrow: 'INVENÇÃO #5 · ZERO-KNOWLEDGE MUTUAL DEAL CLOSER',
+        h1: 'Feche acordos no Ponto Justo de Nash sem revelar seu limite',
+        sub: 'Vendedor informa seu piso mínimo e Comprador informa seu teto máximo em sigilo absoluto. Se houver cruzamento, o acordo fecha no ponto médio com hash SHA-256.',
+        c1Title: '1. Criar Sala Cega', lblTitulo: 'Título da negociação', lblMoeda: 'Moeda', btnCriar: 'Criar Sala Segura',
+        c2Title: '2. Submeter Limite Secreto', lblPapel: 'Seu papel',
+        lblLimite: 'Valor limite (em centavos inteiros, ex.: 150000 = R$ 1.500,00)',
+        btnSub: 'Submeter em Sigilo', btnStatus: 'Consultar Status',
+        ctaTitle: 'Quer validação contratual completa ou implantação dedicada?'
+      },
+      en: {
+        brand: 'Zero-Knowledge Deal Closer', navHome: 'Home', navAudit: 'Auditor', navSim: 'Simulator',
+        eyebrow: 'INVENTION #5 · ZERO-KNOWLEDGE MUTUAL DEAL CLOSER',
+        h1: 'Close deals at the Fair Nash Point without leaking your limit',
+        sub: 'Seller submits their minimum floor and Buyer submits their maximum cap in strict secrecy. If they overlap, the deal closes at the midpoint with a SHA-256 proof.',
+        c1Title: '1. Create Blind Room', lblTitulo: 'Deal title', lblMoeda: 'Currency', btnCriar: 'Create Secure Room',
+        c2Title: '2. Submit Secret Limit', lblPapel: 'Your role',
+        lblLimite: 'Limit value (integer cents, e.g. 150000 = $1,500.00)',
+        btnSub: 'Submit Secretly', btnStatus: 'Check Status',
+        ctaTitle: 'Need full contract stress-testing or dedicated deployment?'
+      }
+    };
+
+    document.getElementById('langBtn').addEventListener('click', () => {
+      lang = lang === 'pt' ? 'en' : 'pt';
+      document.getElementById('langBtn').textContent = lang === 'pt' ? 'EN' : 'PT';
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const k = el.getAttribute('data-i18n');
+        if (i18n[lang][k]) el.textContent = i18n[lang][k];
+      });
+    });
+
+    async function postJson(path, payload) {
+      const resp = await fetch(`${API_BASE}${path}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.erro || 'Erro na operação');
+      return data;
+    }
+
+    document.getElementById('criarBtn').addEventListener('click', async () => {
+      const err = document.getElementById('criarErr');
+      const out = document.getElementById('criarOut');
+      err.classList.add('hidden'); out.classList.add('hidden');
+      try {
+        const res = await postJson('/api/deal-closer/criar', {
+          titulo: document.getElementById('tituloSala').value,
+          moeda: document.getElementById('moedaSala').value,
+          prazo_horas: 24
+        });
+        document.getElementById('salaIdInput').value = res.sala_id;
+        document.getElementById('tokenInput').value = res.token_vendedor;
+        out.textContent = JSON.stringify(res, null, 2);
+        out.classList.remove('hidden');
+      } catch (e) {
+        err.textContent = e.message; err.classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('submeterBtn').addEventListener('click', async () => {
+      const err = document.getElementById('subErr');
+      const out = document.getElementById('subOut');
+      err.classList.add('hidden'); out.classList.add('hidden');
+      try {
+        const res = await postJson('/api/deal-closer/submeter', {
+          sala_id: document.getElementById('salaIdInput').value.trim(),
+          papel: document.getElementById('papelInput').value,
+          token: document.getElementById('tokenInput').value.trim(),
+          limite_centavos: parseInt(document.getElementById('limiteInput').value, 10)
+        });
+        out.textContent = JSON.stringify(res, null, 2);
+        out.classList.remove('hidden');
+      } catch (e) {
+        err.textContent = e.message; err.classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('statusBtn').addEventListener('click', async () => {
+      const err = document.getElementById('subErr');
+      const out = document.getElementById('subOut');
+      err.classList.add('hidden'); out.classList.add('hidden');
+      try {
+        const res = await postJson('/api/deal-closer/status', {
+          sala_id: document.getElementById('salaIdInput').value.trim(),
+          papel: document.getElementById('papelInput').value,
+          token: document.getElementById('tokenInput').value.trim()
+        });
+        out.textContent = JSON.stringify(res, null, 2);
+        out.classList.remove('hidden');
+      } catch (e) {
+        err.textContent = e.message; err.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

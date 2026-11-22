@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador Adversarial de Contratos &amp; Propostas — Seller-to-Live</title>
+  <meta name="description" content="Submeta sua proposta ou contrato a um ataque adversarial antes de assinar: descubra brechas jurídicas, risco financeiro e contra-cláusulas prontas." />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-soft: #ecfdf5;
+      --warn: #d97706;
+      --warn-soft: #fffbeb;
+      --danger: #dc2626;
+      --danger-soft: #fef2f2;
+      --dark: #0f172a;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .container { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+    .topbar { background: var(--dark); color: #f8fafc; padding: 1rem 0; border-bottom: 3px solid #10b981; }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .logo { font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; gap: 0.55rem; color: #fff; text-decoration: none; }
+    .logo-mark { background: #10b981; color: #0f172a; padding: 0.22rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 800; }
+    .topbar-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .nav-link { color: #cbd5e1; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .nav-link:hover { color: #fff; }
+    .lang-btn { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 8px; padding: 0.35rem 0.7rem; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+    .hero { padding: 3rem 0 1.75rem; text-align: center; }
+    .eyebrow { display: inline-block; background: var(--accent-soft); color: #065f46; border: 1px solid #a7f3d0; font-size: 0.8rem; font-weight: 700; padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 1rem; }
+    .hero h1 { margin: 0 auto 0.85rem; max-width: 780px; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.15; }
+    .hero p { margin: 0 auto; max-width: 680px; color: var(--muted); font-size: 1.05rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.6rem; margin-bottom: 1.5rem; }
+    label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.45rem; }
+    textarea, select, input {
+      width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--border); border-radius: 10px;
+      font: inherit; font-size: 0.95rem; background: #fff; color: var(--ink);
+    }
+    textarea { min-height: 160px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 220px; gap: 1rem; margin-top: 1rem; align-items: end; }
+    @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--accent); color: #fff; border: 0; border-radius: 10px;
+      padding: 0.85rem 1.35rem; font-weight: 700; font-size: 0.98rem; cursor: pointer; text-decoration: none;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-secondary { background: var(--dark); }
+    .btn-secondary:hover { background: #1e293b; }
+    .badge { display: inline-block; padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.78rem; font-weight: 800; }
+    .badge-CRITICO { background: var(--danger-soft); color: var(--danger); }
+    .badge-ALTO { background: var(--warn-soft); color: var(--warn); }
+    .badge-MODERADO { background: #eff6ff; color: #1d4ed8; }
+    .badge-BAIXO { background: var(--accent-soft); color: var(--accent); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .cta-box { background: #0f172a; color: #f8fafc; border-radius: var(--radius); padding: 1.5rem; margin-top: 1.5rem; }
+    .cta-box p { color: #cbd5e1; margin: 0.4rem 0 1rem; }
+    .cta-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hidden { display: none; }
+    .error-msg { color: var(--danger); font-weight: 600; margin-top: 0.75rem; }
+    footer { text-align: center; padding: 2rem 0 3rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="../">
+        <span class="logo-mark">S2L</span>
+        <span data-i18n="brand">Simulador Adversarial de Contratos</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="nav-link" href="../" data-i18n="navHome">Início</a>
+        <a class="nav-link" href="../auditor/" data-i18n="navAudit">Auditor</a>
+        <a class="nav-link" href="../fechador/" data-i18n="navCloser">Fechador Cego</a>
+        <button class="lang-btn" id="langBtn" type="button">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow" data-i18n="eyebrow">INVENÇÃO #2 · TESTE DE ESTRESSE ANTES DE ASSINAR</span>
+      <h1 data-i18n="h1">Descubra onde seu contrato ou proposta pode sangrar antes de enviar</h1>
+      <p data-i18n="sub">Cole o rascunho da proposta, SLA ou contrato. Nosso motor adversarial simula brechas críticas gratuitamente e libera a defesa completa após checkout confirmado.</p>
+    </section>
+
+    <section class="card">
+      <label for="propostaInput" data-i18n="lblTexto">Texto da proposta ou contrato (mín. 40 caracteres)</label>
+      <textarea id="propostaInput" placeholder="Ex.: Prestação de serviços de desenvolvimento de software pelo valor de R$ 15.000,00 com entrega em 30 dias..."></textarea>
+      <div class="row">
+        <div>
+          <label for="moedaSelect" data-i18n="lblMoeda">Moeda de exposição financeira</label>
+          <select id="moedaSelect">
+            <option value="BRL">BRL (R$)</option>
+            <option value="USD">USD (US$)</option>
+            <option value="EUR">EUR (€)</option>
+          </select>
+        </div>
+        <button class="btn" id="simularBtn" type="button" data-i18n="btnSimular">Simular Ataque Grátis</button>
+      </div>
+      <div id="erroBox" class="error-msg hidden"></div>
+    </section>
+
+    <section id="resultadoBox" class="card hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+        <h2 style="margin:0;" data-i18n="resTitle">Diagnóstico Adversarial (Preview)</h2>
+        <span id="nivelBadge" class="badge"></span>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="margin:0;box-shadow:none;">
+          <div style="font-size:0.85rem;color:var(--muted);" data-i18n="lblScore">Score de Risco</div>
+          <div id="scoreVal" style="font-size:2rem;font-weight:800;"></div>
+        </div>
+        <div class="card" style="margin:0;box-shadow:none;">
+          <div style="font-size:0.85rem;color:var(--muted);" data-i18n="lblBrechas">Brechas Detectadas</div>
+          <div id="brechasVal" style="font-size:2rem;font-weight:800;"></div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;">
+        <h3 style="margin:0 0 0.4rem;" id="brechaTitulo"></h3>
+        <p id="brechaEvidencia" style="color:var(--muted);margin:0;"></p>
+      </div>
+
+      <div class="cta-box">
+        <strong data-i18n="ctaTitle">Desbloqueie os 3 Cenários de Ataque + Contra-Cláusulas Prontas + Playbook</strong>
+        <p data-i18n="ctaDesc">Receba o dossiê completo com mitigação jurídica imediata e proteção contra escopo infinito, inadimplência e propriedade intelectual.</p>
+        <div class="cta-actions">
+          <a class="btn" href="https://buy.stripe.com/28EcN57k10D1c992N6eZ207" target="_blank" rel="noopener" data-i18n="ctaBr">Desbloquear Diagnóstico Completo — R$ 147</a>
+          <a class="btn btn-secondary" href="https://buy.stripe.com/5kQeVd2ZHdL51g5a80eZ208" target="_blank" rel="noopener" data-i18n="ctaKit">Kit Negociação + Templates — R$ 47</a>
+          <a class="btn btn-secondary" href="https://buy.stripe.com/00w8wP8o55Xlddd0EWeZ206" target="_blank" rel="noopener" data-i18n="ctaUsd">Global Pack — US$ 9.90</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Seller-to-Live · Runtime Cloud Run (`europe-west1`) · Stripe Checkout Verificado</div>
+  </footer>
+
+  <script>
+    const API_BASE = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    let lang = 'pt';
+    const i18n = {
+      pt: {
+        brand: 'Simulador Adversarial de Contratos',
+        navHome: 'Início', navAudit: 'Auditor', navCloser: 'Fechador Cego',
+        eyebrow: 'INVENÇÃO #2 · TESTE DE ESTRESSE ANTES DE ASSINAR',
+        h1: 'Descubra onde seu contrato ou proposta pode sangrar antes de enviar',
+        sub: 'Cole o rascunho da proposta, SLA ou contrato. Nosso motor adversarial simula brechas críticas gratuitamente e libera a defesa completa após checkout confirmado.',
+        lblTexto: 'Texto da proposta ou contrato (mín. 40 caracteres)',
+        lblMoeda: 'Moeda de exposição financeira',
+        btnSimular: 'Simular Ataque Grátis',
+        resTitle: 'Diagnóstico Adversarial (Preview)',
+        lblScore: 'Score de Risco',
+        lblBrechas: 'Brechas Detectadas',
+        ctaTitle: 'Desbloqueie os 3 Cenários de Ataque + Contra-Cláusulas Prontas + Playbook',
+        ctaDesc: 'Receba o dossiê completo com mitigação jurídica imediata e proteção contra escopo infinito, inadimplência e propriedade intelectual.',
+        ctaBr: 'Desbloquear Diagnóstico Completo — R$ 147',
+        ctaKit: 'Kit Negociação + Templates — R$ 47',
+        ctaUsd: 'Global Pack — US$ 9.90'
+      },
+      en: {
+        brand: 'Adversarial Deal Simulator',
+        navHome: 'Home', navAudit: 'Auditor', navCloser: 'Blind Closer',
+        eyebrow: 'INVENTION #2 · PRE-SIGNING STRESS TEST',
+        h1: 'Spot where your contract or proposal can bleed before sending it',
+        sub: 'Paste your draft proposal, SLA, or contract. Our adversarial engine simulates critical loopholes for free and unlocks full defense clauses after Stripe checkout.',
+        lblTexto: 'Proposal or contract text (min. 40 chars)',
+        lblMoeda: 'Financial exposure currency',
+        btnSimular: 'Run Free Adversarial Scan',
+        resTitle: 'Adversarial Diagnosis (Preview)',
+        lblScore: 'Risk Score',
+        lblBrechas: 'Loopholes Found',
+        ctaTitle: 'Unlock All 3 Attack Scenarios + Ready Counter-Clauses + Playbook',
+        ctaDesc: 'Get the full dossier with immediate legal mitigation against scope creep, non-payment, and IP disputes.',
+        ctaBr: 'Unlock Full Diagnosis — R$ 147',
+        ctaKit: 'Negotiation Templates Kit — R$ 47',
+        ctaUsd: 'Global Pack — US$ 9.90'
+      }
+    };
+
+    document.getElementById('langBtn').addEventListener('click', () => {
+      lang = lang === 'pt' ? 'en' : 'pt';
+      document.getElementById('langBtn').textContent = lang === 'pt' ? 'EN' : 'PT';
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const k = el.getAttribute('data-i18n');
+        if (i18n[lang][k]) el.textContent = i18n[lang][k];
+      });
+    });
+
+    document.getElementById('simularBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('simularBtn');
+      const erroBox = document.getElementById('erroBox');
+      const resBox = document.getElementById('resultadoBox');
+      erroBox.classList.add('hidden');
+      resBox.classList.add('hidden');
+      btn.disabled = true;
+      try {
+        const resp = await fetch(`${API_BASE}/api/deal-sim-preview`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            texto_proposta: document.getElementById('propostaInput').value,
+            moeda: document.getElementById('moedaSelect').value
+          })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.erro || 'Erro ao simular proposta');
+        document.getElementById('scoreVal').textContent = `${data.score_risco}/100`;
+        document.getElementById('brechasVal').textContent = String(data.brechas_detectadas_count ?? 0);
+        const badge = document.getElementById('nivelBadge');
+        badge.textContent = data.nivel_risco;
+        badge.className = `badge badge-${data.nivel_risco}`;
+        document.getElementById('brechaTitulo').textContent = data.cenario_critico_preview?.titulo || 'Análise concluída';
+        document.getElementById('brechaEvidencia').textContent = data.cenario_critico_preview?.gatilho || data.cenario_critico_preview?.impacto_financeiro_estimado || '';
+        resBox.classList.remove('hidden');
+      } catch (err) {
+        erroBox.textContent = err.message;
+        erroBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
