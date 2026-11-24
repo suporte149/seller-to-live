@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador Adversarial de Contratos &amp; Propostas — Seller-to-Live</title>
-  <meta name="description" content="Submeta sua proposta ou contrato a um ataque adversarial antes de assinar: descubra brechas jurídicas, risco financeiro e contra-cláusulas prontas." />
+  <title>Simulador Adversarial de Propostas Comerciais — Seller-to-Live</title>
+  <meta name="description" content="Submeta sua proposta comercial a uma simulação adversarial gratuita para identificar brechas de escopo e risco comercial antes de enviar." />
   <style>
     :root {
       --bg: #f8fafc;
@@ -73,6 +73,16 @@
     .cta-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
     .hidden { display: none; }
     .error-msg { color: var(--danger); font-weight: 600; margin-top: 0.75rem; }
+    .fallback-box {
+      margin-top: 1rem;
+      padding: 1rem 1.15rem;
+      border-radius: 10px;
+      background: var(--warn-soft);
+      border: 1px solid #fde68a;
+      color: #92400e;
+      font-size: 0.93rem;
+    }
+    .fallback-box p { margin: 0 0 0.7rem; }
     footer { text-align: center; padding: 2rem 0 3rem; color: var(--muted); font-size: 0.85rem; }
   </style>
 </head>
@@ -81,10 +91,11 @@
     <div class="container topbar-inner">
       <a class="logo" href="../">
         <span class="logo-mark">S2L</span>
-        <span data-i18n="brand">Simulador Adversarial de Contratos</span>
+        <span data-i18n="brand">Simulador Adversarial de Propostas</span>
       </a>
       <div class="topbar-actions">
         <a class="nav-link" href="../" data-i18n="navHome">Início</a>
+        <a class="nav-link" href="../kit/" data-i18n="navKit">Kit</a>
         <a class="nav-link" href="../auditor/" data-i18n="navAudit">Auditor</a>
         <a class="nav-link" href="../fechador/" data-i18n="navCloser">Fechador Cego</a>
         <button class="lang-btn" id="langBtn" type="button">EN</button>
@@ -94,13 +105,13 @@
 
   <main class="container">
     <section class="hero">
-      <span class="eyebrow" data-i18n="eyebrow">INVENÇÃO #2 · TESTE DE ESTRESSE ANTES DE ASSINAR</span>
-      <h1 data-i18n="h1">Descubra onde seu contrato ou proposta pode sangrar antes de enviar</h1>
-      <p data-i18n="sub">Cole o rascunho da proposta, SLA ou contrato. Nosso motor adversarial simula brechas críticas gratuitamente e libera a defesa completa após checkout confirmado.</p>
+      <span class="eyebrow" data-i18n="eyebrow">INVENÇÃO #2 · TESTE DE ESTRESSE ANTES DE ENVIAR</span>
+      <h1 data-i18n="h1">Descubra onde sua proposta comercial pode sangrar antes de enviar</h1>
+      <p data-i18n="sub">Cole o rascunho da sua proposta ou SLA. Nosso motor adversarial aponta brechas comerciais e de escopo gratuitamente (não substitui parecer jurídico ou contábil).</p>
     </section>
 
     <section class="card">
-      <label for="propostaInput" data-i18n="lblTexto">Texto da proposta ou contrato (mín. 40 caracteres)</label>
+      <label for="propostaInput" data-i18n="lblTexto">Texto da proposta comercial (mín. 40 caracteres)</label>
       <textarea id="propostaInput" placeholder="Ex.: Prestação de serviços de desenvolvimento de software pelo valor de R$ 15.000,00 com entrega em 30 dias..."></textarea>
       <div class="row">
         <div>
@@ -114,6 +125,7 @@
         <button class="btn" id="simularBtn" type="button" data-i18n="btnSimular">Simular Ataque Grátis</button>
       </div>
       <div id="erroBox" class="error-msg hidden"></div>
+      <div id="fallbackBox" class="fallback-box hidden"></div>
     </section>
 
     <section id="resultadoBox" class="card hidden">
@@ -137,60 +149,65 @@
       </div>
 
       <div class="cta-box">
-        <strong data-i18n="ctaTitle">Desbloqueie os 3 Cenários de Ataque + Contra-Cláusulas Prontas + Playbook</strong>
-        <p data-i18n="ctaDesc">Receba o dossiê completo com mitigação jurídica imediata e proteção contra escopo infinito, inadimplência e propriedade intelectual.</p>
+        <strong data-i18n="ctaTitle">Quer corrigir a clareza da sua oferta e eliminar fricções na sua página comercial?</strong>
+        <p data-i18n="ctaDesc">Contrate o Diagnóstico de Página Comercial (entrega em até 48h úteis, 3 achados observáveis + reescrita do bloco principal + 1 rodada de revisão em até 5 dias) ou leve o Seller-to-Live Kit.</p>
         <div class="cta-actions">
-          <a class="btn" href="https://buy.stripe.com/28EcN57k10D1c992N6eZ207" target="_blank" rel="noopener" data-i18n="ctaBr">Desbloquear Diagnóstico Completo — R$ 147</a>
-          <a class="btn btn-secondary" href="https://buy.stripe.com/5kQeVd2ZHdL51g5a80eZ208" target="_blank" rel="noopener" data-i18n="ctaKit">Kit Negociação + Templates — R$ 47</a>
-          <a class="btn btn-secondary" href="https://buy.stripe.com/00w8wP8o55Xlddd0EWeZ206" target="_blank" rel="noopener" data-i18n="ctaUsd">Global Pack — US$ 9.90</a>
+          <a class="btn" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" data-i18n="ctaBr">Diagnóstico de Página (48h) — R$ 147,00</a>
+          <a class="btn btn-secondary" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" data-i18n="ctaKit">Seller-to-Live Kit — R$ 47,00</a>
+          <a class="btn btn-secondary" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" data-i18n="ctaUsd">Code 14 (English) — US$ 9.90</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">Seller-to-Live · Runtime Cloud Run (`europe-west1`) · Stripe Checkout Verificado</div>
+    <div class="container">Seller-to-Live · Runtime Cloud Run (`europe-west1`) · Checkout oficial Stripe (`buy.stripe.com`)</div>
   </footer>
 
   <script>
     const API_BASE = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    const STRIPE_DIAGNOSTICO = 'https://buy.stripe.com/aFadR14bAgevg3W7lD83C03';
     let lang = 'pt';
     const i18n = {
       pt: {
-        brand: 'Simulador Adversarial de Contratos',
-        navHome: 'Início', navAudit: 'Auditor', navCloser: 'Fechador Cego',
-        eyebrow: 'INVENÇÃO #2 · TESTE DE ESTRESSE ANTES DE ASSINAR',
-        h1: 'Descubra onde seu contrato ou proposta pode sangrar antes de enviar',
-        sub: 'Cole o rascunho da proposta, SLA ou contrato. Nosso motor adversarial simula brechas críticas gratuitamente e libera a defesa completa após checkout confirmado.',
-        lblTexto: 'Texto da proposta ou contrato (mín. 40 caracteres)',
+        brand: 'Simulador Adversarial de Propostas',
+        navHome: 'Início', navKit: 'Kit', navAudit: 'Auditor', navCloser: 'Fechador Cego',
+        eyebrow: 'INVENÇÃO #2 · TESTE DE ESTRESSE ANTES DE ENVIAR',
+        h1: 'Descubra onde sua proposta comercial pode sangrar antes de enviar',
+        sub: 'Cole o rascunho da sua proposta ou SLA. Nosso motor adversarial aponta brechas comerciais e de escopo gratuitamente (não substitui parecer jurídico ou contábil).',
+        lblTexto: 'Texto da proposta comercial (mín. 40 caracteres)',
         lblMoeda: 'Moeda de exposição financeira',
         btnSimular: 'Simular Ataque Grátis',
         resTitle: 'Diagnóstico Adversarial (Preview)',
         lblScore: 'Score de Risco',
         lblBrechas: 'Brechas Detectadas',
-        ctaTitle: 'Desbloqueie os 3 Cenários de Ataque + Contra-Cláusulas Prontas + Playbook',
-        ctaDesc: 'Receba o dossiê completo com mitigação jurídica imediata e proteção contra escopo infinito, inadimplência e propriedade intelectual.',
-        ctaBr: 'Desbloquear Diagnóstico Completo — R$ 147',
-        ctaKit: 'Kit Negociação + Templates — R$ 47',
-        ctaUsd: 'Global Pack — US$ 9.90'
+        ctaTitle: 'Quer corrigir a clareza da sua oferta e eliminar fricções na sua página comercial?',
+        ctaDesc: 'Contrate o Diagnóstico de Página Comercial (entrega em até 48h úteis, 3 achados observáveis + reescrita do bloco principal + 1 rodada de revisão em até 5 dias) ou leve o Seller-to-Live Kit.',
+        ctaBr: 'Diagnóstico de Página (48h) — R$ 147,00',
+        ctaKit: 'Seller-to-Live Kit — R$ 47,00',
+        ctaUsd: 'Code 14 (English) — US$ 9.90',
+        fallbackMsg: 'O motor automático do Simulador está temporariamente indisponível ou em atualização no Cloud Run. Você pode avançar agora contratando o Diagnóstico de Página Comercial (entrega em até 48h úteis):',
+        fallbackCta: 'Contratar Diagnóstico em 48h — R$ 147,00'
       },
       en: {
-        brand: 'Adversarial Deal Simulator',
-        navHome: 'Home', navAudit: 'Auditor', navCloser: 'Blind Closer',
-        eyebrow: 'INVENTION #2 · PRE-SIGNING STRESS TEST',
-        h1: 'Spot where your contract or proposal can bleed before sending it',
-        sub: 'Paste your draft proposal, SLA, or contract. Our adversarial engine simulates critical loopholes for free and unlocks full defense clauses after Stripe checkout.',
-        lblTexto: 'Proposal or contract text (min. 40 chars)',
+        brand: 'Adversarial Proposal Simulator',
+        navHome: 'Home', navKit: 'Kit', navAudit: 'Auditor', navCloser: 'Blind Closer',
+        eyebrow: 'INVENTION #2 · PRE-SEND STRESS TEST',
+        h1: 'Spot where your commercial proposal can bleed before sending it',
+        sub: 'Paste your draft proposal or SLA. Our adversarial engine flags commercial and scope risks for free (not legal or accounting advice).',
+        lblTexto: 'Commercial proposal text (min. 40 chars)',
         lblMoeda: 'Financial exposure currency',
         btnSimular: 'Run Free Adversarial Scan',
         resTitle: 'Adversarial Diagnosis (Preview)',
         lblScore: 'Risk Score',
         lblBrechas: 'Loopholes Found',
-        ctaTitle: 'Unlock All 3 Attack Scenarios + Ready Counter-Clauses + Playbook',
-        ctaDesc: 'Get the full dossier with immediate legal mitigation against scope creep, non-payment, and IP disputes.',
-        ctaBr: 'Unlock Full Diagnosis — R$ 147',
-        ctaKit: 'Negotiation Templates Kit — R$ 47',
-        ctaUsd: 'Global Pack — US$ 9.90'
+        ctaTitle: 'Want to sharpen your offer clarity and remove conversion friction on your sales page?',
+        ctaDesc: 'Order the Commercial Page Diagnosis (48 business hours SLA, 3 observable findings + rewritten hero block + 1 revision round within 5 days) or grab the Seller-to-Live Kit.',
+        ctaBr: '48h Page Diagnosis — R$ 147,00',
+        ctaKit: 'Seller-to-Live Kit — R$ 47,00',
+        ctaUsd: 'Code 14 (English) — US$ 9.90',
+        fallbackMsg: 'The automated Simulator engine is temporarily unavailable or updating on Cloud Run. You can move forward right now with our assisted Commercial Page Diagnosis (48 business hours delivery):',
+        fallbackCta: 'Order 48h Diagnosis — R$ 147,00'
       }
     };
 
@@ -203,11 +220,27 @@
       });
     });
 
+    function showFallback(box) {
+      box.textContent = '';
+      const p = document.createElement('p');
+      p.textContent = i18n[lang].fallbackMsg;
+      const a = document.createElement('a');
+      a.href = STRIPE_DIAGNOSTICO;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'btn';
+      a.textContent = i18n[lang].fallbackCta;
+      box.append(p, a);
+      box.classList.remove('hidden');
+    }
+
     document.getElementById('simularBtn').addEventListener('click', async () => {
       const btn = document.getElementById('simularBtn');
       const erroBox = document.getElementById('erroBox');
+      const fallbackBox = document.getElementById('fallbackBox');
       const resBox = document.getElementById('resultadoBox');
       erroBox.classList.add('hidden');
+      fallbackBox.classList.add('hidden');
       resBox.classList.add('hidden');
       btn.disabled = true;
       try {
@@ -219,6 +252,10 @@
             moeda: document.getElementById('moedaSelect').value
           })
         });
+        if (resp.status === 404 || resp.status >= 500) {
+          showFallback(fallbackBox);
+          return;
+        }
         const data = await resp.json();
         if (!resp.ok) throw new Error(data.erro || 'Erro ao simular proposta');
         document.getElementById('scoreVal').textContent = `${data.score_risco}/100`;
@@ -230,8 +267,12 @@
         document.getElementById('brechaEvidencia').textContent = data.cenario_critico_preview?.gatilho || data.cenario_critico_preview?.impacto_financeiro_estimado || '';
         resBox.classList.remove('hidden');
       } catch (err) {
-        erroBox.textContent = err.message;
-        erroBox.classList.remove('hidden');
+        if (err instanceof TypeError || /JSON|Unexpected token/i.test(err.message)) {
+          showFallback(fallbackBox);
+        } else {
+          erroBox.textContent = err.message;
+          erroBox.classList.remove('hidden');
+        }
       } finally {
         btn.disabled = false;
       }

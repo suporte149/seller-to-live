@@ -3,31 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seller-to-Live Kit — Ferramentas para Venda em Marketplace &amp; Live Commerce</title>
+  <title>Seller-to-Live Kit — Calculadora de Margem Real, Oferta &amp; Roteiro de Live</title>
+  <meta name="description" content="Teste gratuitamente a demonstração interativa do Seller-to-Live Kit e garanta o acesso completo por R$ 47,00 ou o Diagnóstico da sua página comercial em 48h úteis por R$ 147,00." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="app-header">
     <div class="container header-inner">
       <div class="brand">
-        <span class="brand-badge" aria-hidden="true">S2L</span>
+        <a href="../" class="brand-badge" aria-label="Voltar para a página inicial">S2L</a>
         <div>
           <h1>Seller-to-Live Kit</h1>
-          <p class="subtitle">Precificação real, oferta clara e roteiro de 15 minutos para vender ao vivo</p>
+          <p class="subtitle">Precificação real em centavos, oferta clara e roteiro de 15 minutos para vender ao vivo</p>
         </div>
       </div>
       <div class="header-actions">
+        <a href="../auditor/" class="btn btn-ghost">Auditor Grátis</a>
         <button type="button" id="btn-reset-demo" class="btn btn-ghost" title="Restaurar valores de exemplo">
           Restaurar Exemplo
         </button>
+        <a
+          href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-accent"
+        >
+          Garantir Kit — R$ 47,00
+        </a>
       </div>
     </div>
   </header>
 
   <div class="demo-banner-bar">
-    <div class="container">
-      <span class="badge-demo">MODO DEMONSTRAÇÃO</span>
-      <span>Esta é uma amostra demonstrativa interativa gratuita. Para adquirir os modelos em planilha, pacote offline e suporte comercial, <a href="../#planos">acesse a oferta completa por R$ 47</a>.</span>
+    <div class="container demo-banner-inner">
+      <div class="demo-banner-copy">
+        <span class="badge-demo">AMOSTRA INTERATIVA GRATUITA</span>
+        <span>
+          Você está testando a demonstração gratuita no navegador (não constitui contratação nem garantia de vendas).
+          Para adquirir o acesso digital oficial do <strong>Seller-to-Live Kit (R$ 47,00)</strong> ou contratar o
+          <strong>Diagnóstico da sua página em 48h úteis (R$ 147,00)</strong>, finalize no checkout Stripe:
+        </span>
+      </div>
+      <div class="demo-banner-actions">
+        <a
+          href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="banner-cta banner-cta-primary"
+        >
+          Comprar Kit — R$ 47
+        </a>
+        <a
+          href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="banner-cta banner-cta-secondary"
+        >
+          Diagnóstico 48h — R$ 147
+        </a>
+      </div>
     </div>
   </div>
 
@@ -319,11 +353,82 @@
         </div>
       </div>
     </section>
+
+    <!-- SEÇÃO COMERCIAL: DEMO GRATUITA VS. ACESSO PAGO + UPSELL DIAGNÓSTICO 48H -->
+    <section id="oferta-comercial" class="commercial-section" aria-labelledby="commercial-heading">
+      <div class="commercial-header">
+        <span class="commercial-eyebrow">Acesso Oficial &bull; Pagamento Único via Stripe (Pix ou Cartão)</span>
+        <h2 id="commercial-heading">Gostou da demonstração? Leve o Kit oficial ou corrija sua página comercial em 48h úteis.</h2>
+        <p>
+          A interface acima é uma <strong>amostra demonstrativa interativa gratuita</strong> para você testar as 3 ferramentas na prática.
+          Escolha abaixo como contratar oficialmente — sem mensalidade e sem pedir senhas.
+        </p>
+      </div>
+
+      <div class="commercial-grid">
+        <article class="offer-box offer-box-kit">
+          <div>
+            <span class="offer-tag">Oferta Principal &bull; Pagamento Único</span>
+            <h3>Seller-to-Live Kit (Acesso Digital)</h3>
+            <p class="offer-lead">
+              Acesso digital ao conjunto completo de ferramentas web operacionais para precificar sem perder margem e estruturar anúncios e lives de 15 minutos.
+            </p>
+            <div class="offer-price">R$ 47,00 <span class="offer-currency">BRL</span></div>
+            <p class="offer-sub">Pagamento único via Pix ou Cartão na Stripe &bull; Sem assinatura recorrente</p>
+            <ul class="offer-list">
+              <li><strong>Calculadora de Margem Real:</strong> simulação em centavos com taxas de marketplace, frete, imposto e Pix/gateway.</li>
+              <li><strong>Estruturador de Oferta &amp; Anúncio:</strong> títulos, bullets, descrição e quebras de objeção em 1 clique.</li>
+              <li><strong>Roteiro de Live 15 min:</strong> blocos cronometrados com escassez ética prontos para transmissão.</li>
+              <li><strong>Transparência:</strong> ferramenta de apoio operacional — resultados dependem dos seus dados e execução (sem garantia de vendas).</li>
+            </ul>
+          </div>
+          <a
+            href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-accent btn-block"
+          >
+            Comprar Seller-to-Live Kit — R$ 47,00
+          </a>
+        </article>
+
+        <article class="offer-box offer-box-upsell">
+          <div>
+            <span class="offer-tag offer-tag-upsell">Order Bump / Upsell &bull; Entrega em 48h Úteis</span>
+            <h3>Diagnóstico de Página Comercial</h3>
+            <p class="offer-lead">
+              Já tem produto ou serviço no ar, mas os visitantes saem sem comprar? Nós auditamos <strong>1 URL pública</strong> e entregamos a correção pronta para publicar.
+            </p>
+            <div class="offer-price">R$ 147,00 <span class="offer-currency">BRL</span></div>
+            <p class="offer-sub">Pagamento único via Pix ou Cartão &bull; Prazo: até 48h úteis após pagamento e envio da URL</p>
+            <ul class="offer-list">
+              <li><strong>3 achados observáveis:</strong> gargalos reais de clareza da oferta, informações ausentes e obstáculos visíveis na sua URL.</li>
+              <li><strong>Reescrita do bloco principal:</strong> nova headline, proposta de valor e CTA prontos para substituir.</li>
+              <li><strong>Garantia objetiva:</strong> 1 rodada de revisão/esclarecimentos em texto incluída em até 5 dias após a entrega + cancelamento integral antes do início da execução.</li>
+              <li><strong>Zero fricção:</strong> você envia só a URL pública — nunca pedimos login, senha ou acesso ao painel.</li>
+            </ul>
+          </div>
+          <a
+            href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-block"
+          >
+            Solicitar Diagnóstico em 48h — R$ 147,00
+          </a>
+        </article>
+      </div>
+
+      <p class="contract-footnote">
+        Pagamentos processados exclusivamente pelos links hospedados da Stripe (<code>buy.stripe.com</code>), conta MegaTips.
+        Não coletamos dados de cartão nem senhas neste aplicativo. Diagnóstico não inclui alteração direta no site, gestão de tráfego pago, parecer jurídico/contábil ou garantia de faturamento.
+      </p>
+    </section>
   </main>
 
   <footer class="app-footer">
     <div class="container">
-      <span>Seller-to-Live Kit &bull; Execução 100% local no navegador, sem custos de servidor.</span>
+      <span>Seller-to-Live Kit &bull; Execução local no navegador &bull; <a href="../">Voltar à Vitrine Principal</a> &bull; <a href="../auditor/">Auditor de Páginas</a></span>
     </div>
   </footer>
 

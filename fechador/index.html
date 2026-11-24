@@ -9,6 +9,7 @@
     :root {
       --bg: #f8fafc; --surface: #ffffff; --ink: #0f172a; --muted: #475569; --border: #e2e8f0;
       --accent: #059669; --accent-hover: #047857; --accent-soft: #ecfdf5; --dark: #0f172a;
+      --warn-bg: #fffbeb; --warn-border: #fde68a; --warn-text: #92400e;
       --danger: #dc2626; --radius: 14px; --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
     }
     *, *::before, *::after { box-sizing: border-box; }
@@ -35,7 +36,18 @@
     .btn-secondary { background: var(--dark); }
     pre { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 10px; overflow-x: auto; font-size: 0.85rem; }
     .hidden { display: none; }
-    .err { color: var(--danger); font-weight: 600; margin-top: 0.6rem; }
+    .err { color: var(--danger); font-weight: 600; margin-top: 0.75rem; }
+    .fallback-box {
+      margin-top: 0.9rem;
+      padding: 1rem 1.15rem;
+      border-radius: 10px;
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn-text);
+      font-size: 0.92rem;
+    }
+    .fallback-box p { margin: 0 0 0.65rem; }
+    .fallback-box .btn { margin-top: 0; }
     footer { text-align: center; padding: 2rem 0 3rem; color: var(--muted); font-size: 0.85rem; }
   </style>
 </head>
@@ -48,6 +60,7 @@
       </a>
       <div class="topbar-actions">
         <a class="nav-link" href="../" data-i18n="navHome">Início</a>
+        <a class="nav-link" href="../kit/" data-i18n="navKit">Kit</a>
         <a class="nav-link" href="../auditor/" data-i18n="navAudit">Auditor</a>
         <a class="nav-link" href="../simulador/" data-i18n="navSim">Simulador</a>
         <button class="lang-btn" id="langBtn" type="button">EN</button>
@@ -75,6 +88,7 @@
         </select>
         <button class="btn" id="criarBtn" type="button" data-i18n="btnCriar">Criar Sala Segura</button>
         <div id="criarErr" class="err hidden"></div>
+        <div id="criarFallback" class="fallback-box hidden"></div>
         <pre id="criarOut" class="hidden"></pre>
       </section>
 
@@ -96,29 +110,33 @@
           <button class="btn btn-secondary" id="statusBtn" type="button" data-i18n="btnStatus">Consultar Status</button>
         </div>
         <div id="subErr" class="err hidden"></div>
+        <div id="subFallback" class="fallback-box hidden"></div>
         <pre id="subOut" class="hidden"></pre>
       </section>
     </div>
 
     <section class="card" style="background:#0f172a;color:#f8fafc;">
-      <h3 style="margin-top:0;" data-i18n="ctaTitle">Quer validação contratual completa ou implantação dedicada?</h3>
+      <h3 style="margin-top:0;" data-i18n="ctaTitle">Quer corrigir a oferta da sua página comercial em 48h úteis ou estruturar sua margem real?</h3>
+      <p style="color:#cbd5e1;margin:0 0 0.75rem;" data-i18n="ctaSub">Checkout oficial via Stripe (pagamento único, Pix ou Cartão). Diagnóstico inclui 3 achados observáveis + reescrita do bloco principal + 1 rodada de revisão em até 5 dias.</p>
       <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-        <a class="btn" href="https://buy.stripe.com/28EcN57k10D1c992N6eZ207" target="_blank" rel="noopener">Diagnóstico Completo — R$ 147</a>
-        <a class="btn" style="background:#1e293b;" href="https://buy.stripe.com/5kQeVd2ZHdL51g5a80eZ208" target="_blank" rel="noopener">Kit Negociação — R$ 47</a>
+        <a class="btn" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" data-i18n="ctaDiag">Diagnóstico de Página (48h) — R$ 147,00</a>
+        <a class="btn" style="background:#1e293b;" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" data-i18n="ctaKit">Seller-to-Live Kit — R$ 47,00</a>
+        <a class="btn" style="background:#1e293b;" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" data-i18n="ctaUsd">Code 14 (English) — US$ 9.90</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">Seller-to-Live · Runtime Cloud Run (`europe-west1`) · Zero-Knowledge Nash Point</div>
+    <div class="container">Seller-to-Live · Runtime Cloud Run (`europe-west1`) · Checkout oficial Stripe (`buy.stripe.com`)</div>
   </footer>
 
   <script>
     const API_BASE = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    const STRIPE_DIAGNOSTICO = 'https://buy.stripe.com/aFadR14bAgevg3W7lD83C03';
     let lang = 'pt';
     const i18n = {
       pt: {
-        brand: 'Fechador Cego de Acordos', navHome: 'Início', navAudit: 'Auditor', navSim: 'Simulador',
+        brand: 'Fechador Cego de Acordos', navHome: 'Início', navKit: 'Kit', navAudit: 'Auditor', navSim: 'Simulador',
         eyebrow: 'INVENÇÃO #5 · ZERO-KNOWLEDGE MUTUAL DEAL CLOSER',
         h1: 'Feche acordos no Ponto Justo de Nash sem revelar seu limite',
         sub: 'Vendedor informa seu piso mínimo e Comprador informa seu teto máximo em sigilo absoluto. Se houver cruzamento, o acordo fecha no ponto médio com hash SHA-256.',
@@ -126,10 +144,16 @@
         c2Title: '2. Submeter Limite Secreto', lblPapel: 'Seu papel',
         lblLimite: 'Valor limite (em centavos inteiros, ex.: 150000 = R$ 1.500,00)',
         btnSub: 'Submeter em Sigilo', btnStatus: 'Consultar Status',
-        ctaTitle: 'Quer validação contratual completa ou implantação dedicada?'
+        ctaTitle: 'Quer corrigir a oferta da sua página comercial em 48h úteis ou estruturar sua margem real?',
+        ctaSub: 'Checkout oficial via Stripe (pagamento único, Pix ou Cartão). Diagnóstico inclui 3 achados observáveis + reescrita do bloco principal + 1 rodada de revisão em até 5 dias.',
+        ctaDiag: 'Diagnóstico de Página (48h) — R$ 147,00',
+        ctaKit: 'Seller-to-Live Kit — R$ 47,00',
+        ctaUsd: 'Code 14 (English) — US$ 9.90',
+        fallbackMsg: 'O serviço interativo do Fechador Cego está temporariamente indisponível ou em atualização no Cloud Run. Enquanto isso, você pode contratar o Diagnóstico de Página Comercial (entrega em até 48h úteis):',
+        fallbackCta: 'Contratar Diagnóstico em 48h — R$ 147,00'
       },
       en: {
-        brand: 'Zero-Knowledge Deal Closer', navHome: 'Home', navAudit: 'Auditor', navSim: 'Simulator',
+        brand: 'Zero-Knowledge Deal Closer', navHome: 'Home', navKit: 'Kit', navAudit: 'Auditor', navSim: 'Simulator',
         eyebrow: 'INVENTION #5 · ZERO-KNOWLEDGE MUTUAL DEAL CLOSER',
         h1: 'Close deals at the Fair Nash Point without leaking your limit',
         sub: 'Seller submits their minimum floor and Buyer submits their maximum cap in strict secrecy. If they overlap, the deal closes at the midpoint with a SHA-256 proof.',
@@ -137,7 +161,13 @@
         c2Title: '2. Submit Secret Limit', lblPapel: 'Your role',
         lblLimite: 'Limit value (integer cents, e.g. 150000 = $1,500.00)',
         btnSub: 'Submit Secretly', btnStatus: 'Check Status',
-        ctaTitle: 'Need full contract stress-testing or dedicated deployment?'
+        ctaTitle: 'Need a 48h Commercial Page Diagnosis or real-margin pricing tools?',
+        ctaSub: 'Official Stripe one-time checkout. Page Diagnosis includes 3 observable findings + rewritten hero block + 1 revision round within 5 days.',
+        ctaDiag: '48h Page Diagnosis — R$ 147,00',
+        ctaKit: 'Seller-to-Live Kit — R$ 47,00',
+        ctaUsd: 'Code 14 (English) — US$ 9.90',
+        fallbackMsg: 'The interactive Blind Closer endpoint is temporarily unavailable or updating on Cloud Run. You can still order our assisted Commercial Page Diagnosis (delivered in 48 business hours):',
+        fallbackCta: 'Order 48h Diagnosis — R$ 147,00'
       }
     };
 
@@ -150,21 +180,57 @@
       });
     });
 
+    function showFallback(box) {
+      box.textContent = '';
+      const p = document.createElement('p');
+      p.textContent = i18n[lang].fallbackMsg;
+      const a = document.createElement('a');
+      a.href = STRIPE_DIAGNOSTICO;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'btn';
+      a.textContent = i18n[lang].fallbackCta;
+      box.append(p, a);
+      box.classList.remove('hidden');
+    }
+
     async function postJson(path, payload) {
-      const resp = await fetch(`${API_BASE}${path}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await resp.json();
+      let resp;
+      try {
+        resp = await fetch(`${API_BASE}${path}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (_netErr) {
+        const err = new Error('SERVICE_UNAVAILABLE');
+        err.isFallback = true;
+        throw err;
+      }
+
+      if (resp.status === 404 || resp.status >= 500) {
+        const err = new Error('SERVICE_UNAVAILABLE');
+        err.isFallback = true;
+        throw err;
+      }
+
+      let data;
+      try {
+        data = await resp.json();
+      } catch (_parseErr) {
+        const err = new Error('SERVICE_UNAVAILABLE');
+        err.isFallback = true;
+        throw err;
+      }
       if (!resp.ok) throw new Error(data.erro || 'Erro na operação');
       return data;
     }
 
     document.getElementById('criarBtn').addEventListener('click', async () => {
       const err = document.getElementById('criarErr');
+      const fb = document.getElementById('criarFallback');
       const out = document.getElementById('criarOut');
-      err.classList.add('hidden'); out.classList.add('hidden');
+      err.classList.add('hidden'); fb.classList.add('hidden'); out.classList.add('hidden');
       try {
         const res = await postJson('/api/deal-closer/criar', {
           titulo: document.getElementById('tituloSala').value,
@@ -176,14 +242,16 @@
         out.textContent = JSON.stringify(res, null, 2);
         out.classList.remove('hidden');
       } catch (e) {
+        if (e.isFallback) { showFallback(fb); return; }
         err.textContent = e.message; err.classList.remove('hidden');
       }
     });
 
     document.getElementById('submeterBtn').addEventListener('click', async () => {
       const err = document.getElementById('subErr');
+      const fb = document.getElementById('subFallback');
       const out = document.getElementById('subOut');
-      err.classList.add('hidden'); out.classList.add('hidden');
+      err.classList.add('hidden'); fb.classList.add('hidden'); out.classList.add('hidden');
       try {
         const res = await postJson('/api/deal-closer/submeter', {
           sala_id: document.getElementById('salaIdInput').value.trim(),
@@ -194,14 +262,16 @@
         out.textContent = JSON.stringify(res, null, 2);
         out.classList.remove('hidden');
       } catch (e) {
+        if (e.isFallback) { showFallback(fb); return; }
         err.textContent = e.message; err.classList.remove('hidden');
       }
     });
 
     document.getElementById('statusBtn').addEventListener('click', async () => {
       const err = document.getElementById('subErr');
+      const fb = document.getElementById('subFallback');
       const out = document.getElementById('subOut');
-      err.classList.add('hidden'); out.classList.add('hidden');
+      err.classList.add('hidden'); fb.classList.add('hidden'); out.classList.add('hidden');
       try {
         const res = await postJson('/api/deal-closer/status', {
           sala_id: document.getElementById('salaIdInput').value.trim(),
@@ -211,6 +281,7 @@
         out.textContent = JSON.stringify(res, null, 2);
         out.classList.remove('hidden');
       } catch (e) {
+        if (e.isFallback) { showFallback(fb); return; }
         err.textContent = e.message; err.classList.remove('hidden');
       }
     });

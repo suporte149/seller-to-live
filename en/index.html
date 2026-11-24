@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seller-to-Live Global — Page Auditor, Margin Tools &amp; Code 14</title>
-  <meta name="description" content="Practical conversion tools for ecommerce sellers and creators: real net margin calculator, listing optimizer, 15-min live commerce script, and Code 14 English Edition." />
+  <title>Seller-to-Live Global — 48h Commercial Page Audit, Margin Kit &amp; Code 14</title>
+  <meta name="description" content="Stop losing sales to broken margins and unclear landing pages. Order a 48h Commercial Page Audit (R$ 147), Seller-to-Live Kit (R$ 47), or Code 14 English Edition ($9.90 USD) via direct Stripe checkout." />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     :root {
@@ -27,7 +27,7 @@
       color: var(--text);
       line-height: 1.6;
     }
-    .container { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 1.25rem; }
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -36,30 +36,34 @@
       top: 0;
       z-index: 20;
     }
-    .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
     .brand { font-weight: 800; font-size: 1.125rem; color: var(--dark); text-decoration: none; }
     .brand span { color: var(--accent); }
+    .nav-actions { display: flex; gap: 0.65rem; align-items: center; flex-wrap: wrap; }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.75rem 1.35rem;
+      padding: 0.8rem 1.35rem;
       border-radius: 9px;
       font-weight: 700;
       font-size: 0.95rem;
       text-decoration: none;
-      border: 0;
+      border: 1.5px solid transparent;
       cursor: pointer;
-      transition: background 0.15s ease;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { background: var(--accent-hover); }
     .btn-dark { background: var(--dark); color: #fff; }
     .btn-dark:hover { background: #1e293b; }
+    .btn-outline-light { background: transparent; color: #f8fafc; border-color: #475569; }
+    .btn-outline-light:hover { border-color: #94a3b8; }
+    .btn-soft { background: var(--accent-soft); color: #065f46; }
     .hero {
       background: var(--dark);
       color: #f8fafc;
-      padding: 4.5rem 0 4rem;
+      padding: 4.25rem 0 3.75rem;
       text-align: center;
     }
     .badge {
@@ -75,20 +79,40 @@
     }
     .hero h1 {
       margin: 0 auto 1rem;
-      max-width: 780px;
+      max-width: 800px;
       font-size: clamp(1.9rem, 4vw, 2.9rem);
-      line-height: 1.15;
+      line-height: 1.14;
     }
     .hero p {
       margin: 0 auto 2rem;
-      max-width: 640px;
+      max-width: 670px;
       color: #cbd5e1;
       font-size: 1.075rem;
     }
-    .section { padding: 4rem 0; }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .trust-row {
+      margin-top: 1.75rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+    .trust-row span::before { content: "✓ "; color: #34d399; font-weight: 800; }
+    .section { padding: 3.75rem 0; }
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 2.25rem; }
+    .section-head h2 { margin: 0 0 0.45rem; font-size: 1.7rem; color: var(--dark); }
+    .section-head p { margin: 0; color: var(--muted); }
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 1.5rem;
     }
     .card {
@@ -104,7 +128,7 @@
     .card.featured { border: 2px solid var(--accent); }
     .tag {
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 800;
       text-transform: uppercase;
       color: #065f46;
@@ -117,6 +141,16 @@
     .sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.25rem; }
     ul { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.94rem; }
     li::before { content: "✓ "; color: var(--accent); font-weight: 800; }
+    .guarantee-box {
+      margin-top: 2.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow);
+    }
+    .guarantee-box h3 { margin: 0 0 0.4rem; color: var(--dark); font-size: 1.1rem; }
+    .guarantee-box p { margin: 0; color: var(--muted); font-size: 0.93rem; }
     footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; font-size: 0.85rem; color: var(--muted); }
   </style>
 </head>
@@ -124,9 +158,10 @@
   <header>
     <div class="container nav-wrap">
       <a class="brand" href="#top">Seller<span>toLive</span> Global</a>
-      <div style="display:flex;gap:0.75rem;align-items:center;">
-        <a class="btn" style="background:var(--accent-soft);color:#065f46;" href="../auditor/">Free Page Auditor</a>
-        <a class="btn btn-primary" href="#offers">View Offers (USD)</a>
+      <div class="nav-actions">
+        <a class="btn btn-soft" href="../auditor/">Free Page Auditor</a>
+        <a class="btn" style="background:#f1f5f9;color:var(--dark);" href="../kit/">Kit Demo</a>
+        <a class="btn btn-primary" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer">Buy Code 14 — $9.90</a>
       </div>
     </div>
   </header>
@@ -134,70 +169,109 @@
   <main id="top">
     <section class="hero">
       <div class="container">
-        <span class="badge">Direct USD Checkout &bull; Instant Digital Access</span>
-        <h1>Price with real margin and convert more buyers in every listing and live stream.</h1>
-        <p>Practical digital tools and conversion resources for e-commerce sellers, creators, and focused builders — powered by Stripe global checkout.</p>
-        <a class="btn btn-primary" href="#offers">Choose Your Package</a>
+        <span class="badge">Direct Stripe Checkout &bull; One-Time Payment &bull; Zero Subscriptions</span>
+        <h1>Fix conversion leaks, protect real net margin, and ship faster without recurring fees.</h1>
+        <p>
+          One mispriced SKU or one unclear hero section costs far more than fixing it today.
+          Pick your exact tool or 48-hour commercial page audit and check out directly via Stripe.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer">Buy Code 14 — $9.90 USD</a>
+          <a class="btn btn-outline-light" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer">Order 48h Page Audit — R$ 147 BRL</a>
+          <a class="btn btn-outline-light" href="../auditor/">Run Free Page Auditor</a>
+        </div>
+        <div class="trust-row">
+          <span>Official Stripe Payment Links</span>
+          <span>48 Business Hours Audit SLA</span>
+          <span>1 Revision Round Within 5 Days</span>
+          <span>No Passwords Ever Requested</span>
+        </div>
       </div>
     </section>
 
     <section id="offers" class="section">
       <div class="container">
+        <div class="section-head">
+          <h2>Direct Offers — Transparent Scope &amp; Real Delivery</h2>
+          <p>Every offer is a one-time payment on Stripe with explicit scope and zero false revenue promises.</p>
+        </div>
+
         <div class="pricing-grid">
           <article class="card featured">
             <div>
-              <span class="tag">Active USD Checkout</span>
+              <span class="tag">Active USD Checkout &bull; Instant</span>
               <h3>Code 14 — English Edition</h3>
-              <p style="color: var(--muted); font-size: 0.95rem;">14 practical techniques to stop procrastinating, build deep focus, and learn faster when shipping products.</p>
+              <p style="color: var(--muted); font-size: 0.95rem;">
+                <em>14 Practical Techniques to Stop Procrastinating, Focus and Learn Faster</em> — concise execution playbook for builders shipping under pressure.
+              </p>
               <div class="price">$9.90 <span style="font-size: 1rem; font-weight: 600;">USD</span></div>
               <div class="sub">One-time payment &bull; Card, Apple Pay, Google Pay, Link</div>
               <ul>
-                <li>14 actionable execution frameworks</li>
-                <li>Concise, zero-fluff English edition</li>
-                <li>Instant Stripe checkout in USD</li>
+                <li>14 practical, zero-fluff execution techniques</li>
+                <li>Built for rapid focus and faster shipping</li>
+                <li>Direct global USD Stripe checkout</li>
               </ul>
             </div>
-            <a class="btn btn-primary" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02">Buy Now — $9.90 USD</a>
+            <a class="btn btn-primary" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer">Buy Code 14 Now — $9.90 USD</a>
           </article>
 
           <article class="card">
             <div>
-              <span class="tag">Live Tool Preview</span>
-              <h3>Seller-to-Live Web Kit</h3>
-              <p style="color: var(--muted); font-size: 0.95rem;">Browser-based Net Margin Calculator, Listing Copy Structurer, and 15-Minute Live Commerce Script Generator.</p>
-              <div class="price">R$ 47 <span style="font-size: 1rem; font-weight: 600;">BRL</span></div>
-              <div class="sub">Pix, Card, Apple Pay, Google Pay &bull; Instant access</div>
-              <ul>
-                <li>Exact cent-level net margin calculation</li>
-                <li>Structured titles, bullets &amp; objection FAQ</li>
-                <li>15-minute live selling script template</li>
-              </ul>
-            </div>
-            <a class="btn btn-dark" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04">Get Kit — R$ 47 BRL</a>
-          </article>
-
-          <article class="card">
-            <div>
-              <span class="tag">48h Delivery</span>
+              <span class="tag">48 Business Hours SLA</span>
               <h3>Commercial Page Audit</h3>
-              <p style="color: var(--muted); font-size: 0.95rem;">Objective review of 1 public product or offer URL: 3 observable conversion bottlenecks + rewritten hero copy.</p>
+              <p style="color: var(--muted); font-size: 0.95rem;">
+                Standardized conversion audit of <strong>1 public URL</strong>: 3 concrete observable bottlenecks + rewritten hero block ready to publish.
+              </p>
               <div class="price">R$ 147 <span style="font-size: 1rem; font-weight: 600;">BRL</span></div>
-              <div class="sub">Delivered within 48 business hours &bull; No passwords needed</div>
+              <div class="sub">One-time payment &bull; Delivered within 48 business hours after payment + URL submission</div>
               <ul>
-                <li>3 concrete conversion findings on your URL</li>
-                <li>Rewritten headline, value prop &amp; CTA</li>
-                <li>1 revision round within 5 days</li>
+                <li>3 observable findings (offer clarity, missing info &amp; visible friction)</li>
+                <li>Rewritten headline, value proposition &amp; CTA</li>
+                <li>1 written revision/clarification round within 5 days</li>
+                <li>Full refund if canceled before execution starts &bull; Zero passwords needed</li>
               </ul>
             </div>
-            <a class="btn btn-dark" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03">Order Audit — R$ 147 BRL</a>
+            <a class="btn btn-dark" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer">Order 48h Audit — R$ 147 BRL</a>
           </article>
+
+          <article class="card">
+            <div>
+              <span class="tag">Web Toolkit &bull; No Subscription</span>
+              <h3>Seller-to-Live Web Kit</h3>
+              <p style="color: var(--muted); font-size: 0.95rem;">
+                Browser-based operational toolkit: exact cent-level Net Margin Calculator, Listing Copy Structurer, and 15-Minute Live Commerce Script Generator.
+              </p>
+              <div class="price">R$ 47 <span style="font-size: 1rem; font-weight: 600;">BRL</span></div>
+              <div class="sub">One-time payment via Stripe (Pix, Card, Apple Pay, Google Pay)</div>
+              <ul>
+                <li>Exact cent-level margin calculator with marketplace &amp; gateway fees</li>
+                <li>Structured titles, bullets, description &amp; objection handlers</li>
+                <li>15-minute live selling script with ethical urgency</li>
+                <li>Try first: <a href="../kit/" style="color: var(--accent); font-weight: 700;">open the free interactive demo</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-dark" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer">Buy Web Kit — R$ 47 BRL</a>
+          </article>
+        </div>
+
+        <div class="guarantee-box">
+          <h3>Clear Terms &amp; Honest Scope</h3>
+          <p>
+            All payments are processed solely through hosted Stripe Payment Links (<code>buy.stripe.com</code>, MegaTips account).
+            Commercial Page Audit delivers within <strong>48 business hours</strong> after payment settlement and URL submission, includes <strong>1 written revision round within 5 days</strong>, and excludes direct site editing, paid ads management, legal/tax advice, or guaranteed sales outcomes.
+          </p>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">Seller-to-Live Global &bull; <a href="../" style="color: inherit;">Versão em Português (BR)</a></div>
+    <div class="container">
+      Seller-to-Live Global &bull;
+      <a href="../" style="color: inherit;">Versão em Português (BR)</a> &bull;
+      <a href="../auditor/" style="color: inherit;">Free Auditor</a> &bull;
+      <a href="../kit/" style="color: inherit;">Kit Demo</a>
+    </div>
   </footer>
 </body>
 </html>
