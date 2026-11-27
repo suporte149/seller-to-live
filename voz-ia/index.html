@@ -1,712 +1,425 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voz IA 24/7 &amp; Locução Express — Recepcionista IA e VSL Ultrarrealista</title>
-  <meta name="description" content="Recepcionista de Voz com IA 24/7, Locução VSL e Dublagem Ultrarrealista com entrega expressa. Infraestrutura LiveKit, Cartesia e Deepgram com checkout seguro via Stripe." />
+  <title>Recepcionista IA por Voz 24h | Pare de Perder Clientes Fora do Horário</title>
+  <meta name="description" content="Atendente de Voz com IA ultrarrealista 24/7 para clínicas, hotéis e escritórios. Teste ao vivo agora e coloque no ar em até 48h a partir de R$ 47 no Pix ou Cartão." />
   <style>
     :root {
-      --bg: #07090f;
-      --bg-elevated: #0f1420;
-      --bg-card: #131929;
-      --border: rgba(148, 163, 184, 0.16);
-      --border-accent: rgba(56, 189, 248, 0.45);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #818cf8;
-      --success: #34d399;
-      --radius: 16px;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      --bg: #070b14;
+      --surface: #0f172a;
+      --surface-2: #162038;
+      --border: #24324f;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+      --accent-dark: #052e16;
+      --cyan: #38bdf8;
+      --warn: #f59e0b;
+      --danger: #ef4444;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.14), transparent 38%),
-        radial-gradient(circle at 85% 5%, rgba(129, 140, 248, 0.14), transparent 36%),
-        var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      padding-bottom: 92px;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      background: linear-gradient(90deg, #991b1b, #b45309);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
-
-    .container {
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(7, 9, 15, 0.78);
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
     }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 14px var(--accent);
-    }
-
-    .nav-links {
-      display: none;
-      gap: 24px;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-cta {
-      padding: 9px 16px;
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #040711;
-      transition: transform 0.18s ease, opacity 0.18s ease;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-1px);
-      opacity: 0.95;
-    }
-
-    /* Hero */
+    .brand { font-weight: 900; font-size: 18px; letter-spacing: -0.3px; }
+    .brand span { color: var(--accent); }
+    nav { display: flex; gap: 18px; align-items: center; font-size: 14px; color: var(--muted); }
+    nav a:hover { color: #fff; }
     .hero {
-      padding: 64px 0 48px;
-      text-align: center;
+      padding: 54px 0 40px;
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px; align-items: center;
     }
-
+    @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } nav { display: none; } }
     .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      color: #bae6fd;
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-bottom: 22px;
+      display: inline-block; background: rgba(34,197,94,0.14); color: #4ade80;
+      border: 1px solid rgba(34,197,94,0.35); padding: 6px 12px; border-radius: 999px;
+      font-size: 12px; font-weight: 700; margin-bottom: 16px;
     }
-
-    .pill-live {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 10px var(--success);
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5.2vw, 3.55rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      max-width: 860px;
-      margin: 0 auto 20px;
-      font-weight: 800;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #e0f2fe 0%, var(--accent) 48%, var(--accent-2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: clamp(1rem, 2.2vw, 1.18rem);
-      color: var(--text-muted);
-      max-width: 680px;
-      margin: 0 auto 32px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 36px;
-    }
-
+    h1 { font-size: clamp(30px, 4.4vw, 48px); line-height: 1.1; font-weight: 900; margin-bottom: 16px; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lead { color: var(--muted); font-size: 17px; margin-bottom: 24px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.96rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 22px; border-radius: 10px; font-weight: 800; font-size: 15px;
+      cursor: pointer; border: none; transition: transform .12s ease, opacity .12s ease;
     }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #050814;
-      box-shadow: 0 10px 28px rgba(56, 189, 248, 0.24);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(56, 189, 248, 0.34);
-    }
-
-    .btn-secondary {
-      background: var(--bg-card);
-      color: var(--text);
-      border-color: var(--border);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--border-accent);
-      background: #182034;
-    }
-
-    /* Trust Strip */
-    .trust-strip {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px 18px;
-      color: var(--text-muted);
-      font-size: 0.86rem;
-    }
-
-    .trust-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(15, 20, 32, 0.85);
-      border: 1px solid var(--border);
-    }
-
-    .trust-item strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* Sections */
-    section {
-      padding: 56px 0;
-    }
-
-    .section-head {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 38px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.55rem, 3.6vw, 2.35rem);
-      letter-spacing: -0.025em;
-      margin-bottom: 10px;
-    }
-
-    .section-head p {
-      color: var(--text-muted);
-      font-size: 0.98rem;
-    }
-
-    /* Pricing Grid */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
+    .btn:hover { transform: translateY(-1px); opacity: 0.95; }
+    .btn-primary { background: var(--accent); color: var(--accent-dark); }
+    .btn-cyan { background: var(--cyan); color: #082f49; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .trust-strip { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted); }
     .card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      box-shadow: var(--shadow);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
     }
-
-    .card-featured {
-      border-color: var(--border-accent);
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, var(--bg-card) 42%);
+    .demo-box { border-color: rgba(56,189,248,0.45); box-shadow: 0 0 40px rgba(56,189,248,0.08); }
+    .demo-tabs { display: flex; gap: 8px; margin: 14px 0; }
+    .tab-btn {
+      flex: 1; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface-2); color: var(--muted); font-weight: 700; font-size: 13px; cursor: pointer;
     }
-
-    .badge {
-      display: inline-block;
-      align-self: flex-start;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 14px;
-      background: rgba(56, 189, 248, 0.14);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+    .tab-btn.active { background: var(--cyan); color: #082f49; border-color: var(--cyan); }
+    .transcript {
+      background: #050912; border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px; min-height: 155px; font-size: 13.5px; margin: 12px 0;
+      display: flex; flex-direction: column; gap: 10px;
     }
-
-    .badge-featured {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #050814;
-      border: none;
+    .msg-ai { background: rgba(56,189,248,0.12); border-left: 3px solid var(--cyan); padding: 8px 10px; border-radius: 6px; }
+    .msg-user { background: rgba(34,197,94,0.12); border-left: 3px solid var(--accent); padding: 8px 10px; border-radius: 6px; }
+    .section { padding: 44px 0; border-top: 1px solid var(--border); }
+    .section h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 900; margin-bottom: 10px; }
+    .section p.sub { color: var(--muted); margin-bottom: 26px; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+    @media (max-width: 780px) { .calc-grid { grid-template-columns: 1fr; } }
+    .range-row { margin-bottom: 16px; }
+    .range-row label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+    .loss-number { font-size: 40px; font-weight: 900; color: var(--danger); line-height: 1.1; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 860px) { .grid-3 { grid-template-columns: 1fr; } }
+    .price-card { position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+    .price-card.featured { border-color: var(--accent); box-shadow: 0 0 35px rgba(34,197,94,0.12); }
+    .badge-top {
+      position: absolute; top: -12px; right: 18px; background: var(--accent); color: var(--accent-dark);
+      font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 999px;
     }
-
-    .card h3 {
-      font-size: 1.25rem;
-      line-height: 1.3;
-      margin-bottom: 8px;
+    .price { font-size: 36px; font-weight: 900; margin: 12px 0 4px; }
+    .price small { font-size: 14px; color: var(--muted); font-weight: 600; }
+    ul.feat { list-style: none; margin: 16px 0 22px; display: flex; flex-direction: column; gap: 9px; font-size: 14px; }
+    ul.feat li::before { content: "✓ "; color: var(--accent); font-weight: 900; }
+    .sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(7,11,20,0.96); backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border); padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
     }
-
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 20px;
+    .admin-panel {
+      display: none; background: #0b1222; border: 2px solid var(--warn);
+      border-radius: 16px; padding: 24px; margin-top: 24px;
     }
-
-    .price-box {
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(7, 9, 15, 0.55);
-      border: 1px solid var(--border);
-      margin-bottom: 20px;
+    .admin-panel.open { display: block; }
+    .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    @media (max-width: 720px) { .admin-grid { grid-template-columns: 1fr; } }
+    .admin-input {
+      width: 100%; background: #050912; border: 1px solid var(--border);
+      color: #fff; padding: 10px; border-radius: 8px; font-size: 13px;
     }
-
-    .price-main {
-      font-size: 1.95rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-    }
-
-    .price-sub {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 24px;
-      flex-grow: 1;
-      font-size: 0.92rem;
-      color: #cbd5e1;
-    }
-
-    .features li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .check {
-      color: var(--success);
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-
-    .cta-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .cta-stack .btn {
-      width: 100%;
-      padding: 13px 16px;
-      font-size: 0.92rem;
-    }
-
-    /* Use Cases */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    .mini-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-    }
-
-    .mini-card h3 {
-      font-size: 1.06rem;
-      margin-bottom: 8px;
-    }
-
-    .mini-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* B2B Contact Box */
-    .b2b-box {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1));
-      border: 1px solid var(--border-accent);
-      border-radius: var(--radius);
-      padding: 32px 24px;
-      text-align: center;
-    }
-
-    .b2b-box h2 {
-      font-size: clamp(1.4rem, 3.2vw, 2rem);
-      margin-bottom: 10px;
-    }
-
-    .b2b-box p {
-      color: var(--text-muted);
-      max-width: 640px;
-      margin: 0 auto 22px;
-    }
-
-    /* FAQ */
-    .faq-list {
-      max-width: 760px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    details {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 18px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.96rem;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    details p {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0 42px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    @media (min-width: 768px) {
-      .nav-links {
-        display: flex;
-      }
-      .pricing-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .grid-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .hero {
-        padding: 84px 0 56px;
-      }
-    }
+    footer { padding: 30px 0; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <a href="#" class="brand">
-        <span class="brand-dot" aria-hidden="true"></span>
-        <span>Voz IA 24/7 Studio</span>
-      </a>
-      <nav class="nav-links" aria-label="Navegação principal">
-        <a href="#planos">Planos</a>
-        <a href="#casos">Aplicações</a>
-        <a href="#b2b">Implantação B2B</a>
-        <a href="#faq">FAQ</a>
+  <div class="topbar" id="urgencyBar">
+    ⚡ VAGAS DE IMPLANTAÇÃO 48H ESTA SEMANA: <span id="slotsCount">3</span> RESTANTES — Bônus: 12 meses de infra Voz IA sem mensalidade para os próximos pedidos
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="brand">SELLER<span>•VOZ IA</span></div>
+      <nav>
+        <a href="#demo">Testar Produto</a>
+        <a href="#calculadora">Calcular Perda</a>
+        <a href="#casos">Casos de Uso</a>
+        <a href="#planos">Preços</a>
+        <a href="#superadmin" onclick="toggleAdmin(true)">Superadmin</a>
       </nav>
-      <a href="#planos" class="nav-cta">Começar Agora</a>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="pill">
-          <span class="pill-live" aria-hidden="true"></span>
-          <span>Infraestrutura Ativa • Entrega Expressa em PT-BR, EN &amp; ES</span>
-        </div>
-        <h1>
-          Sua <span class="gradient-text">Recepcionista de Voz IA 24/7</span> e Locuções VSL Ultrarrealistas no Ar em Horas
-        </h1>
-        <p class="hero-sub">
-          Pare de perder clientes fora do horário comercial e acelere suas vendas com voz humana em tempo real.
-          Tecnologia LiveKit + Cartesia + Deepgram com checkout instantâneo via Stripe (Pix, Cartão e USD).
+    <section class="hero" id="demo">
+      <div>
+        <div class="pill">🎙️ Voz Ultrarrealista &lt; 400ms • PT-BR / EN / ES • Checkout Pix ou Cartão</div>
+        <h1>Sua empresa perde clientes toda noite? Coloque uma <em>Recepcionista IA por Voz 24h</em> hoje.</h1>
+        <p class="lead">
+          Atende ligações e visitantes do seu site às 22h, no almoço e no domingo com voz humana natural, responde preços/serviços, qualifica o lead e agenda direto no seu WhatsApp. <b>Sem salário, sem encargos, sem perder mais nenhuma venda.</b>
         </p>
-        <div class="hero-actions">
-          <a href="#planos" class="btn btn-primary">Ver Planos e Ativar Hoje</a>
-          <a href="#b2b" class="btn btn-secondary">Orçamento Dedicado B2B</a>
+        <div class="cta-row">
+          <a class="btn btn-primary" id="heroExpressLink" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank">
+            🚀 Começar Agora — R$ 47 (Pix/Cartão)
+          </a>
+          <a class="btn btn-cyan" id="heroFullLink" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank">
+            ⚡ Pacote Completo 48h — R$ 147
+          </a>
         </div>
-        <div class="trust-strip" aria-label="Diferenciais técnicos">
-          <span class="trust-item"><strong>Latência ultrabaixa</strong> WebRTC &amp; SIP</span>
-          <span class="trust-item"><strong>Voz natural</strong> PT-BR, Inglês &amp; Espanhol</span>
-          <span class="trust-item"><strong>Pagamento seguro</strong> Stripe Pix / Cartão / USD</span>
-          <span class="trust-item"><strong>Sem contrato</strong> de fidelidade</span>
+        <div class="trust-strip">
+          <span>🔒 Pagamento oficial Stripe</span>
+          <span>⏱️ Entrega garantida em até 48h</span>
+          <span>🛡️ Garantia de 7 dias</span>
+        </div>
+      </div>
+
+      <div class="card demo-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong>🎧 TESTE O PRODUTO AO VIVO AGORA</strong>
+          <span style="font-size:12px;color:#4ade80;">● ONLINE</span>
+        </div>
+        <div class="demo-tabs">
+          <button class="tab-btn active" onclick="selectDemo('clinica', this)">🏥 Clínica</button>
+          <button class="tab-btn" onclick="selectDemo('hotel', this)">🏨 Hotel</button>
+          <button class="tab-btn" onclick="selectDemo('advocacia', this)">⚖️ Advocacia</button>
+        </div>
+        <div class="transcript" id="demoTranscript"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-cyan" style="flex:1;padding:11px;" onclick="playVoiceDemo()">▶ Ouvir Recepcionista IA Falando</button>
+          <button class="btn btn-outline" style="padding:11px;" onclick="stopVoiceDemo()">■ Parar</button>
         </div>
       </div>
     </section>
 
-    <section id="planos">
-      <div class="container">
-        <div class="section-head">
-          <h2>Escolha o Plano Ideal para Começar Hoje</h2>
-          <p>Pagamento único seguro via Stripe. Assim que confirmado, nossa equipe inicia imediatamente a entrega.</p>
-        </div>
-
-        <div class="pricing-grid">
-          <!-- Tier 1 -->
-          <article class="card">
-            <span class="badge">Entrega Expressa</span>
-            <h3>Locução / VSL / Protótipo Voz IA Express</h3>
-            <p class="card-desc">
-              Ideal para testar voz ultrarrealista na sua VSL, anúncio, dublagem curta ou receber um diagnóstico em áudio + kit rápido de conversão.
-            </p>
-            <div class="price-box">
-              <div class="price-main">R$ 47,00</div>
-              <div class="price-sub">Pix ou Cartão • Global: US$ 9.90</div>
-            </div>
-            <ul class="features">
-              <li><span class="check" aria-hidden="true">✓</span><span>Locução / VSL / Dublagem IA ultrarrealista ou protótipo de voz personalizado</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Áudio masterizado pronto para publicação (MP3/WAV)</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Suporte a Português (BR), Inglês ou Espanhol</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Entrega expressa no mesmo dia (até 2h úteis)</span></li>
-            </ul>
-            <div class="cta-stack">
-              <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                Pagar R$ 47,00 (Pix / Cartão)
-              </a>
-              <a href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                Pay US$ 9.90 (Global Card)
-              </a>
-            </div>
-          </article>
-
-          <!-- Tier 2 -->
-          <article class="card card-featured">
-            <span class="badge badge-featured">Mais Popular • 48h</span>
-            <h3>Recepcionista IA por Voz 24h + Otimização de Conversão 48h</h3>
-            <p class="card-desc">
-              Atendimento inteligente por voz 24/7 integrado à otimização completa da sua página para transformar visitantes em agendamentos.
-            </p>
-            <div class="price-box">
-              <div class="price-main">R$ 147,00</div>
-              <div class="price-sub">Pix ou Cartão • Global: US$ 29.00</div>
-            </div>
-            <ul class="features">
-              <li><span class="check" aria-hidden="true">✓</span><span>Protótipo funcional de Recepcionista de Voz IA 24/7 testável em 1 clique no navegador</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Roteiro de triagem e qualificação treinado com seus serviços e horários</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Otimização completa de HTML, Copy e CTAs de WhatsApp/Agendamento em 48h</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Multilíngue (PT-BR, EN, ES) com transcrição precisa em tempo real</span></li>
-            </ul>
-            <div class="cta-stack">
-              <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                Pagar R$ 147,00 (Pix / Cartão)
-              </a>
-              <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                Pay US$ 29.00 (Global Card)
-              </a>
-            </div>
-          </article>
-
-          <!-- Tier 3 -->
-          <article class="card">
-            <span class="badge">Sob Medida B2B</span>
-            <h3>Implantação Dedicada B2B (WhatsApp / Telefone)</h3>
-            <p class="card-desc">
-              Operação completa em produção para clínicas, hotéis, escritórios e equipes comerciais com integração de CRM, agenda e telefonia SIP.
-            </p>
-            <div class="price-box">
-              <div class="price-main">Sob Consulta</div>
-              <div class="price-sub">Projeto dedicado • Deploy em 24h–48h</div>
-            </div>
-            <ul class="features">
-              <li><span class="check" aria-hidden="true">✓</span><span>Recepcionista IA 24/7 em produção no site, WhatsApp e/ou ramal telefônico (SIP)</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Resumo estruturado de cada lead enviado automaticamente para seu CRM/Agenda</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Fluxos em conformidade com LGPD e regras específicas do seu segmento</span></li>
-              <li><span class="check" aria-hidden="true">✓</span><span>Suporte prioritário e ajuste fino de voz e script</span></li>
-            </ul>
-            <div class="cta-stack">
-              <a href="#b2b" class="btn btn-primary">
-                Solicitar Orçamento B2B
-              </a>
-              <a href="mailto:contato@vozia24h.com?subject=Or%C3%A7amento%20Implanta%C3%A7%C3%A3o%20Dedicada%20B2B%20-%20Voz%20IA%2024h&amp;body=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20para%20implanta%C3%A7%C3%A3o%20dedicada%20B2B%20(WhatsApp%2FTelefone).%0A%0AEmpresa%3A%20%0ASite%3A%20%0ACanal%20desejado%20(Site%2FWhatsApp%2FTelefone)%3A%20%0AVolume%20estimado%20de%20atendimentos%2Fm%C3%AAs%3A%20" class="btn btn-secondary">
-                Enviar Brief por E-mail
-              </a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="casos">
-      <div class="container">
-        <div class="section-head">
-          <h2>Onde a Voz IA 24/7 Gera Retorno Imediato</h2>
-          <p>Projetado para negócios que dependem de resposta rápida e alta taxa de conversão.</p>
-        </div>
-        <div class="grid-3">
-          <div class="mini-card">
-            <h3>Clínicas &amp; Consultórios</h3>
-            <p>Atende pacientes à noite, no almoço e aos fins de semana, responde dúvidas de procedimentos e coleta dados prontos para agendamento.</p>
+    <section class="section" id="calculadora">
+      <h2>Quanto dinheiro você está deixando na mesa hoje?</h2>
+      <p class="sub">Arraste os controles abaixo e veja o prejuízo mensal real de não atender leads fora do horário comercial.</p>
+      <div class="card calc-grid">
+        <div>
+          <div class="range-row">
+            <label><span>Leads/ligações perdidos por semana</span><span id="valLeads">12</span></label>
+            <input type="range" id="rngLeads" min="3" max="60" value="12" oninput="calcLoss()" />
           </div>
-          <div class="mini-card">
-            <h3>Hotéis, Pousadas &amp; Turismo</h3>
-            <p>Concierge de voz multilíngue (PT/EN/ES) que tira dúvidas de diárias e check-in e direciona o hóspede para reserva direta sem comissão.</p>
+          <div class="range-row">
+            <label><span>Ticket médio de 1 cliente fechado (R$)</span><span id="valTicket">R$ 600</span></label>
+            <input type="range" id="rngTicket" min="150" max="5000" step="50" value="600" oninput="calcLoss()" />
           </div>
-          <div class="mini-card">
-            <h3>VSLs, Infoprodutos &amp; Escritórios</h3>
-            <p>Locuções e dublagens com entonação humana para vídeos de vendas ou triagem administrativa 24/7 para qualificar leads de alto valor.</p>
+          <div class="range-row">
+            <label><span>Taxa de fechamento estimada (%)</span><span id="valRate">25%</span></label>
+            <input type="range" id="rngRate" min="10" max="60" value="25" oninput="calcLoss()" />
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="b2b">
-      <div class="container">
-        <div class="b2b-box">
-          <h2>Precisa de Implantação Dedicada B2B (WhatsApp / Telefone)?</h2>
-          <p>
-            Envie o nome da sua empresa, seu site e o canal desejado (Site WebRTC, WhatsApp ou Telefone SIP).
-            Retornamos no mesmo dia com escopo fechado e cronograma de ativação em 24h a 48h.
+        <div style="text-align:center;padding:16px;background:#050912;border-radius:12px;border:1px solid var(--border);">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">PREJUÍZO ESTIMADO POR MÊS</div>
+          <div class="loss-number" id="lossResult">R$ 7.200/mês</div>
+          <p style="font-size:13px;color:var(--muted);margin:10px 0 18px;">
+            1 único cliente recuperado paga o <b>Pacote Completo (R$ 147)</b> mais de 4x no primeiro dia.
           </p>
-          <div class="hero-actions" style="margin-bottom: 0;">
-            <a href="mailto:contato@vozia24h.com?subject=Or%C3%A7amento%20Implanta%C3%A7%C3%A3o%20B2B%20-%20Voz%20IA%2024%2F7&amp;body=Ol%C3%A1!%20Gostaria%20de%20or%C3%A7ar%20a%20Implanta%C3%A7%C3%A3o%20Dedicada%20B2B.%0A%0AEmpresa%3A%20%0ASite%3A%20%0AWhatsApp%20para%20retorno%3A%20%0AObjetivo%3A%20" class="btn btn-primary">
-              Falar com Especialista B2B
-            </a>
-            <button type="button" id="copyBriefBtn" class="btn btn-secondary">
-              Copiar Modelo de Briefing
-            </button>
+          <a class="btn btn-primary" style="width:100%;" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank">
+            Estancar Essa Perda Agora — R$ 147
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="casos">
+      <h2>Casos Prontos para Subir em 48h</h2>
+      <p class="sub">Treinada com os seus serviços, horários, objeções e link de WhatsApp/agenda.</p>
+      <div class="grid-3">
+        <article class="card">
+          <h3>🏥 Clínicas &amp; Estética</h3>
+          <p style="color:var(--muted);font-size:14px;margin-top:8px;">Qualifica procedimentos (implantes, harmonização, cirurgia), informa faixas de horário e agenda avaliação automaticamente.</p>
+        </article>
+        <article class="card">
+          <h3>🏨 Hotéis &amp; Pousadas</h3>
+          <p style="color:var(--muted);font-size:14px;margin-top:8px;">Tira dúvidas de check-in, café da manhã e diárias às 23h e direciona o hóspede para reserva direta sem comissão de OTA.</p>
+        </article>
+        <article class="card">
+          <h3>⚖️ Advocacia &amp; Serviços B2B</h3>
+          <p style="color:var(--muted);font-size:14px;margin-top:8px;">Faz triagem inicial de casos (trabalhista, cível, previdenciário), filtra curiosos e entrega o dossiê pronto no WhatsApp do sócio.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="planos">
+      <h2>Escolha Seu Degrau de Entrada (Pagamento Único Stripe)</h2>
+      <p class="sub">Zero mensalidade escondida. Confirmou no Pix ou Cartão, iniciamos a produção imediatamente.</p>
+      <div class="grid-3">
+        <article class="card price-card">
+          <div>
+            <h3>Express Voz / VSL / Kit</h3>
+            <div class="price">R$ 47 <small>| US$ 9.90</small></div>
+            <p style="font-size:13px;color:var(--muted);">Ideal para testar qualidade hoje sem risco.</p>
+            <ul class="feat">
+              <li>Protótipo de Áudio/Locução IA em 24h</li>
+              <li>Kit HTML de Correção Rápida (H1 + Meta + CTA)</li>
+              <li>Auditoria de 3 min em áudio do seu site</li>
+              <li>Entrega direta no seu e-mail/WhatsApp</li>
+            </ul>
           </div>
-          <p id="copyFeedback" style="margin-top: 12px; font-size: 0.85rem; color: var(--success); min-height: 20px;" aria-live="polite"></p>
-        </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a class="btn btn-outline" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank">Pagar R$ 47 (Pix/Cartão BR)</a>
+            <a class="btn btn-outline" style="font-size:13px;padding:10px;" href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank">Pay US$ 9.90 (Global Card)</a>
+          </div>
+        </article>
+
+        <article class="card price-card featured">
+          <div class="badge-top">MAIS VENDIDO • 48H</div>
+          <div>
+            <h3>Recepcionista IA 24h + Conversão</h3>
+            <div class="price">R$ 147 <small>| US$ 29.00</small></div>
+            <p style="font-size:13px;color:var(--muted);">O pacote completo para começar a captar leads já.</p>
+            <ul class="feat">
+              <li>Protótipo Funcional da Recepcionista IA 24h</li>
+              <li>Roteiro de triagem treinado no seu negócio</li>
+              <li>Reescrita completa de Conversão + SEO da Home</li>
+              <li>1 revisão incluída em até 5 dias</li>
+            </ul>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <a class="btn btn-primary" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank">Garantir Pacote 48h — R$ 147</a>
+            <a class="btn btn-cyan" style="font-size:13px;padding:10px;" href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank">Buy Full 48h Pack — US$ 29.00</a>
+          </div>
+        </article>
+
+        <article class="card price-card">
+          <div>
+            <h3>Implantação Dedicada B2B</h3>
+            <div class="price">R$ 297+ <small>| US$ 79+</small></div>
+            <p style="font-size:13px;color:var(--muted);">Produção 24/7 com integração WhatsApp/Agenda.</p>
+            <ul class="feat">
+              <li>Agente de Voz IA ao vivo 24/7 no seu domínio</li>
+              <li>Integração Google Calendar + CRM + WhatsApp</li>
+              <li>12 meses de infra creditada sem mensalidade</li>
+              <li>Suporte prioritário de implantação</li>
+            </ul>
+          </div>
+          <a class="btn btn-outline" href="mailto:cellwakko@gmail.com?subject=Quero%20Implantacao%20Dedicada%20Voz%20IA%2024h">Solicitar Implantação B2B</a>
+        </article>
       </div>
     </section>
 
-    <section id="faq">
-      <div class="container">
-        <div class="section-head">
-          <h2>Perguntas Frequentes</h2>
+    <section class="admin-panel" id="superadmin">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <h3 style="color:var(--warn);">🔐 PAINEL SUPERADMIN — SELLER 00 (AUTORIZADO PARA VENDAS)</h3>
+        <button class="btn btn-outline" style="padding:6px 12px;font-size:12px;" onclick="toggleAdmin(false)">Fechar</button>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:6px;">
+        Controle comercial local (sem segredos expostos). Ajuste vagas de escassez, copie links oficiais Stripe ou abra os ativos de disparo.
+      </p>
+      <div class="admin-grid">
+        <div>
+          <label style="font-size:12px;color:var(--muted);">Vagas restantes na barra de urgência:</label>
+          <input class="admin-input" id="admSlots" type="number" value="3" min="1" max="20" onchange="saveAdmin()" />
         </div>
-        <div class="faq-list">
-          <details>
-            <summary>Como recebo o serviço após o pagamento na Stripe?</summary>
-            <p>Assim que o pagamento via Pix ou Cartão é confirmado pela Stripe, entramos em contato pelo e-mail/telefone cadastrado no checkout para coletar seu roteiro ou URL do site e iniciar a entrega imediatamente.</p>
-          </details>
-          <details>
-            <summary>A voz realmente parece humana em Português do Brasil?</summary>
-            <p>Sim. Utilizamos motores de síntese neural de última geração com entonação natural, pausas realistas e suporte nativo para PT-BR, Inglês e Espanhol.</p>
-          </details>
-          <details>
-            <summary>Preciso instalar algum servidor complexo para testar a Recepcionista IA?</summary>
-            <p>Não. No plano de R$ 147 (US$ 29), entregamos um link direto testável em 1 clique no navegador, já treinado com as informações do seu negócio.</p>
-          </details>
-          <details>
-            <summary>Posso pagar em Dólar (USD) se minha empresa estiver fora do Brasil?</summary>
-            <p>Sim! Todos os planos possuem checkout oficial Stripe em BRL (Pix/Cartão) e em USD (Cartão Internacional).</p>
-          </details>
+        <div>
+          <label style="font-size:12px;color:var(--muted);">Status de Operação:</label>
+          <input class="admin-input" value="AUTORIZADO • STRIPE MEGATIPS ATIVO (BRL + USD)" readonly />
         </div>
       </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" style="padding:10px 14px;font-size:13px;" onclick="copyText('https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04')">Copiar Link R$ 47</button>
+        <button class="btn btn-cyan" style="padding:10px 14px;font-size:13px;" onclick="copyText('https://buy.stripe.com/aFadR14bAgevg3W7lD83C03')">Copiar Link R$ 147</button>
+        <button class="btn btn-outline" style="padding:10px 14px;font-size:13px;" onclick="copyText('https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02')">Copiar Link US$ 9.90</button>
+        <button class="btn btn-outline" style="padding:10px 14px;font-size:13px;" onclick="copyText('https://buy.stripe.com/cNi8wHgYmfar8BudK183C05')">Copiar Link US$ 29</button>
+        <a class="btn btn-outline" style="padding:10px 14px;font-size:13px;" href="https://suporte149.github.io/seller-to-live/lead-packs/" target="_blank">Abrir Vitrine Lead Packs</a>
+      </div>
+      <div id="admToast" style="margin-top:10px;font-size:12px;color:#4ade80;"></div>
     </section>
-  </main>
 
-  <footer>
-    <div class="container">
-      <p>Voz IA 24/7 Studio • Pagamentos processados com segurança via Stripe • Conformidade LGPD</p>
+    <footer>
+      <span>© 2026 Seller-to-Live • IA de Voz &amp; Conversão Comercial</span>
+      <span><a href="#superadmin" onclick="toggleAdmin(true)" style="color:var(--warn);">⚙️ Abrir Superadmin</a></span>
+    </footer>
+  </div>
+
+  <div class="sticky-bar">
+    <div style="font-size:14px;"><b>Pronto para parar de perder vendas hoje?</b> <span style="color:var(--muted);">Entrega em 24h–48h via Stripe.</span></div>
+    <div style="display:flex;gap:10px;">
+      <a class="btn btn-outline" style="padding:10px 14px;font-size:13px;" href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank">Express R$ 47</a>
+      <a class="btn btn-primary" style="padding:10px 16px;font-size:13px;" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank">Completo 48h — R$ 147</a>
     </div>
-  </footer>
+  </div>
 
   <script>
-    (function () {
-      var btn = document.getElementById("copyBriefBtn");
-      var feedback = document.getElementById("copyFeedback");
-      if (!btn || !feedback) return;
-      var template = "Olá! Quero orçamento para Implantação Dedicada B2B (Voz IA 24/7).\nEmpresa: \nSite: \nCanal (Site / WhatsApp / Telefone): \nVolume mensal estimado: ";
-      btn.addEventListener("click", function () {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(template).then(function () {
-            feedback.textContent = "Modelo de briefing copiado! Cole no seu e-mail ou WhatsApp.";
-          }).catch(function () {
-            feedback.textContent = "Use o botão 'Falar com Especialista B2B' para enviar direto por e-mail.";
-          });
-        } else {
-          feedback.textContent = "Use o botão 'Falar com Especialista B2B' para enviar direto por e-mail.";
-        }
+    const DEMOS = {
+      clinica: {
+        lines: [
+          { role: 'ai', text: 'Olá! Bem-vindo à Clínica. Sou a assistente virtual 24h. Você gostaria de agendar uma avaliação ou saber valores de procedimento?' },
+          { role: 'user', text: 'Quero saber se tem horário para implante amanhã à tarde.' },
+          { role: 'ai', text: 'Temos sim! Amanhã às 15h30 ou 17h00. Posso reservar agora e já enviar a confirmação no seu WhatsApp?' }
+        ]
+      },
+      hotel: {
+        lines: [
+          { role: 'ai', text: 'Boa noite! Concierge IA 24h do Hotel. Posso verificar disponibilidade com tarifa direta garantida para este fim de semana?' },
+          { role: 'user', text: 'Qual o valor da diária para casal com café da manhã?' },
+          { role: 'ai', text: 'Reservando direto aqui você economiza 15% frente às plataformas. Já enviei o link de reserva direta no seu WhatsApp!' }
+        ]
+      },
+      advocacia: {
+        lines: [
+          { role: 'ai', text: 'Olá! Triagem Jurídica 24h do Escritório. Seu atendimento é sobre área trabalhista, cível ou previdenciária?' },
+          { role: 'user', text: 'Trabalhista, fui demitido sem receber as verbas.' },
+          { role: 'ai', text: 'Entendi perfeitamente. Já registrei os dados do seu caso e agendei o retorno prioritário do advogado especialista para amanhã às 9h.' }
+        ]
+      }
+    };
+    let currentDemo = 'clinica';
+
+    function renderDemo() {
+      const box = document.getElementById('demoTranscript');
+      box.innerHTML = DEMOS[currentDemo].lines.map(l =>
+        `<div class="${l.role === 'ai' ? 'msg-ai' : 'msg-user'}"><b>${l.role === 'ai' ? '🤖 Recepcionista IA:' : '👤 Cliente:'}</b> ${l.text}</div>`
+      ).join('');
+    }
+    function selectDemo(key, btn) {
+      currentDemo = key;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      stopVoiceDemo();
+      renderDemo();
+    }
+    function playVoiceDemo() {
+      if (!('speechSynthesis' in window)) return alert('Seu navegador não suporta síntese de voz.');
+      stopVoiceDemo();
+      const text = DEMOS[currentDemo].lines.filter(l => l.role === 'ai').map(l => l.text).join(' ');
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'pt-BR';
+      u.rate = 1.04;
+      window.speechSynthesis.speak(u);
+    }
+    function stopVoiceDemo() {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
+    function calcLoss() {
+      const leads = +document.getElementById('rngLeads').value;
+      const ticket = +document.getElementById('rngTicket').value;
+      const rate = +document.getElementById('rngRate').value;
+      document.getElementById('valLeads').textContent = leads;
+      document.getElementById('valTicket').textContent = 'R$ ' + ticket.toLocaleString('pt-BR');
+      document.getElementById('valRate').textContent = rate + '%';
+      const monthly = Math.round(leads * 4 * (rate / 100) * ticket);
+      document.getElementById('lossResult').textContent = 'R$ ' + monthly.toLocaleString('pt-BR') + '/mês';
+    }
+    function toggleAdmin(open) {
+      const p = document.getElementById('superadmin');
+      if (open) { p.classList.add('open'); p.scrollIntoView({ behavior: 'smooth' }); }
+      else p.classList.remove('open');
+    }
+    function saveAdmin() {
+      const s = document.getElementById('admSlots').value;
+      document.getElementById('slotsCount').textContent = s;
+      localStorage.setItem('seller_slots', s);
+      document.getElementById('admToast').textContent = '✓ Vagas atualizadas para ' + s + '!';
+    }
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt).then(() => {
+        document.getElementById('admToast').textContent = '✓ Copiado: ' + txt;
       });
-    })();
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDemo();
+      calcLoss();
+      const saved = localStorage.getItem('seller_slots');
+      if (saved) { document.getElementById('slotsCount').textContent = saved; document.getElementById('admSlots').value = saved; }
+      if (location.hash === '#superadmin') toggleAdmin(true);
+    });
   </script>
 </body>
 </html>
