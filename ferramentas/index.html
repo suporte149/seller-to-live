@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Validador &amp; Gerador Pix EMV + Scanner de Conversão | Seller-to-Live Ferramentas</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1326'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-size='34' fill='%2334d399'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E" />
   <meta name="description" content="Ferramentas gratuitas 100% client-side para devs, e-commerces e agências: Validador e Gerador Pix EMV (BR Code) com CRC16-CCITT real + Scanner de Conversão Ao Vivo no Google Cloud Run." />
   <style>
     :root {
@@ -2402,11 +2403,11 @@
       try {
         const ctrl = new AbortController();
         const timer = setTimeout(() => ctrl.abort(), 6000);
-        const res = await fetch(`${API_BASE}/health`, { signal: ctrl.signal });
+        const res = await fetch(AUDIT_ENDPOINT, { method: 'OPTIONS', signal: ctrl.signal });
         clearTimeout(timer);
-        if (res.ok) {
+        if (res.ok || res.status === 204) {
           badge.className = 'status-badge badge-live';
-          badge.textContent = '● Cloud Run API Online (200 OK)';
+          badge.textContent = '● Cloud Run API Online (CORS Ready)';
           return;
         }
       } catch (_) {
