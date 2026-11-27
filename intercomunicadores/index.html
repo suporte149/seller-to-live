@@ -1,0 +1,3168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MotoLink Pro — Intercomunicadores para Capacetes | Campina Grande/PB para Todo o Brasil</title>
+  <meta name="description" content="MotoLink Pro: intercomunicadores EJEAS V6 Pro+, Q8 Mesh 3.0 e F6 para piloto, garupa, motoclubes, entregadores, árbitros e frotas B2B. Confirmação de disponibilidade, frete e Pix 5% off pelo WhatsApp." />
+  <meta name="theme-color" content="#0B0F17" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F17'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='%23F97316' stroke-width='3'/%3E%3Cpath d='M18 42v-8c0-9.9 7.8-18 17.5-18C44.6 16 50 22.3 50 30.5V34H37l-5 8H18z' fill='none' stroke='%23F8FAFC' stroke-width='3.2' stroke-linejoin='round'/%3E%3Cpath d='M35 28h14' stroke='%23F97316' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M13 24c-2.5 3-2.5 9 0 12' fill='none' stroke='%2310B981' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0B0F17;
+      --surface: #121826;
+      --surface-2: #171F30;
+      --surface-glass: rgba(18, 24, 38, 0.84);
+      --border: rgba(148, 163, 184, 0.16);
+      --border-strong: rgba(148, 163, 184, 0.30);
+      --text: #F8FAFC;
+      --text-soft: #CBD5E1;
+      --muted: #94A3B8;
+      --accent: #F97316;
+      --accent-hover: #FB923C;
+      --accent-soft: rgba(249, 115, 22, 0.14);
+      --accent-border: rgba(249, 115, 22, 0.42);
+      --pix: #10B981;
+      --pix-hover: #34D399;
+      --pix-soft: rgba(16, 185, 129, 0.14);
+      --pix-border: rgba(16, 185, 129, 0.38);
+      --warn: #F59E0B;
+      --danger: #EF4444;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-card: 0 18px 42px rgba(2, 6, 23, 0.48);
+      --shadow-accent: 0 18px 42px -12px rgba(249, 115, 22, 0.32);
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: clip;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: clip;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 64% 44% at 88% 0%, rgba(249, 115, 22, 0.13), transparent 64%),
+        radial-gradient(ellipse 56% 42% at 10% 10%, rgba(16, 185, 129, 0.08), transparent 60%),
+        radial-gradient(ellipse 60% 45% at 50% 100%, rgba(249, 115, 22, 0.07), transparent 68%),
+        var(--bg);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(to right, rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.12) 78%, transparent 100%);
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: var(--font-display);
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 70;
+      background: rgba(11, 15, 23, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 70px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      flex-shrink: 0;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(249, 115, 22, 0.2), rgba(18, 24, 38, 0.95));
+      border: 1px solid var(--accent-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.18);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.08rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-name span {
+      color: var(--accent);
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      padding: 8px 11px;
+      border-radius: 8px;
+      transition: color 0.18s ease, background-color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 11px 18px;
+      cursor: pointer;
+      transition: transform 0.16s ease, background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #EA580C);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-accent);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--accent-hover), var(--accent));
+      transform: translateY(-1px);
+    }
+
+    .btn-pix {
+      background: linear-gradient(135deg, var(--pix), #059669);
+      color: #03150F;
+      font-weight: 700;
+      box-shadow: 0 14px 32px -12px rgba(16, 185, 129, 0.45);
+    }
+
+    .btn-pix:hover {
+      background: linear-gradient(135deg, var(--pix-hover), var(--pix));
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(18, 24, 38, 0.72);
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(249, 115, 22, 0.08);
+    }
+
+    .btn-ghost {
+      background: rgba(148, 163, 184, 0.08);
+      border-color: var(--border);
+      color: var(--text-soft);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text);
+    }
+
+    .btn-sm {
+      padding: 8px 13px;
+      font-size: 0.84rem;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .nav-wa-label {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .mobile-drawer {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: #0E1420;
+      padding: 12px 18px 16px;
+    }
+
+    .mobile-drawer.open {
+      display: block;
+    }
+
+    .mobile-drawer-links {
+      display: grid;
+      gap: 6px;
+    }
+
+    .mobile-drawer-links a {
+      padding: 10px 12px;
+      border-radius: 9px;
+      color: var(--text-soft);
+      font-weight: 500;
+      font-size: 0.94rem;
+      background: rgba(18, 24, 38, 0.7);
+      border: 1px solid var(--border);
+    }
+
+    @media (min-width: 640px) {
+      .nav-wa-label {
+        display: inline;
+      }
+    }
+
+    @media (min-width: 980px) {
+      .nav-links {
+        display: flex;
+      }
+      .menu-toggle, .mobile-drawer {
+        display: none !important;
+      }
+    }
+
+    /* Section framing */
+    section {
+      padding: 58px 0;
+      scroll-margin-top: 78px;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 32px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow-pix {
+      color: var(--pix-hover);
+      background: var(--pix-soft);
+      border-color: var(--pix-border);
+    }
+
+    .section-title {
+      font-size: clamp(1.65rem, 3.4vw, 2.35rem);
+      line-height: 1.15;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .section-desc {
+      color: var(--text-soft);
+      font-size: 1rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 44px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .hero {
+        padding: 64px 0 68px;
+      }
+      .hero-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 36px;
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4.4vw, 3.15rem);
+      line-height: 1.09;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero-lead {
+      font-size: 1.04rem;
+      color: var(--text-soft);
+      max-width: 620px;
+      margin-bottom: 22px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .spec-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .spec-pill svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .hero-trust-strip {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(18, 24, 38, 0.72);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--pix);
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .hero-trust-strip strong {
+      color: var(--text);
+    }
+
+    /* Hero Telemetry Card */
+    .hero-panel {
+      background: linear-gradient(175deg, rgba(23, 31, 48, 0.94), rgba(11, 15, 23, 0.98));
+      border: 1px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--pix));
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .panel-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--pix-hover);
+      background: var(--pix-soft);
+      border: 1px solid var(--pix-border);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .lineup-mini-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .lineup-mini-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: rgba(11, 15, 23, 0.72);
+      border: 1px solid var(--border);
+    }
+
+    .lineup-mini-item.featured {
+      border-color: var(--accent-border);
+      background: rgba(249, 115, 22, 0.08);
+    }
+
+    .lineup-mini-meta {
+      min-width: 0;
+    }
+
+    .lineup-mini-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .lineup-mini-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .lineup-mini-price {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .lineup-mini-price strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.96rem;
+      color: var(--text);
+    }
+
+    .lineup-mini-price span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--pix-hover);
+      font-weight: 600;
+    }
+
+    .panel-footer-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .panel-footer-note strong {
+      color: var(--text-soft);
+    }
+
+    /* Interactive Recommender */
+    .recommender-shell {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+
+    @media (min-width: 900px) {
+      .recommender-shell {
+        padding: 30px;
+      }
+    }
+
+    .recommender-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    @media (min-width: 920px) {
+      .recommender-layout {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    .rec-questions {
+      display: grid;
+      gap: 20px;
+    }
+
+    .rec-group-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .rec-step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+    }
+
+    .rec-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .rec-btn {
+      background: rgba(11, 15, 23, 0.75);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      text-align: left;
+    }
+
+    .rec-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .rec-btn[aria-pressed="true"] {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.25);
+    }
+
+    .rec-result-card {
+      background: linear-gradient(160deg, rgba(11, 15, 23, 0.96), rgba(23, 31, 48, 0.92));
+      border: 1px solid var(--accent-border);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .rec-result-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--pix-hover);
+    }
+
+    .rec-result-title {
+      font-size: 1.35rem;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .rec-price-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid var(--border);
+    }
+
+    .rec-price-pix {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--pix-hover);
+    }
+
+    .rec-price-full {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .rec-reason {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+    }
+
+    .rec-note {
+      font-size: 0.82rem;
+      color: #FCD34D;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      border-radius: 9px;
+      padding: 9px 11px;
+    }
+
+    .rec-specs {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+    }
+
+    .rec-specs li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .rec-specs li svg {
+      color: var(--pix);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .rec-actions {
+      display: grid;
+      gap: 9px;
+      margin-top: 4px;
+    }
+
+    /* Catalog Cards */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 720px) {
+      .catalog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .catalog-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .sku-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      min-width: 0;
+    }
+
+    .sku-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-strong);
+    }
+
+    .sku-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(175deg, rgba(249, 115, 22, 0.08), var(--surface) 44%);
+      box-shadow: var(--shadow-card), 0 0 0 1px rgba(249, 115, 22, 0.25);
+    }
+
+    .sku-card-top {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sku-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sku-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.71rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.12);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+    }
+
+    .sku-badge.best {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .sku-badge.mesh {
+      background: rgba(249, 115, 22, 0.14);
+      border-color: var(--accent-border);
+      color: var(--accent-hover);
+    }
+
+    .sku-badge.b2b {
+      background: var(--pix-soft);
+      border-color: var(--pix-border);
+      color: var(--pix-hover);
+    }
+
+    .sku-visual {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(11, 15, 23, 0.8);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .sku-title {
+      font-size: 1.18rem;
+      line-height: 1.25;
+      color: var(--text);
+    }
+
+    .sku-desc {
+      font-size: 0.89rem;
+      color: var(--text-soft);
+    }
+
+    .sku-specs {
+      list-style: none;
+      display: grid;
+      gap: 7px;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sku-specs li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .sku-specs li svg {
+      color: var(--pix);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .b2b-pack-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 10px;
+      background: rgba(11, 15, 23, 0.85);
+      border: 1px solid var(--border);
+    }
+
+    .b2b-pack-opt {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      border-radius: 7px;
+      padding: 7px 8px;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .b2b-pack-opt.active {
+      background: var(--surface-2);
+      border-color: var(--pix-border);
+      color: var(--text);
+    }
+
+    .sku-pricing-box {
+      background: rgba(11, 15, 23, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .sku-price-main {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sku-pix-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--pix-hover);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .sku-pix-value {
+      font-family: var(--font-display);
+      font-size: 1.48rem;
+      font-weight: 700;
+      color: var(--pix-hover);
+    }
+
+    .sku-full-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .sku-full-line strong {
+      color: var(--text-soft);
+    }
+
+    .qty-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .qty-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(11, 15, 23, 0.9);
+      border: 1px solid var(--border-strong);
+      border-radius: 9px;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      width: 34px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.14s ease;
+    }
+
+    .qty-btn:hover {
+      background: rgba(249, 115, 22, 0.18);
+      color: var(--accent-hover);
+    }
+
+    .qty-val {
+      min-width: 34px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.94rem;
+      color: var(--text);
+    }
+
+    .sku-card-foot {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sku-honest-note {
+      font-size: 0.74rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* B2B Banner Section */
+    .b2b-banner {
+      margin-top: 28px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.11), rgba(18, 24, 38, 0.96) 55%, rgba(249, 115, 22, 0.10));
+      border: 1px solid var(--pix-border);
+      border-radius: 20px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: center;
+      scroll-margin-top: 84px;
+    }
+
+    @media (min-width: 860px) {
+      .b2b-banner {
+        grid-template-columns: 1.35fr 0.65fr;
+        padding: 28px 32px;
+      }
+    }
+
+    .b2b-banner h3 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .b2b-banner p {
+      font-size: 0.94rem;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .b2b-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .b2b-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(11, 15, 23, 0.75);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+    }
+
+    .b2b-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    /* Comparison Table */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      box-shadow: var(--shadow-card);
+    }
+
+    .compare-table {
+      width: 100%;
+      min-width: 680px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .compare-table thead th {
+      background: rgba(11, 15, 23, 0.85);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .compare-table thead th .th-sub {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .compare-table tbody th {
+      font-weight: 600;
+      color: var(--text);
+      width: 24%;
+      background: rgba(11, 15, 23, 0.42);
+    }
+
+    .compare-table tbody td {
+      color: var(--text-soft);
+      width: 25.33%;
+    }
+
+    .compare-table tbody tr:last-child th,
+    .compare-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .col-highlight {
+      background: rgba(249, 115, 22, 0.05);
+    }
+
+    .table-badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--pix-soft);
+      color: var(--pix-hover);
+      border: 1px solid var(--pix-border);
+    }
+
+    .table-badge.orange {
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      border-color: var(--accent-border);
+    }
+
+    /* Technical Anti-Defect & Transparency */
+    .tech-alert-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.14), rgba(245, 158, 11, 0.12));
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      border-left: 5px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .tech-alert-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(249, 115, 22, 0.18);
+      border: 1px solid var(--accent-border);
+      color: var(--accent-hover);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tech-alert-banner h3 {
+      font-size: 1.15rem;
+      color: #FEF3C7;
+      margin-bottom: 6px;
+    }
+
+    .tech-alert-banner p {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+    }
+
+    .tech-alert-banner strong {
+      color: #FFFFFF;
+    }
+
+    .care-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 760px) {
+      .care-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .care-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .care-card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(11, 15, 23, 0.82);
+      border: 1px solid var(--border);
+      color: var(--pix-hover);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .care-card h4 {
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .care-card p {
+      font-size: 0.89rem;
+      color: var(--text-soft);
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: grid;
+      gap: 12px;
+      max-width: 880px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      overflow: hidden;
+      transition: border-color 0.16s ease;
+    }
+
+    .faq-item[open] {
+      border-color: var(--accent-border);
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 17px 20px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-chevron {
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-body {
+      padding: 0 20px 18px;
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      padding-top: 12px;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: #080B11;
+      padding: 36px 0 42px;
+      margin-top: 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (min-width: 780px) {
+      .footer-grid {
+        grid-template-columns: 1.3fr 1fr 1fr;
+      }
+    }
+
+    .footer-legal {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .footer-legal strong {
+      color: var(--text-soft);
+    }
+
+    .footer-col h4 {
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 7px;
+      font-size: 0.87rem;
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* Quick Order Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(5, 8, 15, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      width: 100%;
+      max-width: 560px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 20px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.72);
+      overflow: hidden;
+      margin: auto;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 22px;
+      background: rgba(11, 15, 23, 0.88);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-head h3 {
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(18, 24, 38, 0.8);
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .modal-body {
+      padding: 20px 22px 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .modal-sku-summary {
+      background: rgba(11, 15, 23, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 15px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .modal-sku-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-sku-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .modal-total-bar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .modal-total-label {
+      font-size: 0.83rem;
+      color: var(--text-soft);
+    }
+
+    .modal-total-amount {
+      font-family: var(--font-display);
+      font-size: 1.38rem;
+      font-weight: 700;
+      color: var(--pix-hover);
+    }
+
+    .modal-direct-links {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 11px;
+      background: rgba(249, 115, 22, 0.08);
+      border: 1px solid var(--accent-border);
+    }
+
+    .modal-direct-links-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-hover);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 520px) {
+      .form-grid.two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 0.81rem;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      background: rgba(11, 15, 23, 0.9);
+      border: 1px solid var(--border-strong);
+      border-radius: 9px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.16s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--accent);
+    }
+
+    .field input.input-error {
+      border-color: var(--danger);
+    }
+
+    .form-feedback {
+      font-size: 0.82rem;
+      min-height: 18px;
+      color: #FCA5A5;
+    }
+
+    .form-feedback.ok {
+      color: var(--pix-hover);
+    }
+
+    .modal-actions {
+      display: grid;
+      gap: 9px;
+    }
+
+    .modal-honest-foot {
+      font-size: 0.77rem;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- 1. Header Fixo Limpo -->
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-bar">
+        <a href="#top" class="brand" aria-label="MotoLink Pro — Início">
+          <span class="brand-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 17v-3.2A7.8 7.8 0 0 1 12.8 6c4.2 0 7.2 3.1 7.2 7.2V15h-5.8l-2.3 2H5z" stroke="#F8FAFC"/>
+              <path d="M13 11.5h6.5" stroke="#F97316"/>
+              <path d="M2.5 9.5a5.5 5.5 0 0 0 0 6" stroke="#10B981"/>
+              <path d="M4.8 11a3 3 0 0 0 0 3" stroke="#10B981"/>
+            </svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-name">MotoLink <span>Pro</span></span>
+            <span class="brand-sub">Campina Grande/PB &rarr; Todo o Brasil</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#ofertas">Ofertas</a>
+          <a href="#recomendador">Recomendador</a>
+          <a href="#comparativo">Comparativo</a>
+          <a href="#cuidados">Cuidados Técnicos</a>
+          <a href="#atacado">Atacado B2B</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a
+            class="btn btn-pix btn-sm"
+            href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Gostaria%20de%20confirmar%20disponibilidade%20e%20frete%20de%20intercomunicadores."
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Falar no WhatsApp da MotoLink Pro"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2a9.9 9.9 0 0 0-8.46 15.05L2 22l5.12-1.52A9.9 9.9 0 1 0 12.04 2zm5.75 14.07c-.24.68-1.4 1.3-1.93 1.38-.51.08-1.15.11-1.86-.12-.44-.14-1-.33-1.73-.64-3.04-1.31-5.02-4.38-5.17-4.58-.15-.2-1.24-1.65-1.24-3.15s.78-2.24 1.06-2.55c.28-.31.61-.39.81-.39h.58c.19 0 .44-.07.69.52.24.6.83 2.08.9 2.23.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.63.18.3.78 1.29 1.67 2.09 1.15 1.02 2.11 1.34 2.41 1.49.3.15.48.13.66-.08.18-.2.76-.89.96-1.2.2-.3.4-.25.68-.15.28.1 1.77.84 2.07.99.3.15.5.23.58.35.08.13.08.73-.16 1.41z"/>
+            </svg>
+            <span class="nav-wa-label">WhatsApp Direto</span>
+          </a>
+          <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-expanded="false"
+            aria-controls="mobileDrawer"
+            aria-label="Abrir menu de navegação"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="4" y1="7" x2="20" y2="7"/>
+              <line x1="4" y1="12" x2="20" y2="12"/>
+              <line x1="4" y1="17" x2="20" y2="17"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-links">
+          <a href="#ofertas">Ofertas Oficiais</a>
+          <a href="#recomendador">Recomendador de Modelo</a>
+          <a href="#comparativo">Tabela Comparativa</a>
+          <a href="#cuidados">Cuidados Técnicos 5V/1A</a>
+          <a href="#atacado">Atacado B2B &amp; Motoclubes</a>
+          <a href="#faq">Dúvidas Frequentes</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 2. Hero Section de Alta Conversão -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 2"/>
+              </svg>
+              MotoLink Pro &bull; Intercomunicadores para Capacetes
+            </span>
+            <h1>Comunicação nítida no capacete, <span class="highlight">do trânsito urbano à estrada em grupo.</span></h1>
+            <p class="hero-lead">
+              Linha completa EJEAS (V6 Pro+, Q8 Mesh 3.0 e F6) para piloto, garupa, motoclubes, entregadores, instrutores de autoescola e arbitragem. Atendimento direto de Campina Grande/PB para todo o Brasil.
+            </p>
+
+            <div class="hero-badges" aria-label="Especificações principais">
+              <span class="spec-pill">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M6.5 6.5l11 11L12 22V2l5.5 4.5-11 11"/>
+                </svg>
+                Bluetooth 5.1 / Mesh 3.0
+              </span>
+              <span class="spec-pill">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                </svg>
+                IP65 / IP67 contra chuva
+              </span>
+              <span class="spec-pill">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                </svg>
+                Cancelamento de ruído DSP/CVC
+              </span>
+              <span class="spec-pill">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                Atendimento direto Brasil
+              </span>
+            </div>
+
+            <div class="hero-ctas">
+              <a href="#recomendador" class="btn btn-primary">
+                Descobrir meu modelo ideal
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+              <a href="#ofertas" class="btn btn-outline">
+                Ver Kits &amp; Ofertas
+              </a>
+            </div>
+
+            <div class="hero-trust-strip">
+              <span><strong>Transparência Comercial:</strong> Confirmação de disponibilidade, frete e pagamento (<strong>Pix com 5% off</strong> ou <strong>Cartão até 12x</strong>) em minutos pelo WhatsApp.</span>
+              <span><strong>Atacado &amp; Grupos:</strong> Condições especiais B2B para Motoclubes, Lojas de Motopeças, Autoescolas e Frotas.</span>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Resumo rápido das linhas MotoLink Pro">
+            <div class="panel-header">
+              <span class="panel-title">Linha Oficial MotoLink Pro</span>
+              <span class="panel-tag">5% OFF no Pix</span>
+            </div>
+
+            <div class="lineup-mini-list">
+              <div class="lineup-mini-item featured">
+                <div class="lineup-mini-meta">
+                  <div class="lineup-mini-name">EJEAS V6 Pro+ Kit Par (2 un.)</div>
+                  <div class="lineup-mini-sub">Piloto + Garupa &bull; Bluetooth 5.1 &bull; USB-C</div>
+                </div>
+                <div class="lineup-mini-price">
+                  <strong>R$ 449,00</strong>
+                  <span>R$ 426,55 no Pix</span>
+                </div>
+              </div>
+
+              <div class="lineup-mini-item">
+                <div class="lineup-mini-meta">
+                  <div class="lineup-mini-name">EJEAS V6 Pro+ (Unitário)</div>
+                  <div class="lineup-mini-sub">Entregas / Uso solo &bull; Até 1.200m</div>
+                </div>
+                <div class="lineup-mini-price">
+                  <strong>R$ 239,00</strong>
+                  <span>R$ 227,05 no Pix</span>
+                </div>
+              </div>
+
+              <div class="lineup-mini-item">
+                <div class="lineup-mini-meta">
+                  <div class="lineup-mini-name">EJEAS Q8 Mesh 3.0 (Unitário / Par)</div>
+                  <div class="lineup-mini-sub">Até 6 simultâneos &bull; Reconexão Mesh &bull; IP67</div>
+                </div>
+                <div class="lineup-mini-price">
+                  <strong>A partir de R$ 629,00</strong>
+                  <span>R$ 597,55 no Pix</span>
+                </div>
+              </div>
+
+              <div class="lineup-mini-item">
+                <div class="lineup-mini-meta">
+                  <div class="lineup-mini-name">EJEAS F6 &amp; Packs B2B (CNPJ/Grupos)</div>
+                  <div class="lineup-mini-sub">Árbitros, Autoescolas, Motoclubes e Frotas</div>
+                </div>
+                <div class="lineup-mini-price">
+                  <strong>F6 R$ 379 | B2B R$ 1.790+</strong>
+                  <span>Com NF-e para CNPJ</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-footer-note">
+              <span><strong>Carregamento seguro:</strong> Exclusivo 5V/1A</span>
+              <span><strong>WhatsApp:</strong> +55 83 99946-5290</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Recomendador Interativo -->
+    <section id="recomendador">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Recomendador Técnico</span>
+          <h2 class="section-title">Qual o modelo ideal para você?</h2>
+          <p class="section-desc">
+            Responda às 3 perguntas abaixo e veja em tempo real qual modelo ou kit atende melhor ao seu capacete, distância e orçamento.
+          </p>
+        </div>
+
+        <div class="recommender-shell">
+          <div class="recommender-layout">
+            <div class="rec-questions">
+              <div>
+                <div class="rec-group-label">
+                  <span class="rec-step-num">1</span>
+                  Qual será o uso principal?
+                </div>
+                <div class="rec-options" role="group" aria-label="Uso principal">
+                  <button type="button" class="rec-btn" data-rec-group="uso" data-rec-val="urbano_solo" aria-pressed="false">Entregas / Uso Urbano Solo</button>
+                  <button type="button" class="rec-btn" data-rec-group="uso" data-rec-val="piloto_garupa" aria-pressed="true">Piloto + Garupa (2 pessoas)</button>
+                  <button type="button" class="rec-btn" data-rec-group="uso" data-rec-val="grupo" aria-pressed="false">Grupo / Motoclube (3 a 6 pessoas)</button>
+                  <button type="button" class="rec-btn" data-rec-group="uso" data-rec-val="frota_b2b" aria-pressed="false">Árbitros / Equipe / Frota B2B</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="rec-group-label">
+                  <span class="rec-step-num">2</span>
+                  Qual a sua prioridade?
+                </div>
+                <div class="rec-options" role="group" aria-label="Prioridade">
+                  <button type="button" class="rec-btn" data-rec-group="prioridade" data-rec-val="custo_beneficio" aria-pressed="true">Melhor Custo-Benefício</button>
+                  <button type="button" class="rec-btn" data-rec-group="prioridade" data-rec-val="mesh" aria-pressed="false">Conexão Mesh Automática em Grupo</button>
+                  <button type="button" class="rec-btn" data-rec-group="prioridade" data-rec-val="compacto" aria-pressed="false">Compacto / Comunicação Profissional</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="rec-group-label">
+                  <span class="rec-step-num">3</span>
+                  Qual a faixa de orçamento?
+                </div>
+                <div class="rec-options" role="group" aria-label="Orçamento">
+                  <button type="button" class="rec-btn" data-rec-group="orcamento" data-rec-val="ate_250" aria-pressed="false">Até R$ 250</button>
+                  <button type="button" class="rec-btn" data-rec-group="orcamento" data-rec-val="250_500" aria-pressed="true">R$ 250 a R$ 500</button>
+                  <button type="button" class="rec-btn" data-rec-group="orcamento" data-rec-val="acima_500" aria-pressed="false">Acima de R$ 500</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="rec-result-card" id="recResultCard" aria-live="polite">
+              <span class="rec-result-kicker">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Recomendação calculada para o seu perfil
+              </span>
+              <h3 class="rec-result-title" id="recTitle">EJEAS V6 Pro+ Kit Par (2 Unidades — Piloto + Garupa)</h3>
+              <div class="rec-price-row">
+                <span class="rec-price-pix" id="recPricePix">R$ 426,55 no Pix (-5%)</span>
+                <span class="rec-price-full" id="recPriceFull">ou R$ 449,00 (até 12x no cartão)</span>
+              </div>
+              <p class="rec-reason" id="recReason"></p>
+              <div class="rec-note" id="recNote" hidden></div>
+              <ul class="rec-specs" id="recSpecs"></ul>
+              <div class="rec-actions">
+                <button type="button" class="btn btn-primary btn-block" id="recOrderBtn">Pedir este modelo</button>
+                <a href="#ofertas" class="btn btn-ghost btn-sm btn-block" id="recScrollBtn">Comparar com todos os kits abaixo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Catálogo com as 6 Ofertas Oficiais -->
+    <section id="ofertas">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Catálogo Oficial MotoLink Pro</span>
+          <h2 class="section-title">6 Ofertas Oficiais com Preço Transparente e Pix (-5%)</h2>
+          <p class="section-desc">
+            Ajuste a quantidade diretamente no card para simular o valor total na hora. Confirmação de disponibilidade, frete e pagamento em minutos pelo WhatsApp.
+          </p>
+        </div>
+
+        <div class="catalog-grid">
+          <!-- SKU 1: V6 Pro+ Unitário -->
+          <article class="sku-card" data-sku="v6_pro_plus_unit">
+            <div class="sku-card-top">
+              <div class="sku-badge-row">
+                <span class="sku-badge">Uso Solo &amp; Entregas</span>
+                <span class="sku-visual" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                    <path d="M5 17v-3a7 7 0 0 1 14 0v2h-5l-2 2H5z"/>
+                    <path d="M12 11h6"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="sku-title">EJEAS V6 Pro+ (Unitário)</h3>
+                <p class="sku-desc">Ideal para entregador e piloto solo com GPS, música, chamadas e pareamento com até 6 pilotos (conversa 1-a-1 alternada).</p>
+              </div>
+              <ul class="sku-specs">
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Bluetooth 5.1 &bull; Alcance nominal até 1.200m</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Conexão USB-C (carregamento 5V/1A)</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Proteção IP65 contra chuva + redução de ruído</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="sku-card-foot">
+              <div class="sku-pricing-box">
+                <div class="sku-price-main">
+                  <span class="sku-pix-label">Pix (5% off)</span>
+                  <span class="sku-pix-value" data-role="pix-total">R$ 227,05</span>
+                </div>
+                <div class="sku-full-line">
+                  <span>Valor cheio / Cartão até 12x:</span>
+                  <strong data-role="full-total">R$ 239,00</strong>
+                </div>
+                <div class="qty-row">
+                  <span class="qty-label">Quantidade</span>
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS V6 Pro+ Unitário">&minus;</button>
+                    <span class="qty-val" data-role="qty-val">1</span>
+                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS V6 Pro+ Unitário">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-block" data-buy-sku="v6_pro_plus_unit">Comprar / Reservar</button>
+              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+            </div>
+          </article>
+
+          <!-- SKU 2: V6 Pro+ Kit Par (Featured) -->
+          <article class="sku-card featured" data-sku="v6_pro_plus_par">
+            <div class="sku-card-top">
+              <div class="sku-badge-row">
+                <span class="sku-badge best">MAIS VENDIDO / MELHOR CUSTO-BENEFÍCIO</span>
+                <span class="sku-visual" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                    <circle cx="8" cy="10" r="4"/>
+                    <circle cx="16" cy="10" r="4"/>
+                    <path d="M3 19c0-2.5 2.2-4 5-4s5 1.5 5 4"/>
+                    <path d="M11 19c0-2.5 2.2-4 5-4s5 1.5 5 4"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="sku-title">EJEAS V6 Pro+ Kit Par (2 Unidades — Piloto + Garupa)</h3>
+                <p class="sku-desc">Kit completo para equipar 2 capacetes com microfones, fones e fixação, pronto para viagens em dupla com conversa clara.</p>
+              </div>
+              <ul class="sku-specs">
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>2 intercomunicadores V6 Pro+ com kits de áudio completos</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Bluetooth 5.1 &bull; Até 1.200m &bull; Pareamento até 6 pilotos</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>USB-C 5V/1A &bull; IP65 contra chuva &bull; Capacete fechado ou articulado</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="sku-card-foot">
+              <div class="sku-pricing-box">
+                <div class="sku-price-main">
+                  <span class="sku-pix-label">Pix (5% off)</span>
+                  <span class="sku-pix-value" data-role="pix-total">R$ 426,55</span>
+                </div>
+                <div class="sku-full-line">
+                  <span>Valor cheio / Cartão até 12x:</span>
+                  <strong data-role="full-total">R$ 449,00</strong>
+                </div>
+                <div class="qty-row">
+                  <span class="qty-label">Quantidade de Kits</span>
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS V6 Pro+ Kit Par">&minus;</button>
+                    <span class="qty-val" data-role="qty-val">1</span>
+                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS V6 Pro+ Kit Par">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-block" data-buy-sku="v6_pro_plus_par">Comprar / Reservar</button>
+              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+            </div>
+          </article>
+
+          <!-- SKU 3: Q8 Mesh 3.0 Unitário -->
+          <article class="sku-card" data-sku="q8_mesh_unit">
+            <div class="sku-card-top">
+              <div class="sku-badge-row">
+                <span class="sku-badge mesh">Mesh 3.0 &bull; IP67</span>
+                <span class="sku-visual" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                    <circle cx="12" cy="5" r="2.5"/>
+                    <circle cx="5" cy="18" r="2.5"/>
+                    <circle cx="19" cy="18" r="2.5"/>
+                    <line x1="10.5" y1="7.2" x2="6.4" y2="15.7"/>
+                    <line x1="13.5" y1="7.2" x2="17.6" y2="15.7"/>
+                    <line x1="7.5" y1="18" x2="16.5" y2="18"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="sku-title">EJEAS Q8 Mesh 3.0 (Unitário)</h3>
+                <p class="sku-desc">Tecnologia Mesh 3.0 com reconexão automática para rodar em grupo: até 6 pessoas falando <strong>simultaneamente</strong> sem trocar canal.</p>
+              </div>
+              <ul class="sku-specs">
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Mesh 3.0: até 6 pilotos em conversa simultânea</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Reconexão automática caso alguém saia do raio</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Proteção IP67 contra chuva intensa &bull; USB-C 5V/1A</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="sku-card-foot">
+              <div class="sku-pricing-box">
+                <div class="sku-price-main">
+                  <span class="sku-pix-label">Pix (5% off)</span>
+                  <span class="sku-pix-value" data-role="pix-total">R$ 597,55</span>
+                </div>
+                <div class="sku-full-line">
+                  <span>Valor cheio / Cartão até 12x:</span>
+                  <strong data-role="full-total">R$ 629,00</strong>
+                </div>
+                <div class="qty-row">
+                  <span class="qty-label">Quantidade</span>
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS Q8 Mesh Unitário">&minus;</button>
+                    <span class="qty-val" data-role="qty-val">1</span>
+                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS Q8 Mesh Unitário">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-block" data-buy-sku="q8_mesh_unit">Comprar / Reservar</button>
+              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+            </div>
+          </article>
+
+          <!-- SKU 4: Q8 Mesh 3.0 Kit Par -->
+          <article class="sku-card" data-sku="q8_mesh_par">
+            <div class="sku-card-top">
+              <div class="sku-badge-row">
+                <span class="sku-badge mesh">Kit Estrada &amp; Líderes</span>
+                <span class="sku-visual" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                    <path d="M12 2l3 6 6 .9-4.5 4.3 1.1 6.1L12 16.4 6.4 19.3l1.1-6.1L3 8.9 9 8l3-6z"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="sku-title">EJEAS Q8 Mesh 3.0 Kit Par (2 Unidades + Opção Controle EUC)</h3>
+                <p class="sku-desc">Feito para casais viajantes e líderes de comboio exigentes que precisam de Mesh simultâneo e controle prático no guidão.</p>
+              </div>
+              <ul class="sku-specs">
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>2 unidades Q8 Mesh 3.0 com opção de Controle EUC no guidão</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Conversa simultânea com até 6 participantes na rede</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Proteção IP67 + áudio claro em alta velocidade</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="sku-card-foot">
+              <div class="sku-pricing-box">
+                <div class="sku-price-main">
+                  <span class="sku-pix-label">Pix (5% off)</span>
+                  <span class="sku-pix-value" data-role="pix-total">R$ 1.139,05</span>
+                </div>
+                <div class="sku-full-line">
+                  <span>Valor cheio / Cartão até 12x:</span>
+                  <strong data-role="full-total">R$ 1.199,00</strong>
+                </div>
+                <div class="qty-row">
+                  <span class="qty-label">Quantidade de Kits</span>
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS Q8 Mesh Kit Par">&minus;</button>
+                    <span class="qty-val" data-role="qty-val">1</span>
+                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS Q8 Mesh Kit Par">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-block" data-buy-sku="q8_mesh_par">Comprar / Reservar</button>
+              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+            </div>
+          </article>
+
+          <!-- SKU 5: EJEAS F6 -->
+          <article class="sku-card" data-sku="f6_unit">
+            <div class="sku-card-top">
+              <div class="sku-badge-row">
+                <span class="sku-badge">Árbitros &amp; Autoescolas</span>
+                <span class="sku-visual" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                    <path d="M4 13a8 8 0 0 1 16 0"/>
+                    <rect x="3" y="13" width="4" height="6" rx="2"/>
+                    <rect x="17" y="13" width="4" height="6" rx="2"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="sku-title">EJEAS F6 (Unitário — Árbitros &amp; Pilotos)</h3>
+                <p class="sku-desc">Formato leve, ergonômico e prático, indicado para arbitragem esportiva, instrutores de autoescola e pilotos urbanos.</p>
+              </div>
+              <ul class="sku-specs">
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Design compacto de baixo peso para longas jornadas</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Comunicação direta entre instrutor/aluno ou equipe em campo</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>USB-C 5V/1A &bull; Resistente a chuva e uso externo</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="sku-card-foot">
+              <div class="sku-pricing-box">
+                <div class="sku-price-main">
+                  <span class="sku-pix-label">Pix (5% off)</span>
+                  <span class="sku-pix-value" data-role="pix-total">R$ 360,05</span>
+                </div>
+                <div class="sku-full-line">
+                  <span>Valor cheio / Cartão até 12x:</span>
+                  <strong data-role="full-total">R$ 379,00</strong>
+                </div>
+                <div class="qty-row">
+                  <span class="qty-label">Quantidade</span>
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS F6">&minus;</button>
+                    <span class="qty-val" data-role="qty-val">1</span>
+                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS F6">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-block" data-buy-sku="f6_unit">Comprar / Reservar</button>
+              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+            </div>
+          </article>
+
+          <!-- SKU 6: Pack B2B -->
+          <article class="sku-card" data-sku="pack_b2b">
+            <div class="sku-card-top">
+              <div class="sku-badge-row">
+                <span class="sku-badge b2b">Atacado B2B &bull; NF-e CNPJ</span>
+                <span class="sku-visual" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                  </svg>
+                </span>
+              </div>
+              <div>
+                <h3 class="sku-title">Pack B2B Motoclube / Frota / Lojista</h3>
+                <p class="sku-desc">10x V6 Pro+ (R$ 1.790,00) ou 6x Q8 Mesh (R$ 3.190,00). Condição direta com emissão de NF-e para CNPJ, motoclubes e frotas.</p>
+              </div>
+
+              <div class="b2b-pack-toggle" role="group" aria-label="Escolher configuração do Pack B2B">
+                <button type="button" class="b2b-pack-opt active" data-b2b-opt="v6_10x">10x V6 Pro+ (R$ 1.790)</button>
+                <button type="button" class="b2b-pack-opt" data-b2b-opt="q8_6x">6x Q8 Mesh (R$ 3.190)</button>
+              </div>
+
+              <ul class="sku-specs">
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>A partir de R$ 1.790,00 (10x V6 Pro+) ou R$ 3.190,00 (6x Q8 Mesh)</span>
+                </li>
+                <li>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Emissão de NF-e e condições exclusivas B2B</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="sku-card-foot">
+              <div class="sku-pricing-box">
+                <div class="sku-price-main">
+                  <span class="sku-pix-label">Pix (5% off)</span>
+                  <span class="sku-pix-value" data-role="pix-total">R$ 1.700,50</span>
+                </div>
+                <div class="sku-full-line">
+                  <span>Valor do lote / Cotação B2B:</span>
+                  <strong data-role="full-total">R$ 1.790,00</strong>
+                </div>
+                <div class="qty-row">
+                  <span class="qty-label">Quantidade de Packs</span>
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade Pack B2B">&minus;</button>
+                    <span class="qty-val" data-role="qty-val">1</span>
+                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade Pack B2B">+</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-pix btn-block" data-buy-sku="pack_b2b">Comprar / Reservar</button>
+              <span class="sku-honest-note">Confirmação de disponibilidade, NF-e e frete via WhatsApp</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- Bloco Dedicado Atacado B2B -->
+        <div class="b2b-banner" id="atacado">
+          <div>
+            <span class="eyebrow eyebrow-pix">Atacado B2B &amp; Compras Coletivas</span>
+            <h3>Condições especiais B2B para Motoclubes, Lojas de Motopeças, Autoescolas e Frotas</h3>
+            <p>
+              Precisa equipar a diretoria do motoclube, padronizar a frota de entregas, atender alunos de autoescola ou revender na sua loja de motopeças? Montamos cotação direta com emissão de NF-e para CNPJ ou compra coletiva do grupo.
+            </p>
+            <div class="b2b-tags">
+              <span class="b2b-tag">10x V6 Pro+ a R$ 1.790,00</span>
+              <span class="b2b-tag">6x Q8 Mesh a R$ 3.190,00</span>
+              <span class="b2b-tag">Emissão de NF-e (CNPJ)</span>
+              <span class="b2b-tag">Envio de Campina Grande/PB para Todo o Brasil</span>
+            </div>
+          </div>
+          <div class="b2b-actions">
+            <button type="button" class="btn btn-pix btn-block" data-buy-sku="pack_b2b">Solicitar Cotação B2B</button>
+            <a
+              class="btn btn-outline btn-block"
+              href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Tenho%20interesse%20em%20condi%C3%A7%C3%B5es%20B2B%20para%20Motoclube%2FLoja%2FAutoescola%2FFrota%20com%20NF-e."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Falar direto no WhatsApp B2B
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Tabela Comparativa Técnica -->
+    <section id="comparativo">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Comparativo Técnico</span>
+          <h2 class="section-title">V6 Pro+ vs Q8 Mesh 3.0 vs F6</h2>
+          <p class="section-desc">
+            Compare tecnologia de rádio, conversa simultânea, proteção contra chuva, alimentação elétrica e indicação prática antes de escolher.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Especificação</th>
+                <th class="col-highlight">
+                  EJEAS V6 Pro+
+                  <span class="th-sub">Melhor Custo-Benefício</span>
+                </th>
+                <th>
+                  EJEAS Q8 Mesh 3.0
+                  <span class="th-sub">Grupo Simultâneo</span>
+                </th>
+                <th>
+                  EJEAS F6
+                  <span class="th-sub">Árbitros &amp; Pilotos</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Tecnologia de Conexão</th>
+                <td class="col-highlight"><strong>Bluetooth 5.1</strong></td>
+                <td><span class="table-badge orange">Mesh 3.0</span> + Bluetooth</td>
+                <td>Bluetooth (comunicação direta compacta)</td>
+              </tr>
+              <tr>
+                <th>Conversa Simultânea</th>
+                <td class="col-highlight"><strong>2 alternados por vez</strong> (pareia até 6 pilotos, conversa 1-a-1)</td>
+                <td><span class="table-badge">Até 6 simultâneos</span> com reconexão automática</td>
+                <td>Comunicação direta ágil entre dupla/equipe</td>
+              </tr>
+              <tr>
+                <th>Alcance Nominal</th>
+                <td class="col-highlight">Até <strong>1.200m</strong> (campo aberto, sem barreiras)</td>
+                <td>Rede Mesh dinâmica de longo alcance em comboio</td>
+                <td>Curto e médio alcance (campo esportivo e uso urbano)</td>
+              </tr>
+              <tr>
+                <th>Proteção Contra Água</th>
+                <td class="col-highlight"><strong>IP65</strong> (chuva moderada e poeira)</td>
+                <td><strong>IP67</strong> (alta vedação contra chuva intensa)</td>
+                <td><strong>IP65</strong> (resistente a chuva em uso externo)</td>
+              </tr>
+              <tr>
+                <th>Carregamento USB-C</th>
+                <td class="col-highlight">USB-C exclusivo <strong>5V / 1A</strong></td>
+                <td>USB-C exclusivo <strong>5V / 1A</strong></td>
+                <td>USB-C exclusivo <strong>5V / 1A</strong></td>
+              </tr>
+              <tr>
+                <th>Compatibilidade de Capacete</th>
+                <td class="col-highlight">Fechado, Articulado / Escamoteável, Aberto</td>
+                <td>Fechado, Articulado / Escamoteável, Aberto</td>
+                <td>Fechado, Articulado, Aberto e Headset de Árbitro</td>
+              </tr>
+              <tr>
+                <th>Perfil Ideal</th>
+                <td class="col-highlight">Entregadores, piloto solo (GPS/chamadas) e duplas Piloto + Garupa</td>
+                <td>Grupos, motoclubes, casais viajantes e líderes exigentes</td>
+                <td>Árbitros esportivos, instrutores de autoescola e pilotos urbanos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Bloco Técnico Anti-Defeito & Transparência Regulatória -->
+    <section id="cuidados">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Preservação de Hardware &amp; Transparência</span>
+          <h2 class="section-title">Cuidados Técnicos Anti-Defeito &amp; Conformidade</h2>
+          <p class="section-desc">
+            Orientação técnica clara antes da compra evita a causa número 1 de defeitos prematuros e garante transparência total sobre uso na chuva e documentação.
+          </p>
+        </div>
+
+        <div class="tech-alert-banner" role="alert">
+          <div class="tech-alert-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div>
+            <h3>ALERTA CRÍTICO DE ALIMENTAÇÃO: Use EXCLUSIVAMENTE carregador 5V/1A</h3>
+            <p>
+              <strong>Use EXCLUSIVAMENTE carregador 5V/1A (porta USB de notebook, TV ou fonte simples 5V/1A) &mdash; NUNCA use carregador Turbo / Fast Charger / Power Delivery.</strong> Fontes rápidas de celular (9V, 12V ou 20V) causam sobrecarga térmica no circuito de carga e na bateria interna, sendo a maior causa de avaria em intercomunicadores.
+            </p>
+          </div>
+        </div>
+
+        <div class="care-grid">
+          <article class="care-card">
+            <span class="care-card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="6" y="7" width="12" height="10" rx="2"/>
+                <line x1="22" y1="11" x2="22" y2="13"/>
+                <path d="M12 10v4"/>
+              </svg>
+            </span>
+            <h4>Regra 5V/1A na Prática</h4>
+            <p>
+              Conecte o cabo USB-C em uma porta USB padrão de computador, notebook, smart TV ou carregador antigo de 5V/1A. Evite tomadas USB veiculares turbo ou fontes de carga rápida acima de 5W.
+            </p>
+          </article>
+
+          <article class="care-card">
+            <span class="care-card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+              </svg>
+            </span>
+            <h4>Chuva vs. Submersão (IP65 / IP67)</h4>
+            <p>
+              Os graus IP65 (V6 Pro+ / F6) e IP67 (Q8) protegem contra chuva e respingos em pilotagem desde que a tampa da porta USB-C esteja bem vedada. Não mergulhe o aparelho nem lave o capacete com jato de alta pressão com o módulo instalado.
+            </p>
+          </article>
+
+          <article class="care-card">
+            <span class="care-card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </span>
+            <h4>Homologação Anatel &amp; Nota Fiscal</h4>
+            <p>
+              Transparência total para compras individuais e corporativas: orientamos sobre conformidade de radiofrequência (Anatel) do lote escolhido e emitimos Nota Fiscal (NF-e) para compras formais, CNPJ, motoclubes e frotas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Perguntas Frequentes</span>
+          <h2 class="section-title">Dúvidas Diretas Antes de Fechar o Pedido</h2>
+          <p class="section-desc">
+            Respostas objetivas sobre funcionamento, prazos, compatibilidade de capacete e atendimento comercial.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>
+              <span>Como funciona a disponibilidade, frete e pagamento após escolher meu kit?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              Ao clicar em <strong>Comprar / Reservar</strong>, você envia seu resumo direto no nosso WhatsApp (+55 83 99946-5290) com modelo, quantidade, cidade/UF e tipo de capacete. Em minutos confirmamos a disponibilidade do lote, calculamos o frete de Campina Grande/PB para o seu CEP e liberamos o pagamento via Pix (com 5% de desconto) ou Cartão em até 12x.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Qual a diferença prática entre o V6 Pro+ (Bluetooth 5.1) e o Q8 (Mesh 3.0)?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              No <strong>V6 Pro+</strong>, você pareia até 6 pilotos, mas a conversa acontece de forma alternada 1-a-1 (você seleciona com qual canal falar por vez — ideal para piloto + garupa ou uso solo). Já no <strong>Q8 Mesh 3.0</strong>, até 6 pessoas conversam ao mesmo tempo em canal aberto, com reconexão automática se alguém se afastar e voltar ao alcance.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Posso carregar meu intercomunicador com carregador turbo do celular?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              <strong>Não.</strong> Use exclusivamente fonte <strong>5V/1A</strong> (ou porta USB de notebook/computador/TV). Carregadores Turbo / Fast Charger aumentam a tensão/corrente e podem danificar permanentemente a placa de carregamento e a bateria.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Serve em capacete fechado, articulado (escamoteável) e aberto?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              Sim. No pedido rápido você informa se seu capacete é <strong>Fechado</strong>, <strong>Articulado / Escamoteável</strong> ou <strong>Aberto / Cross</strong> para orientarmos corretamente a fixação e o posicionamento do microfone e dos alto-falantes antes do envio.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Vocês atendem pedidos B2B com NF-e para Motoclubes, Lojas e Autoescolas?</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              Sim! Temos packs iniciais a partir de R$ 1.790,00 (10x V6 Pro+) e R$ 3.190,00 (6x Q8 Mesh) com emissão de Nota Fiscal (NF-e) e condição direta para CNPJ, motoclubes, lojas de motopeças, autoescolas e frotas.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#top" class="brand">
+            <span class="brand-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 17v-3.2A7.8 7.8 0 0 1 12.8 6c4.2 0 7.2 3.1 7.2 7.2V15h-5.8l-2.3 2H5z" stroke="#F8FAFC"/>
+                <path d="M13 11.5h6.5" stroke="#F97316"/>
+                <path d="M2.5 9.5a5.5 5.5 0 0 0 0 6" stroke="#10B981"/>
+              </svg>
+            </span>
+            <span class="brand-text">
+              <span class="brand-name">MotoLink <span>Pro</span></span>
+              <span class="brand-sub">Intercomunicadores para Capacetes</span>
+            </span>
+          </a>
+          <div class="footer-legal">
+            <span><strong>Operação Comercial:</strong> TA SERVICOS DE INFORMACAO NA INTERNET LTDA</span>
+            <span><strong>Base Operacional:</strong> Campina Grande/PB &rarr; Atendimento para Todo o Brasil</span>
+            <span><strong>WhatsApp Comercial:</strong> <a href="https://wa.me/5583999465290" target="_blank" rel="noopener noreferrer">+55 83 99946-5290</a></span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <div class="footer-links">
+            <a href="#ofertas">Ofertas Oficiais</a>
+            <a href="#recomendador">Recomendador de Modelo</a>
+            <a href="#comparativo">Comparativo Técnico</a>
+            <a href="#cuidados">Cuidados 5V/1A &amp; Anatel</a>
+            <a href="#atacado">Atacado B2B &amp; Motoclubes</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Atendimento Direto</h4>
+          <div class="footer-links">
+            <a href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Quero%20confirmar%20disponibilidade%20e%20frete." target="_blank" rel="noopener noreferrer">Confirmar disponibilidade no WhatsApp</a>
+            <a href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Gostaria%20de%20cota%C3%A7%C3%A3o%20B2B%20com%20NF-e." target="_blank" rel="noopener noreferrer">Cotação B2B / CNPJ / Motoclube</a>
+            <a href="#faq">Perguntas Frequentes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 7. Modal de Pedido Rápido / Checkout -->
+  <div class="modal-backdrop" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <h3 id="modalTitle">Pedido Rápido &bull; MotoLink Pro</h3>
+        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Fechar janela de pedido">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-sku-summary">
+          <div class="modal-sku-top">
+            <span class="modal-sku-name" id="modalSkuName">EJEAS V6 Pro+ Kit Par (2 un.)</span>
+            <div class="qty-stepper">
+              <button type="button" class="qty-btn" id="modalQtyMinus" aria-label="Diminuir quantidade no pedido">&minus;</button>
+              <span class="qty-val" id="modalQtyVal">1</span>
+              <button type="button" class="qty-btn" id="modalQtyPlus" aria-label="Aumentar quantidade no pedido">+</button>
+            </div>
+          </div>
+
+          <div class="field" id="modalB2bWrap" hidden>
+            <label for="modalB2bSelect">Configuração do Pack B2B</label>
+            <select id="modalB2bSelect">
+              <option value="v6_10x">10x EJEAS V6 Pro+ — R$ 1.790,00</option>
+              <option value="q8_6x">6x EJEAS Q8 Mesh 3.0 — R$ 3.190,00</option>
+            </select>
+          </div>
+
+          <div class="modal-total-bar">
+            <span class="modal-total-label" id="modalTotalLabel">Total estimado com 5% off no Pix</span>
+            <span class="modal-total-amount" id="modalTotalAmount">R$ 426,55</span>
+          </div>
+        </div>
+
+        <div class="modal-direct-links" id="modalDirectLinks" hidden>
+          <span class="modal-direct-links-title">Checkout / Oferta Direta Verificada</span>
+          <a href="#ofertas" class="btn btn-primary btn-block" id="modalStripeBtn" target="_blank" rel="noopener noreferrer" hidden>Pagar Direto no Checkout Stripe</a>
+          <a href="#ofertas" class="btn btn-outline btn-block" id="modalAffiliateBtn" target="_blank" rel="noopener noreferrer" hidden>Ir para Oferta Oficial Verificada (Marketplace)</a>
+        </div>
+
+        <form id="quickOrderForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="orderName">Seu Nome Completo *</label>
+              <input type="text" id="orderName" name="name" placeholder="Ex.: Carlos Henrique Silva" autocomplete="name" required />
+            </div>
+
+            <div class="form-grid two-col">
+              <div class="field">
+                <label for="orderCity">Cidade / UF *</label>
+                <input type="text" id="orderCity" name="city" placeholder="Ex.: Campina Grande / PB" required />
+              </div>
+              <div class="field">
+                <label for="orderCep">CEP (opcional)</label>
+                <input type="text" id="orderCep" name="cep" placeholder="00000-000" inputmode="numeric" maxlength="9" />
+              </div>
+            </div>
+
+            <div class="form-grid two-col">
+              <div class="field">
+                <label for="orderHelmet">Tipo de Capacete</label>
+                <select id="orderHelmet" name="helmet">
+                  <option value="Fechado">Fechado</option>
+                  <option value="Articulado / Escamoteável">Articulado / Escamoteável</option>
+                  <option value="Aberto / Cross">Aberto / Cross</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="orderPayment">Forma de Pagamento</label>
+                <select id="orderPayment" name="payment">
+                  <option value="Pix (-5%)">Pix (-5%)</option>
+                  <option value="Cartão até 12x">Cartão até 12x</option>
+                  <option value="Cotação B2B / CNPJ">Cotação B2B / CNPJ</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-feedback" id="orderFeedback" role="status" aria-live="polite"></div>
+
+            <div class="modal-actions">
+              <button type="submit" class="btn btn-pix btn-block" id="sendWhatsappBtn">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2a9.9 9.9 0 0 0-8.46 15.05L2 22l5.12-1.52A9.9 9.9 0 1 0 12.04 2zm5.75 14.07c-.24.68-1.4 1.3-1.93 1.38-.51.08-1.15.11-1.86-.12-.44-.14-1-.33-1.73-.64-3.04-1.31-5.02-4.38-5.17-4.58-.15-.2-1.24-1.65-1.24-3.15s.78-2.24 1.06-2.55c.28-.31.61-.39.81-.39h.58c.19 0 .44-.07.69.52.24.6.83 2.08.9 2.23.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.63.18.3.78 1.29 1.67 2.09 1.15 1.02 2.11 1.34 2.41 1.49.3.15.48.13.66-.08.18-.2.76-.89.96-1.2.2-.3.4-.25.68-.15.28.1 1.77.84 2.07.99.3.15.5.23.58.35.08.13.08.73-.16 1.41z"/>
+                </svg>
+                Enviar Pedido no WhatsApp
+              </button>
+              <button type="button" class="btn btn-outline btn-block" id="copySummaryBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <span id="copySummaryLabel">Copiar Resumo do Pedido</span>
+              </button>
+            </div>
+            <p class="modal-honest-foot">
+              Confirmação de disponibilidade, frete e pagamento (Pix com 5% off ou Cartão até 12x) em minutos pelo WhatsApp.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CHECKOUT_CONFIG = {
+      whatsappNumber: "5583999465290",
+      brandName: "MotoLink Pro",
+      pixDiscountRate: 0.05,
+      skus: {
+        v6_pro_plus_unit: { name: "EJEAS V6 Pro+ (Unitário)", price: 239.00, affiliateUrl: "", stripeUrl: "" },
+        v6_pro_plus_par: { name: "EJEAS V6 Pro+ Kit Par (2 un.)", price: 449.00, affiliateUrl: "", stripeUrl: "" },
+        q8_mesh_unit: { name: "EJEAS Q8 Mesh 3.0 (Unitário)", price: 629.00, affiliateUrl: "", stripeUrl: "" },
+        q8_mesh_par: { name: "EJEAS Q8 Mesh 3.0 Kit Par (2 un.)", price: 1199.00, affiliateUrl: "", stripeUrl: "" },
+        f6_unit: { name: "EJEAS F6 (Árbitros & Pilotos)", price: 379.00, affiliateUrl: "", stripeUrl: "" },
+        pack_b2b: { name: "Pack B2B Motoclube / Frota (10x V6 Pro+)", price: 1790.00, affiliateUrl: "", stripeUrl: "" }
+      }
+    };
+
+    const B2B_VARIANTS = {
+      v6_10x: {
+        label: "Pack B2B Motoclube / Frota (10x V6 Pro+)",
+        price: CHECKOUT_CONFIG.skus.pack_b2b.price
+      },
+      q8_6x: {
+        label: "Pack B2B Motoclube / Frota (6x Q8 Mesh 3.0)",
+        price: 3190.00
+      }
+    };
+
+    const SKU_SPECS = {
+      v6_pro_plus_unit: [
+        "Bluetooth 5.1 com pareamento para até 6 pilotos (conversa 1-a-1 alternada)",
+        "Alcance nominal até 1.200m, GPS, música e chamadas",
+        "USB-C 5V/1A e proteção IP65 contra chuva"
+      ],
+      v6_pro_plus_par: [
+        "2 unidades V6 Pro+ com kits completos para 2 capacetes",
+        "Conversa nítida piloto + garupa até 1.200m (Bluetooth 5.1)",
+        "Melhor custo-benefício para casais e viagens de fim de semana"
+      ],
+      q8_mesh_unit: [
+        "Tecnologia Mesh 3.0 com reconexão automática em grupo",
+        "Até 6 pessoas falando simultaneamente em canal aberto",
+        "Proteção IP67 contra chuva forte e USB-C 5V/1A"
+      ],
+      q8_mesh_par: [
+        "2 unidades Q8 Mesh 3.0 com opção de Controle EUC no guidão",
+        "Comunicação simultânea para até 6 participantes no comboio",
+        "Proteção IP67 indicada para estrada em qualquer clima"
+      ],
+      f6_unit: [
+        "Formato leve e discreto pensado para uso prolongado",
+        "Ideal para árbitros esportivos, instrutores de autoescola e uso urbano",
+        "Carregamento USB-C 5V/1A e proteção contra chuva"
+      ],
+      pack_b2b: [
+        "10x EJEAS V6 Pro+ (R$ 1.790,00) ou 6x Q8 Mesh 3.0 (R$ 3.190,00)",
+        "Condições diretas B2B para Motoclubes, Lojas, Autoescolas e Frotas",
+        "Emissão de Nota Fiscal (NF-e) para CNPJ ou grupos"
+      ]
+    };
+
+    const currencyFormatter = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+
+    function formatBRL(value) {
+      return currencyFormatter.format(value);
+    }
+
+    function calcPix(value) {
+      return Number((value * (1 - CHECKOUT_CONFIG.pixDiscountRate)).toFixed(2));
+    }
+
+    // Mobile Drawer Toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileDrawer = document.getElementById("mobileDrawer");
+
+    if (menuToggle && mobileDrawer) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = mobileDrawer.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      mobileDrawer.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileDrawer.classList.remove("open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    // Card State & Steppers
+    const cardState = {
+      v6_pro_plus_unit: { qty: 1 },
+      v6_pro_plus_par: { qty: 1 },
+      q8_mesh_unit: { qty: 1 },
+      q8_mesh_par: { qty: 1 },
+      f6_unit: { qty: 1 },
+      pack_b2b: { qty: 1, variant: "v6_10x" }
+    };
+
+    function getUnitPrice(skuKey, b2bVariant) {
+      if (skuKey === "pack_b2b" && b2bVariant && B2B_VARIANTS[b2bVariant]) {
+        return B2B_VARIANTS[b2bVariant].price;
+      }
+      return CHECKOUT_CONFIG.skus[skuKey].price;
+    }
+
+    function getDisplayName(skuKey, b2bVariant) {
+      if (skuKey === "pack_b2b" && b2bVariant && B2B_VARIANTS[b2bVariant]) {
+        return B2B_VARIANTS[b2bVariant].label;
+      }
+      return CHECKOUT_CONFIG.skus[skuKey].name;
+    }
+
+    function renderSkuCard(skuKey) {
+      const card = document.querySelector('.sku-card[data-sku="' + skuKey + '"]');
+      if (!card) return;
+      const state = cardState[skuKey];
+      const unitPrice = getUnitPrice(skuKey, state.variant);
+      const totalFull = unitPrice * state.qty;
+      const totalPix = calcPix(totalFull);
+
+      const qtyEl = card.querySelector('[data-role="qty-val"]');
+      const fullEl = card.querySelector('[data-role="full-total"]');
+      const pixEl = card.querySelector('[data-role="pix-total"]');
+
+      if (qtyEl) qtyEl.textContent = String(state.qty);
+      if (fullEl) fullEl.textContent = formatBRL(totalFull);
+      if (pixEl) pixEl.textContent = formatBRL(totalPix);
+    }
+
+    document.querySelectorAll(".sku-card").forEach((card) => {
+      const skuKey = card.getAttribute("data-sku");
+      if (!skuKey || !cardState[skuKey]) return;
+
+      card.querySelectorAll("[data-qty-delta]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const delta = Number(btn.getAttribute("data-qty-delta"));
+          const next = Math.min(50, Math.max(1, cardState[skuKey].qty + delta));
+          cardState[skuKey].qty = next;
+          renderSkuCard(skuKey);
+        });
+      });
+
+      card.querySelectorAll("[data-b2b-opt]").forEach((optBtn) => {
+        optBtn.addEventListener("click", () => {
+          const variant = optBtn.getAttribute("data-b2b-opt");
+          if (!B2B_VARIANTS[variant]) return;
+          cardState[skuKey].variant = variant;
+          card.querySelectorAll("[data-b2b-opt]").forEach((b) => {
+            b.classList.toggle("active", b === optBtn);
+          });
+          renderSkuCard(skuKey);
+        });
+      });
+
+      renderSkuCard(skuKey);
+    });
+
+    // Recommender Logic
+    const recSelection = {
+      uso: "piloto_garupa",
+      prioridade: "custo_beneficio",
+      orcamento: "250_500"
+    };
+
+    function computeRecommendation(sel) {
+      let skuKey = "v6_pro_plus_par";
+      let b2bVariant = "v6_10x";
+      let reason = "";
+      let note = "";
+
+      if (sel.uso === "urbano_solo") {
+        if (sel.orcamento === "ate_250") {
+          skuKey = "v6_pro_plus_unit";
+          reason = "Para uso urbano solo ou entregas com orçamento até R$ 250, o EJEAS V6 Pro+ Unitário entrega GPS, música e chamadas por Bluetooth 5.1 com proteção IP65.";
+          if (sel.prioridade === "mesh") {
+            note = "Observação técnica: a tecnologia Mesh 3.0 começa na linha Q8 (R$ 629,00). Dentro da faixa até R$ 250, o V6 Pro+ é a escolha certa.";
+          }
+        } else if (sel.prioridade === "compacto") {
+          skuKey = "f6_unit";
+          reason = "Se você busca um comunicador compacto, leve e prático para rotina urbana ou instrução em campo, o EJEAS F6 encaixa direto na sua faixa.";
+        } else if (sel.prioridade === "mesh" && sel.orcamento === "acima_500") {
+          skuKey = "q8_mesh_unit";
+          reason = "Com orçamento acima de R$ 500 e foco em conexão Mesh automática, o EJEAS Q8 Mesh 3.0 garante reconexão instantânea e proteção IP67.";
+        } else {
+          skuKey = "v6_pro_plus_unit";
+          reason = "Para piloto solo ou entregas, o EJEAS V6 Pro+ oferece o melhor custo-benefício para ouvir rotas do GPS, atender chamadas e ainda parear com outros pilotos quando precisar.";
+          if (sel.prioridade === "mesh") {
+            note = "Para conversa simultânea Mesh 3.0, o modelo indicado é o EJEAS Q8 Mesh 3.0 Unitário (R$ 629,00 / R$ 597,55 no Pix).";
+          }
+        }
+      } else if (sel.uso === "piloto_garupa") {
+        if (sel.orcamento === "ate_250") {
+          skuKey = "v6_pro_plus_unit";
+          reason = "Na faixa até R$ 250, o EJEAS V6 Pro+ Unitário atende uma unidade completa com Bluetooth 5.1, USB-C e redução de ruído.";
+          note = "Dica de kit: para equipar os 2 capacetes (Piloto + Garupa) juntos, o EJEAS V6 Pro+ Kit Par sai por R$ 449,00 (R$ 426,55 no Pix).";
+        } else if (sel.orcamento === "acima_500" && sel.prioridade !== "custo_beneficio") {
+          skuKey = "q8_mesh_par";
+          reason = "Para casais viajantes e líderes exigentes com orçamento acima de R$ 500, o Kit Par Q8 Mesh 3.0 oferece IP67, conversa simultânea em grupo e opção de controle EUC.";
+        } else {
+          skuKey = "v6_pro_plus_par";
+          reason = "O Kit Par EJEAS V6 Pro+ é o campeão de custo-benefício para Piloto + Garupa: já vem completo para 2 capacetes com comunicação clara e proteção IP65.";
+          if (sel.prioridade === "mesh") {
+            note = "Se você rodar em grupos grandes e quiser Mesh 3.0 no kit duplo, veja também o Q8 Mesh 3.0 Kit Par (R$ 1.199,00).";
+          }
+        }
+      } else if (sel.uso === "grupo") {
+        if (sel.orcamento === "ate_250") {
+          skuKey = "v6_pro_plus_unit";
+          reason = "Dentro do limite de R$ 250, o V6 Pro+ permite parear com até 6 pilotos alternando a conversa 1-a-1 ao alcance de até 1.200m.";
+          note = "Observação: no V6 Pro+ a conversa é 1-a-1 alternada. Para até 6 pessoas falando ao mesmo tempo em Mesh, considere o Q8 Mesh 3.0 (R$ 629,00).";
+        } else if (sel.orcamento === "acima_500" && sel.prioridade !== "compacto") {
+          skuKey = "q8_mesh_unit";
+          reason = "Para grupo e motoclube de 3 a 6 pessoas sem perder sinal, o EJEAS Q8 Mesh 3.0 permite até 6 participantes falando simultaneamente com reconexão automática e IP67.";
+        } else if (sel.prioridade === "compacto" && sel.orcamento === "250_500") {
+          skuKey = "f6_unit";
+          reason = "Se sua prioridade é formato compacto e leve na faixa de R$ 250 a R$ 500, o EJEAS F6 entrega agilidade e conforto no capacete.";
+          if (sel.orcamento === "250_500") {
+            note = "Para conversa simultânea em comboio (até 6 pessoas falando juntas), o degrau Mesh é o Q8 Mesh 3.0 (R$ 629,00).";
+          }
+        } else {
+          skuKey = "v6_pro_plus_par";
+          reason = "Na faixa de R$ 250 a R$ 500, o Kit Par V6 Pro+ equipa duas pessoas do grupo pelo melhor custo-benefício, com pareamento para até 6 unidades em modo alternado.";
+          if (sel.prioridade === "mesh") {
+            note = "A tecnologia Mesh 3.0 simultânea está disponível na linha Q8 Mesh 3.0 (a partir de R$ 629,00 unitário).";
+          }
+        }
+      } else if (sel.uso === "frota_b2b") {
+        if (sel.orcamento === "acima_500" && sel.prioridade !== "compacto") {
+          skuKey = "pack_b2b";
+          b2bVariant = sel.prioridade === "mesh" ? "q8_6x" : "v6_10x";
+          reason = sel.prioridade === "mesh"
+            ? "Para frotas e motoclubes que exigem comunicação Mesh simultânea em grupo, o Pack B2B com 6x Q8 Mesh 3.0 (R$ 3.190,00) inclui condição direta e NF-e para CNPJ."
+            : "Para equipar frotas, motoclubes, autoescolas ou revenda em loja, o Pack B2B com 10x V6 Pro+ (R$ 1.790,00) reduz o custo unitário com emissão de NF-e.";
+        } else if (sel.orcamento === "ate_250") {
+          skuKey = "v6_pro_plus_unit";
+          reason = "Para validar 1 unidade dentro da faixa até R$ 250 antes de fechar lote, o V6 Pro+ Unitário é a porta de entrada mais econômica para frotas.";
+          note = "Para compras a partir de 10 unidades com valor B2B (R$ 1.790,00) e NF-e, confira o Pack B2B no catálogo.";
+        } else {
+          skuKey = "f6_unit";
+          reason = "Indicado especificamente para árbitros esportivos, instrutores de autoescola e operações em equipe, o EJEAS F6 alia leveza, praticidade e clareza na voz.";
+        }
+      }
+
+      return { skuKey, b2bVariant, reason, note };
+    }
+
+    let currentRec = { skuKey: "v6_pro_plus_par", b2bVariant: "v6_10x" };
+
+    function renderRecommender() {
+      const rec = computeRecommendation(recSelection);
+      currentRec = { skuKey: rec.skuKey, b2bVariant: rec.b2bVariant };
+
+      const name = getDisplayName(rec.skuKey, rec.b2bVariant);
+      const price = getUnitPrice(rec.skuKey, rec.b2bVariant);
+      const pix = calcPix(price);
+
+      document.getElementById("recTitle").textContent = name;
+      document.getElementById("recPricePix").textContent = formatBRL(pix) + " no Pix (-5%)";
+      document.getElementById("recPriceFull").textContent = "ou " + formatBRL(price) + " (Cartão até 12x)";
+      document.getElementById("recReason").textContent = rec.reason;
+
+      const noteEl = document.getElementById("recNote");
+      if (rec.note) {
+        noteEl.textContent = rec.note;
+        noteEl.hidden = false;
+      } else {
+        noteEl.hidden = true;
+      }
+
+      const specsList = document.getElementById("recSpecs");
+      specsList.innerHTML = "";
+      (SKU_SPECS[rec.skuKey] || []).forEach((specText) => {
+        const li = document.createElement("li");
+        li.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+        const span = document.createElement("span");
+        span.textContent = specText;
+        li.appendChild(span);
+        specsList.appendChild(li);
+      });
+    }
+
+    document.querySelectorAll(".rec-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const group = btn.getAttribute("data-rec-group");
+        const val = btn.getAttribute("data-rec-val");
+        if (!group || !val) return;
+        recSelection[group] = val;
+
+        document.querySelectorAll('.rec-btn[data-rec-group="' + group + '"]').forEach((sibling) => {
+          sibling.setAttribute("aria-pressed", String(sibling === btn));
+        });
+        renderRecommender();
+      });
+    });
+
+    document.getElementById("recOrderBtn").addEventListener("click", () => {
+      openOrderModal(currentRec.skuKey, 1, currentRec.b2bVariant);
+    });
+
+    renderRecommender();
+
+    // Quick Order Modal & Checkout Logic
+    const orderModal = document.getElementById("orderModal");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const modalSkuName = document.getElementById("modalSkuName");
+    const modalQtyVal = document.getElementById("modalQtyVal");
+    const modalQtyMinus = document.getElementById("modalQtyMinus");
+    const modalQtyPlus = document.getElementById("modalQtyPlus");
+    const modalB2bWrap = document.getElementById("modalB2bWrap");
+    const modalB2bSelect = document.getElementById("modalB2bSelect");
+    const modalTotalLabel = document.getElementById("modalTotalLabel");
+    const modalTotalAmount = document.getElementById("modalTotalAmount");
+    const modalDirectLinks = document.getElementById("modalDirectLinks");
+    const modalStripeBtn = document.getElementById("modalStripeBtn");
+    const modalAffiliateBtn = document.getElementById("modalAffiliateBtn");
+
+    const quickOrderForm = document.getElementById("quickOrderForm");
+    const orderNameInput = document.getElementById("orderName");
+    const orderCityInput = document.getElementById("orderCity");
+    const orderCepInput = document.getElementById("orderCep");
+    const orderHelmetSelect = document.getElementById("orderHelmet");
+    const orderPaymentSelect = document.getElementById("orderPayment");
+    const orderFeedback = document.getElementById("orderFeedback");
+    const copySummaryBtn = document.getElementById("copySummaryBtn");
+    const copySummaryLabel = document.getElementById("copySummaryLabel");
+
+    const modalState = {
+      skuKey: "v6_pro_plus_par",
+      qty: 1,
+      b2bVariant: "v6_10x"
+    };
+
+    function refreshModalTotals() {
+      const skuKey = modalState.skuKey;
+      const b2bVariant = modalState.b2bVariant;
+      const unitPrice = getUnitPrice(skuKey, b2bVariant);
+      const displayName = getDisplayName(skuKey, b2bVariant);
+      const subtotal = unitPrice * modalState.qty;
+      const payment = orderPaymentSelect.value;
+
+      modalSkuName.textContent = displayName;
+      modalQtyVal.textContent = String(modalState.qty);
+
+      if (payment === "Pix (-5%)") {
+        modalTotalLabel.textContent = "Total estimado com 5% off no Pix (de " + formatBRL(subtotal) + ")";
+        modalTotalAmount.textContent = formatBRL(calcPix(subtotal));
+      } else if (payment === "Cotação B2B / CNPJ") {
+        modalTotalLabel.textContent = "Base estimada para cotação B2B / CNPJ (Pix: " + formatBRL(calcPix(subtotal)) + ")";
+        modalTotalAmount.textContent = formatBRL(subtotal);
+      } else {
+        modalTotalLabel.textContent = "Total estimado no Cartão (até 12x)";
+        modalTotalAmount.textContent = formatBRL(subtotal);
+      }
+    }
+
+    function openOrderModal(skuKey, qty, b2bVariant) {
+      const sku = CHECKOUT_CONFIG.skus[skuKey];
+      if (!sku) return;
+
+      modalState.skuKey = skuKey;
+      modalState.qty = Math.max(1, Number(qty) || 1);
+      modalState.b2bVariant = b2bVariant || (cardState.pack_b2b ? cardState.pack_b2b.variant : "v6_10x");
+
+      if (skuKey === "pack_b2b") {
+        modalB2bWrap.hidden = false;
+        modalB2bSelect.value = modalState.b2bVariant;
+        if (orderPaymentSelect.value === "Pix (-5%)" && !orderPaymentSelect.dataset.userChanged) {
+          orderPaymentSelect.value = "Cotação B2B / CNPJ";
+        }
+      } else {
+        modalB2bWrap.hidden = true;
+      }
+
+      const hasStripe = Boolean(sku.stripeUrl && sku.stripeUrl.trim());
+      const hasAffiliate = Boolean(sku.affiliateUrl && sku.affiliateUrl.trim());
+
+      if (hasStripe || hasAffiliate) {
+        modalDirectLinks.hidden = false;
+        modalStripeBtn.hidden = !hasStripe;
+        modalAffiliateBtn.hidden = !hasAffiliate;
+        if (hasStripe) modalStripeBtn.href = sku.stripeUrl.trim();
+        if (hasAffiliate) modalAffiliateBtn.href = sku.affiliateUrl.trim();
+      } else {
+        modalDirectLinks.hidden = true;
+        modalStripeBtn.hidden = true;
+        modalAffiliateBtn.hidden = true;
+      }
+
+      orderFeedback.textContent = "";
+      orderFeedback.classList.remove("ok");
+      orderNameInput.classList.remove("input-error");
+      orderCityInput.classList.remove("input-error");
+
+      refreshModalTotals();
+      orderModal.classList.add("open");
+      orderModal.setAttribute("aria-hidden", "false");
+      orderNameInput.focus();
+    }
+
+    function closeOrderModal() {
+      orderModal.classList.remove("open");
+      orderModal.setAttribute("aria-hidden", "true");
+    }
+
+    document.querySelectorAll("[data-buy-sku]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const skuKey = btn.getAttribute("data-buy-sku");
+        if (!skuKey || !CHECKOUT_CONFIG.skus[skuKey]) return;
+        const st = cardState[skuKey] || { qty: 1 };
+        openOrderModal(skuKey, st.qty, st.variant);
+      });
+    });
+
+    modalCloseBtn.addEventListener("click", closeOrderModal);
+
+    orderModal.addEventListener("click", (event) => {
+      if (event.target === orderModal) {
+        closeOrderModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && orderModal.classList.contains("open")) {
+        closeOrderModal();
+      }
+    });
+
+    modalQtyMinus.addEventListener("click", () => {
+      modalState.qty = Math.max(1, modalState.qty - 1);
+      refreshModalTotals();
+    });
+
+    modalQtyPlus.addEventListener("click", () => {
+      modalState.qty = Math.min(50, modalState.qty + 1);
+      refreshModalTotals();
+    });
+
+    modalB2bSelect.addEventListener("change", () => {
+      modalState.b2bVariant = modalB2bSelect.value;
+      refreshModalTotals();
+    });
+
+    orderPaymentSelect.addEventListener("change", () => {
+      orderPaymentSelect.dataset.userChanged = "1";
+      refreshModalTotals();
+    });
+
+    orderCepInput.addEventListener("input", () => {
+      const digits = orderCepInput.value.replace(/\D/g, "").slice(0, 8);
+      orderCepInput.value = digits.length > 5 ? digits.slice(0, 5) + "-" + digits.slice(5) : digits;
+    });
+
+    function buildOrderSummary() {
+      const skuKey = modalState.skuKey;
+      const unitPrice = getUnitPrice(skuKey, modalState.b2bVariant);
+      const productName = getDisplayName(skuKey, modalState.b2bVariant);
+      const subtotal = unitPrice * modalState.qty;
+      const pixTotal = calcPix(subtotal);
+      const payment = orderPaymentSelect.value;
+      const finalDisplay = payment === "Pix (-5%)"
+        ? formatBRL(pixTotal) + " (com 5% off no Pix)"
+        : formatBRL(subtotal) + " (opção Pix 5% off: " + formatBRL(pixTotal) + ")";
+
+      const name = orderNameInput.value.trim() || "A informar";
+      const city = orderCityInput.value.trim() || "A informar";
+      const cep = orderCepInput.value.trim() || "Não informado";
+      const helmet = orderHelmetSelect.value;
+
+      return [
+        "Olá, equipe " + CHECKOUT_CONFIG.brandName + "! Gostaria de confirmar disponibilidade, frete e finalizar meu pedido:",
+        "",
+        "• Produto: " + productName,
+        "• Quantidade: " + modalState.qty,
+        "• Tipo de Capacete: " + helmet,
+        "• Forma de Pagamento: " + payment,
+        "• Valor Estimado: " + finalDisplay,
+        "• Nome: " + name,
+        "• Cidade/UF: " + city,
+        "• CEP: " + cep,
+        "",
+        "Aguardo confirmação de disponibilidade, cálculo de frete e orientações para pagamento."
+      ].join("\n");
+    }
+
+    function validateOrderFields() {
+      let valid = true;
+      orderNameInput.classList.remove("input-error");
+      orderCityInput.classList.remove("input-error");
+      orderFeedback.classList.remove("ok");
+
+      if (!orderNameInput.value.trim()) {
+        orderNameInput.classList.add("input-error");
+        orderNameInput.focus();
+        orderFeedback.textContent = "Informe seu nome para personalizar o atendimento no WhatsApp.";
+        valid = false;
+      } else if (!orderCityInput.value.trim()) {
+        orderCityInput.classList.add("input-error");
+        orderCityInput.focus();
+        orderFeedback.textContent = "Informe sua Cidade / UF para agilizar a cotação do frete.";
+        valid = false;
+      } else {
+        orderFeedback.textContent = "";
+      }
+
+      return valid;
+    }
+
+    quickOrderForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!validateOrderFields()) return;
+
+      const message = buildOrderSummary();
+      const waUrl = "https://wa.me/" + CHECKOUT_CONFIG.whatsappNumber + "?text=" + encodeURIComponent(message);
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+      orderFeedback.classList.add("ok");
+      orderFeedback.textContent = "Abrindo WhatsApp da MotoLink Pro com o resumo do pedido.";
+    });
+
+    function copyTextFallback(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const copied = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return copied;
+    }
+
+    copySummaryBtn.addEventListener("click", async () => {
+      const summary = buildOrderSummary();
+      let success = false;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(summary);
+          success = true;
+        } catch (err) {
+          success = copyTextFallback(summary);
+        }
+      } else {
+        success = copyTextFallback(summary);
+      }
+
+      if (success) {
+        copySummaryLabel.textContent = "Copiado!";
+        orderFeedback.classList.add("ok");
+        orderFeedback.textContent = "Resumo copiado para a área de transferência.";
+        setTimeout(() => {
+          copySummaryLabel.textContent = "Copiar Resumo do Pedido";
+        }, 2500);
+      } else {
+        orderFeedback.classList.remove("ok");
+        orderFeedback.textContent = "Não foi possível copiar automaticamente. Use o botão Enviar Pedido no WhatsApp.";
+      }
+    });
+  </script>
+</body>
+</html>
