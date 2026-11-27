@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voz IA 24/7 &amp; Locução Express — Recepcionista IA e VSL Ultrarrealista</title>
+  <meta name="description" content="Recepcionista de Voz com IA 24/7, Locução VSL e Dublagem Ultrarrealista com entrega expressa. Infraestrutura LiveKit, Cartesia e Deepgram com checkout seguro via Stripe." />
+  <style>
+    :root {
+      --bg: #07090f;
+      --bg-elevated: #0f1420;
+      --bg-card: #131929;
+      --border: rgba(148, 163, 184, 0.16);
+      --border-accent: rgba(56, 189, 248, 0.45);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --success: #34d399;
+      --radius: 16px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.14), transparent 38%),
+        radial-gradient(circle at 85% 5%, rgba(129, 140, 248, 0.14), transparent 36%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 9, 15, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    .nav-links {
+      display: none;
+      gap: 24px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #040711;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 48px;
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: #bae6fd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .pill-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.2vw, 3.55rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 860px;
+      margin: 0 auto 20px;
+      font-weight: 800;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #e0f2fe 0%, var(--accent) 48%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #050814;
+      box-shadow: 0 10px 28px rgba(56, 189, 248, 0.24);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(56, 189, 248, 0.34);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-accent);
+      background: #182034;
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 18px;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+    }
+
+    .trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 20, 32, 0.85);
+      border: 1px solid var(--border);
+    }
+
+    .trust-item strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Sections */
+    section {
+      padding: 56px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 38px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.55rem, 3.6vw, 2.35rem);
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Pricing Grid */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-featured {
+      border-color: var(--border-accent);
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, var(--bg-card) 42%);
+    }
+
+    .badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+      background: rgba(56, 189, 248, 0.14);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .badge-featured {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #050814;
+      border: none;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+    }
+
+    .price-box {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(7, 9, 15, 0.55);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .price-main {
+      font-size: 1.95rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .price-sub {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-grow: 1;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .features li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .check {
+      color: var(--success);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .cta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cta-stack .btn {
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 0.92rem;
+    }
+
+    /* Use Cases */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .mini-card h3 {
+      font-size: 1.06rem;
+      margin-bottom: 8px;
+    }
+
+    .mini-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* B2B Contact Box */
+    .b2b-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(129, 140, 248, 0.1));
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .b2b-box h2 {
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
+      margin-bottom: 10px;
+    }
+
+    .b2b-box p {
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 22px;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.96rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 42px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+      .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .hero {
+        padding: 84px 0 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Voz IA 24/7 Studio</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#planos">Planos</a>
+        <a href="#casos">Aplicações</a>
+        <a href="#b2b">Implantação B2B</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#planos" class="nav-cta">Começar Agora</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="pill">
+          <span class="pill-live" aria-hidden="true"></span>
+          <span>Infraestrutura Ativa • Entrega Expressa em PT-BR, EN &amp; ES</span>
+        </div>
+        <h1>
+          Sua <span class="gradient-text">Recepcionista de Voz IA 24/7</span> e Locuções VSL Ultrarrealistas no Ar em Horas
+        </h1>
+        <p class="hero-sub">
+          Pare de perder clientes fora do horário comercial e acelere suas vendas com voz humana em tempo real.
+          Tecnologia LiveKit + Cartesia + Deepgram com checkout instantâneo via Stripe (Pix, Cartão e USD).
+        </p>
+        <div class="hero-actions">
+          <a href="#planos" class="btn btn-primary">Ver Planos e Ativar Hoje</a>
+          <a href="#b2b" class="btn btn-secondary">Orçamento Dedicado B2B</a>
+        </div>
+        <div class="trust-strip" aria-label="Diferenciais técnicos">
+          <span class="trust-item"><strong>Latência ultrabaixa</strong> WebRTC &amp; SIP</span>
+          <span class="trust-item"><strong>Voz natural</strong> PT-BR, Inglês &amp; Espanhol</span>
+          <span class="trust-item"><strong>Pagamento seguro</strong> Stripe Pix / Cartão / USD</span>
+          <span class="trust-item"><strong>Sem contrato</strong> de fidelidade</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos">
+      <div class="container">
+        <div class="section-head">
+          <h2>Escolha o Plano Ideal para Começar Hoje</h2>
+          <p>Pagamento único seguro via Stripe. Assim que confirmado, nossa equipe inicia imediatamente a entrega.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Tier 1 -->
+          <article class="card">
+            <span class="badge">Entrega Expressa</span>
+            <h3>Locução / VSL / Protótipo Voz IA Express</h3>
+            <p class="card-desc">
+              Ideal para testar voz ultrarrealista na sua VSL, anúncio, dublagem curta ou receber um diagnóstico em áudio + kit rápido de conversão.
+            </p>
+            <div class="price-box">
+              <div class="price-main">R$ 47,00</div>
+              <div class="price-sub">Pix ou Cartão • Global: US$ 9.90</div>
+            </div>
+            <ul class="features">
+              <li><span class="check" aria-hidden="true">✓</span><span>Locução / VSL / Dublagem IA ultrarrealista ou protótipo de voz personalizado</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Áudio masterizado pronto para publicação (MP3/WAV)</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Suporte a Português (BR), Inglês ou Espanhol</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Entrega expressa no mesmo dia (até 2h úteis)</span></li>
+            </ul>
+            <div class="cta-stack">
+              <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                Pagar R$ 47,00 (Pix / Cartão)
+              </a>
+              <a href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                Pay US$ 9.90 (Global Card)
+              </a>
+            </div>
+          </article>
+
+          <!-- Tier 2 -->
+          <article class="card card-featured">
+            <span class="badge badge-featured">Mais Popular • 48h</span>
+            <h3>Recepcionista IA por Voz 24h + Otimização de Conversão 48h</h3>
+            <p class="card-desc">
+              Atendimento inteligente por voz 24/7 integrado à otimização completa da sua página para transformar visitantes em agendamentos.
+            </p>
+            <div class="price-box">
+              <div class="price-main">R$ 147,00</div>
+              <div class="price-sub">Pix ou Cartão • Global: US$ 29.00</div>
+            </div>
+            <ul class="features">
+              <li><span class="check" aria-hidden="true">✓</span><span>Protótipo funcional de Recepcionista de Voz IA 24/7 testável em 1 clique no navegador</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Roteiro de triagem e qualificação treinado com seus serviços e horários</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Otimização completa de HTML, Copy e CTAs de WhatsApp/Agendamento em 48h</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Multilíngue (PT-BR, EN, ES) com transcrição precisa em tempo real</span></li>
+            </ul>
+            <div class="cta-stack">
+              <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                Pagar R$ 147,00 (Pix / Cartão)
+              </a>
+              <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                Pay US$ 29.00 (Global Card)
+              </a>
+            </div>
+          </article>
+
+          <!-- Tier 3 -->
+          <article class="card">
+            <span class="badge">Sob Medida B2B</span>
+            <h3>Implantação Dedicada B2B (WhatsApp / Telefone)</h3>
+            <p class="card-desc">
+              Operação completa em produção para clínicas, hotéis, escritórios e equipes comerciais com integração de CRM, agenda e telefonia SIP.
+            </p>
+            <div class="price-box">
+              <div class="price-main">Sob Consulta</div>
+              <div class="price-sub">Projeto dedicado • Deploy em 24h–48h</div>
+            </div>
+            <ul class="features">
+              <li><span class="check" aria-hidden="true">✓</span><span>Recepcionista IA 24/7 em produção no site, WhatsApp e/ou ramal telefônico (SIP)</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Resumo estruturado de cada lead enviado automaticamente para seu CRM/Agenda</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Fluxos em conformidade com LGPD e regras específicas do seu segmento</span></li>
+              <li><span class="check" aria-hidden="true">✓</span><span>Suporte prioritário e ajuste fino de voz e script</span></li>
+            </ul>
+            <div class="cta-stack">
+              <a href="#b2b" class="btn btn-primary">
+                Solicitar Orçamento B2B
+              </a>
+              <a href="mailto:contato@vozia24h.com?subject=Or%C3%A7amento%20Implanta%C3%A7%C3%A3o%20Dedicada%20B2B%20-%20Voz%20IA%2024h&amp;body=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento%20para%20implanta%C3%A7%C3%A3o%20dedicada%20B2B%20(WhatsApp%2FTelefone).%0A%0AEmpresa%3A%20%0ASite%3A%20%0ACanal%20desejado%20(Site%2FWhatsApp%2FTelefone)%3A%20%0AVolume%20estimado%20de%20atendimentos%2Fm%C3%AAs%3A%20" class="btn btn-secondary">
+                Enviar Brief por E-mail
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="casos">
+      <div class="container">
+        <div class="section-head">
+          <h2>Onde a Voz IA 24/7 Gera Retorno Imediato</h2>
+          <p>Projetado para negócios que dependem de resposta rápida e alta taxa de conversão.</p>
+        </div>
+        <div class="grid-3">
+          <div class="mini-card">
+            <h3>Clínicas &amp; Consultórios</h3>
+            <p>Atende pacientes à noite, no almoço e aos fins de semana, responde dúvidas de procedimentos e coleta dados prontos para agendamento.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Hotéis, Pousadas &amp; Turismo</h3>
+            <p>Concierge de voz multilíngue (PT/EN/ES) que tira dúvidas de diárias e check-in e direciona o hóspede para reserva direta sem comissão.</p>
+          </div>
+          <div class="mini-card">
+            <h3>VSLs, Infoprodutos &amp; Escritórios</h3>
+            <p>Locuções e dublagens com entonação humana para vídeos de vendas ou triagem administrativa 24/7 para qualificar leads de alto valor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="b2b">
+      <div class="container">
+        <div class="b2b-box">
+          <h2>Precisa de Implantação Dedicada B2B (WhatsApp / Telefone)?</h2>
+          <p>
+            Envie o nome da sua empresa, seu site e o canal desejado (Site WebRTC, WhatsApp ou Telefone SIP).
+            Retornamos no mesmo dia com escopo fechado e cronograma de ativação em 24h a 48h.
+          </p>
+          <div class="hero-actions" style="margin-bottom: 0;">
+            <a href="mailto:contato@vozia24h.com?subject=Or%C3%A7amento%20Implanta%C3%A7%C3%A3o%20B2B%20-%20Voz%20IA%2024%2F7&amp;body=Ol%C3%A1!%20Gostaria%20de%20or%C3%A7ar%20a%20Implanta%C3%A7%C3%A3o%20Dedicada%20B2B.%0A%0AEmpresa%3A%20%0ASite%3A%20%0AWhatsApp%20para%20retorno%3A%20%0AObjetivo%3A%20" class="btn btn-primary">
+              Falar com Especialista B2B
+            </a>
+            <button type="button" id="copyBriefBtn" class="btn btn-secondary">
+              Copiar Modelo de Briefing
+            </button>
+          </div>
+          <p id="copyFeedback" style="margin-top: 12px; font-size: 0.85rem; color: var(--success); min-height: 20px;" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>Perguntas Frequentes</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Como recebo o serviço após o pagamento na Stripe?</summary>
+            <p>Assim que o pagamento via Pix ou Cartão é confirmado pela Stripe, entramos em contato pelo e-mail/telefone cadastrado no checkout para coletar seu roteiro ou URL do site e iniciar a entrega imediatamente.</p>
+          </details>
+          <details>
+            <summary>A voz realmente parece humana em Português do Brasil?</summary>
+            <p>Sim. Utilizamos motores de síntese neural de última geração com entonação natural, pausas realistas e suporte nativo para PT-BR, Inglês e Espanhol.</p>
+          </details>
+          <details>
+            <summary>Preciso instalar algum servidor complexo para testar a Recepcionista IA?</summary>
+            <p>Não. No plano de R$ 147 (US$ 29), entregamos um link direto testável em 1 clique no navegador, já treinado com as informações do seu negócio.</p>
+          </details>
+          <details>
+            <summary>Posso pagar em Dólar (USD) se minha empresa estiver fora do Brasil?</summary>
+            <p>Sim! Todos os planos possuem checkout oficial Stripe em BRL (Pix/Cartão) e em USD (Cartão Internacional).</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Voz IA 24/7 Studio • Pagamentos processados com segurança via Stripe • Conformidade LGPD</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("copyBriefBtn");
+      var feedback = document.getElementById("copyFeedback");
+      if (!btn || !feedback) return;
+      var template = "Olá! Quero orçamento para Implantação Dedicada B2B (Voz IA 24/7).\nEmpresa: \nSite: \nCanal (Site / WhatsApp / Telefone): \nVolume mensal estimado: ";
+      btn.addEventListener("click", function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(template).then(function () {
+            feedback.textContent = "Modelo de briefing copiado! Cole no seu e-mail ou WhatsApp.";
+          }).catch(function () {
+            feedback.textContent = "Use o botão 'Falar com Especialista B2B' para enviar direto por e-mail.";
+          });
+        } else {
+          feedback.textContent = "Use o botão 'Falar com Especialista B2B' para enviar direto por e-mail.";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

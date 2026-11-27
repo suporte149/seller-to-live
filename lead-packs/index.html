@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lead Packs B2B Auditados — PMEs com Defeitos HTML/SEO Ao Vivo</title>
+  <meta name="description" content="Base B2B auditada ao vivo para agências web, gestores de tráfego e especialistas em SEO. 619 PMEs com defeitos técnicos comprovados no HTML e canais de contato validados." />
+  <style>
+    :root {
+      --bg: #070b14;
+      --surface: #0f172a;
+      --surface-2: #162033;
+      --border: rgba(148, 163, 184, 0.16);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --cyan: #38bdf8;
+      --amber: #f59e0b;
+      --danger: #f43f5e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top center, #111c33 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(7, 11, 20, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #03150e;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 9px 18px;
+      border-radius: 8px;
+      transition: background 0.15s ease;
+    }
+    .nav-cta:hover { background: var(--accent-hover); color: #fff; }
+
+    .hero {
+      padding: 72px 0 48px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 3.35rem);
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 880px;
+      margin: 0 auto 20px;
+    }
+    h1 span {
+      background: linear-gradient(90deg, #34d399, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto 34px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #03150e;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: transform 0.15s ease, background 0.15s ease;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.25);
+    }
+    .btn-primary:hover { background: var(--accent-hover); color: #fff; transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .btn-secondary:hover { border-color: rgba(148, 163, 184, 0.4); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+      margin: 44px 0 64px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    section { padding: 48px 0; }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .section-sub {
+      color: var(--muted);
+      margin-bottom: 28px;
+      max-width: 720px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+      font-size: 0.9rem;
+    }
+    thead th {
+      text-align: left;
+      padding: 14px 16px;
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+    .domain {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--cyan);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
+    .tag-urgent {
+      background: rgba(244, 63, 94, 0.14);
+      color: #fda4af;
+    }
+    .tag-channel {
+      background: rgba(16, 185, 129, 0.14);
+      color: #6ee7b7;
+    }
+    .defect-text {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 22px;
+      margin-top: 24px;
+    }
+    .price-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: rgba(16, 185, 129, 0.65);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, var(--surface) 45%);
+      box-shadow: 0 18px 45px rgba(16, 185, 129, 0.12);
+    }
+    .popular-pill {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: var(--accent);
+      color: #03150e;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .price-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .price-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .price-amount {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .price-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .features {
+      list-style: none;
+      margin-bottom: 26px;
+      flex: 1;
+    }
+    .features li {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      padding: 6px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+    .features li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .buy-btn {
+      display: block;
+      text-align: center;
+      padding: 13px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: var(--surface-2);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: var(--text);
+      transition: all 0.15s ease;
+    }
+    .buy-btn:hover {
+      border-color: var(--accent);
+      background: rgba(16, 185, 129, 0.12);
+    }
+    .price-card.featured .buy-btn {
+      background: var(--accent);
+      color: #03150e;
+      border-color: transparent;
+    }
+    .price-card.featured .buy-btn:hover {
+      background: var(--accent-hover);
+      color: #fff;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .benefit {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .benefit h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .benefit p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 48px;
+      margin-top: 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        B2B Audited Lead Packs
+      </div>
+      <a href="#ofertas" class="nav-cta">Ver Packs &amp; Preços</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="badge">● Auditoria HTML/SEO Ao Vivo • Dados Reais Verificados</div>
+      <h1>Prospecte PMEs que <span>precisam do seu serviço hoje</span> — com prova técnica pronta</h1>
+      <p>
+        Feito para agências web, gestores de tráfego e especialistas em SEO. Em vez de listas frias genéricas, receba CSVs limpos com empresas reais, defeitos técnicos comprovados no HTML ao vivo e canais de contato públicos validados (Email MX + WhatsApp).
+      </p>
+      <div class="hero-actions">
+        <a href="#ofertas" class="btn-primary">Garantir Pack Auditado</a>
+        <a href="#amostra" class="btn-secondary">Ver 10 Amostras Reais</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-val">619</div>
+          <div class="stat-label">PMEs B2B Auditadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">311</div>
+          <div class="stat-label">Empresas no Brasil</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">12 Países</div>
+          <div class="stat-label">BR, Latam, Ibéria &amp; Global EN</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">100%</div>
+          <div class="stat-label">Com Defeito HTML + Canal Ativo</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="amostra">
+      <h2 class="section-title">Amostra Real da Base Auditada (10 Preview Rows)</h2>
+      <p class="section-sub">
+        Cada linha do CSV entregue traz domínio, empresa, cidade/país, segmento, nota técnica, lista exata de defeitos detectados no HTML ao vivo e canal público validado para abordagem consultiva imediata.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Domínio</th>
+              <th>Cidade / UF</th>
+              <th>Segmento</th>
+              <th>Score</th>
+              <th>Defeito HTML/SEO Detectado Ao Vivo</th>
+              <th>Canal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="domain">dbsupermercados.com.br</td>
+              <td>Manaus/AM</td>
+              <td><span class="tag">Varejo / Comércio</span></td>
+              <td><span class="tag tag-urgent">0/100</span></td>
+              <td class="defect-text">Página inicial sem tag H1 (0 títulos principais no HTML), enfraquecendo o ranqueamento local no Google.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">sorsconsultoria.com.br</td>
+              <td>São Paulo/SP</td>
+              <td><span class="tag">Consultoria B2B</span></td>
+              <td><span class="tag tag-urgent">0/100</span></td>
+              <td class="defect-text">Home sem tag H1 no HTML, comprometendo indexação orgânica e leitura de proposta de valor.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">bovearquitetura.com.br</td>
+              <td>São Paulo/SP</td>
+              <td><span class="tag">Arquitetura</span></td>
+              <td><span class="tag tag-urgent">0/100</span></td>
+              <td class="defect-text">Ausência completa de tag H1 na página inicial + falta de estrutura de conversão direta.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">w3solarenergia.com.br</td>
+              <td>Avaré/SP</td>
+              <td><span class="tag">Energia Solar</span></td>
+              <td><span class="tag tag-urgent">0/100</span></td>
+              <td class="defect-text">Home sem tag H1 configurada, desperdiçando tráfego de alta intenção em buscas locais de energia solar.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">beirariohotel.com.br</td>
+              <td>Belém/PA</td>
+              <td><span class="tag">Hotelaria / Turismo</span></td>
+              <td><span class="tag tag-urgent">15/100</span></td>
+              <td class="defect-text">Sem tag H1 na página inicial e lacunas de SEO técnico que reduzem reservas diretas orgânicas.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">casiarquitetura.com.br</td>
+              <td>Manaus/AM</td>
+              <td><span class="tag">Arquitetura / Eng.</span></td>
+              <td><span class="tag tag-urgent">15/100</span></td>
+              <td class="defect-text">Página inicial sem tag H1 principal no HTML, reduzindo autoridade local na busca orgânica.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">nbntelecom.com.br</td>
+              <td>Manaus/AM</td>
+              <td><span class="tag">Tecnologia B2B</span></td>
+              <td><span class="tag tag-urgent">15/100</span></td>
+              <td class="defect-text">Ausência de imagem Open Graph (og:image) — links compartilhados no WhatsApp/LinkedIn ficam sem card visual.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">hospitalsanter.com.br</td>
+              <td>Belém/PA</td>
+              <td><span class="tag">Saúde / Clínica</span></td>
+              <td><span class="tag tag-urgent">15/100</span></td>
+              <td class="defect-text">Home sem meta description configurada — o Google recorta trechos aleatórios na busca em vez de chamada clara.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">fialhoadvogados.com.br</td>
+              <td>Curitiba/PR</td>
+              <td><span class="tag">Advocacia</span></td>
+              <td><span class="tag tag-urgent">15/100</span></td>
+              <td class="defect-text">2 tags H1 concorrentes na mesma home (dilui relevância no Google e confunde a proposta principal).</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+            <tr>
+              <td class="domain">summitschool.com.br</td>
+              <td>São Paulo/SP</td>
+              <td><span class="tag">Educação e Idiomas</span></td>
+              <td><span class="tag tag-urgent">15/100</span></td>
+              <td class="defect-text">Sem formulário de captação/orçamento direto na home — perda de leads fora do horário comercial.</td>
+              <td><span class="tag tag-channel">Email + WA</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Por que agências convertem 3x mais com leads auditados?</h2>
+      <div class="benefits-grid">
+        <div class="benefit">
+          <h3>Abordagem com Prova Imediata</h3>
+          <p>Em vez de "posso refazer seu site?", você abre a conversa mostrando um defeito real que está custando cliques e orçamentos hoje.</p>
+        </div>
+        <div class="benefit">
+          <h3>Canais Públicos Validados</h3>
+          <p>E-mails com checagem de MX e números públicos de WhatsApp prontos para importar no seu CRM, planilha ou cadência outbound.</p>
+        </div>
+        <div class="benefit">
+          <h3>CSV Limpo e Pronto para Uso</h3>
+          <p>Formato UTF-8-SIG compatível com Excel, Google Sheets, Pipedrive, HubSpot e ferramentas de prospecção sem duplicatas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ofertas">
+      <h2 class="section-title">Escolha o seu Pack B2B Auditado</h2>
+      <p class="section-sub">Pagamento seguro via Stripe (Pix ou Cartão). Acesso ao arquivo CSV completo com todas as colunas de auditoria e contato.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-title">Pack 50 Leads Auditados</div>
+          <div class="price-desc">Ideal para validar sua oferta de SEO, landing page ou gestão de tráfego no Brasil.</div>
+          <div class="price-amount">R$ 47,00</div>
+          <div class="price-note">Pagamento único • Pix ou Cartão</div>
+          <ul class="features">
+            <li>50 PMEs brasileiras auditadas ao vivo</li>
+            <li>Score crítico (0 a 15) com defeitos HTML claros</li>
+            <li>Email público validado + WhatsApp público</li>
+            <li>CSV UTF-8 pronto para Excel &amp; CRM</li>
+          </ul>
+          <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="buy-btn">
+            Comprar Pack 50 Leads (R$ 47)
+          </a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="popular-pill">Melhor Custo-Benefício</div>
+          <div class="price-title">Pack Completo B2B Auditado</div>
+          <div class="price-desc">Base integral com 619 PMEs auditadas no Brasil, América Latina, Ibéria e mercados em Inglês.</div>
+          <div class="price-amount">R$ 147,00</div>
+          <div class="price-note">Pagamento único • Pix ou Cartão (R$ 0,24/lead)</div>
+          <ul class="features">
+            <li>619 PMEs únicas deduplicadas por domínio</li>
+            <li>311 Brasil + 308 Internacionais (12 países)</li>
+            <li>Defeitos HTML/SEO/CRO detalhados por site</li>
+            <li>Email MX validado + WhatsApp público</li>
+            <li>CSV completo UTF-8 pronto para escala</li>
+          </ul>
+          <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="buy-btn">
+            Comprar Pack Completo (R$ 147)
+          </a>
+        </div>
+
+        <div class="price-card">
+          <div class="price-title">Global B2B Audited Pack</div>
+          <div class="price-desc">Built for international agencies targeting SMBs in US, UK, Ireland, Australia, Spain, Portugal &amp; Latam.</div>
+          <div class="price-amount">US$ 29.00</div>
+          <div class="price-note">One-time payment • Credit Card via Stripe</div>
+          <ul class="features">
+            <li>Full 619 audited SMBs dataset (EN / ES / PT)</li>
+            <li>Live HTML, H1, meta &amp; conversion defects</li>
+            <li>Verified public business emails &amp; WhatsApp</li>
+            <li>Clean UTF-8 CSV ready for Apollo / HubSpot</li>
+          </ul>
+          <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer" class="buy-btn">
+            Buy Global Pack (US$ 29)
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>B2B Audited Lead Packs • Dados públicos coletados via auditoria técnica de páginas web corporativas. Pagamentos processados com segurança via Stripe.</p>
+    </div>
+  </footer>
+</body>
+</html>
