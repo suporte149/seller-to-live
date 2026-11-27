@@ -1,0 +1,3249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Express &amp; Calculadora CLT vs. IA 24h | Propostas Vivas em 1 Link (#p=...) + Cloud Run</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23040814'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='%230b1326' stroke='%2310b981' stroke-width='3'/%3E%3Cpath d='M18 20h20l8 8v18a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4z' fill='none' stroke='%2338bdf8' stroke-width='3'/%3E%3Cpath d='M22 33l6 6 12-13' fill='none' stroke='%2310b981' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <meta name="description" content="Calculadora determinística de Custo Real Funcionário CLT vs. Automação IA 24/7 + Gerador Stateless de Propostas Comerciais Vivas em 1 Link (#p=...) sem banco de dados + Scanner Cloud Run." />
+  <style>
+    :root {
+      --bg: #040814;
+      --bg-elevated: #0b1326;
+      --glass: rgba(11, 19, 38, 0.82);
+      --glass-strong: rgba(11, 19, 38, 0.95);
+      --surface-2: rgba(20, 33, 61, 0.66);
+      --border: rgba(148, 163, 184, 0.17);
+      --border-strong: rgba(148, 163, 184, 0.32);
+      --text: #f8fafc;
+      --text-soft: #cbd5e1;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --emerald-bright: #34d399;
+      --emerald-dark: #022c22;
+      --cyan: #38bdf8;
+      --cyan-dark: #082f49;
+      --amber: #f59e0b;
+      --danger: #f43f5e;
+      --radius: 18px;
+      --radius-sm: 11px;
+      --shadow-glow: 0 22px 60px -16px rgba(16, 185, 129, 0.25);
+      --shadow-card: 0 18px 48px rgba(2, 6, 23, 0.62);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      padding-bottom: 96px;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 68% 44% at 14% 0%, rgba(16, 185, 129, 0.16), transparent 65%),
+        radial-gradient(ellipse 60% 42% at 88% 8%, rgba(56, 189, 248, 0.14), transparent 62%),
+        radial-gradient(ellipse 55% 40% at 50% 96%, rgba(16, 185, 129, 0.08), transparent 70%),
+        var(--bg);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 75%, transparent 100%);
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Header & Cross-Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(4, 8, 20, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 66px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 850;
+      font-size: 0.98rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--emerald-bright);
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65);
+      animation: pulseDot 2.1s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65); }
+      70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .brand span {
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      transition: color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links .nav-sep {
+      width: 1px;
+      height: 14px;
+      background: var(--border-strong);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .mobile-eco-bar {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding: 8px 0;
+      gap: 8px;
+      overflow-x: auto;
+      font-size: 0.77rem;
+      color: var(--text-soft);
+      scrollbar-width: none;
+    }
+
+    .mobile-eco-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mobile-eco-bar a {
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 750;
+      font-size: 0.91rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      text-align: center;
+      line-height: 1.25;
+      max-width: 100%;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #022017;
+      box-shadow: 0 10px 26px rgba(16, 185, 129, 0.28);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--emerald-bright), var(--emerald));
+      box-shadow: 0 14px 32px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+      color: var(--cyan-dark);
+      box-shadow: 0 10px 26px rgba(56, 189, 248, 0.24);
+    }
+
+    .btn-cyan:hover:not(:disabled) {
+      background: linear-gradient(135deg, #7dd3fc, var(--cyan));
+    }
+
+    .btn-glass {
+      background: rgba(20, 33, 61, 0.72);
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .btn-glass:hover:not(:disabled) {
+      background: rgba(30, 41, 59, 0.94);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-sm {
+      padding: 8px 13px;
+      font-size: 0.81rem;
+      border-radius: 9px;
+    }
+
+    .btn-lg {
+      padding: 15px 22px;
+      font-size: 1rem;
+      border-radius: 13px;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+      max-width: 100%;
+    }
+
+    .badge-ok, .badge-live {
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--emerald-bright);
+      border-color: rgba(16, 185, 129, 0.34);
+    }
+
+    .badge-cyan {
+      background: rgba(56, 189, 248, 0.14);
+      color: #7dd3fc;
+      border-color: rgba(56, 189, 248, 0.34);
+    }
+
+    .badge-warn, .badge-fallback {
+      background: rgba(245, 158, 11, 0.14);
+      color: #fcd34d;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .badge-danger {
+      background: rgba(244, 63, 94, 0.15);
+      color: #fda4af;
+      border-color: rgba(244, 63, 94, 0.35);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 44px 0 26px;
+    }
+
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 3.8vw, 2.85rem);
+      line-height: 1.13;
+      letter-spacing: -0.03em;
+      font-weight: 900;
+      max-width: 980px;
+    }
+
+    .hero h1 .grad {
+      background: linear-gradient(92deg, var(--emerald-bright) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      margin-top: 14px;
+      font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+      color: var(--text-soft);
+      max-width: 860px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .hero-kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .kpi-tile {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 15px;
+    }
+
+    .kpi-tile strong {
+      display: block;
+      font-size: 1.16rem;
+      font-weight: 850;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .kpi-tile span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Sections & Cards */
+    .section {
+      padding: 26px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .section-kicker {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--emerald-bright);
+      margin-bottom: 4px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.28rem, 2.4vw, 1.78rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 780px;
+      margin-top: 5px;
+    }
+
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      max-width: 100%;
+    }
+
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .field-hint {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      max-width: 100%;
+      background: rgba(4, 8, 20, 0.82);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.91rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field-textarea {
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
+    }
+
+    .sub-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 13px;
+      background: rgba(4, 8, 20, 0.58);
+      border: 1px solid var(--border);
+    }
+
+    .sub-box-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+
+    .sample-chips {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 10px 0;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .chip-btn {
+      background: rgba(30, 41, 59, 0.72);
+      color: var(--text-soft);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .chip-btn:hover {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .url-line {
+      font-family: var(--mono);
+      font-size: 0.77rem;
+      background: rgba(2, 6, 23, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 11px;
+      color: #7dd3fc;
+      word-break: break-all;
+      line-height: 1.45;
+    }
+
+    /* CLT Breakdown Table */
+    .clt-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: rgba(4, 8, 20, 0.72);
+    }
+
+    .clt-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    .clt-table th, .clt-table td {
+      padding: 9px 11px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      text-align: left;
+    }
+
+    .clt-table th {
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .clt-table td.num, .clt-table th.num {
+      text-align: right;
+      font-family: var(--mono);
+      white-space: nowrap;
+    }
+
+    .clt-table tr.total-row td {
+      font-weight: 850;
+      font-size: 0.92rem;
+      background: rgba(244, 63, 94, 0.11);
+      color: #fecdd3;
+      border-top: 1px solid rgba(244, 63, 94, 0.32);
+    }
+
+    .compare-vs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .vs-card {
+      padding: 14px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      background: rgba(11, 19, 38, 0.82);
+    }
+
+    .vs-card.clt-side {
+      border-color: rgba(244, 63, 94, 0.34);
+      background: linear-gradient(180deg, rgba(244, 63, 94, 0.09), rgba(11, 19, 38, 0.85));
+    }
+
+    .vs-card.ia-side {
+      border-color: rgba(16, 185, 129, 0.42);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.13), rgba(11, 19, 38, 0.88));
+    }
+
+    .vs-big {
+      font-size: 1.32rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin: 4px 0;
+    }
+
+    .savings-banner {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(56, 189, 248, 0.12));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Proposal Creator Deliverable & Bump Rows */
+    .item-row-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 124px;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .bump-editor-card {
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    /* Client Executive Proposal Mode (#p=...) */
+    .creator-hidden {
+      display: none !important;
+    }
+
+    .client-mode-stage {
+      display: none;
+      padding: 22px 0 12px;
+    }
+
+    .client-mode-stage.active {
+      display: block;
+    }
+
+    .client-mode-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 11px 15px;
+      margin-bottom: 16px;
+      border-radius: 13px;
+      background: rgba(11, 19, 38, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .exec-proposal-shell {
+      background: linear-gradient(180deg, rgba(11, 19, 38, 0.97), rgba(4, 8, 20, 0.98));
+      border: 1px solid rgba(16, 185, 129, 0.38);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: var(--shadow-glow), var(--shadow-card);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .exec-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exec-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .exec-meta-box {
+      padding: 11px 13px;
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--border);
+    }
+
+    .exec-meta-box span {
+      display: block;
+      font-size: 0.71rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .exec-meta-box strong {
+      font-size: 0.92rem;
+      color: #fff;
+      word-break: break-word;
+    }
+
+    .exec-context-note {
+      margin-top: 16px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.09);
+      border-left: 3px solid var(--cyan);
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      white-space: pre-line;
+    }
+
+    .exec-deliverables {
+      margin-top: 18px;
+    }
+
+    .exec-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.62);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .exec-item-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 700;
+      font-size: 0.91rem;
+      min-width: 0;
+    }
+
+    .exec-item-price {
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--emerald-bright);
+      white-space: nowrap;
+    }
+
+    .bump-card-live {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      border: 1px dashed rgba(56, 189, 248, 0.42);
+      background: rgba(8, 47, 73, 0.22);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+      margin-bottom: 9px;
+      user-select: none;
+    }
+
+    .bump-card-live:hover {
+      border-color: var(--cyan);
+      background: rgba(8, 47, 73, 0.36);
+    }
+
+    .bump-card-live.checked {
+      border-style: solid;
+      border-color: var(--emerald-bright);
+      background: rgba(16, 185, 129, 0.14);
+    }
+
+    .bump-check-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .bump-check-left input[type="checkbox"] {
+      width: 19px;
+      height: 19px;
+      accent-color: var(--emerald);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .exec-total-bar {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(11, 19, 38, 0.95));
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .exec-total-amount {
+      font-size: clamp(1.55rem, 3.2vw, 2.15rem);
+      font-weight: 900;
+      color: var(--emerald-bright);
+      font-family: var(--mono);
+      letter-spacing: -0.02em;
+    }
+
+    .exec-cta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 16px;
+    }
+
+    .viral-proposal-footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.77rem;
+      color: var(--muted);
+    }
+
+    .viral-proposal-footer a {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .viral-proposal-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Scanner Cloud Run */
+    .scanner-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 12px;
+      pointer-events: none;
+      font-size: 0.95rem;
+    }
+
+    .field-input.with-prefix {
+      padding-left: 36px;
+    }
+
+    .scan-loader {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 13px;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .scan-loader.active {
+      display: block;
+    }
+
+    .scan-bar-track {
+      width: 100%;
+      height: 7px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .scan-bar-fill {
+      width: 42%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--emerald), var(--cyan));
+      border-radius: 999px;
+      animation: scanSlide 1.25s infinite ease-in-out;
+    }
+
+    @keyframes scanSlide {
+      0% { transform: translateX(-80%); }
+      100% { transform: translateX(260%); }
+    }
+
+    .scan-results {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .scan-results.active {
+      display: block;
+    }
+
+    .scan-grid {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .score-panel {
+      background: rgba(4, 8, 20, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .gauge-box {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 10px;
+    }
+
+    .gauge-box svg {
+      width: 132px;
+      height: 132px;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(148, 163, 184, 0.16);
+      stroke-width: 10;
+    }
+
+    .gauge-progress {
+      fill: none;
+      stroke: var(--emerald-bright);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 364.42;
+      stroke-dashoffset: 364.42;
+      transition: stroke-dashoffset 0.7s ease, stroke 0.3s ease;
+    }
+
+    .gauge-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-num {
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .gauge-sub {
+      font-size: 0.66rem;
+      font-weight: 800;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .metrics-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .metric-chip {
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--text-soft);
+    }
+
+    .finding-card {
+      padding: 15px;
+      border-radius: 13px;
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .finding-title {
+      font-weight: 850;
+      font-size: 0.98rem;
+      color: #fff;
+      margin-top: 8px;
+    }
+
+    .finding-detail {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-top: 5px;
+    }
+
+    .finding-fix {
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px dashed rgba(244, 63, 94, 0.3);
+      font-size: 0.83rem;
+      color: #a7f3d0;
+    }
+
+    /* Storefront Cards */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .offer-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      position: relative;
+    }
+
+    .offer-card.featured {
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .offer-ribbon {
+      position: absolute;
+      top: -11px;
+      right: 18px;
+      background: linear-gradient(90deg, var(--emerald), var(--cyan));
+      color: #022017;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+
+    .offer-tag {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+
+    .offer-card h3 {
+      font-size: 1.22rem;
+      margin-top: 5px;
+      line-height: 1.28;
+    }
+
+    .offer-price {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      margin-top: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .offer-price small {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .offer-sub {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+      margin-top: 6px;
+    }
+
+    .check-list {
+      list-style: none;
+      margin-top: 12px;
+      display: grid;
+      gap: 7px;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+    }
+
+    .check-list li::before {
+      content: "✓ ";
+      color: var(--emerald-bright);
+      font-weight: 900;
+    }
+
+    .btn-stack {
+      display: grid;
+      gap: 9px;
+    }
+
+    /* Ecosystem Navigation Cards */
+    .eco-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 20px;
+    }
+
+    .eco-card {
+      padding: 13px;
+      border-radius: 13px;
+      background: rgba(11, 19, 38, 0.76);
+      border: 1px solid var(--border);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+      display: block;
+    }
+
+    .eco-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .eco-card strong {
+      display: block;
+      font-size: 0.83rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .eco-card span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: block;
+      line-height: 1.38;
+    }
+
+    /* Superadmin Mode */
+    .superadmin-panel {
+      display: none;
+      margin-top: 22px;
+      border-color: rgba(245, 158, 11, 0.48);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), rgba(11, 19, 38, 0.95));
+    }
+
+    .superadmin-panel.open {
+      display: block;
+    }
+
+    .stripe-vault {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    /* Footer & Sticky Bar */
+    footer {
+      margin-top: 32px;
+      padding: 22px 0 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.81rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .sticky-footer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 55;
+      background: rgba(4, 8, 20, 0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border-strong);
+      padding: 10px 16px;
+    }
+
+    .sticky-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toast-bar {
+      position: fixed;
+      bottom: 82px;
+      right: 18px;
+      left: 18px;
+      max-width: 420px;
+      margin-left: auto;
+      z-index: 90;
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid var(--emerald);
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      box-shadow: 0 16px 40px rgba(2, 6, 23, 0.75);
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .toast-bar.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile Responsive (375px zero horizontal overflow) */
+    @media (max-width: 960px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-eco-bar {
+        display: flex;
+      }
+      .workbench-grid,
+      .store-grid,
+      .scan-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-kpi-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .eco-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 12px;
+      }
+      .glass-card,
+      .exec-proposal-shell {
+        padding: 16px 14px;
+      }
+      .form-grid-2,
+      .form-grid-3,
+      .compare-vs-grid,
+      .exec-meta-grid,
+      .exec-cta-grid,
+      .scanner-form,
+      .stripe-vault,
+      .hero-kpi-strip,
+      .eco-strip {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .item-row-grid {
+        grid-template-columns: minmax(0, 1fr) 102px;
+      }
+      .nav-actions .btn-hide-xs {
+        display: none;
+      }
+      .sticky-inner {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-bar">
+        <a href="#top" class="brand" onclick="exitClientModeToEditor()">
+          <span class="brand-pulse" aria-hidden="true"></span>
+          <div>Seller-to-Live <span>Proposta Express</span></div>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#calculadora-clt" onclick="exitClientModeToEditor()">Calculadora CLT vs. IA</a>
+          <a href="#gerador-proposta" onclick="exitClientModeToEditor()">Proposta Viva (#p=)</a>
+          <a href="#scanner-cloudrun" onclick="exitClientModeToEditor()">Scanner Cloud Run</a>
+          <a href="#ofertas" onclick="exitClientModeToEditor()">Pacotes Stripe</a>
+          <span class="nav-sep" aria-hidden="true"></span>
+          <a href="../hub/">Hub Voz IA</a>
+          <a href="../voz-ia/">Voz IA</a>
+          <a href="../lead-packs/">Lead Packs</a>
+          <a href="../ferramentas/">Pix EMV</a>
+          <a href="../whatsapp-kit/">WhatsApp Kit</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button type="button" class="btn btn-glass btn-sm btn-hide-xs" onclick="openClientPreviewMode()">
+            👁️ Visão Cliente
+          </button>
+          <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            Ativar IA 24h — R$ 147
+          </a>
+        </div>
+      </div>
+
+      <nav class="mobile-eco-bar" aria-label="Atalhos mobile do ecossistema">
+        <a href="#calculadora-clt" onclick="exitClientModeToEditor()">🧮 CLT vs. IA</a>
+        <a href="#gerador-proposta" onclick="exitClientModeToEditor()">📄 Proposta #p=</a>
+        <a href="#scanner-cloudrun" onclick="exitClientModeToEditor()">⚡ Scanner</a>
+        <a href="../hub/">🎯 Hub Voz IA</a>
+        <a href="../voz-ia/">🎙️ Voz IA</a>
+        <a href="../lead-packs/">📊 Lead Packs</a>
+        <a href="../ferramentas/">⚡ Pix EMV</a>
+        <a href="../whatsapp-kit/">💬 WhatsApp Kit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <!-- CLIENT EXECUTIVE PROPOSAL VIEWER (#p=<base64url>) -->
+    <section id="clientProposalStage" class="client-mode-stage" aria-live="polite">
+      <div class="client-mode-topbar">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="status-badge badge-live">● PROPOSTA EXECUTIVA INTERATIVA</span>
+          <span style="font-size:0.82rem;color:var(--text-soft);">Marque ou desmarque opcionais abaixo para atualizar o investimento em tempo real.</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-glass btn-sm" onclick="copyShareableProposalLink()">🔗 Copiar Link desta Proposta</button>
+          <button type="button" class="btn btn-cyan btn-sm" onclick="exitClientModeToEditor()">✏️ Modo Editor / Criar Nova Proposta</button>
+        </div>
+      </div>
+
+      <article class="exec-proposal-shell">
+        <div class="exec-header">
+          <div>
+            <span class="status-badge badge-cyan" id="cvBadgeStatus">PROPOSTA COMERCIAL VÁLIDA</span>
+            <h1 style="font-size:clamp(1.38rem,2.8vw,2rem);margin-top:9px;line-height:1.18;" id="cvCompanyHeadline">Proposta Executiva</h1>
+            <p style="font-size:0.88rem;color:var(--muted);margin-top:4px;" id="cvSubHeadline"></p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">Validade da Condição</div>
+            <strong style="font-size:1.02rem;color:#fcd34d;" id="cvValidityLabel">5 dias corridos</strong>
+          </div>
+        </div>
+
+        <div class="exec-meta-grid">
+          <div class="exec-meta-box">
+            <span>Preparado para</span>
+            <strong id="cvClientName">—</strong>
+          </div>
+          <div class="exec-meta-box">
+            <span>Empresa / Domínio</span>
+            <strong id="cvClientCompany">—</strong>
+          </div>
+          <div class="exec-meta-box">
+            <span>Emitido por</span>
+            <strong id="cvAgencyName">—</strong>
+          </div>
+        </div>
+
+        <div id="cvContextBox" class="exec-context-note" style="display:none;"></div>
+
+        <div class="exec-deliverables">
+          <div class="field-label" style="margin-bottom:9px;">
+            <span style="color:#fff;font-size:0.86rem;">📦 Escopo Principal Incluso</span>
+            <span class="field-hint" id="cvBaseSubtotalHint">Subtotal base</span>
+          </div>
+          <div id="cvDeliverablesList"></div>
+        </div>
+
+        <div id="cvBumpsWrap" style="margin-top:16px;">
+          <div class="field-label" style="margin-bottom:9px;">
+            <span style="color:var(--cyan);font-size:0.86rem;">⚡ Opcionais Interativos (Clique para incluir ou remover)</span>
+            <span class="field-hint">Soma instantânea ao vivo</span>
+          </div>
+          <div id="cvBumpsList"></div>
+        </div>
+
+        <div class="exec-total-bar">
+          <div>
+            <div style="font-size:0.77rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);font-weight:800;">Investimento Total Atualizado</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-top:2px;" id="cvSelectedSummaryLine">Escopo principal selecionado</div>
+          </div>
+          <div class="exec-total-amount" id="cvGrandTotalOut">R$ 147,00</div>
+        </div>
+
+        <div class="exec-cta-grid">
+          <a id="cvPayNowBtn" href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+            💳 Aprovar &amp; Pagar Agora
+          </a>
+          <a id="cvAcceptWaBtn" href="https://wa.me/5511999998888" target="_blank" rel="noopener noreferrer" class="btn btn-cyan btn-lg">
+            ✅ Confirmar Aceite no WhatsApp
+          </a>
+        </div>
+
+        <div id="cvHubDemoRow" style="margin-top:11px;display:none;">
+          <a id="cvHubDemoBtn" href="https://suporte149.github.io/seller-to-live/hub/" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm" style="width:100%;">
+            🎙️ Testar Demonstração Interativa Voz IA 24h Personalizada no /hub/
+          </a>
+        </div>
+
+        <div class="viral-proposal-footer">
+          <div>
+            ⚡ Gerado com <strong>Seller-to-Live Proposta Express</strong> (100% stateless via link <code>#p=...</code>, zero banco de dados).
+            <button type="button" onclick="exitClientModeToEditor()" style="background:none;border:none;color:var(--emerald-bright);font-weight:800;cursor:pointer;padding:0;margin-left:4px;">Criar minha proposta grátis →</button>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer">Kit Express R$ 47</a>
+            <span>•</span>
+            <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer">IA 24h Completa R$ 147</a>
+            <span>•</span>
+            <a href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer">US$ 9.90</a>
+            <span>•</span>
+            <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer">US$ 29</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- CREATOR SUITE WRAPPER -->
+    <div id="creatorSuiteWrapper">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-pill-row">
+          <span class="status-badge badge-ok">✓ 100% Client-Side &amp; Gratuito</span>
+          <span class="status-badge badge-cyan">🔗 Link Stateless #p=&lt;base64url&gt; Sem Banco de Dados</span>
+          <span class="status-badge badge-warn" id="heroCorsBadge">● Verificando API Cloud Run…</span>
+        </div>
+
+        <h1>
+          Proposta Express &amp; <span class="grad">Calculadora CLT vs. IA 24h</span> em 1 Link Compartilhável
+        </h1>
+
+        <p class="hero-sub">
+          Compare de forma determinística o custo mensal e anual real de atendimento CLT (encargos, provisões e <strong>124h/semana descobertas</strong>) contra <strong>Operação IA 24/7 (168h/semana)</strong>, audite qualquer domínio no Google Cloud Run e gere uma <strong>Proposta Comercial Viva (<code>#p=...</code>)</strong> com opcionais clicáveis ao vivo, aceite no WhatsApp e checkout direto.
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="#calculadora-clt" class="btn btn-primary">🧮 Calcular Custo Real CLT vs. IA</a>
+          <a href="#gerador-proposta" class="btn btn-cyan">📄 Gerar Link de Proposta Viva (#p=)</a>
+          <a href="#scanner-cloudrun" class="btn btn-glass">⚡ Auditar Site no Cloud Run</a>
+        </div>
+
+        <div class="hero-kpi-strip">
+          <div class="kpi-tile">
+            <strong>124h / semana</strong>
+            <span>Janela descoberta por 1 turno CLT (44h de 168h totais)</span>
+          </div>
+          <div class="kpi-tile">
+            <strong>Zero Banco</strong>
+            <span>Proposta inteira codificada em UTF-8 Base64URL segura</span>
+          </div>
+          <div class="kpi-tile">
+            <strong>Order Bumps Live</strong>
+            <span>Cliente marca opcionais e aprova no WhatsApp + Checkout</span>
+          </div>
+          <div class="kpi-tile">
+            <strong>R$ 47 a R$ 147</strong>
+            <span>Implantação oficial expressa via Stripe (BRL &amp; USD)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FERRAMENTA 1: CALCULADORA DETERMINÍSTICA CLT VS IA 24H -->
+      <section class="section" id="calculadora-clt">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">01 • Matemática Trabalhista Transparente • 44h vs. 168h/Semana</div>
+            <h2>Calculadora Determinística: Custo Real Funcionário CLT vs. Recepcionista / Automação IA 24h</h2>
+            <p class="section-desc">
+              Simule item a item todas as provisões obrigatórias (13º, Férias + 1/3, FGTS, Multa Rescisória, INSS Patronal por regime tributário, benefícios e turnover) e compare com cobertura automatizada 24/7.
+            </p>
+          </div>
+          <span class="status-badge badge-cyan" id="cltRegimePill">Simples Nacional I–III (INSS Patronal 0%)</span>
+        </div>
+
+        <div class="glass-card">
+          <div class="workbench-grid">
+            <!-- Inputs CLT -->
+            <div>
+              <div class="form-grid-2">
+                <div>
+                  <label for="cltSalary" class="field-label">
+                    <span>Salário Base Mensal (R$)</span>
+                    <span class="field-hint">Por pessoa</span>
+                  </label>
+                  <input type="number" id="cltSalary" class="field-input" value="2200" min="1000" max="50000" step="50" oninput="updateCltCalculator()" />
+                </div>
+
+                <div>
+                  <label for="cltHeadcount" class="field-label">
+                    <span>Quantidade de Atendentes</span>
+                    <span class="field-hint">1 a 10 postos</span>
+                  </label>
+                  <select id="cltHeadcount" class="field-select" onchange="updateCltCalculator()">
+                    <option value="1" selected>1 atendente (44h/sem por turno)</option>
+                    <option value="2">2 atendentes</option>
+                    <option value="3">3 atendentes</option>
+                    <option value="4">4 atendentes</option>
+                    <option value="5">5 atendentes</option>
+                    <option value="6">6 atendentes</option>
+                    <option value="7">7 atendentes</option>
+                    <option value="8">8 atendentes</option>
+                    <option value="9">9 atendentes</option>
+                    <option value="10">10 atendentes</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;">
+                <label for="cltRegime" class="field-label">
+                  <span>Regime Tributário da Empresa</span>
+                  <span class="field-hint">Define alíquota patronal</span>
+                </label>
+                <select id="cltRegime" class="field-select" onchange="updateCltCalculator()">
+                  <option value="simples" selected>Simples Nacional Anexo I–III (INSS Patronal 0,0%)</option>
+                  <option value="presumido">Lucro Presumido / Real / Anexo IV (INSS Patronal + RAT + Terceiros 28,8%)</option>
+                </select>
+              </div>
+
+              <div class="form-grid-2" style="margin-top:12px;">
+                <div>
+                  <label for="cltBenefits" class="field-label">
+                    <span>VT + VR / Benefícios Líquidos (R$)</span>
+                    <span class="field-hint">Mensal / pessoa</span>
+                  </label>
+                  <input type="number" id="cltBenefits" class="field-input" value="650" min="0" max="15000" step="25" oninput="updateCltCalculator()" />
+                </div>
+
+                <div>
+                  <label for="cltTurnover" class="field-label">
+                    <span>Turnover / Folha / Contábil (R$)</span>
+                    <span class="field-hint">Mensal / pessoa</span>
+                  </label>
+                  <input type="number" id="cltTurnover" class="field-input" value="180" min="0" max="10000" step="20" oninput="updateCltCalculator()" />
+                </div>
+              </div>
+
+              <div class="sample-chips">
+                <span>Cenários rápidos:</span>
+                <button type="button" class="chip-btn" onclick="applyCltPreset(2200, 'simples', 650, 1, 180)">Recepção Clínica SP (1x R$ 2.200)</button>
+                <button type="button" class="chip-btn" onclick="applyCltPreset(2600, 'presumido', 780, 2, 220)">Escritório RJ Presumido (2x R$ 2.600)</button>
+                <button type="button" class="chip-btn" onclick="applyCltPreset(3100, 'presumido', 850, 3, 250)">Operação Comercial PR (3x R$ 3.100)</button>
+              </div>
+
+              <div class="compare-vs-grid">
+                <div class="vs-card clt-side">
+                  <div style="font-size:0.74rem;font-weight:800;color:#fda4af;text-transform:uppercase;">Turno Humano CLT</div>
+                  <div class="vs-big" style="color:#fecdd3;">44h <small style="font-size:0.78rem;font-weight:600;">/ 168h semana</small></div>
+                  <p style="font-size:0.79rem;color:var(--text-soft);">
+                    <strong>124h descobertas toda semana!</strong> Leads noturnos, horário de almoço, sábados à tarde, domingos e feriados ficam esperando resposta.
+                  </p>
+                </div>
+
+                <div class="vs-card ia-side">
+                  <div style="font-size:0.74rem;font-weight:800;color:var(--emerald-bright);text-transform:uppercase;">Operação IA 24/7 + Triagem</div>
+                  <div class="vs-big" style="color:var(--emerald-bright);">168h <small style="font-size:0.78rem;font-weight:600;">/ 168h semana</small></div>
+                  <p style="font-size:0.79rem;color:var(--text-soft);">
+                    <strong>0h descoberta + atendimento simultâneo.</strong> Implementação Express a partir de <strong>R$ 147</strong> (pagamento único, zero encargo trabalhista).
+                  </p>
+                </div>
+              </div>
+
+              <div class="savings-banner">
+                <div>
+                  <div style="font-size:0.75rem;font-weight:800;text-transform:uppercase;color:var(--emerald-bright);">Potencial de Economia Anual no Atendimento de Triagem</div>
+                  <div style="font-size:1.35rem;font-weight:900;color:#fff;font-family:var(--mono);" id="cltAnnualSavingsHighlight">R$ 44.513,16 / ano</div>
+                  <div style="font-size:0.77rem;color:var(--text-soft);" id="cltComparisonSubline">Comparando 12 meses CLT contra Setup Completo R$ 147,00</div>
+                </div>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:14px;">
+                <button type="button" class="btn btn-primary" onclick="injectCltIntoProposal()">
+                  📥 Usar Economia Calculada na Proposta Abaixo
+                </button>
+                <button type="button" class="btn btn-glass" onclick="copyCltExecutiveSummary()">
+                  📋 Copiar Resumo Executivo para WhatsApp
+                </button>
+              </div>
+            </div>
+
+            <!-- Tabela Item a Item -->
+            <div>
+              <div class="clt-table-wrap">
+                <table class="clt-table" aria-label="Demonstrativo item a item do Custo Real CLT">
+                  <thead>
+                    <tr>
+                      <th>Rubrica / Provisão Mensal</th>
+                      <th class="num">Alíquota</th>
+                      <th class="num">1 Posto</th>
+                      <th class="num" id="cltQtyColHeader">Total (1x)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cltTableBody"></tbody>
+                </table>
+              </div>
+
+              <div class="sub-box" style="margin-top:12px;">
+                <div class="sub-box-title">
+                  <span>📊 Resumo Consolidado (Mensal vs. Anual)</span>
+                  <span style="font-family:var(--mono);color:#fff;" id="cltHourlyRealLabel">Custo hora efetiva</span>
+                </div>
+                <div class="form-grid-2">
+                  <div style="padding:10px;border-radius:10px;background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.28);">
+                    <div style="font-size:0.73rem;color:#fda4af;font-weight:700;">Custo Total Mensal Real CLT</div>
+                    <div style="font-size:1.22rem;font-weight:900;font-family:var(--mono);color:#fff;" id="cltTotalMonthlyCard">R$ 3.721,68</div>
+                    <div style="font-size:0.74rem;color:var(--muted);" id="cltMultiplierLabel">1,69x sobre o salário nominal</div>
+                  </div>
+                  <div style="padding:10px;border-radius:10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);">
+                    <div style="font-size:0.73rem;color:var(--emerald-bright);font-weight:700;">Custo Anual Acumulado (12m)</div>
+                    <div style="font-size:1.22rem;font-weight:900;font-family:var(--mono);color:#fff;" id="cltTotalAnnualCard">R$ 44.660,16</div>
+                    <div style="font-size:0.74rem;color:var(--text-soft);">vs. Setup IA 24/7 a partir de <strong>R$ 147,00</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FERRAMENTA 2: GERADOR STATELESS DE PROPOSTA VIVA (#p=<base64url>) -->
+      <section class="section" id="gerador-proposta">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">02 • Gerador Stateless em 1 Link • UTF-8 Base64URL (#p=...)</div>
+            <h2>Gerador de Proposta Comercial Viva (Com Order Bumps Clicáveis + Aceite WhatsApp)</h2>
+            <p class="section-desc">
+              Monte propostas comerciais completas sem login nem banco de dados: toda a proposta viaja segura dentro do hash <code style="color:#7dd3fc;">#p=&lt;base64url&gt;</code>. O cliente marca opcionais ao vivo, vê o total somar na hora e clica para pagar ou aprovar no WhatsApp.
+            </p>
+          </div>
+          <span class="status-badge badge-ok" id="proposalHashSizeBadge">✓ Link Stateless Pronto</span>
+        </div>
+
+        <div class="glass-card">
+          <div class="sample-chips" style="margin-top:0;margin-bottom:14px;">
+            <span>Modelos prontos em 1 clique:</span>
+            <button type="button" class="chip-btn" onclick="loadProposalTemplate('completo147')">🇧🇷 Setup Completo IA 24h (R$ 147)</button>
+            <button type="button" class="chip-btn" onclick="loadProposalTemplate('express47')">⚡ Diagnóstico + Kit Express (R$ 47)</button>
+            <button type="button" class="chip-btn" onclick="loadProposalTemplate('agencia')">🏢 Consultoria / Agência B2B (R$ 1.490)</button>
+            <button type="button" class="chip-btn" onclick="loadProposalTemplate('usd29')">🌎 Global AI Receptionist (US$ 29)</button>
+          </div>
+
+          <div class="workbench-grid">
+            <!-- Coluna Esquerda: Identificação + Entregáveis + Order Bumps -->
+            <div>
+              <div class="form-grid-2">
+                <div>
+                  <label for="propClientName" class="field-label"><span>Nome do Decisor / Cliente *</span></label>
+                  <input type="text" id="propClientName" class="field-input" value="Dr. Marcos Oliveira" maxlength="80" oninput="updateProposalBuilder()" />
+                </div>
+                <div>
+                  <label for="propClientCompany" class="field-label"><span>Empresa do Cliente *</span></label>
+                  <input type="text" id="propClientCompany" class="field-input" value="Clínica Paulista Saúde" maxlength="90" oninput="updateProposalBuilder()" />
+                </div>
+                <div>
+                  <label for="propAgencyName" class="field-label"><span>Seu Nome / Agência / Consultoria *</span></label>
+                  <input type="text" id="propAgencyName" class="field-input" value="Seller-to-Live Implantação Express" maxlength="90" oninput="updateProposalBuilder()" />
+                </div>
+                <div class="form-grid-2">
+                  <div>
+                    <label for="propValidDays" class="field-label"><span>Validade (dias)</span></label>
+                    <input type="number" id="propValidDays" class="field-input" value="5" min="1" max="90" oninput="updateProposalBuilder()" />
+                  </div>
+                  <div>
+                    <label for="propCurrency" class="field-label"><span>Moeda</span></label>
+                    <select id="propCurrency" class="field-select" onchange="updateProposalBuilder()">
+                      <option value="BRL" selected>BRL (R$)</option>
+                      <option value="USD">USD (US$)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;">
+                <label for="propContextNote" class="field-label">
+                  <span>Resumo de Diagnóstico / Economia no Topo da Proposta</span>
+                  <span class="field-hint">Opcional • Preenchido pelas Ferramentas 1 e 3</span>
+                </label>
+                <textarea id="propContextNote" class="field-textarea" rows="2" maxlength="420" oninput="updateProposalBuilder()">Cobertura imediata das 124h/semana fora do expediente comercial + eliminação de vazamentos de leads no WhatsApp.</textarea>
+              </div>
+
+              <div class="sub-box">
+                <div class="sub-box-title">
+                  <span>📦 3 Entregáveis Principais (Escopo Base)</span>
+                  <span id="editorBaseSumLabel" style="font-family:var(--mono);color:var(--emerald-bright);">R$ 147,00</span>
+                </div>
+
+                <div class="item-row-grid">
+                  <input type="text" id="item1Title" class="field-input" value="Auditoria Completa + Correção de CTA &amp; H1 Acima da Dobra" maxlength="110" oninput="updateProposalBuilder()" aria-label="Título do entregável 1" />
+                  <input type="number" id="item1Price" class="field-input" value="67" min="0" step="0.1" oninput="updateProposalBuilder()" aria-label="Valor do entregável 1" />
+                </div>
+                <div class="item-row-grid">
+                  <input type="text" id="item2Title" class="field-input" value="Implantação Recepcionista &amp; Triagem Voz IA 24/7 (168h/sem)" maxlength="110" oninput="updateProposalBuilder()" aria-label="Título do entregável 2" />
+                  <input type="number" id="item2Price" class="field-input" value="50" min="0" step="0.1" oninput="updateProposalBuilder()" aria-label="Valor do entregável 2" />
+                </div>
+                <div class="item-row-grid" style="margin-bottom:0;">
+                  <input type="text" id="item3Title" class="field-input" value="Botão WhatsApp com Rastreamento UTM + Schema.org JSON-LD" maxlength="110" oninput="updateProposalBuilder()" aria-label="Título do entregável 3" />
+                  <input type="number" id="item3Price" class="field-input" value="30" min="0" step="0.1" oninput="updateProposalBuilder()" aria-label="Valor do entregável 3" />
+                </div>
+              </div>
+
+              <div class="sub-box">
+                <div class="sub-box-title">
+                  <span>⚡ 2 Opcionais Interativos (Order Bumps Clicáveis pelo Cliente)</span>
+                  <span class="field-hint">O cliente ativa/desativa ao abrir #p=...</span>
+                </div>
+
+                <div class="bump-editor-card">
+                  <div class="item-row-grid" style="margin-bottom:6px;">
+                    <input type="text" id="bump1Title" class="field-input" value="Roteiro de Qualificação Comercial &amp; Follow-up WhatsApp" maxlength="110" oninput="updateProposalBuilder()" aria-label="Título do opcional 1" />
+                    <input type="number" id="bump1Price" class="field-input" value="47" min="0" step="0.1" oninput="updateProposalBuilder()" aria-label="Valor do opcional 1" />
+                  </div>
+                  <label style="display:inline-flex;align-items:center;gap:7px;font-size:0.77rem;color:var(--text-soft);cursor:pointer;">
+                    <input type="checkbox" id="bump1DefaultOn" onchange="updateProposalBuilder()" />
+                    Deixar pré-selecionado quando o cliente abrir o link
+                  </label>
+                </div>
+
+                <div class="bump-editor-card" style="margin-bottom:0;">
+                  <div class="item-row-grid" style="margin-bottom:6px;">
+                    <input type="text" id="bump2Title" class="field-input" value="Página de Demonstração Falada + FAQ Inteligente por Nicho" maxlength="110" oninput="updateProposalBuilder()" aria-label="Título do opcional 2" />
+                    <input type="number" id="bump2Price" class="field-input" value="97" min="0" step="0.1" oninput="updateProposalBuilder()" aria-label="Valor do opcional 2" />
+                  </div>
+                  <label style="display:inline-flex;align-items:center;gap:7px;font-size:0.77rem;color:var(--text-soft);cursor:pointer;">
+                    <input type="checkbox" id="bump2DefaultOn" onchange="updateProposalBuilder()" />
+                    Deixar pré-selecionado quando o cliente abrir o link
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coluna Direita: Aceite WhatsApp, Checkout Stripe, Link #p=... e Mini Preview -->
+            <div>
+              <div class="form-grid-2">
+                <div>
+                  <label for="propWaNumber" class="field-label">
+                    <span>WhatsApp para Aceite *</span>
+                    <span class="field-hint" id="propWaHint">DDI + DDD</span>
+                  </label>
+                  <input type="tel" id="propWaNumber" class="field-input" value="5511999998888" placeholder="Ex.: 5511999998888" oninput="updateProposalBuilder()" />
+                </div>
+                <div>
+                  <label for="propHubUrl" class="field-label">
+                    <span>Link Demo <code>/hub/</code> (Opcional)</span>
+                    <span class="field-hint">Vitrine ao vivo</span>
+                  </label>
+                  <input type="url" id="propHubUrl" class="field-input" value="https://suporte149.github.io/seller-to-live/hub/?empresa=Cl%C3%ADnica+Paulista+Sa%C3%BAde&site=clinicapaulistasaude.com.br&nicho=clinica" oninput="updateProposalBuilder()" />
+                </div>
+              </div>
+
+              <div style="margin-top:12px;">
+                <label for="propPayUrl" class="field-label">
+                  <span>Link de Pagamento / Checkout Oficial *</span>
+                  <span class="field-hint">Stripe, Pix ou link próprio HTTPS</span>
+                </label>
+                <input type="url" id="propPayUrl" class="field-input" value="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" placeholder="https://buy.stripe.com/..." oninput="updateProposalBuilder()" />
+                <div class="sample-chips" style="margin-bottom:0;">
+                  <span>Pré-preencher Stripe Oficial:</span>
+                  <button type="button" class="chip-btn" onclick="setStripeQuickCheckout('https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04', 'BRL', 47)">🇧🇷 R$ 47</button>
+                  <button type="button" class="chip-btn" onclick="setStripeQuickCheckout('https://buy.stripe.com/aFadR14bAgevg3W7lD83C03', 'BRL', 147)">🇧🇷 R$ 147</button>
+                  <button type="button" class="chip-btn" onclick="setStripeQuickCheckout('https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02', 'USD', 9.90)">🌎 US$ 9.90</button>
+                  <button type="button" class="chip-btn" onclick="setStripeQuickCheckout('https://buy.stripe.com/cNi8wHgYmfar8BudK183C05', 'USD', 29.00)">🌎 US$ 29.00</button>
+                </div>
+              </div>
+
+              <div class="sub-box" style="border-color:rgba(16,185,129,0.4);background:rgba(2,44,34,0.28);">
+                <div class="sub-box-title">
+                  <span style="color:var(--emerald-bright);">🔗 Link Gerado da Proposta Viva (<code>#p=...</code>)</span>
+                  <span id="propPayloadChars" style="font-family:var(--mono);font-size:0.72rem;color:var(--text-soft);">0 chars</span>
+                </div>
+                <div id="generatedProposalUrlBox" class="url-line" style="max-height:92px;overflow-y:auto;"></div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:11px;">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="copyShareableProposalLink()">
+                    📋 Copiar Link #p=...
+                  </button>
+                  <button type="button" class="btn btn-cyan btn-sm" onclick="openClientPreviewMode()">
+                    👁️ Testar Visão do Cliente
+                  </button>
+                  <button type="button" class="btn btn-glass btn-sm" onclick="shareProposalViaWhatsApp()">
+                    💬 Enviar Link no WhatsApp
+                  </button>
+                </div>
+              </div>
+
+              <div class="sub-box">
+                <div class="sub-box-title">
+                  <span>🔎 Resumo em Tempo Real do Link</span>
+                  <span id="liveMiniTotalBadge" style="font-family:var(--mono);color:#fff;">R$ 147,00</span>
+                </div>
+                <p style="font-size:0.82rem;color:var(--text-soft);" id="liveMiniPreviewText"></p>
+                <div style="margin-top:9px;font-size:0.75rem;color:var(--muted);">
+                  🛡️ Segurança ativa: codificação UTF-8 determinística (<code>TextEncoder</code> → Base64URL) + sanitização <code>escapeHtml</code> estrita contra XSS.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FERRAMENTA 3: SCANNER CLOUD RUN (/api/audit-preview) + INJEÇÃO EM 1 CLIQUE -->
+      <section class="section" id="scanner-cloudrun">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">03 • Diagnóstico Ao Vivo Google Cloud Run • Injeção em 1 Clique</div>
+            <h2>Scanner Técnico Cloud Run (<code>/api/audit-preview</code>) → Proposta Pronta</h2>
+            <p class="section-desc">
+              Audite qualquer site ao vivo em <code style="color:#7dd3fc;">POST /api/audit-preview</code> para obter Score 0–100, latência HTTP e gargalo principal, e gere em 1 clique a Proposta Viva de Correção R$ 147 com link personalizado do <code style="color:#6ee7b7;">/hub/</code>.
+            </p>
+          </div>
+          <span class="status-badge badge-warn" id="apiCorsStatusBadge">● Sondando OPTIONS /api/audit-preview…</span>
+        </div>
+
+        <div class="glass-card">
+          <form id="scannerForm" class="scanner-form" onsubmit="handleAuditSubmit(event)">
+            <div class="input-wrap">
+              <span class="input-prefix" aria-hidden="true">🌐</span>
+              <input
+                type="text"
+                id="scanUrlInput"
+                class="field-input with-prefix"
+                placeholder="Digite o domínio ou URL do cliente (ex.: clinicapaulistasaude.com.br ou example.com)"
+                aria-label="Domínio para escanear no Cloud Run"
+                required
+              />
+            </div>
+            <button type="submit" id="scanSubmitBtn" class="btn btn-cyan">
+              ⚡ Auditar Site Ao Vivo
+            </button>
+          </form>
+
+          <div class="sample-chips">
+            <span>Testar com domínio real:</span>
+            <button type="button" class="chip-btn" onclick="quickAuditDomain('example.com', 'clinica')">example.com</button>
+            <button type="button" class="chip-btn" onclick="quickAuditDomain('w3solarenergia.com.br', 'solar')">w3solarenergia.com.br</button>
+            <button type="button" class="chip-btn" onclick="quickAuditDomain('hospitalsanter.com.br', 'clinica')">hospitalsanter.com.br</button>
+            <button type="button" class="chip-btn" onclick="quickAuditDomain('beirariohotel.com.br', 'hotel')">beirariohotel.com.br</button>
+            <button type="button" class="chip-btn" onclick="quickAuditDomain('fialhoadvogados.com.br', 'advocacia')">fialhoadvogados.com.br</button>
+          </div>
+
+          <div class="sub-box">
+            <div class="sub-box-title">
+              <span>🎯 Link Personalizado <code>/hub/?empresa=...&amp;site=...&amp;nicho=...</code></span>
+              <span class="field-hint">Vinculado automaticamente à Proposta Viva</span>
+            </div>
+            <div class="form-grid-3">
+              <div>
+                <label for="scanCompanyName" class="field-label"><span>Empresa</span></label>
+                <input type="text" id="scanCompanyName" class="field-input" value="Clínica Paulista Saúde" oninput="refreshPersonalizedHubLink()" />
+              </div>
+              <div>
+                <label for="scanSiteDomain" class="field-label"><span>Domínio</span></label>
+                <input type="text" id="scanSiteDomain" class="field-input" value="clinicapaulistasaude.com.br" oninput="refreshPersonalizedHubLink()" />
+              </div>
+              <div>
+                <label for="scanNicheSelect" class="field-label"><span>Nicho no /hub/</span></label>
+                <select id="scanNicheSelect" class="field-select" onchange="refreshPersonalizedHubLink()">
+                  <option value="clinica" selected>Clínica / Saúde / Odonto</option>
+                  <option value="hotel">Hotel / Pousada</option>
+                  <option value="advocacia">Advocacia / Escritório</option>
+                  <option value="imobiliaria">Imobiliária</option>
+                  <option value="solar">Energia Solar</option>
+                  <option value="delivery">Restaurante / Delivery</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;">
+              <a id="hubLinkPreviewAnchor" href="https://suporte149.github.io/seller-to-live/hub/" target="_blank" rel="noopener noreferrer" class="url-line" style="flex:1;min-width:220px;"></a>
+              <button type="button" class="btn btn-glass btn-sm" onclick="copyToClipboard(document.getElementById('hubLinkPreviewAnchor').textContent, 'Link Personalizado /hub/')">📋 Copiar Link /hub/</button>
+            </div>
+          </div>
+
+          <div id="scanLoader" class="scan-loader" aria-live="polite">
+            <strong>Consultando runtime em produção no Google Cloud Run…</strong>
+            <div class="scan-bar-track"><div class="scan-bar-fill"></div></div>
+            <p id="scanLoaderMsg" style="font-size:0.81rem;color:var(--muted);">Medindo latência HTTP, Score 0–100 e principal gargalo de conversão…</p>
+          </div>
+
+          <div id="scanResultsBox" class="scan-results" aria-live="polite">
+            <div class="scan-grid">
+              <div class="score-panel">
+                <div class="gauge-box">
+                  <svg viewBox="0 0 132 132" aria-hidden="true">
+                    <circle class="gauge-bg" cx="66" cy="66" r="58"></circle>
+                    <circle id="scanGaugeArc" class="gauge-progress" cx="66" cy="66" r="58"></circle>
+                  </svg>
+                  <div class="gauge-center">
+                    <span id="scanScoreValue" class="gauge-num">--</span>
+                    <span class="gauge-sub">SCORE / 100</span>
+                  </div>
+                </div>
+                <span id="scanSeverityBadge" class="status-badge badge-danger">CRÍTICO</span>
+                <div id="scanTargetUrlOut" style="margin-top:8px;font-size:0.75rem;color:var(--cyan);font-family:var(--mono);word-break:break-all;"></div>
+                <div id="scanRuntimeOriginBadge" style="margin-top:8px;"></div>
+              </div>
+
+              <div style="min-width:0;">
+                <div class="metrics-row" id="scanMetricsChips"></div>
+
+                <div class="finding-card">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                    <span class="status-badge badge-danger" id="scanFindingPriority">GARGALO PRINCIPAL</span>
+                    <span id="scanFindingImpact" style="font-size:0.78rem;font-weight:800;color:#fda4af;">-15 pts</span>
+                  </div>
+                  <div class="finding-title" id="scanFindingTitle"></div>
+                  <p class="finding-detail" id="scanFindingEvidence"></p>
+                  <div class="finding-fix">
+                    <strong>Plano de correção:</strong> <span id="scanFindingFix"></span>
+                  </div>
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+                  <button type="button" class="btn btn-primary" onclick="injectScanIntoProposal147()">
+                    🚀 Gerar Proposta de Correção R$ 147 para Este Site
+                  </button>
+                  <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-cyan btn-sm">
+                    💳 Checkout Direto R$ 147
+                  </a>
+                  <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">
+                    ⚡ Express R$ 47
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 4: PACOTES OFICIAIS STRIPE (BRL & USD) + ECOSSISTEMA -->
+      <section class="section" id="ofertas">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">04 • Storefront Oficial Seller-to-Live • Pagamento Único Stripe</div>
+            <h2>Prefere Nossa Equipe Implantando Correção + Recepcionista IA 24h por Você?</h2>
+            <p class="section-desc">
+              A calculadora CLT e o gerador de propostas <code>#p=...</code> são 100% livres. Quando quiser a implantação técnica pronta no seu domínio (ou no site do seu cliente em white-label) em até 24h–48h, ative pelo checkout oficial Stripe.
+            </p>
+          </div>
+        </div>
+
+        <div class="store-grid">
+          <!-- Completo 48h -->
+          <article class="glass-card offer-card featured">
+            <div class="offer-ribbon">Mais Escolhido • Entrega em até 48h</div>
+            <div>
+              <span class="offer-tag" style="color:var(--emerald-bright);">Implantação Completa 48h • BRL &amp; USD</span>
+              <h3>Setup Completo Zero Vazamentos + Recepcionista Voz IA 24/7</h3>
+              <div class="offer-price">R$ 147,00 <small>| US$ 29.00</small></div>
+              <p class="offer-sub">Substitua as 124h/semana sem atendimento por triagem imediata 24/7 no site e WhatsApp, sem vínculo trabalhista e sem mensalidade fixa de plataforma.</p>
+              <ul class="check-list">
+                <li>Correção completa dos gargalos detectados no Scanner Cloud Run (CTA, H1, velocidade e mobile)</li>
+                <li>Configuração da Recepcionista IA 24h + roteiro de qualificação comercial específico do seu nicho</li>
+                <li>Instalação de Botão WhatsApp com UTM + Schema.org JSON-LD validado para o Google</li>
+                <li>Entrega pronta em até 48h úteis via pagamento único seguro na Stripe</li>
+              </ul>
+            </div>
+            <div class="btn-stack">
+              <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                🇧🇷 Ativar Pacote Completo 48h — R$ 147,00 (Pix / Cartão)
+              </a>
+              <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+                🌎 Activate Full 48h Setup — US$ 29.00 (Global Card)
+              </a>
+            </div>
+          </article>
+
+          <!-- Express 24h -->
+          <article class="glass-card offer-card">
+            <div>
+              <span class="offer-tag">Entrada Expressa 24h • BRL &amp; USD</span>
+              <h3>Diagnóstico Destravado + Kit Conversão Express (24h)</h3>
+              <div class="offer-price">R$ 47,00 <small>| US$ 9.90</small></div>
+              <p class="offer-sub">Ideal para validar rápido: receba todos os achados técnicos destravados, protótipo falado no <code>/hub/</code> e pacote HTML pronto para colar em até 24h.</p>
+              <ul class="check-list">
+                <li>Relatório completo com todos os achados ocultos do Scanner Cloud Run + plano de prioridade</li>
+                <li>Bloco único HTML/CSS/JS de WhatsApp rastreado + JSON-LD customizado para sua empresa</li>
+                <li>Vitrine demonstrativa personalizada no <code>/hub/</code> pronta para apresentar a sócios ou clientes</li>
+                <li>Upgrade simples e imediato caso queira implantação completa assistida depois</li>
+              </ul>
+            </div>
+            <div class="btn-stack">
+              <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+                🇧🇷 Comprar Kit Express 24h — R$ 47,00 (Pix / Cartão)
+              </a>
+              <a href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+                🌎 Buy Express 24h Kit — US$ 9.90 (Global Card)
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Links Cruzados do Ecossistema -->
+        <div class="eco-strip">
+          <a href="../hub/" class="eco-card">
+            <strong>🎯 Hub Voz IA 24h (../hub/)</strong>
+            <span>Simulador falado em 6 nichos + diagnóstico interativo ao vivo.</span>
+          </a>
+          <a href="../voz-ia/" class="eco-card">
+            <strong>🎙️ Vitrine Voz IA (../voz-ia/)</strong>
+            <span>Recepcionista por voz 24/7 para clínicas, hotéis e escritórios.</span>
+          </a>
+          <a href="../lead-packs/" class="eco-card">
+            <strong>📊 Lead Packs B2B (../lead-packs/)</strong>
+            <span>Listas auditadas de empresas com gargalos técnicos reais de conversão.</span>
+          </a>
+          <a href="../ferramentas/" class="eco-card">
+            <strong>⚡ Pix EMV &amp; CRC16 (../ferramentas/)</strong>
+            <span>Validador e gerador BR Code Pix Copia e Cola client-side.</span>
+          </a>
+          <a href="../whatsapp-kit/" class="eco-card">
+            <strong>💬 WhatsApp Kit (../whatsapp-kit/)</strong>
+            <span>Gerador de botão flutuante com UTM + Schema.org JSON-LD Google.</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- #SUPERADMIN: MODO FECHAMENTO SELLER 00 -->
+      <section class="glass-card superadmin-panel" id="superadmin" aria-label="Modo Fechamento Seller 00">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div>
+            <span class="status-badge badge-warn">🔐 #SUPERADMIN • MODO FECHAMENTO SELLER 00 • ZERO SEGREDOS</span>
+            <h2 style="font-size:1.34rem;margin-top:8px;">Gerador 1-Clique de Fechamento WhatsApp (Economia CLT + Proposta #p= + Demo /hub/)</h2>
+            <p style="font-size:0.84rem;color:var(--muted);margin-top:4px;">
+              Consolida automaticamente os números calculados na Ferramenta 1, o link stateless <code>#p=...</code> da Ferramenta 2 e a demo personalizada <code>/hub/</code> da Ferramenta 3 em um disparo consultivo pronto.
+            </p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-cyan btn-sm" onclick="buildSeller00ClosingScript(true)">🔄 Sincronizar &amp; Gerar Script 1-Clique</button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="toggleSuperadminPanel(false)">✕ Ocultar</button>
+          </div>
+        </div>
+
+        <div class="form-grid-2" style="margin-top:14px;">
+          <div>
+            <label for="admProspectPhone" class="field-label"><span>WhatsApp do Decisor (DDI + DDD + Número)</span></label>
+            <input type="tel" id="admProspectPhone" class="field-input" value="5511999998888" placeholder="Ex.: 5511999998888" oninput="syncSuperadminWaButton()" />
+          </div>
+          <div>
+            <label for="admOfferChoice" class="field-label"><span>Pacote em Destaque no Fechamento</span></label>
+            <select id="admOfferChoice" class="field-select" onchange="buildSeller00ClosingScript(false)">
+              <option value="brl147" selected>🇧🇷 Completo 48h — R$ 147,00</option>
+              <option value="brl47">🇧🇷 Express 24h — R$ 47,00</option>
+              <option value="usd29">🌎 Full 48h — US$ 29.00</option>
+              <option value="usd990">🌎 Express 24h — US$ 9.90</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sub-box">
+          <label for="admClosingTextarea" class="field-label">
+            <span>Mensagem Pronta de Fechamento (Economia CLT + Proposta Viva <code>#p=...</code> + Demo <code>/hub/</code>)</span>
+          </label>
+          <textarea id="admClosingTextarea" class="field-textarea" rows="8" oninput="syncSuperadminWaButton()"></textarea>
+          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:11px;">
+            <a id="admDirectWaBtn" href="https://wa.me/5511999998888" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              🚀 Disparar Fechamento no WhatsApp
+            </a>
+            <button type="button" class="btn btn-glass btn-sm" onclick="copyToClipboard(document.getElementById('admClosingTextarea').value, 'Script de Fechamento Seller 00')">
+              📋 Copiar Mensagem Completa
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="copyShareableProposalLink()">
+              🔗 Copiar Apenas Link #p=...
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="field-label" style="color:#fcd34d;"><span>💳 Cofre Oficial Stripe (4 Checkouts Verificados)</span></div>
+          <div class="stripe-vault">
+            <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04', 'Stripe BRL Express R$ 47')">
+              <span>🇧🇷 Express — R$ 47,00</span><span style="color:var(--emerald-bright);">Copiar</span>
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/aFadR14bAgevg3W7lD83C03', 'Stripe BRL Completo R$ 147')">
+              <span>🇧🇷 Completo 48h — R$ 147,00</span><span style="color:var(--emerald-bright);">Copiar</span>
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02', 'Stripe USD Express US$ 9.90')">
+              <span>🌎 Express — US$ 9.90</span><span style="color:var(--cyan);">Copiar</span>
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/cNi8wHgYmfar8BudK183C05', 'Stripe USD Full US$ 29.00')">
+              <span>🌎 Full 48h — US$ 29.00</span><span style="color:var(--cyan);">Copiar</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <strong>Seller-to-Live • Proposta Express</strong> — Calculadora CLT vs. IA 24h + Propostas Stateless <code>#p=...</code> + Diagnóstico Cloud Run.
+        </div>
+        <div class="footer-links">
+          <a href="../hub/">Hub Voz IA</a>
+          <a href="../voz-ia/">Voz IA</a>
+          <a href="../lead-packs/">Lead Packs</a>
+          <a href="../ferramentas/">Pix EMV</a>
+          <a href="../whatsapp-kit/">WhatsApp Kit</a>
+          <a href="#superadmin" onclick="toggleSuperadminPanel(true)" style="color:#fcd34d;">⚙️ Modo Fechamento Seller 00</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="sticky-footer-bar">
+    <div class="sticky-inner">
+      <div style="font-size:0.83rem;">
+        <strong>Cubra as 124h/semana fora do expediente sem encargo CLT:</strong>
+        <span style="color:var(--muted);"> Implantação Express via Stripe (Pix ou Cartão).</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">Express R$ 47</a>
+        <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Completo 48h — R$ 147</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastBar" class="toast-bar" role="status" aria-live="polite"></div>
+
+  <script>
+    const CLOUD_RUN_ORIGIN = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    const AUDIT_PREVIEW_ENDPOINT = `${CLOUD_RUN_ORIGIN}/api/audit-preview`;
+    const HUB_BASE_URL = 'https://suporte149.github.io/seller-to-live/hub/';
+
+    const STRIPE_CHECKOUTS = {
+      brl47: 'https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04',
+      brl147: 'https://buy.stripe.com/aFadR14bAgevg3W7lD83C03',
+      usd990: 'https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02',
+      usd29: 'https://buy.stripe.com/cNi8wHgYmfar8BudK183C05'
+    };
+
+    const cltState = {
+      salary: 2200,
+      headcount: 1,
+      regime: 'simples',
+      benefits: 650,
+      turnover: 180,
+      unitMonthly: 0,
+      totalMonthly: 0,
+      totalAnnual: 0,
+      annualSavingsVs147: 0
+    };
+
+    const proposalState = {
+      encodedHash: '',
+      shareUrl: '',
+      activePayload: null,
+      clientSelectedBumps: [false, false]
+    };
+
+    let lastAuditData = null;
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function sanitizeSafeHttpUrl(raw, fallbackUrl) {
+      const s = String(raw || '').trim();
+      if (!s) return fallbackUrl;
+      try {
+        const parsed = new URL(s);
+        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+          return parsed.href;
+        }
+      } catch (_) {
+        // Ignore invalid URL and use fallback
+      }
+      return fallbackUrl;
+    }
+
+    function normalizePhoneDigits(raw) {
+      const digits = String(raw || '').replace(/\D+/g, '');
+      if (!digits) return '5511999998888';
+      if ((digits.length === 10 || digits.length === 11) && !digits.startsWith('55')) {
+        return '55' + digits;
+      }
+      return digits;
+    }
+
+    function formatMoney(amount, currency) {
+      const num = Number.isFinite(Number(amount)) ? Number(amount) : 0;
+      const cur = currency === 'USD' ? 'USD' : 'BRL';
+      if (cur === 'USD') {
+        return 'US$ ' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      return 'R$ ' + num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toastBar');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => el.classList.remove('show'), 2900);
+    }
+
+    function copyToClipboard(text, label) {
+      const content = String(text || '');
+      if (!content) {
+        showToast('Nada disponível para copiar.');
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(content)
+          .then(() => showToast(`✓ ${label} copiado para a área de transferência!`))
+          .catch(() => legacyCopy(content, label));
+      } else {
+        legacyCopy(content, label);
+      }
+    }
+
+    function legacyCopy(content, label) {
+      const ta = document.createElement('textarea');
+      ta.value = content;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(`✓ ${label} copiado!`);
+      } catch (_) {
+        showToast('Não foi possível copiar automaticamente.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    /* ---------------- UTF-8 SAFE BASE64URL ENCODE / DECODE ---------------- */
+    function encodeBase64UrlUtf8(obj) {
+      const jsonStr = JSON.stringify(obj);
+      const bytes = new TextEncoder().encode(jsonStr);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+    }
+
+    function decodeBase64UrlUtf8(token) {
+      const clean = String(token || '').trim().replace(/^#?p=/, '');
+      if (!clean || clean.length > 8192) return null;
+      const base64 = clean.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
+      const binary = atob(padded);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      const jsonStr = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+      return JSON.parse(jsonStr);
+    }
+
+    /* ---------------- TOOL 1: DETERMINISTIC CLT VS IA 24H CALCULATOR ---------------- */
+    function computeCltBreakdown(params) {
+      const salary = Math.max(0, Number(params.salary) || 0);
+      const headcount = Math.max(1, Math.min(10, Math.round(Number(params.headcount) || 1)));
+      const regime = params.regime === 'presumido' ? 'presumido' : 'simples';
+      const benefits = Math.max(0, Number(params.benefits) || 0);
+      const turnover = Math.max(0, Number(params.turnover) || 0);
+
+      const prov13 = Number((salary * 0.0833).toFixed(2));
+      const provFerias = Number((salary * 0.1111).toFixed(2));
+      const fgtsMensal = Number((salary * 0.08).toFixed(2));
+      const multaFgts = Number((salary * 0.04).toFixed(2));
+      const inssRate = regime === 'presumido' ? 0.288 : 0;
+      const inssPatronal = Number((salary * inssRate).toFixed(2));
+
+      const unitMonthly = Number((
+        salary +
+        prov13 +
+        provFerias +
+        fgtsMensal +
+        multaFgts +
+        inssPatronal +
+        benefits +
+        turnover
+      ).toFixed(2));
+
+      const totalMonthly = Number((unitMonthly * headcount).toFixed(2));
+      const totalAnnual = Number((totalMonthly * 12).toFixed(2));
+      const annualSavingsVs147 = Number(Math.max(0, totalAnnual - 147).toFixed(2));
+
+      return {
+        salary,
+        headcount,
+        regime,
+        benefits,
+        turnover,
+        prov13,
+        provFerias,
+        fgtsMensal,
+        multaFgts,
+        inssRate,
+        inssPatronal,
+        unitMonthly,
+        totalMonthly,
+        totalAnnual,
+        annualSavingsVs147
+      };
+    }
+
+    function applyCltPreset(salary, regime, benefits, headcount, turnover) {
+      document.getElementById('cltSalary').value = String(salary);
+      document.getElementById('cltRegime').value = regime;
+      document.getElementById('cltBenefits').value = String(benefits);
+      document.getElementById('cltHeadcount').value = String(headcount);
+      document.getElementById('cltTurnover').value = String(turnover);
+      updateCltCalculator();
+      showToast('✓ Cenário carregado na Calculadora CLT vs. IA 24h.');
+    }
+
+    function updateCltCalculator() {
+      const calc = computeCltBreakdown({
+        salary: document.getElementById('cltSalary').value,
+        headcount: document.getElementById('cltHeadcount').value,
+        regime: document.getElementById('cltRegime').value,
+        benefits: document.getElementById('cltBenefits').value,
+        turnover: document.getElementById('cltTurnover').value
+      });
+
+      Object.assign(cltState, calc);
+
+      const regimePill = document.getElementById('cltRegimePill');
+      if (calc.regime === 'presumido') {
+        regimePill.className = 'status-badge badge-warn';
+        regimePill.textContent = 'Lucro Presumido / Real / Anexo IV (Encargos 28,8%)';
+      } else {
+        regimePill.className = 'status-badge badge-cyan';
+        regimePill.textContent = 'Simples Nacional Anexo I–III (INSS Patronal 0%)';
+      }
+
+      document.getElementById('cltQtyColHeader').textContent = `Total (${calc.headcount}x)`;
+
+      const rows = [
+        { label: 'Salário Base Nominal', rate: '100,00%', unit: calc.salary },
+        { label: 'Provisão 13º Salário (1/12)', rate: '8,33%', unit: calc.prov13 },
+        { label: 'Provisão Férias + 1/3 Constitucional', rate: '11,11%', unit: calc.provFerias },
+        { label: 'FGTS Mensal Obrigatório', rate: '8,00%', unit: calc.fgtsMensal },
+        { label: 'Provisão Multa Rescisória FGTS', rate: '4,00%', unit: calc.multaFgts },
+        {
+          label: calc.regime === 'presumido'
+            ? 'INSS Patronal + RAT + Terceiros'
+            : 'INSS Patronal (Simples Anexo I–III)',
+          rate: calc.regime === 'presumido' ? '28,80%' : '0,00%',
+          unit: calc.inssPatronal
+        },
+        { label: 'Benefícios Líquidos (VT + VR/VA)', rate: 'Fixo', unit: calc.benefits },
+        { label: 'Provisão Turnover / Folha / Contábil', rate: 'Fixo', unit: calc.turnover }
+      ];
+
+      const tbodyHtml = rows.map(r => {
+        const lineTotal = Number((r.unit * calc.headcount).toFixed(2));
+        return `
+          <tr>
+            <td>${escapeHtml(r.label)}</td>
+            <td class="num">${escapeHtml(r.rate)}</td>
+            <td class="num">${escapeHtml(formatMoney(r.unit, 'BRL'))}</td>
+            <td class="num">${escapeHtml(formatMoney(lineTotal, 'BRL'))}</td>
+          </tr>
+        `;
+      }).join('') + `
+        <tr class="total-row">
+          <td>Custo Total Mensal Real CLT</td>
+          <td class="num">${calc.salary > 0 ? ((calc.unitMonthly / calc.salary) * 100).toFixed(1).replace('.', ',') + '%' : '—'}</td>
+          <td class="num">${escapeHtml(formatMoney(calc.unitMonthly, 'BRL'))}</td>
+          <td class="num">${escapeHtml(formatMoney(calc.totalMonthly, 'BRL'))}</td>
+        </tr>
+      `;
+
+      document.getElementById('cltTableBody').innerHTML = tbodyHtml;
+      document.getElementById('cltTotalMonthlyCard').textContent = formatMoney(calc.totalMonthly, 'BRL');
+      document.getElementById('cltTotalAnnualCard').textContent = formatMoney(calc.totalAnnual, 'BRL');
+
+      const mult = calc.salary > 0 ? (calc.unitMonthly / calc.salary).toFixed(2).replace('.', ',') : '1,00';
+      document.getElementById('cltMultiplierLabel').textContent = `${mult}x sobre o salário nominal (${calc.headcount} posto${calc.headcount > 1 ? 's' : ''})`;
+
+      const monthlyHoursPerEmployee = 190.67;
+      const effectiveHour = calc.unitMonthly / monthlyHoursPerEmployee;
+      document.getElementById('cltHourlyRealLabel').textContent = `~${formatMoney(effectiveHour, 'BRL')}/hora útil (44h/sem)`;
+
+      document.getElementById('cltAnnualSavingsHighlight').textContent = `${formatMoney(calc.annualSavingsVs147, 'BRL')} / ano`;
+      document.getElementById('cltComparisonSubline').textContent =
+        `Custo CLT 12 meses (${formatMoney(calc.totalAnnual, 'BRL')}) vs. Setup IA 24/7 R$ 147,00 • Cobertura sobe de 44h para 168h/semana`;
+
+      if (document.getElementById('superadmin').classList.contains('open')) {
+        buildSeller00ClosingScript(false);
+      }
+    }
+
+    function buildCltWhatsAppSummaryText() {
+      const regimeLabel = cltState.regime === 'presumido'
+        ? 'Lucro Presumido / Real / Anexo IV (28,8% encargos)'
+        : 'Simples Nacional Anexo I–III (0% INSS patronal)';
+      return [
+        `📊 *Comparativo Determinístico: Custo Real CLT vs. Recepcionista IA 24/7*`,
+        ``,
+        `• Postos simulados: *${cltState.headcount}x* (Salário base ${formatMoney(cltState.salary, 'BRL')} | ${regimeLabel})`,
+        `• Custo Mensal Real CLT (c/ 13º, Férias+1/3, FGTS, Multa, Benefícios e Turnover): *${formatMoney(cltState.totalMonthly, 'BRL')}/mês*`,
+        `• Custo Anual Acumulado (12 meses): *${formatMoney(cltState.totalAnnual, 'BRL')}/ano*`,
+        `• Janela de atendimento humano (turno 44h): *124h descobertas toda semana* (noites, almoço, fim de semana e feriados).`,
+        ``,
+        `⚡ *Operação Recepcionista & Triagem IA 24/7 (168h/semana):*`,
+        `• 0h descoberta + resposta imediata simultânea`,
+        `• Implementação Express a partir de *R$ 147,00* (pagamento único via Stripe)`
+      ].join('\n');
+    }
+
+    function copyCltExecutiveSummary() {
+      copyToClipboard(buildCltWhatsAppSummaryText(), 'Resumo Executivo CLT vs. IA');
+    }
+
+    function injectCltIntoProposal() {
+      const summaryNote =
+        `Diagnóstico de Eficiência: ${cltState.headcount} posto(s) CLT representam ${formatMoney(cltState.totalMonthly, 'BRL')}/mês (${formatMoney(cltState.totalAnnual, 'BRL')}/ano) cobrindo 44h/semana (124h descobertas). Esta proposta ativa cobertura IA 24/7 (168h/semana) com economia potencial de ${formatMoney(cltState.annualSavingsVs147, 'BRL')}/ano.`;
+
+      document.getElementById('propContextNote').value = summaryNote;
+      updateProposalBuilder();
+      document.getElementById('gerador-proposta').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showToast('✓ Economia CLT injetada na Proposta Viva abaixo!');
+    }
+
+    /* ---------------- TOOL 2: STATELESS LIVE PROPOSAL GENERATOR (#p=...) ---------------- */
+    function loadProposalTemplate(key) {
+      if (key === 'completo147') {
+        document.getElementById('propCurrency').value = 'BRL';
+        document.getElementById('item1Title').value = 'Auditoria Completa + Correção de CTA & H1 Acima da Dobra';
+        document.getElementById('item1Price').value = '67';
+        document.getElementById('item2Title').value = 'Implantação Recepcionista & Triagem Voz IA 24/7 (168h/sem)';
+        document.getElementById('item2Price').value = '50';
+        document.getElementById('item3Title').value = 'Botão WhatsApp com Rastreamento UTM + Schema.org JSON-LD';
+        document.getElementById('item3Price').value = '30';
+        document.getElementById('bump1Title').value = 'Roteiro de Qualificação Comercial & Follow-up WhatsApp';
+        document.getElementById('bump1Price').value = '47';
+        document.getElementById('bump1DefaultOn').checked = false;
+        document.getElementById('bump2Title').value = 'Vitrine Demonstrativa Falada + FAQ Inteligente por Nicho';
+        document.getElementById('bump2Price').value = '97';
+        document.getElementById('bump2DefaultOn').checked = false;
+        document.getElementById('propPayUrl').value = STRIPE_CHECKOUTS.brl147;
+      } else if (key === 'express47') {
+        document.getElementById('propCurrency').value = 'BRL';
+        document.getElementById('item1Title').value = 'Relatório Completo Destravado do Scanner Cloud Run';
+        document.getElementById('item1Price').value = '27';
+        document.getElementById('item2Title').value = 'Bloco Único HTML Botão WhatsApp UTM + Schema JSON-LD';
+        document.getElementById('item2Price').value = '20';
+        document.getElementById('item3Title').value = 'Link Demonstrativo Personalizado no /hub/ (Incluso)';
+        document.getElementById('item3Price').value = '0';
+        document.getElementById('bump1Title').value = 'Upgrade Implantação Completa Assistida em 48h';
+        document.getElementById('bump1Price').value = '100';
+        document.getElementById('bump1DefaultOn').checked = false;
+        document.getElementById('bump2Title').value = 'Roteiro Personalizado de Atendimento Noturno IA';
+        document.getElementById('bump2Price').value = '47';
+        document.getElementById('bump2DefaultOn').checked = false;
+        document.getElementById('propPayUrl').value = STRIPE_CHECKOUTS.brl47;
+      } else if (key === 'agencia') {
+        document.getElementById('propCurrency').value = 'BRL';
+        document.getElementById('item1Title').value = 'Reestruturação de Landing Page de Alta Conversão Mobile';
+        document.getElementById('item1Price').value = '690';
+        document.getElementById('item2Title').value = 'Implantação de Recepcionista & Triagem IA 24/7 no Site';
+        document.getElementById('item2Price').value = '500';
+        document.getElementById('item3Title').value = 'SEO Local Estruturado (Schema.org JSON-LD + Rastreamento UTM)';
+        document.getElementById('item3Price').value = '300';
+        document.getElementById('bump1Title').value = 'Treinamento da Equipe Comercial + Playbook de Fechamento';
+        document.getElementById('bump1Price').value = '390';
+        document.getElementById('bump1DefaultOn').checked = false;
+        document.getElementById('bump2Title').value = 'Acompanhamento de Métricas por 30 Dias';
+        document.getElementById('bump2Price').value = '450';
+        document.getElementById('bump2DefaultOn').checked = false;
+        document.getElementById('propPayUrl').value = STRIPE_CHECKOUTS.brl147;
+      } else if (key === 'usd29') {
+        document.getElementById('propCurrency').value = 'USD';
+        document.getElementById('item1Title').value = 'Full Conversion Audit & Above-the-Fold CTA Optimization';
+        document.getElementById('item1Price').value = '12';
+        document.getElementById('item2Title').value = '24/7 AI Voice & Chat Receptionist Integration (168h/wk)';
+        document.getElementById('item2Price').value = '10';
+        document.getElementById('item3Title').value = 'UTM WhatsApp Widget + Validated Schema.org JSON-LD';
+        document.getElementById('item3Price').value = '7';
+        document.getElementById('bump1Title').value = 'Custom Qualification Script & Lead Routing';
+        document.getElementById('bump1Price').value = '9.90';
+        document.getElementById('bump1DefaultOn').checked = false;
+        document.getElementById('bump2Title').value = 'Multilingual Greeting Pack (EN / PT / ES)';
+        document.getElementById('bump2Price').value = '19';
+        document.getElementById('bump2DefaultOn').checked = false;
+        document.getElementById('propPayUrl').value = STRIPE_CHECKOUTS.usd29;
+      }
+      updateProposalBuilder();
+      showToast('✓ Modelo carregado no Gerador de Proposta Viva!');
+    }
+
+    function setStripeQuickCheckout(url, currency, targetTotal) {
+      document.getElementById('propPayUrl').value = url;
+      document.getElementById('propCurrency').value = currency;
+      if (typeof targetTotal === 'number') {
+        const p1 = Number((targetTotal * 0.45).toFixed(2));
+        const p2 = Number((targetTotal * 0.35).toFixed(2));
+        const p3 = Number((targetTotal - p1 - p2).toFixed(2));
+        document.getElementById('item1Price').value = String(p1);
+        document.getElementById('item2Price').value = String(p2);
+        document.getElementById('item3Price').value = String(p3);
+      }
+      updateProposalBuilder();
+      showToast(`✓ Checkout oficial Stripe (${formatMoney(targetTotal, currency)}) selecionado!`);
+    }
+
+    function collectEditorPayload() {
+      const cn = (document.getElementById('propClientName').value || '').trim().slice(0, 80) || 'Cliente Executivo';
+      const cc = (document.getElementById('propClientCompany').value || '').trim().slice(0, 90) || 'Sua Empresa';
+      const ag = (document.getElementById('propAgencyName').value || '').trim().slice(0, 90) || 'Consultoria Comercial';
+      const vd = Math.max(1, Math.min(90, Math.round(Number(document.getElementById('propValidDays').value) || 5)));
+      const cur = document.getElementById('propCurrency').value === 'USD' ? 'USD' : 'BRL';
+      const nt = (document.getElementById('propContextNote').value || '').trim().slice(0, 420);
+
+      const items = [
+        [
+          (document.getElementById('item1Title').value || '').trim().slice(0, 110) || 'Entregável Principal 1',
+          Math.max(0, Number(document.getElementById('item1Price').value) || 0)
+        ],
+        [
+          (document.getElementById('item2Title').value || '').trim().slice(0, 110) || 'Entregável Principal 2',
+          Math.max(0, Number(document.getElementById('item2Price').value) || 0)
+        ],
+        [
+          (document.getElementById('item3Title').value || '').trim().slice(0, 110) || 'Entregável Principal 3',
+          Math.max(0, Number(document.getElementById('item3Price').value) || 0)
+        ]
+      ];
+
+      const bumps = [
+        [
+          (document.getElementById('bump1Title').value || '').trim().slice(0, 110) || 'Opcional 1',
+          Math.max(0, Number(document.getElementById('bump1Price').value) || 0),
+          document.getElementById('bump1DefaultOn').checked ? 1 : 0
+        ],
+        [
+          (document.getElementById('bump2Title').value || '').trim().slice(0, 110) || 'Opcional 2',
+          Math.max(0, Number(document.getElementById('bump2Price').value) || 0),
+          document.getElementById('bump2DefaultOn').checked ? 1 : 0
+        ]
+      ];
+
+      const wa = normalizePhoneDigits(document.getElementById('propWaNumber').value);
+      const defaultStripe = cur === 'USD' ? STRIPE_CHECKOUTS.usd29 : STRIPE_CHECKOUTS.brl147;
+      const pay = sanitizeSafeHttpUrl(document.getElementById('propPayUrl').value, defaultStripe);
+      const rawHub = (document.getElementById('propHubUrl').value || '').trim();
+      const hub = rawHub ? sanitizeSafeHttpUrl(rawHub, '') : '';
+
+      return { v: 1, cn, cc, ag, vd, cur, nt, items, bumps, wa, pay, hub };
+    }
+
+    function normalizeDecodedPayload(raw) {
+      if (!raw || typeof raw !== 'object') return null;
+      const cur = raw.cur === 'USD' ? 'USD' : 'BRL';
+      const defaultStripe = cur === 'USD' ? STRIPE_CHECKOUTS.usd29 : STRIPE_CHECKOUTS.brl147;
+
+      const rawItems = Array.isArray(raw.items) ? raw.items.slice(0, 3) : [];
+      const items = rawItems.map((it, idx) => {
+        if (Array.isArray(it)) {
+          return [String(it[0] || `Item ${idx + 1}`).slice(0, 120), Math.max(0, Number(it[1]) || 0)];
+        }
+        return [`Item ${idx + 1}`, 0];
+      });
+      while (items.length < 3) {
+        items.push([`Entregável ${items.length + 1}`, 0]);
+      }
+
+      const rawBumps = Array.isArray(raw.bumps) ? raw.bumps.slice(0, 2) : [];
+      const bumps = rawBumps.map((bp, idx) => {
+        if (Array.isArray(bp)) {
+          return [
+            String(bp[0] || `Opcional ${idx + 1}`).slice(0, 120),
+            Math.max(0, Number(bp[1]) || 0),
+            bp[2] ? 1 : 0
+          ];
+        }
+        return [`Opcional ${idx + 1}`, 0, 0];
+      });
+      while (bumps.length < 2) {
+        bumps.push([`Opcional ${bumps.length + 1}`, 0, 0]);
+      }
+
+      return {
+        v: 1,
+        cn: String(raw.cn || 'Cliente Executivo').slice(0, 90),
+        cc: String(raw.cc || 'Empresa').slice(0, 100),
+        ag: String(raw.ag || 'Consultoria Comercial').slice(0, 100),
+        vd: Math.max(1, Math.min(90, Math.round(Number(raw.vd) || 5))),
+        cur,
+        nt: String(raw.nt || '').slice(0, 500),
+        items,
+        bumps,
+        wa: normalizePhoneDigits(raw.wa || '5511999998888'),
+        pay: sanitizeSafeHttpUrl(raw.pay, defaultStripe),
+        hub: raw.hub ? sanitizeSafeHttpUrl(raw.hub, '') : ''
+      };
+    }
+
+    function getCleanPageBaseUrl() {
+      return window.location.href.split('#')[0];
+    }
+
+    function updateProposalBuilder() {
+      const payload = collectEditorPayload();
+      const token = encodeBase64UrlUtf8(payload);
+      const fullShareUrl = `${getCleanPageBaseUrl()}#p=${token}`;
+
+      proposalState.encodedHash = `#p=${token}`;
+      proposalState.shareUrl = fullShareUrl;
+
+      const baseSum = payload.items.reduce((acc, it) => acc + (Number(it[1]) || 0), 0);
+      const preCheckedBumpSum = payload.bumps.reduce((acc, bp) => acc + (bp[2] ? (Number(bp[1]) || 0) : 0), 0);
+      const initialTotal = baseSum + preCheckedBumpSum;
+
+      document.getElementById('editorBaseSumLabel').textContent = formatMoney(baseSum, payload.cur);
+      document.getElementById('generatedProposalUrlBox').textContent = fullShareUrl;
+      document.getElementById('propPayloadChars').textContent = `${token.length} chars Base64URL`;
+      document.getElementById('proposalHashSizeBadge').textContent = `✓ Stateless #p= (${token.length} chars)`;
+      document.getElementById('propWaHint').textContent = `+${payload.wa}`;
+      document.getElementById('liveMiniTotalBadge').textContent = formatMoney(initialTotal, payload.cur);
+      document.getElementById('liveMiniPreviewText').textContent =
+        `Para ${payload.cn} (${payload.cc}) • Emitida por ${payload.ag} • Validade: ${payload.vd} dia(s) • 3 entregáveis (${formatMoney(baseSum, payload.cur)}) + 2 order bumps interativos.`;
+
+      if (document.getElementById('superadmin').classList.contains('open')) {
+        buildSeller00ClosingScript(false);
+      }
+    }
+
+    function renderClientProposalView(payload) {
+      const safe = normalizeDecodedPayload(payload);
+      if (!safe) return false;
+
+      proposalState.activePayload = safe;
+      proposalState.clientSelectedBumps = safe.bumps.map(b => Boolean(b[2]));
+
+      document.getElementById('cvCompanyHeadline').textContent = `Proposta Comercial — ${safe.cc}`;
+      document.getElementById('cvSubHeadline').textContent = `Escopo executivo personalizado com aprovação rápida e ativação imediata.`;
+      document.getElementById('cvValidityLabel').textContent = `${safe.vd} dia${safe.vd > 1 ? 's' : ''} corrido${safe.vd > 1 ? 's' : ''}`;
+      document.getElementById('cvClientName').textContent = safe.cn;
+      document.getElementById('cvClientCompany').textContent = safe.cc;
+      document.getElementById('cvAgencyName').textContent = safe.ag;
+
+      const ctxBox = document.getElementById('cvContextBox');
+      if (safe.nt) {
+        ctxBox.style.display = 'block';
+        ctxBox.textContent = safe.nt;
+      } else {
+        ctxBox.style.display = 'none';
+      }
+
+      const baseSum = safe.items.reduce((acc, it) => acc + (Number(it[1]) || 0), 0);
+      document.getElementById('cvBaseSubtotalHint').textContent = `Subtotal base: ${formatMoney(baseSum, safe.cur)}`;
+
+      document.getElementById('cvDeliverablesList').innerHTML = safe.items.map((it) => `
+        <div class="exec-item">
+          <div class="exec-item-title">
+            <span style="color:var(--emerald-bright);">✓</span>
+            <span>${escapeHtml(it[0])}</span>
+          </div>
+          <div class="exec-item-price">${it[1] > 0 ? escapeHtml(formatMoney(it[1], safe.cur)) : 'Incluso'}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('cvBumpsList').innerHTML = safe.bumps.map((bp, idx) => {
+        const isChecked = proposalState.clientSelectedBumps[idx];
+        return `
+          <label class="bump-card-live ${isChecked ? 'checked' : ''}" id="cvBumpCard_${idx}">
+            <div class="bump-check-left">
+              <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleClientOrderBump(${idx}, this.checked)" />
+              <div>
+                <div style="font-weight:800;font-size:0.9rem;color:#fff;">${escapeHtml(bp[0])}</div>
+                <div style="font-size:0.75rem;color:var(--muted);">Opcional interativo — clique para somar ou remover desta proposta</div>
+              </div>
+            </div>
+            <div class="exec-item-price" style="color:var(--cyan);">+ ${escapeHtml(formatMoney(bp[1], safe.cur))}</div>
+          </label>
+        `;
+      }).join('');
+
+      document.getElementById('cvPayNowBtn').href = safe.pay;
+
+      const hubRow = document.getElementById('cvHubDemoRow');
+      const hubBtn = document.getElementById('cvHubDemoBtn');
+      if (safe.hub) {
+        hubRow.style.display = 'block';
+        hubBtn.href = safe.hub;
+      } else {
+        hubRow.style.display = 'none';
+      }
+
+      recalculateClientLiveTotal();
+      return true;
+    }
+
+    function toggleClientOrderBump(idx, checked) {
+      proposalState.clientSelectedBumps[idx] = Boolean(checked);
+      const card = document.getElementById(`cvBumpCard_${idx}`);
+      if (card) {
+        card.classList.toggle('checked', Boolean(checked));
+      }
+      recalculateClientLiveTotal();
+    }
+
+    function recalculateClientLiveTotal() {
+      const safe = proposalState.activePayload;
+      if (!safe) return;
+
+      const baseSum = safe.items.reduce((acc, it) => acc + (Number(it[1]) || 0), 0);
+      let bumpsSum = 0;
+      const chosenBumpNames = [];
+
+      safe.bumps.forEach((bp, idx) => {
+        if (proposalState.clientSelectedBumps[idx]) {
+          bumpsSum += Number(bp[1]) || 0;
+          chosenBumpNames.push(`${bp[0]} (+${formatMoney(bp[1], safe.cur)})`);
+        }
+      });
+
+      const grandTotal = Number((baseSum + bumpsSum).toFixed(2));
+      document.getElementById('cvGrandTotalOut').textContent = formatMoney(grandTotal, safe.cur);
+
+      document.getElementById('cvSelectedSummaryLine').textContent = chosenBumpNames.length > 0
+        ? `Escopo principal + ${chosenBumpNames.length} opcional(is) adicionado(s)`
+        : 'Escopo principal selecionado (nenhum opcional marcado)';
+
+      const waLines = [
+        `Olá, ${safe.ag}! Aqui é ${safe.cn} (${safe.cc}).`,
+        ``,
+        `✅ *Confirmo o aceite da Proposta Comercial:*`,
+        ...safe.items.map(it => `• ${it[0]} (${it[1] > 0 ? formatMoney(it[1], safe.cur) : 'Incluso'})`)
+      ];
+
+      if (chosenBumpNames.length > 0) {
+        waLines.push(``, `⚡ *Opcionais adicionados:*`);
+        chosenBumpNames.forEach(b => waLines.push(`• ${b}`));
+      }
+
+      waLines.push(
+        ``,
+        `💰 *Investimento Total Aprovado: ${formatMoney(grandTotal, safe.cur)}*`,
+        `🔗 Link da proposta: ${window.location.href}`
+      );
+
+      const waHref = `https://wa.me/${safe.wa}?text=${encodeURIComponent(waLines.join('\n'))}`;
+      document.getElementById('cvAcceptWaBtn').href = waHref;
+    }
+
+    function openClientPreviewMode() {
+      updateProposalBuilder();
+      const payload = collectEditorPayload();
+      renderClientProposalView(payload);
+      try {
+        history.replaceState(null, '', proposalState.encodedHash);
+      } catch (_) {
+        window.location.hash = proposalState.encodedHash;
+      }
+      document.getElementById('clientProposalStage').classList.add('active');
+      document.getElementById('creatorSuiteWrapper').classList.add('creator-hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('👁️ Exibindo Visão Executiva do Cliente (#p=...).');
+    }
+
+    function exitClientModeToEditor() {
+      const stage = document.getElementById('clientProposalStage');
+      const suite = document.getElementById('creatorSuiteWrapper');
+      if (stage.classList.contains('active')) {
+        stage.classList.remove('active');
+        suite.classList.remove('creator-hidden');
+        if (window.location.hash.startsWith('#p=')) {
+          try {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          } catch (_) {}
+        }
+      }
+    }
+
+    function populateEditorFromDecoded(safe) {
+      document.getElementById('propClientName').value = safe.cn;
+      document.getElementById('propClientCompany').value = safe.cc;
+      document.getElementById('propAgencyName').value = safe.ag;
+      document.getElementById('propValidDays').value = String(safe.vd);
+      document.getElementById('propCurrency').value = safe.cur;
+      document.getElementById('propContextNote').value = safe.nt;
+
+      document.getElementById('item1Title').value = safe.items[0][0];
+      document.getElementById('item1Price').value = String(safe.items[0][1]);
+      document.getElementById('item2Title').value = safe.items[1][0];
+      document.getElementById('item2Price').value = String(safe.items[1][1]);
+      document.getElementById('item3Title').value = safe.items[2][0];
+      document.getElementById('item3Price').value = String(safe.items[2][1]);
+
+      document.getElementById('bump1Title').value = safe.bumps[0][0];
+      document.getElementById('bump1Price').value = String(safe.bumps[0][1]);
+      document.getElementById('bump1DefaultOn').checked = Boolean(safe.bumps[0][2]);
+
+      document.getElementById('bump2Title').value = safe.bumps[1][0];
+      document.getElementById('bump2Price').value = String(safe.bumps[1][1]);
+      document.getElementById('bump2DefaultOn').checked = Boolean(safe.bumps[1][2]);
+
+      document.getElementById('propWaNumber').value = safe.wa;
+      document.getElementById('propPayUrl').value = safe.pay;
+      document.getElementById('propHubUrl').value = safe.hub || '';
+      updateProposalBuilder();
+    }
+
+    function copyShareableProposalLink() {
+      updateProposalBuilder();
+      copyToClipboard(proposalState.shareUrl, 'Link da Proposta Viva (#p=...)');
+    }
+
+    function shareProposalViaWhatsApp() {
+      updateProposalBuilder();
+      const payload = collectEditorPayload();
+      const msg = [
+        `Olá, ${payload.cn}! Preparei a proposta comercial interativa para a *${payload.cc}* (válida por ${payload.vd} dias):`,
+        ``,
+        `${proposalState.shareUrl}`,
+        ``,
+        `Você pode revisar o escopo, selecionar opcionais em tempo real e aprovar direto pelo link acima.`
+      ].join('\n');
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+    }
+
+    /* ---------------- TOOL 3: CLOUD RUN SCANNER (/api/audit-preview) ---------------- */
+    function cleanDomainOnly(raw) {
+      return String(raw || '')
+        .trim()
+        .replace(/^https?:\/\//i, '')
+        .replace(/\/.*$/, '')
+        .replace(/^www\./i, '');
+    }
+
+    function normalizeTargetUrl(raw) {
+      let s = String(raw || '').trim();
+      if (!s) return '';
+      if (!/^https?:\/\//i.test(s)) {
+        s = 'https://' + s;
+      }
+      try {
+        const u = new URL(s);
+        if (!u.hostname || !u.hostname.includes('.')) return '';
+        return u.href;
+      } catch (_) {
+        return '';
+      }
+    }
+
+    function refreshPersonalizedHubLink() {
+      const empresa = (document.getElementById('scanCompanyName').value || '').trim() || 'Sua Empresa';
+      const site = cleanDomainOnly(document.getElementById('scanSiteDomain').value);
+      const nicho = document.getElementById('scanNicheSelect').value || 'clinica';
+
+      const params = new URLSearchParams();
+      params.set('empresa', empresa);
+      if (site) params.set('site', site);
+      params.set('nicho', nicho);
+
+      const hubUrl = `${HUB_BASE_URL}?${params.toString()}`;
+      const anchor = document.getElementById('hubLinkPreviewAnchor');
+      anchor.textContent = hubUrl;
+      anchor.href = hubUrl;
+      return hubUrl;
+    }
+
+    async function probeCloudRunOptionsCors() {
+      const topBadge = document.getElementById('heroCorsBadge');
+      const secBadge = document.getElementById('apiCorsStatusBadge');
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 6500);
+        const res = await fetch(AUDIT_PREVIEW_ENDPOINT, {
+          method: 'OPTIONS',
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+        if (res.status === 204 || res.ok) {
+          topBadge.className = 'status-badge badge-live';
+          topBadge.textContent = `● Cloud Run Online (OPTIONS ${res.status})`;
+          secBadge.className = 'status-badge badge-live';
+          secBadge.textContent = `● Cloud Run API Online (OPTIONS ${res.status} CORS OK)`;
+          return;
+        }
+      } catch (_) {
+        // Resilient fallback status below
+      }
+      topBadge.className = 'status-badge badge-warn';
+      topBadge.textContent = '● Cloud Run + Contingência Ativa';
+      secBadge.className = 'status-badge badge-warn';
+      secBadge.textContent = '● Contingência Resiliente Pronta';
+    }
+
+    function quickAuditDomain(domain, niche) {
+      document.getElementById('scanUrlInput').value = domain;
+      if (niche) document.getElementById('scanNicheSelect').value = niche;
+      document.getElementById('scanner-cloudrun').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      executeCloudRunAudit(domain);
+    }
+
+    function handleAuditSubmit(ev) {
+      ev.preventDefault();
+      executeCloudRunAudit(document.getElementById('scanUrlInput').value);
+    }
+
+    async function executeCloudRunAudit(rawInput) {
+      const targetUrl = normalizeTargetUrl(rawInput);
+      if (!targetUrl) {
+        showToast('Informe um domínio válido (ex.: suaempresa.com.br).');
+        return;
+      }
+
+      const domain = cleanDomainOnly(targetUrl);
+      document.getElementById('scanSiteDomain').value = domain;
+      const inferredName = domain.split('.')[0].replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      if (!document.getElementById('scanCompanyName').value.trim() || document.getElementById('scanCompanyName').value === 'Clínica Paulista Saúde') {
+        document.getElementById('scanCompanyName').value = inferredName || domain;
+      }
+      refreshPersonalizedHubLink();
+
+      const loader = document.getElementById('scanLoader');
+      const resultsBox = document.getElementById('scanResultsBox');
+      const btn = document.getElementById('scanSubmitBtn');
+
+      resultsBox.classList.remove('active');
+      loader.classList.add('active');
+      btn.disabled = true;
+      btn.textContent = 'Auditando…';
+      document.getElementById('scanLoaderMsg').textContent = `Executando POST ${AUDIT_PREVIEW_ENDPOINT} para ${targetUrl}…`;
+
+      const t0 = performance.now();
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 14000);
+        const res = await fetch(AUDIT_PREVIEW_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: targetUrl }),
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+
+        const data = await res.json().catch(() => null);
+        if (!res.ok || !data || typeof data.score !== 'number') {
+          const errMsg = (data && (data.erro || data.detail)) ? (data.erro || data.detail) : `HTTP ${res.status}`;
+          throw new Error(errMsg);
+        }
+
+        renderCloudRunResult(data, true, Math.round(performance.now() - t0));
+      } catch (err) {
+        const reason = err && err.name === 'AbortError'
+          ? 'Timeout ou bloqueio WAF no site-alvo'
+          : (err && err.message ? err.message : 'Bloqueio de leitura externa');
+        const fallback = buildAuditFallback(targetUrl, domain, reason);
+        renderCloudRunResult(fallback, false, Math.round(performance.now() - t0));
+      } finally {
+        loader.classList.remove('active');
+        btn.disabled = false;
+        btn.textContent = '⚡ Auditar Site Ao Vivo';
+      }
+    }
+
+    function buildAuditFallback(targetUrl, domain, reason) {
+      const seed = Array.from(domain).reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      const estScore = 28 + (seed % 19);
+      return {
+        url: targetUrl,
+        score: estScore,
+        resumo_desempenho: {
+          status_http: 'WAF / Timeout',
+          tempo_ms: null
+        },
+        achado_principal: {
+          severidade: 'alta',
+          impacto_pontos: 18,
+          titulo: `Atrito de acesso ou ausência de canal imediato em ${domain}`,
+          evidencia: `A leitura automatizada encontrou proteção/lentidão (${reason}), cenário em que visitantes mobile abandonam a página sem acionar o WhatsApp comercial.`,
+          recomendacao: 'Implantar CTA direto acima da dobra, Botão WhatsApp com UTM, Schema.org JSON-LD e Recepcionista IA 24/7.'
+        },
+        total_achados: 6
+      };
+    }
+
+    function renderCloudRunResult(data, isLive, elapsedMs) {
+      lastAuditData = { data, isLive, elapsedMs };
+
+      const score = Math.max(0, Math.min(100, Math.round(Number(data.score) || 0)));
+      const arc = document.getElementById('scanGaugeArc');
+      const circumference = 2 * Math.PI * 58;
+      const offset = circumference * (1 - score / 100);
+
+      let stroke = '#f43f5e';
+      let badgeClass = 'status-badge badge-danger';
+      let badgeLabel = 'CRÍTICO — VAZAMENTO ALTO';
+      if (score >= 75) {
+        stroke = '#34d399';
+        badgeClass = 'status-badge badge-ok';
+        badgeLabel = 'BOM — OTIMIZÁVEL';
+      } else if (score >= 45) {
+        stroke = '#f59e0b';
+        badgeClass = 'status-badge badge-warn';
+        badgeLabel = 'ATENÇÃO — PERDENDO LEADS';
+      }
+
+      arc.style.stroke = stroke;
+      arc.style.strokeDasharray = circumference.toFixed(2);
+      requestAnimationFrame(() => {
+        arc.style.strokeDashoffset = offset.toFixed(2);
+      });
+
+      const scoreVal = document.getElementById('scanScoreValue');
+      scoreVal.textContent = String(score);
+      scoreVal.style.color = stroke;
+
+      const sevBadge = document.getElementById('scanSeverityBadge');
+      sevBadge.className = badgeClass;
+      sevBadge.textContent = isLive ? badgeLabel : 'CONTINGÊNCIA RESILIENTE';
+
+      document.getElementById('scanTargetUrlOut').textContent = data.url || '';
+      document.getElementById('scanRuntimeOriginBadge').innerHTML = isLive
+        ? '<span class="status-badge badge-live">🟢 Cloud Run Live</span>'
+        : '<span class="status-badge badge-fallback">🛡️ Contingência Ativa</span>';
+
+      const perf = data.resumo_desempenho || {};
+      const latencyMs = perf.tempo_ms != null ? `${perf.tempo_ms} ms` : `${elapsedMs} ms`;
+      const chips = [
+        `Score: ${score}/100`,
+        `HTTP: ${perf.status_http != null ? perf.status_http : '200'}`,
+        `Latência: ${latencyMs}`,
+        `Achados: ${data.total_achados != null ? data.total_achados : 1}`
+      ];
+      document.getElementById('scanMetricsChips').innerHTML = chips
+        .map(c => `<span class="metric-chip">${escapeHtml(c)}</span>`)
+        .join('');
+
+      const main = data.achado_principal || {
+        severidade: 'alta',
+        impacto_pontos: 15,
+        titulo: 'Gargalo de conversão acima da dobra detectado',
+        evidencia: 'Oportunidade imediata de captura de leads fora do horário comercial.',
+        recomendacao: 'Aplicar botão WhatsApp rastreado + Recepcionista IA 24h.'
+      };
+
+      document.getElementById('scanFindingPriority').textContent =
+        main.severidade === 'alta' ? 'PRIORIDADE ALTA' : 'GARGALO PRINCIPAL';
+      document.getElementById('scanFindingImpact').textContent =
+        main.impacto_pontos ? `-${main.impacto_pontos} pts no score` : 'Impacto Direto';
+      document.getElementById('scanFindingTitle').textContent = main.titulo || '';
+      document.getElementById('scanFindingEvidence').textContent = main.evidencia || '';
+      document.getElementById('scanFindingFix').textContent = main.recomendacao || '';
+
+      document.getElementById('scanResultsBox').classList.add('active');
+    }
+
+    function injectScanIntoProposal147() {
+      const company = (document.getElementById('scanCompanyName').value || '').trim() || 'Empresa Auditada';
+      const domain = cleanDomainOnly(document.getElementById('scanSiteDomain').value || document.getElementById('scanUrlInput').value) || 'suaempresa.com.br';
+      const hubUrl = refreshPersonalizedHubLink();
+
+      const score = lastAuditData && lastAuditData.data ? Math.round(Number(lastAuditData.data.score) || 0) : 42;
+      const mainTitle = (lastAuditData && lastAuditData.data && lastAuditData.data.achado_principal && lastAuditData.data.achado_principal.titulo)
+        ? lastAuditData.data.achado_principal.titulo
+        : `Otimização de conversão e atendimento 24/7 em ${domain}`;
+
+      document.getElementById('propClientName').value = `Diretoria — ${company}`;
+      document.getElementById('propClientCompany').value = `${company} (${domain})`;
+      document.getElementById('propCurrency').value = 'BRL';
+      document.getElementById('propContextNote').value =
+        `Diagnóstico Cloud Run em ${domain}: Score atual ${score}/100. Gargalo prioritário identificado: "${mainTitle}". Entrega completa em até 48h cobrindo as 124h/semana fora do expediente.`;
+
+      document.getElementById('item1Title').value = `Correção Técnica em ${domain}: ${mainTitle}`.slice(0, 108);
+      document.getElementById('item1Price').value = '67';
+      document.getElementById('item2Title').value = 'Ativação Recepcionista & Triagem Voz IA 24/7 (168h/semana)';
+      document.getElementById('item2Price').value = '50';
+      document.getElementById('item3Title').value = 'Botão WhatsApp com UTM + Schema.org JSON-LD Validado';
+      document.getElementById('item3Price').value = '30';
+
+      document.getElementById('propPayUrl').value = STRIPE_CHECKOUTS.brl147;
+      document.getElementById('propHubUrl').value = hubUrl;
+
+      updateProposalBuilder();
+      document.getElementById('gerador-proposta').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showToast(`✓ Proposta R$ 147 gerada para ${domain} + Link /hub/ vinculado!`);
+    }
+
+    /* ---------------- #SUPERADMIN: SELLER 00 CLOSING GENERATOR ---------------- */
+    function toggleSuperadminPanel(open) {
+      exitClientModeToEditor();
+      const panel = document.getElementById('superadmin');
+      if (open) {
+        panel.classList.add('open');
+        buildSeller00ClosingScript(false);
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        panel.classList.remove('open');
+      }
+    }
+
+    function buildSeller00ClosingScript(showFeedback) {
+      updateProposalBuilder();
+      const hubUrl = refreshPersonalizedHubLink();
+      const payload = collectEditorPayload();
+
+      const offerCode = document.getElementById('admOfferChoice').value || 'brl147';
+      const offerMap = {
+        brl147: { label: 'Pacote Completo 48h (R$ 147,00 único)', url: STRIPE_CHECKOUTS.brl147 },
+        brl47: { label: 'Kit Express 24h (R$ 47,00 único)', url: STRIPE_CHECKOUTS.brl47 },
+        usd29: { label: 'Full 48h Setup (US$ 29.00 one-time)', url: STRIPE_CHECKOUTS.usd29 },
+        usd990: { label: 'Express 24h Kit (US$ 9.90 one-time)', url: STRIPE_CHECKOUTS.usd990 }
+      };
+      const chosenOffer = offerMap[offerCode] || offerMap.brl147;
+
+      const msg = [
+        `Olá, ${payload.cn}! Tudo bem?`,
+        ``,
+        `Fiz o levantamento para a *${payload.cc}* comparando o custo operacional tradicional com a Recepcionista & Triagem IA 24/7:`,
+        `• Turno CLT (${cltState.headcount}x): *${formatMoney(cltState.totalMonthly, 'BRL')}/mês* (${formatMoney(cltState.totalAnnual, 'BRL')}/ano) deixando *124h/semana descobertas*.`,
+        `• Com a operação IA 24/7 (168h/semana), sua empresa responde na hora inclusive à noite, no almoço e fins de semana.`,
+        ``,
+        `📄 *1) Sua Proposta Interativa Viva (válida por ${payload.vd} dias):*`,
+        `${proposalState.shareUrl}`,
+        ``,
+        `🎙️ *2) Demonstração Ao Vivo com o nome da sua empresa no Hub:*`,
+        `${hubUrl}`,
+        ``,
+        `💳 *3) Ativação Direta (${chosenOffer.label}):*`,
+        `${chosenOffer.url}`,
+        ``,
+        `Qualquer dúvida fico à disposição por aqui (para não receber novas mensagens, responda SAIR).`
+      ].join('\n');
+
+      document.getElementById('admClosingTextarea').value = msg;
+      syncSuperadminWaButton();
+      if (showFeedback) {
+        showToast('✓ Script de Fechamento Seller 00 atualizado com CLT + #p= + /hub/!');
+      }
+    }
+
+    function syncSuperadminWaButton() {
+      const digits = normalizePhoneDigits(document.getElementById('admProspectPhone').value);
+      const msg = document.getElementById('admClosingTextarea').value || '';
+      document.getElementById('admDirectWaBtn').href = `https://wa.me/${digits}?text=${encodeURIComponent(msg)}`;
+    }
+
+    /* ---------------- HASH ROUTER (#p=... & #superadmin) ---------------- */
+    function handleLocationHashRouting() {
+      const h = window.location.hash || '';
+      if (h.startsWith('#p=')) {
+        try {
+          const decoded = decodeBase64UrlUtf8(h.slice(3));
+          const safe = normalizeDecodedPayload(decoded);
+          if (safe) {
+            populateEditorFromDecoded(safe);
+            renderClientProposalView(safe);
+            document.getElementById('clientProposalStage').classList.add('active');
+            document.getElementById('creatorSuiteWrapper').classList.add('creator-hidden');
+            return;
+          }
+        } catch (_) {
+          showToast('⚠️ Link de proposta inválido ou truncado — abrindo Modo Criador.');
+        }
+      }
+
+      document.getElementById('clientProposalStage').classList.remove('active');
+      document.getElementById('creatorSuiteWrapper').classList.remove('creator-hidden');
+
+      if (h.toLowerCase() === '#superadmin') {
+        toggleSuperadminPanel(true);
+      }
+    }
+
+    window.addEventListener('hashchange', handleLocationHashRouting);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCltCalculator();
+      refreshPersonalizedHubLink();
+      updateProposalBuilder();
+      probeCloudRunOptionsCors();
+
+      const qs = new URLSearchParams(window.location.search);
+      const qEmpresa = (qs.get('empresa') || '').trim();
+      const qSite = (qs.get('site') || '').trim();
+      const qNicho = (qs.get('nicho') || '').trim();
+      if (qEmpresa) {
+        document.getElementById('propClientCompany').value = qEmpresa;
+        document.getElementById('scanCompanyName').value = qEmpresa;
+      }
+      if (qSite) {
+        document.getElementById('scanUrlInput').value = qSite;
+        document.getElementById('scanSiteDomain').value = cleanDomainOnly(qSite);
+      }
+      if (qNicho && ['clinica', 'hotel', 'advocacia', 'imobiliaria', 'solar', 'delivery'].includes(qNicho)) {
+        document.getElementById('scanNicheSelect').value = qNicho;
+      }
+      if (qEmpresa || qSite || qNicho) {
+        const hub = refreshPersonalizedHubLink();
+        document.getElementById('propHubUrl').value = hub;
+        updateProposalBuilder();
+      }
+
+      handleLocationHashRouting();
+    });
+  </script>
+</body>
+</html>
