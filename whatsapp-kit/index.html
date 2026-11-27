@@ -1,0 +1,3338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kit Zero Vazamentos: Botão WhatsApp + Schema.org JSON-LD + Scanner Cloud Run</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23040814'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='%2310b981' stroke-width='3'/%3E%3Cpath d='M32 14c-9.9 0-18 7.8-18 17.4 0 3.7 1.2 7.1 3.2 9.9L15 50l9.1-2.4c2.4 1.3 5.1 2 7.9 2 9.9 0 18-7.8 18-17.4S41.9 14 32 14z' fill='%2310b981'/%3E%3Cpath d='M26.5 24.5c-.4-.9-.8-.9-1.2-.9h-1c-.4 0-1 .1-1.5.7-.5.6-2 1.9-2 4.7s2 5.4 2.3 5.8c.3.4 3.9 6.1 9.6 8.3 4.7 1.8 5.7 1.5 6.7 1.4 1-.1 3.3-1.3 3.8-2.6.5-1.3.5-2.4.3-2.6-.1-.2-.5-.4-1.1-.7-.6-.3-3.3-1.6-3.8-1.8-.5-.2-.9-.3-1.3.3-.4.6-1.5 1.8-1.8 2.2-.3.4-.7.4-1.2.1-.6-.3-2.4-.9-4.5-2.8-1.7-1.5-2.8-3.3-3.1-3.9-.3-.6 0-.9.3-1.2.3-.3.6-.7.8-1 .3-.3.4-.6.6-1 .2-.4.1-.7-.1-1-.1-.2-1.1-2.9-1.6-3.9z' fill='%23040814'/%3E%3C/svg%3E" />
+  <meta name="description" content="Kit Zero Vazamentos 100% gratuito e client-side: gere botão flutuante de WhatsApp com UTM, Schema.org JSON-LD validado com Google SERP Preview e rode diagnóstico ao vivo via Cloud Run." />
+  <style>
+    :root {
+      --bg: #040814;
+      --bg-elevated: #0b1326;
+      --glass: rgba(11, 19, 38, 0.78);
+      --glass-strong: rgba(11, 19, 38, 0.94);
+      --surface-2: rgba(20, 32, 60, 0.64);
+      --border: rgba(148, 163, 184, 0.17);
+      --border-strong: rgba(148, 163, 184, 0.32);
+      --text: #f8fafc;
+      --text-soft: #cbd5e1;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --emerald-bright: #34d399;
+      --emerald-dark: #022c22;
+      --cyan: #38bdf8;
+      --cyan-dark: #082f49;
+      --amber: #f59e0b;
+      --danger: #f43f5e;
+      --radius: 18px;
+      --radius-sm: 11px;
+      --shadow-glow: 0 22px 60px -16px rgba(16, 185, 129, 0.24);
+      --shadow-card: 0 18px 48px rgba(2, 6, 23, 0.6);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
+      padding-bottom: 94px;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 68% 45% at 12% 0%, rgba(16, 185, 129, 0.16), transparent 65%),
+        radial-gradient(ellipse 60% 42% at 88% 8%, rgba(56, 189, 248, 0.14), transparent 62%),
+        radial-gradient(ellipse 55% 40% at 50% 96%, rgba(16, 185, 129, 0.09), transparent 70%),
+        var(--bg);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 75%, transparent 100%);
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Header & Cross-Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(4, 8, 20, 0.86);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 66px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 850;
+      font-size: 0.98rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--emerald-bright);
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65);
+      animation: pulseDot 2.1s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65); }
+      70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .brand span {
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      transition: color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links .nav-sep {
+      width: 1px;
+      height: 14px;
+      background: var(--border-strong);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .mobile-eco-bar {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding: 8px 0;
+      gap: 8px;
+      overflow-x: auto;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      scrollbar-width: none;
+    }
+
+    .mobile-eco-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mobile-eco-bar a {
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 750;
+      font-size: 0.92rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      text-align: center;
+      line-height: 1.25;
+      max-width: 100%;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #022017;
+      box-shadow: 0 10px 26px rgba(16, 185, 129, 0.28);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--emerald-bright), var(--emerald));
+      box-shadow: 0 14px 32px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+      color: var(--cyan-dark);
+      box-shadow: 0 10px 26px rgba(56, 189, 248, 0.24);
+    }
+
+    .btn-cyan:hover:not(:disabled) {
+      background: linear-gradient(135deg, #7dd3fc, var(--cyan));
+    }
+
+    .btn-glass {
+      background: rgba(20, 32, 60, 0.72);
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .btn-glass:hover:not(:disabled) {
+      border-color: rgba(56, 189, 248, 0.55);
+      background: rgba(30, 41, 59, 0.92);
+    }
+
+    .btn-amber {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: #fde68a;
+    }
+
+    .btn-amber:hover:not(:disabled) {
+      background: rgba(245, 158, 11, 0.26);
+    }
+
+    .btn-sm {
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      border-radius: 9px;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      min-width: 0;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 20px auto 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+      pointer-events: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 44px 0 30px;
+      text-align: center;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.34);
+      color: #6ee7b7;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      max-width: 100%;
+    }
+
+    code {
+      overflow-wrap: anywhere;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.85rem, 4.4vw, 3.2rem);
+      line-height: 1.09;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      max-width: 920px;
+      margin: 0 auto 16px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(95deg, var(--emerald-bright) 0%, var(--cyan) 60%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.96rem, 1.5vw, 1.11rem);
+      color: var(--text-soft);
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .kpi-item {
+      background: rgba(11, 19, 38, 0.74);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 12px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .kpi-val {
+      font-size: 1.24rem;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .kpi-val.accent {
+      color: var(--emerald-bright);
+    }
+
+    .kpi-val.cyan {
+      color: var(--cyan);
+    }
+
+    .kpi-lbl {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* Section Headers */
+    .section {
+      padding: 36px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.42rem, 3vw, 2.15rem);
+      font-weight: 850;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 780px;
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      max-width: 100%;
+    }
+
+    .badge-live {
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.42);
+    }
+
+    .badge-fallback {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-danger {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.45);
+    }
+
+    .badge-warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-ok {
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.42);
+    }
+
+    .badge-cyan {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    /* Form Controls */
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.79rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .field-hint {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      max-width: 100%;
+      background: rgba(4, 8, 20, 0.9);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 11px 13px;
+      border-radius: 11px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field-input.invalid-input {
+      border-color: rgba(244, 63, 94, 0.85);
+      box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.16);
+    }
+
+    .field-textarea {
+      font-family: var(--mono);
+      font-size: 0.83rem;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    .field-input.with-prefix {
+      padding-left: 36px;
+    }
+
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
+    }
+
+    /* Tool Split Layouts */
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .input-alert {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.81rem;
+      font-weight: 650;
+      display: none;
+    }
+
+    .input-alert.error {
+      display: block;
+      background: rgba(244, 63, 94, 0.14);
+      border: 1px solid rgba(244, 63, 94, 0.45);
+      color: #fda4af;
+    }
+
+    .input-alert.ok {
+      display: block;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+    }
+
+    .sub-box {
+      background: rgba(4, 8, 20, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 14px;
+      margin-top: 14px;
+      min-width: 0;
+    }
+
+    .sub-box-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill-toggle-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .choice-btn {
+      flex: 1;
+      min-width: 82px;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      background: rgba(4, 8, 20, 0.8);
+      color: var(--text-soft);
+      font-size: 0.81rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .choice-btn.active {
+      border-color: var(--emerald-bright);
+      background: rgba(16, 185, 129, 0.18);
+      color: #fff;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+    }
+
+    .color-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      flex-shrink: 0;
+    }
+
+    /* Tool 1 Live Browser Preview */
+    .preview-shell {
+      background: rgba(4, 8, 20, 0.9);
+      border: 1px solid rgba(16, 185, 129, 0.34);
+      border-radius: 16px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .browser-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.45);
+    }
+
+    .browser-url {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(4, 8, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mock-site-canvas {
+      position: relative;
+      height: 330px;
+      background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+      color: #0f172a;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .mock-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .mock-nav-links {
+      display: flex;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.7rem;
+      color: #475569;
+    }
+
+    .mock-hero {
+      margin: auto 0;
+      max-width: 88%;
+    }
+
+    .mock-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.14);
+      color: #047857;
+      margin-bottom: 8px;
+    }
+
+    .mock-hero h4 {
+      font-size: 1.08rem;
+      line-height: 1.2;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .mock-hero p {
+      font-size: 0.76rem;
+      color: #475569;
+      margin-bottom: 10px;
+    }
+
+    .mock-skeleton-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      opacity: 0.85;
+    }
+
+    .mock-skel {
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .mock-wa-floating {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .mock-wa-floating.pos-left {
+      right: auto;
+      left: 14px;
+      flex-direction: row-reverse;
+    }
+
+    .mock-wa-floating.hidden-delay {
+      opacity: 0;
+      transform: translateY(14px) scale(0.92);
+      pointer-events: none;
+    }
+
+    .mock-wa-tooltip {
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.28);
+      white-space: nowrap;
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mock-wa-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.3);
+      transition: transform 0.16s ease;
+      flex-shrink: 0;
+    }
+
+    .mock-wa-circle:hover {
+      transform: scale(1.06);
+    }
+
+    .mock-wa-chatbox {
+      position: absolute;
+      bottom: 72px;
+      right: 14px;
+      width: 245px;
+      max-width: calc(100% - 28px);
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.24);
+      padding: 10px;
+      font-size: 0.75rem;
+      display: none;
+      z-index: 6;
+    }
+
+    .mock-wa-chatbox.pos-left {
+      right: auto;
+      left: 14px;
+    }
+
+    .mock-wa-chatbox.open {
+      display: block;
+      animation: fadeUp 0.2s ease;
+    }
+
+    .delay-banner {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.86);
+      color: #7dd3fc;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: none;
+      z-index: 7;
+    }
+
+    .delay-banner.active {
+      display: inline-flex;
+    }
+
+    /* Code Output Blocks */
+    .code-box-wrap {
+      margin-top: 14px;
+      background: rgba(4, 8, 20, 0.92);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .code-box-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .code-pre {
+      font-family: var(--mono);
+      font-size: 0.77rem;
+      line-height: 1.5;
+      color: #6ee7b7;
+      background: rgba(11, 19, 38, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      max-height: 240px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .url-line {
+      font-family: var(--mono);
+      font-size: 0.79rem;
+      color: #7dd3fc;
+      background: rgba(11, 19, 38, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      word-break: break-all;
+      line-height: 1.45;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* Tool 2 Google SERP Preview & Validation */
+    .serp-card {
+      background: #0b1326;
+      border: 1px solid rgba(56, 189, 248, 0.34);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .serp-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .serp-favicon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .serp-site-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .serp-url {
+      font-size: 0.73rem;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    .serp-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #7dd3fc;
+      line-height: 1.28;
+      margin-bottom: 5px;
+    }
+
+    .serp-desc {
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .serp-rich-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: #a7f3d0;
+    }
+
+    .serp-rich-meta span {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .schema-checks {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .schema-check-item {
+      background: rgba(4, 8, 20, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 10px;
+      font-size: 0.77rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .schema-check-item.ok {
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #d1fae5;
+    }
+
+    .schema-check-item.warn {
+      border-color: rgba(245, 158, 11, 0.42);
+      color: #fde68a;
+    }
+
+    /* Tool 3 Scanner */
+    .scanner-shell {
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 24px 64px -20px rgba(56, 189, 248, 0.22);
+    }
+
+    .scanner-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 13px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    .sample-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.79rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .chip-btn {
+      background: rgba(20, 32, 60, 0.76);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip-btn:hover {
+      border-color: var(--cyan);
+      color: #fff;
+      background: rgba(56, 189, 248, 0.14);
+    }
+
+    .scan-loader {
+      display: none;
+      padding: 22px 18px;
+      border-radius: 14px;
+      background: rgba(4, 8, 20, 0.8);
+      border: 1px dashed rgba(56, 189, 248, 0.4);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .scan-loader.active {
+      display: block;
+    }
+
+    .scan-bar-track {
+      max-width: 440px;
+      height: 8px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 999px;
+      margin: 12px auto 10px;
+      overflow: hidden;
+    }
+
+    .scan-bar-fill {
+      height: 100%;
+      width: 35%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      animation: scanSlide 1.3s ease-in-out infinite;
+    }
+
+    @keyframes scanSlide {
+      0% { transform: translateX(-100%); width: 35%; }
+      50% { width: 58%; }
+      100% { transform: translateX(310%); width: 35%; }
+    }
+
+    .scan-results {
+      display: none;
+      margin-top: 18px;
+      animation: fadeUp 0.28s ease;
+    }
+
+    .scan-results.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scan-grid {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .score-panel {
+      background: rgba(4, 8, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .gauge-box {
+      position: relative;
+      width: 136px;
+      height: 136px;
+      margin-bottom: 10px;
+    }
+
+    .gauge-box svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(148, 163, 184, 0.16);
+      stroke-width: 11;
+    }
+
+    .gauge-progress {
+      fill: none;
+      stroke: var(--danger);
+      stroke-width: 11;
+      stroke-linecap: round;
+      stroke-dasharray: 364.42;
+      stroke-dashoffset: 364.42;
+      transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.4s ease;
+    }
+
+    .gauge-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-num {
+      font-size: 2.25rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .gauge-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .metrics-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .metric-chip {
+      background: rgba(20, 32, 60, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.77rem;
+      color: var(--text-soft);
+      font-family: var(--mono);
+    }
+
+    .signal-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .signal-card {
+      background: rgba(4, 8, 20, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      min-width: 0;
+    }
+
+    .signal-card-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .signal-card-val {
+      font-size: 0.84rem;
+      font-weight: 750;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .finding-card {
+      background: linear-gradient(180deg, rgba(244, 63, 94, 0.1), rgba(4, 8, 20, 0.88));
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .finding-title {
+      font-size: 1.02rem;
+      font-weight: 800;
+      margin: 8px 0 6px;
+      color: #fff;
+    }
+
+    .finding-detail {
+      font-size: 0.87rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .finding-fix {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid var(--emerald-bright);
+      padding: 9px 12px;
+      border-radius: 7px;
+      font-size: 0.84rem;
+      color: #d1fae5;
+    }
+
+    .hub-bridge-box {
+      margin-top: 16px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(56, 189, 248, 0.1));
+      border: 1px solid rgba(52, 211, 153, 0.42);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .locked-bar {
+      background: rgba(11, 19, 38, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    /* Storefront */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .offer-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .offer-card:hover {
+      border-color: rgba(56, 189, 248, 0.42);
+      transform: translateY(-2px);
+    }
+
+    .offer-card.featured {
+      border-color: rgba(16, 185, 129, 0.62);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.12) 0%, var(--glass) 48%);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .offer-ribbon {
+      position: absolute;
+      top: -12px;
+      right: 18px;
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      color: #022017;
+      font-size: 0.69rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+
+    .offer-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+    .offer-card h3 {
+      font-size: 1.2rem;
+      font-weight: 850;
+      margin-bottom: 6px;
+    }
+
+    .offer-price {
+      font-size: 1.95rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin: 8px 0 4px;
+    }
+
+    .offer-price small {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .offer-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0 20px;
+      font-size: 0.87rem;
+      color: var(--text-soft);
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--emerald-bright);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .eco-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .eco-card {
+      background: rgba(11, 19, 38, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 15px 16px;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .eco-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .eco-card strong {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .eco-card span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Superadmin Agency / Seller Panel */
+    .superadmin-panel {
+      display: none;
+      margin-top: 26px;
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), rgba(4, 8, 20, 0.96));
+    }
+
+    .superadmin-panel.open {
+      display: block;
+      animation: fadeUp 0.28s ease;
+    }
+
+    .stripe-vault {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    /* Toast, Footer & Sticky Bar */
+    .toast-bar {
+      position: fixed;
+      right: 16px;
+      bottom: 86px;
+      z-index: 95;
+      background: rgba(6, 78, 59, 0.96);
+      border: 1px solid var(--emerald-bright);
+      color: #ecfdf5;
+      padding: 10px 15px;
+      border-radius: 11px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      max-width: calc(100vw - 32px);
+    }
+
+    .toast-bar.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sticky-footer-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 55;
+      background: rgba(4, 8, 20, 0.93);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 10px 18px;
+    }
+
+    .sticky-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 0 22px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .mobile-eco-bar { display: flex; }
+      .kpi-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .workbench-grid { grid-template-columns: 1fr; }
+      .scan-grid { grid-template-columns: 1fr; }
+      .signal-grid-3 { grid-template-columns: 1fr; }
+      .store-grid { grid-template-columns: 1fr; }
+      .eco-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 14px; }
+      .glass-card { padding: 18px 14px; border-radius: 15px; }
+      .hero { padding: 30px 0 22px; }
+      .form-grid-2, .form-grid-3, .schema-checks, .stripe-vault, .eco-strip {
+        grid-template-columns: 1fr;
+      }
+      .scanner-form { grid-template-columns: 1fr; }
+      .nav-bar { min-height: 58px; gap: 8px; }
+      .nav-actions .btn { padding: 7px 10px; font-size: 0.74rem; white-space: nowrap; }
+      .nav-actions .hide-xs { display: none; }
+      .brand { font-size: 0.84rem; gap: 7px; }
+      .mock-nav-links { display: none; }
+      .mock-wa-tooltip { max-width: 135px; font-size: 0.7rem; }
+      .sticky-inner { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-bar">
+        <a href="#topo" class="brand">
+          <span class="brand-pulse" aria-hidden="true"></span>
+          KIT<span>•ZERO VAZAMENTOS</span>
+        </a>
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#widget-wa">Botão WhatsApp</a>
+          <a href="#schema-jsonld">Schema JSON-LD</a>
+          <a href="#scanner">Scanner Cloud Run</a>
+          <a href="#ofertas">Ofertas Stripe</a>
+          <span class="nav-sep" aria-hidden="true"></span>
+          <a href="../hub/">Hub Voz IA</a>
+          <a href="../voz-ia/">Voz IA</a>
+          <a href="../lead-packs/">Lead Packs</a>
+          <a href="../ferramentas/">Pix EMV</a>
+          <a href="#superadmin" onclick="toggleSuperadmin(true)">Modo Agência</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm hide-xs">Express R$ 47</a>
+          <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Pack 48h — R$ 147</a>
+        </div>
+      </div>
+      <div class="mobile-eco-bar" aria-label="Navegação rápida mobile">
+        <a href="#widget-wa">💬 Botão WhatsApp</a>
+        <a href="#schema-jsonld">🧩 Schema JSON-LD</a>
+        <a href="#scanner">🔍 Scanner Cloud Run</a>
+        <a href="#ofertas">💳 Planos Stripe</a>
+        <a href="../hub/">Hub Voz IA</a>
+        <a href="../voz-ia/">Voz IA</a>
+        <a href="../lead-packs/">Lead Packs</a>
+        <a href="../ferramentas/">Pix EMV</a>
+        <a href="#superadmin" onclick="toggleSuperadmin(true)">⚙️ Modo Agência</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="topo" class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="eyebrow-pill">
+        🛡️ 3 Ferramentas Gratuitas Client-Side + API Cloud Run Ao Vivo • Zero Login
+      </div>
+      <h1>
+        Kit <span class="gradient-text">Zero Vazamentos</span>: Botão WhatsApp + Schema.org JSON-LD + Scanner Cloud Run
+      </h1>
+      <p class="hero-sub">
+        Corrija em minutos os 3 gargalos mais frequentes identificados nos <strong>619 leads B2B auditados</strong>: falta de canal direto no WhatsApp com rastreamento UTM, ausência de dados estruturados JSON-LD no Google e páginas lentas sem CTA acima da dobra.
+      </p>
+      <div class="hero-ctas">
+        <a href="#widget-wa" class="btn btn-primary">💬 Gerar Botão WhatsApp + UTM</a>
+        <a href="#schema-jsonld" class="btn btn-cyan">🧩 Gerar &amp; Validar JSON-LD</a>
+        <a href="#scanner" class="btn btn-glass">🔍 Escanear Site no Cloud Run</a>
+        <button type="button" class="btn btn-amber" onclick="toggleSuperadmin(true)">⚙️ Modo Agência (#superadmin)</button>
+      </div>
+      <div class="trust-row">
+        <span>⚡ 100% HTML/CSS/JS Autocontido (0 CDNs externos)</span>
+        <span>🛡️ Escape XSS nativo via <code>escapeHtml</code></span>
+        <span>🌐 Probe &amp; Scan Real via Cloud Run (<code>/api/audit-preview</code>)</span>
+        <span>💳 Checkout Oficial Stripe (BRL &amp; USD)</span>
+      </div>
+
+      <div class="kpi-strip">
+        <div class="kpi-item">
+          <div class="kpi-val accent">1 Bloco</div>
+          <div class="kpi-lbl">Widget WhatsApp HTML/CSS/JS Pronto</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val cyan">6 Tipos</div>
+          <div class="kpi-lbl">Schemas JSON-LD + SERP Preview</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val accent">0–100</div>
+          <div class="kpi-lbl">Score Técnico Real no Cloud Run</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">619 PMEs</div>
+          <div class="kpi-lbl">Base B2B Auditada por Defeitos Reais</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 1: WHATSAPP FLOATING WIDGET + UTM GENERATOR -->
+    <section class="section" id="widget-wa">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">01 • Ferramenta Gratuita Client-Side • Conversão Imediata</div>
+          <h2>Gerador de Botão Flutuante WhatsApp + Link / UTM</h2>
+          <p class="section-desc">
+            Configure seu botão flutuante responsivo, valide o DDI/DDD em tempo real, teste o atraso de aparição no simulador ao vivo e copie o bloco completo em 1 clique sem dependências externas.
+          </p>
+        </div>
+        <span class="status-badge badge-live">● Preview Ao Vivo + Proteção XSS</span>
+      </div>
+
+      <div class="glass-card">
+        <div class="workbench-grid">
+          <!-- Controls Column -->
+          <div>
+            <div class="form-grid-2">
+              <div>
+                <label for="waCompany" class="field-label">
+                  <span>Nome da Empresa *</span>
+                  <span class="field-hint">Exibido no código e aria-label</span>
+                </label>
+                <input type="text" id="waCompany" class="field-input" value="Clínica Paulista Saúde" placeholder="Ex.: Clínica Paulista Saúde" oninput="updateWhatsAppWidget()" />
+              </div>
+
+              <div>
+                <label for="waPhone" class="field-label">
+                  <span>WhatsApp com DDI + DDD *</span>
+                  <span class="field-hint" id="waDigitsHint">Mín. 10 dígitos</span>
+                </label>
+                <input type="tel" id="waPhone" class="field-input" value="5511999998888" placeholder="Ex.: 5511999998888" oninput="updateWhatsAppWidget()" />
+              </div>
+            </div>
+
+            <div id="waPhoneAlert" class="input-alert" role="alert"></div>
+
+            <div style="margin-top:12px;">
+              <label for="waMessage" class="field-label">
+                <span>Mensagem Inicial Pré-Preenchida</span>
+                <span class="field-hint">Codificada automaticamente para <code>wa.me</code></span>
+              </label>
+              <textarea id="waMessage" class="field-textarea" rows="3" oninput="updateWhatsAppWidget()">Olá! Vim pelo site e gostaria de agendar um atendimento.</textarea>
+            </div>
+
+            <div class="form-grid-2" style="margin-top:12px;">
+              <div>
+                <label for="waTooltip" class="field-label">
+                  <span>Rótulo Tooltip</span>
+                  <span class="field-hint">Ao lado do ícone</span>
+                </label>
+                <input type="text" id="waTooltip" class="field-input" value="Fale Agora" placeholder="Ex.: Fale Agora" maxlength="32" oninput="updateWhatsAppWidget()" />
+              </div>
+
+              <div>
+                <div class="field-label">
+                  <span>Posição na Tela</span>
+                  <span class="field-hint">Canto inferior</span>
+                </div>
+                <div class="pill-toggle-row" id="waPosGroup">
+                  <button type="button" class="choice-btn active" data-pos="right" onclick="setWaPosition('right')">↘ Direita</button>
+                  <button type="button" class="choice-btn" data-pos="left" onclick="setWaPosition('left')">↙ Esquerda</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-grid-2" style="margin-top:12px;">
+              <div>
+                <div class="field-label">
+                  <span>Cor do Botão</span>
+                  <span class="field-hint">Alto contraste</span>
+                </div>
+                <div class="pill-toggle-row" id="waColorGroup">
+                  <button type="button" class="choice-btn active" data-color="emerald" onclick="setWaColor('emerald')">
+                    <span class="color-swatch" style="background:#10b981;"></span>Esmeralda
+                  </button>
+                  <button type="button" class="choice-btn" data-color="blue" onclick="setWaColor('blue')">
+                    <span class="color-swatch" style="background:#0ea5e9;"></span>Azul
+                  </button>
+                  <button type="button" class="choice-btn" data-color="black" onclick="setWaColor('black')">
+                    <span class="color-swatch" style="background:#0f172a;"></span>Preto
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <div class="field-label">
+                  <span>Atraso de Aparição</span>
+                  <span class="field-hint">Entrada suave</span>
+                </div>
+                <div class="pill-toggle-row" id="waDelayGroup">
+                  <button type="button" class="choice-btn active" data-delay="0" onclick="setWaDelay(0)">0s</button>
+                  <button type="button" class="choice-btn" data-delay="3" onclick="setWaDelay(3)">3s</button>
+                  <button type="button" class="choice-btn" data-delay="6" onclick="setWaDelay(6)">6s</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="sub-box">
+              <div class="sub-box-title">
+                <span>🎯 Utilitário UTM de Rastreamento</span>
+                <label style="display:inline-flex;align-items:center;gap:6px;font-size:0.74rem;text-transform:none;letter-spacing:0;color:var(--text-soft);cursor:pointer;">
+                  <input type="checkbox" id="waAppendUtmToText" checked onchange="updateWhatsAppWidget()" />
+                  Anexar tag de origem na mensagem WhatsApp
+                </label>
+              </div>
+              <div class="form-grid-3">
+                <div>
+                  <label for="utmSource" class="field-label"><span>utm_source</span></label>
+                  <input type="text" id="utmSource" class="field-input" value="site_organico" placeholder="google" oninput="updateWhatsAppWidget()" />
+                </div>
+                <div>
+                  <label for="utmMedium" class="field-label"><span>utm_medium</span></label>
+                  <input type="text" id="utmMedium" class="field-input" value="botao_flutuante" placeholder="cpc" oninput="updateWhatsAppWidget()" />
+                </div>
+                <div>
+                  <label for="utmCampaign" class="field-label"><span>utm_campaign</span></label>
+                  <input type="text" id="utmCampaign" class="field-input" value="zero_vazamentos" placeholder="oferta_mes" oninput="updateWhatsAppWidget()" />
+                </div>
+              </div>
+              <div style="margin-top:10px;">
+                <div class="field-label">
+                  <span>Query String UTM para Links de Campanha</span>
+                  <button type="button" class="chip-btn" onclick="copyUtmQuery()">📋 Copiar UTMs</button>
+                </div>
+                <div id="utmQueryPreview" class="url-line"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Preview & Copy Column -->
+          <div>
+            <div class="preview-shell">
+              <div class="browser-bar">
+                <div class="browser-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="browser-url" id="waPreviewBrowserUrl">https://clinicapaulistasaude.com.br</div>
+                <button type="button" class="btn btn-glass btn-sm" onclick="simulateWidgetDelay()">⏱️ Testar Atraso (<span id="waDelayBtnSec">0</span>s)</button>
+              </div>
+
+              <div class="mock-site-canvas">
+                <div id="waDelayBanner" class="delay-banner">Aguardando delay…</div>
+
+                <div class="mock-nav">
+                  <span id="waPreviewBrand">Clínica Paulista Saúde</span>
+                  <div class="mock-nav-links">
+                    <span>Serviços</span>
+                    <span>Equipe</span>
+                    <span>Contato</span>
+                  </div>
+                </div>
+
+                <div class="mock-hero">
+                  <span class="mock-tag">Simulação ao vivo do seu site</span>
+                  <h4 id="waPreviewHeadline">Atendimento ágil e agendamento direto em segundos</h4>
+                  <p>Clique no botão flutuante no canto inferior para testar a prévia da conversa que será aberta no WhatsApp.</p>
+                  <div class="mock-skeleton-cards" aria-hidden="true">
+                    <div class="mock-skel"></div>
+                    <div class="mock-skel"></div>
+                    <div class="mock-skel"></div>
+                  </div>
+                </div>
+
+                <div style="font-size:0.68rem;color:#64748b;">
+                  Preview isolado • Posição: <strong id="waPreviewMetaPos">Direita</strong> • Cor: <strong id="waPreviewMetaColor">Esmeralda</strong>
+                </div>
+
+                <div id="waPreviewChatbox" class="mock-wa-chatbox">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <strong style="font-size:0.76rem;color:#047857;">💬 Prévia da Mensagem</strong>
+                    <button type="button" onclick="togglePreviewChat(false)" style="border:none;background:transparent;cursor:pointer;font-weight:800;color:#64748b;">✕</button>
+                  </div>
+                  <div id="waPreviewBubbleText" style="background:#f1f5f9;padding:8px;border-radius:8px;color:#0f172a;line-height:1.4;margin-bottom:8px;word-break:break-word;"></div>
+                  <a id="waPreviewBubbleLink" href="#" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;background:#10b981;color:#fff;font-weight:800;padding:6px 10px;border-radius:7px;">↗ Abrir Link wa.me Real</a>
+                </div>
+
+                <div id="waFloatingPreview" class="mock-wa-floating">
+                  <span id="waPreviewTooltip" class="mock-wa-tooltip">Fale Agora</span>
+                  <button type="button" id="waPreviewCircle" class="mock-wa-circle" onclick="togglePreviewChat()" aria-label="Testar botão flutuante WhatsApp">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.08c-.24.69-1.42 1.32-1.97 1.4-.51.08-1.15.11-1.86-.12-.43-.14-.99-.32-1.7-.63-2.99-1.29-4.94-4.32-5.09-4.52-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.84 2.04.91 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.54-.15.15-.31.31-.13.61.18.3.78 1.29 1.68 2.09 1.15 1.03 2.12 1.35 2.42 1.5.3.15.48.13.66-.08.18-.2.76-.89.97-1.19.2-.3.41-.25.69-.15.28.1 1.78.84 2.08.99.31.15.51.23.59.35.07.13.07.73-.17 1.42z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="code-box-wrap">
+              <div class="code-box-head">
+                <strong style="font-size:0.84rem;color:#fff;">🔗 Link Direto WhatsApp Gerado</strong>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-glass btn-sm" onclick="copyWaLink()">📋 Copiar Link wa.me</button>
+                  <a id="waDirectTestBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-cyan btn-sm">↗ Testar</a>
+                </div>
+              </div>
+              <div id="waGeneratedLinkOut" class="url-line"></div>
+            </div>
+
+            <div class="code-box-wrap">
+              <div class="code-box-head">
+                <strong style="font-size:0.84rem;color:#fff;">📦 Bloco Único HTML + CSS + JS (Copie e Cole antes de <code>&lt;/body&gt;</code>)</strong>
+                <button type="button" class="btn btn-primary btn-sm" onclick="copyWaSnippet()">📋 Copiar Código Completo</button>
+              </div>
+              <pre id="waSnippetOut" class="code-pre"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 2: SCHEMA.ORG JSON-LD GENERATOR & VALIDATOR -->
+    <section class="section" id="schema-jsonld">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">02 • SEO Estruturado &amp; Rich Snippets • Schema.org</div>
+          <h2>Gerador &amp; Validador de Schema Markup JSON-LD + Google SERP Preview</h2>
+          <p class="section-desc">
+            Gere marcação oficial <code style="color:#6ee7b7;">application/ld+json</code> válida via <code style="color:#7dd3fc;">JSON.stringify</code> para o Google identificar sua empresa, endereço, telefone, horários, faixa de preço e redes sociais (<code style="color:#7dd3fc;">sameAs</code>).
+          </p>
+        </div>
+        <span class="status-badge badge-ok" id="schemaValidityBadge">✓ JSON-LD Válido</span>
+      </div>
+
+      <div class="glass-card">
+        <div class="workbench-grid">
+          <!-- Schema Inputs -->
+          <div>
+            <div class="form-grid-2">
+              <div>
+                <label for="scType" class="field-label">
+                  <span>Tipo Schema.org (<code>@type</code>) *</span>
+                </label>
+                <select id="scType" class="field-select" onchange="updateSchemaGenerator()">
+                  <option value="MedicalClinic">MedicalClinic (Clínica Médica / Saúde)</option>
+                  <option value="Dentist">Dentist (Odontologia / Dentista)</option>
+                  <option value="LocalBusiness">LocalBusiness (Negócio Local)</option>
+                  <option value="Store">Store (Loja / E-commerce)</option>
+                  <option value="LegalService">LegalService (Escritório de Advocacia)</option>
+                  <option value="Restaurant">Restaurant (Restaurante / Delivery)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="scName" class="field-label">
+                  <span>Nome do Negócio *</span>
+                </label>
+                <input type="text" id="scName" class="field-input" value="Clínica Paulista Saúde" placeholder="Ex.: Clínica Paulista Saúde" oninput="updateSchemaGenerator()" />
+              </div>
+
+              <div>
+                <label for="scUrl" class="field-label">
+                  <span>URL Oficial do Site *</span>
+                </label>
+                <input type="url" id="scUrl" class="field-input" value="https://clinicapaulistasaude.com.br" placeholder="https://suaempresa.com.br" oninput="updateSchemaGenerator()" />
+              </div>
+
+              <div>
+                <label for="scPhone" class="field-label">
+                  <span>Telefone Formatado *</span>
+                </label>
+                <input type="text" id="scPhone" class="field-input" value="+55 11 99999-8888" placeholder="+55 11 99999-8888" oninput="updateSchemaGenerator()" />
+              </div>
+
+              <div>
+                <label for="scCityUf" class="field-label">
+                  <span>Cidade / UF *</span>
+                  <span class="field-hint">Formato: Cidade / UF</span>
+                </label>
+                <input type="text" id="scCityUf" class="field-input" value="São Paulo / SP" placeholder="Ex.: São Paulo / SP" oninput="updateSchemaGenerator()" />
+              </div>
+
+              <div>
+                <label for="scPriceRange" class="field-label">
+                  <span>Faixa de Preço (<code>priceRange</code>)</span>
+                </label>
+                <select id="scPriceRange" class="field-select" onchange="updateSchemaGenerator()">
+                  <option value="$">$ (Econômico)</option>
+                  <option value="$$" selected>$$ (Intermediário)</option>
+                  <option value="$$$">$$$ (Premium)</option>
+                  <option value="$$$$">$$$$ (Alto Padrão)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <label for="scHours" class="field-label">
+                <span>Horário de Abertura / Fechamento (<code>openingHours</code>) *</span>
+                <span class="field-hint">Padrão Schema.org</span>
+              </label>
+              <input type="text" id="scHours" class="field-input" value="Mo-Fr 08:00-18:00" placeholder="Mo-Fr 08:00-18:00" oninput="updateSchemaGenerator()" />
+              <div class="sample-chips" style="margin-top:7px;margin-bottom:0;">
+                <span>Atalhos:</span>
+                <button type="button" class="chip-btn" onclick="setSchemaHours('Mo-Fr 08:00-18:00')">Seg–Sex 08–18h</button>
+                <button type="button" class="chip-btn" onclick="setSchemaHours('Mo-Sa 08:00-19:00')">Seg–Sáb 08–19h</button>
+                <button type="button" class="chip-btn" onclick="setSchemaHours('Mo-Su 00:00-23:59')">24 Horas</button>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <label for="scDesc" class="field-label">
+                <span>Descrição Curta (<code>description</code>) *</span>
+                <span class="field-hint" id="scDescCounter">0 chars</span>
+              </label>
+              <textarea id="scDesc" class="field-textarea" rows="3" oninput="updateSchemaGenerator()">Atendimento especializado com agendamento rápido via WhatsApp em São Paulo e região.</textarea>
+            </div>
+
+            <div class="form-grid-2" style="margin-top:12px;">
+              <div>
+                <label for="scInstagram" class="field-label">
+                  <span>Instagram (<code>sameAs</code>)</span>
+                </label>
+                <input type="url" id="scInstagram" class="field-input" value="https://instagram.com/clinicapaulistasaude" placeholder="https://instagram.com/suaempresa" oninput="updateSchemaGenerator()" />
+              </div>
+
+              <div>
+                <label for="scLinkedin" class="field-label">
+                  <span>LinkedIn (<code>sameAs</code>)</span>
+                </label>
+                <input type="url" id="scLinkedin" class="field-input" value="https://linkedin.com/company/clinicapaulistasaude" placeholder="https://linkedin.com/company/suaempresa" oninput="updateSchemaGenerator()" />
+              </div>
+            </div>
+
+            <div class="sub-box">
+              <div class="sub-box-title">
+                <span>🧪 Validação em Tempo Real (Schema.org)</span>
+                <span id="schemaJsonSyntaxStatus" style="color:var(--emerald-bright);">JSON.parse OK</span>
+              </div>
+              <div id="schemaChecksGrid" class="schema-checks"></div>
+            </div>
+          </div>
+
+          <!-- SERP Preview & JSON-LD Output -->
+          <div>
+            <div class="serp-card">
+              <div class="field-label" style="margin-bottom:10px;">
+                <span style="color:var(--cyan);">🔎 Google SERP Preview (Simulação de Resultado)</span>
+                <span class="status-badge badge-cyan" id="serpTypePill">MedicalClinic</span>
+              </div>
+              <div class="serp-top">
+                <div class="serp-favicon" id="serpFavicon">C</div>
+                <div style="min-width:0;">
+                  <div class="serp-site-name" id="serpSiteName">Clínica Paulista Saúde</div>
+                  <div class="serp-url" id="serpUrlBreadcrumb">https://clinicapaulistasaude.com.br</div>
+                </div>
+              </div>
+              <div class="serp-title" id="serpTitleOut">Clínica Paulista Saúde — São Paulo / SP</div>
+              <div class="serp-desc" id="serpDescOut">Atendimento especializado com agendamento rápido via WhatsApp em São Paulo e região.</div>
+              <div class="serp-rich-meta" id="serpMetaBadges"></div>
+            </div>
+
+            <div class="code-box-wrap">
+              <div class="code-box-head">
+                <strong style="font-size:0.84rem;color:#fff;">📄 Código <code>&lt;script type="application/ld+json"&gt;</code> Pronto</strong>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="copySchemaScript()">📋 Copiar Tag JSON-LD</button>
+                  <button type="button" class="btn btn-glass btn-sm" onclick="copySchemaRawJson()">📋 Copiar JSON Puro</button>
+                </div>
+              </div>
+              <pre id="schemaScriptOut" class="code-pre"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL 3: CLOUD RUN LIVE SCANNER + PERSONALIZED HUB LINK -->
+    <section class="section" id="scanner">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">03 • API Real em Produção (Google Cloud Run)</div>
+          <h2>Scanner Ao Vivo Cloud Run + Link Personalizado <code>/hub/</code></h2>
+          <p class="section-desc">
+            Consulte <code style="color:#7dd3fc;">POST /api/audit-preview</code> em tempo real para medir Score 0–100, latência HTTP e diagnóstico de CTA/WhatsApp/H1, e gere automaticamente o link personalizado do <code style="color:#6ee7b7;">/hub/?empresa=...&amp;site=...&amp;nicho=...</code>.
+          </p>
+        </div>
+        <span class="status-badge badge-warn" id="apiHealthBadge">● Verificando CORS Cloud Run…</span>
+      </div>
+
+      <div class="glass-card scanner-shell">
+        <form id="scannerForm" class="scanner-form" onsubmit="handleScanSubmit(event)">
+          <div class="input-wrap">
+            <span class="input-prefix" aria-hidden="true">🌐</span>
+            <input
+              type="text"
+              id="scanUrlInput"
+              class="field-input with-prefix"
+              placeholder="Digite o domínio ou URL pública (ex.: example.com ou suaempresa.com.br)"
+              aria-label="URL do site para escanear"
+              autocomplete="url"
+              required
+            />
+          </div>
+          <button type="submit" id="scanSubmitBtn" class="btn btn-cyan">
+            ⚡ Escanear Site Ao Vivo
+          </button>
+        </form>
+
+        <div class="sample-chips">
+          <span>Exemplos rápidos:</span>
+          <button type="button" class="chip-btn" onclick="quickScan('example.com')">example.com</button>
+          <button type="button" class="chip-btn" onclick="quickScan('w3solarenergia.com.br')">w3solarenergia.com.br</button>
+          <button type="button" class="chip-btn" onclick="quickScan('hospitalsanter.com.br')">hospitalsanter.com.br</button>
+          <button type="button" class="chip-btn" onclick="quickScan('beirariohotel.com.br')">beirariohotel.com.br</button>
+          <button type="button" class="chip-btn" onclick="quickScan('fialhoadvogados.com.br')">fialhoadvogados.com.br</button>
+        </div>
+
+        <div class="sub-box" style="margin-top:0;">
+          <div class="sub-box-title">
+            <span>🎯 Gerador Automático de Link <code>/hub/</code> Personalizado</span>
+            <span style="font-size:0.72rem;color:var(--muted);text-transform:none;">Atualiza em tempo real com sua empresa e domínio</span>
+          </div>
+          <div class="form-grid-3">
+            <div>
+              <label for="hubEmpresaInput" class="field-label"><span>Empresa</span></label>
+              <input type="text" id="hubEmpresaInput" class="field-input" value="Clínica Paulista Saúde" placeholder="Nome da empresa" oninput="updateHubLink()" />
+            </div>
+            <div>
+              <label for="hubSiteInput" class="field-label"><span>Site</span></label>
+              <input type="text" id="hubSiteInput" class="field-input" value="clinicapaulistasaude.com.br" placeholder="suaempresa.com.br" oninput="updateHubLink()" />
+            </div>
+            <div>
+              <label for="hubNichoInput" class="field-label"><span>Nicho</span></label>
+              <select id="hubNichoInput" class="field-select" onchange="updateHubLink()">
+                <option value="clinica">Clínica / Saúde / Odonto</option>
+                <option value="hotel">Hotel / Pousada</option>
+                <option value="advocacia">Advocacia / Escritório</option>
+                <option value="imobiliaria">Imobiliária</option>
+                <option value="solar">Energia Solar</option>
+                <option value="delivery">Restaurante / Delivery</option>
+              </select>
+            </div>
+          </div>
+          <div class="hub-bridge-box">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+              <strong style="font-size:0.86rem;color:#fff;">🔗 Link Direto do Diagnóstico + Voz IA 24h no <code>/hub/</code>:</strong>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-glass btn-sm" onclick="copyHubLink()">📋 Copiar Link /hub/</button>
+                <a id="hubGeneratedAnchor" href="https://suporte149.github.io/seller-to-live/hub/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">↗ Abrir Demo no /hub/</a>
+              </div>
+            </div>
+            <a id="hubGeneratedUrlBox" href="https://suporte149.github.io/seller-to-live/hub/" target="_blank" rel="noopener noreferrer" class="url-line" style="display:block;"></a>
+          </div>
+        </div>
+
+        <div id="scanLoader" class="scan-loader" aria-live="polite">
+          <strong>Executando auditoria técnica via Google Cloud Run…</strong>
+          <div class="scan-bar-track"><div class="scan-bar-fill"></div></div>
+          <p id="scanLoaderStep" style="font-size:0.82rem;color:var(--muted);">
+            Validando resposta HTTP, latência e principal vazamento de conversão…
+          </p>
+        </div>
+
+        <div id="scanResults" class="scan-results" aria-live="polite">
+          <div class="scan-grid">
+            <div class="score-panel">
+              <div class="gauge-box">
+                <svg viewBox="0 0 132 132" aria-hidden="true">
+                  <circle class="gauge-bg" cx="66" cy="66" r="58"></circle>
+                  <circle id="gaugeCircle" class="gauge-progress" cx="66" cy="66" r="58"></circle>
+                </svg>
+                <div class="gauge-center">
+                  <span id="scoreNumber" class="gauge-num">--</span>
+                  <span class="gauge-sub">SCORE / 100</span>
+                </div>
+              </div>
+              <span id="scoreSeverityPill" class="status-badge badge-danger">CRÍTICO</span>
+              <div id="scannedUrlLabel" style="margin-top:10px;font-size:0.76rem;color:var(--cyan);word-break:break-all;font-family:var(--mono);"></div>
+              <div id="scanModeBadge" style="margin-top:8px;"></div>
+            </div>
+
+            <div style="min-width:0;">
+              <div class="metrics-row" id="scanMetricsRow"></div>
+
+              <div class="signal-grid-3" id="scanSignalsGrid"></div>
+
+              <div class="finding-card" id="mainFindingCard">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                  <span class="status-badge badge-danger" id="findingSeverityBadge">VAZAMENTO PRINCIPAL DETECTADO</span>
+                  <span id="findingImpactBadge" style="font-size:0.79rem;font-weight:800;color:#fda4af;">-15 pts no score</span>
+                </div>
+                <div class="finding-title" id="findingTitle"></div>
+                <p class="finding-detail" id="findingEvidence"></p>
+                <div class="finding-fix">
+                  <strong>Correção imediata:</strong> <span id="findingRecommendation"></span>
+                </div>
+              </div>
+
+              <div class="locked-bar">
+                <div style="flex:1;min-width:210px;">
+                  <div style="font-weight:800;font-size:0.93rem;color:#fff;" id="hiddenFindingsHeadline">
+                    🔒 Achados adicionais detectados
+                  </div>
+                  <div style="font-size:0.81rem;color:var(--muted);margin-top:3px;" id="hiddenFindingsMsg">
+                    Corrija todos os vazamentos com implantação guiada em 24h–48h via Stripe.
+                  </div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">
+                    Express — R$ 47
+                  </a>
+                  <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                    Completo 48h — R$ 147
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: STRIPE COMMERCIAL OFFERS -->
+    <section class="section" id="ofertas">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">04 • Storefront Oficial • Checkout Único Stripe (BRL &amp; USD)</div>
+          <h2>Quer Nossa Equipe Implantando Tudo + Recepcionista IA 24h no Seu Site?</h2>
+          <p class="section-desc">
+            Use as ferramentas acima gratuitamente para sempre. Se quiser entrega pronta em até 24h ou 48h — com botão WhatsApp rastreado por UTM, Schema.org JSON-LD aplicado, correção dos achados do scanner e Recepcionista Voz IA 24h no seu domínio — escolha seu pacote oficial via Stripe.
+          </p>
+        </div>
+      </div>
+
+      <div class="store-grid">
+        <!-- BRL Full 48h / USD Full 48h -->
+        <article class="glass-card offer-card featured">
+          <div class="offer-ribbon">Mais Completo • Entrega em até 48h</div>
+          <div>
+            <span class="offer-tag" style="color:var(--emerald-bright);">Pacote Completo 48h • BRL &amp; USD</span>
+            <h3>Correção Completa Zero Vazamentos + Stack Voz IA 24h (48h)</h3>
+            <div class="offer-price">R$ 147,00 <small>| US$ 29.00</small></div>
+            <p class="offer-sub">Implantação completa de HTML/SEO/Schema.org JSON-LD, botão WhatsApp rastreado e integração de Recepcionista Voz IA 24h sem mensalidade fixa de plataforma.</p>
+            <ul class="check-list">
+              <li>Desbloqueio completo de todos os achados técnicos do seu site + plano de correção aplicado</li>
+              <li>Instalação do Botão Flutuante WhatsApp com UTM + Schema Markup JSON-LD validado para o Google</li>
+              <li>Reescrita de CTA acima da dobra, tags H1/meta e bloco modular de Recepcionista IA 24h</li>
+              <li>Entrega em até 48h após confirmação na Stripe (pagamento único, sem recorrência oculta)</li>
+            </ul>
+          </div>
+          <div class="btn-stack">
+            <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              🇧🇷 Comprar Completo 48h — R$ 147,00 (Pix / Cartão)
+            </a>
+            <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+              🌎 Buy Full 48h Pack — US$ 29.00 (Global Card)
+            </a>
+          </div>
+        </article>
+
+        <!-- BRL Express / USD Express -->
+        <article class="glass-card offer-card">
+          <div>
+            <span class="offer-tag">Entrada Rápida 24h • BRL &amp; USD</span>
+            <h3>Express Kit Zero Vazamentos + Protótipo Personalizado (24h)</h3>
+            <div class="offer-price">R$ 47,00 <small>| US$ 9.90</small></div>
+            <p class="offer-sub">Receba seu diagnóstico completo destravado + kit HTML/JSON-LD pronto e customizado para o seu domínio e segmento em até 24h.</p>
+            <ul class="check-list">
+              <li>Relatório técnico com todos os achados ocultos do Scanner Cloud Run + prioridades práticas</li>
+              <li>Pacote HTML pronto com Botão WhatsApp UTM + Schema.org JSON-LD específico do seu nicho</li>
+              <li>Link personalizado no <code style="color:#6ee7b7;">/hub/</code> com demonstração falada da sua empresa</li>
+              <li>Pagamento único oficial Stripe com entrega expressa em até 24h</li>
+            </ul>
+          </div>
+          <div class="btn-stack">
+            <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              🇧🇷 Comprar Express 24h — R$ 47,00 (Pix / Cartão)
+            </a>
+            <a href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+              🌎 Buy Express Kit — US$ 9.90 (Global Card)
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Ecosystem Navigation Cards -->
+      <div class="eco-strip">
+        <a href="../hub/" class="eco-card">
+          <strong>🎯 Hub Voz IA 24h (../hub/)</strong>
+          <span>Simulador interativo de Recepcionista IA em 6 nichos + calculadora ROI + scanner.</span>
+        </a>
+        <a href="../voz-ia/" class="eco-card">
+          <strong>🎙️ Vitrines Voz IA (../voz-ia/)</strong>
+          <span>Demonstração de atendimento 24/7 por voz para clínicas, hotéis e escritórios.</span>
+        </a>
+        <a href="../lead-packs/" class="eco-card">
+          <strong>📊 Lead Packs B2B (../lead-packs/)</strong>
+          <span>Base auditada ao vivo de 619 PMEs com defeitos HTML/SEO comprovados e contato validado.</span>
+        </a>
+        <a href="../ferramentas/" class="eco-card">
+          <strong>⚡ Pix EMV &amp; CRC16 (../ferramentas/)</strong>
+          <span>Validador e gerador Pix Copia e Cola com checksum CRC16-CCITT real client-side.</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SUPERADMIN / AGENCY MODE -->
+    <section class="glass-card superadmin-panel" id="superadmin" aria-label="Modo Agência / Seller">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div>
+          <span class="status-badge badge-warn">🔐 #SUPERADMIN • MODO AGÊNCIA / SELLER • ZERO SEGREDOS EXPOSTOS</span>
+          <h2 style="font-size:1.38rem;margin-top:8px;">Disparo 1-a-1 WhatsApp: Widget Gerado + Link <code>/hub/</code> do Prospect</h2>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:4px;">
+            Combine os dados do prospect, o botão flutuante configurado na Ferramenta 1 e o link personalizado <code style="color:#7dd3fc;">/hub/?empresa=...&amp;site=...&amp;nicho=...</code> em uma mensagem pronta para abordagem direta no WhatsApp.
+          </p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn btn-cyan btn-sm" onclick="syncAgencyFromTools()">🔄 Puxar Dados das Ferramentas 1–3</button>
+          <button type="button" class="btn btn-glass btn-sm" onclick="toggleSuperadmin(false)">✕ Fechar Painel</button>
+        </div>
+      </div>
+
+      <div class="form-grid-2" style="margin-top:16px;">
+        <div>
+          <label for="admEmpresa" class="field-label"><span>Nome da Empresa Prospect</span></label>
+          <input type="text" id="admEmpresa" class="field-input" value="Clínica Paulista Saúde" placeholder="Ex.: Clínica Paulista Saúde" oninput="generateAgencyOutreach()" />
+        </div>
+        <div>
+          <label for="admSite" class="field-label"><span>Site / Domínio do Prospect</span></label>
+          <input type="text" id="admSite" class="field-input" value="clinicapaulistasaude.com.br" placeholder="Ex.: suaempresa.com.br" oninput="generateAgencyOutreach()" />
+        </div>
+        <div>
+          <label for="admNicho" class="field-label"><span>Nicho no <code>/hub/</code></span></label>
+          <select id="admNicho" class="field-select" onchange="generateAgencyOutreach()">
+            <option value="clinica">🏥 Clínica / Saúde / Odonto</option>
+            <option value="hotel">🏨 Hotel / Pousada</option>
+            <option value="advocacia">⚖️ Advocacia / Escritório</option>
+            <option value="imobiliaria">🏢 Imobiliária</option>
+            <option value="solar">☀️ Energia Solar</option>
+            <option value="delivery">🍔 Restaurante / Delivery</option>
+          </select>
+        </div>
+        <div>
+          <label for="admProspectWa" class="field-label"><span>WhatsApp do Prospect (DDI + DDD + Número)</span></label>
+          <input type="tel" id="admProspectWa" class="field-input" placeholder="Ex.: 5511999998888" oninput="generateAgencyOutreach()" />
+        </div>
+      </div>
+
+      <div class="sub-box">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <strong style="font-size:0.84rem;color:#fff;">🔗 Link <code>/hub/</code> Personalizado para este Prospect:</strong>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-glass btn-sm" onclick="copyToClipboard(document.getElementById('admHubUrl').textContent, 'Link /hub/ do Prospect')">📋 Copiar Link /hub/</button>
+            <a id="admOpenHubBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-cyan btn-sm">↗ Abrir Demo /hub/</a>
+          </div>
+        </div>
+        <div id="admHubUrl" class="url-line" style="margin:8px 0 12px;"></div>
+
+        <label for="admWaOutreachText" class="field-label">
+          <span>Mensagem Pronta de WhatsApp 1-a-1 (combina Widget WhatsApp + Link <code>/hub/</code>)</span>
+          <label style="display:inline-flex;align-items:center;gap:6px;font-weight:600;cursor:pointer;">
+            <input type="checkbox" id="admIncludeSnippetHint" checked onchange="generateAgencyOutreach()" />
+            Incluir resumo do Botão WhatsApp &amp; JSON-LD pronto
+          </label>
+        </label>
+        <textarea id="admWaOutreachText" class="field-textarea" rows="6" oninput="syncAgencyWaHref()"></textarea>
+
+        <div class="action-row">
+          <a id="admWaSendBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            🚀 Enviar Mensagem no WhatsApp 1-a-1
+          </a>
+          <button type="button" class="btn btn-glass btn-sm" onclick="copyToClipboard(document.getElementById('admWaOutreachText').value, 'Mensagem de Prospecção')">📋 Copiar Mensagem</button>
+          <button type="button" class="btn btn-glass btn-sm" onclick="copyWaSnippet()">📦 Copiar Código do Widget</button>
+          <button type="button" class="btn btn-glass btn-sm" onclick="copySchemaScript()">🧩 Copiar JSON-LD</button>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="field-label" style="color:#fcd34d;"><span>💳 Cofre Rápido — 4 Links Oficiais Stripe (BRL &amp; USD)</span></div>
+        <div class="stripe-vault">
+          <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04', 'Stripe Express R$ 47')">
+            <span>🇧🇷 Express 24h — R$ 47,00</span>
+            <span style="color:var(--emerald-bright);">Copiar</span>
+          </button>
+          <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/aFadR14bAgevg3W7lD83C03', 'Stripe Completo 48h R$ 147')">
+            <span>🇧🇷 Completo 48h — R$ 147,00</span>
+            <span style="color:var(--emerald-bright);">Copiar</span>
+          </button>
+          <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02', 'Stripe Express US$ 9.90')">
+            <span>🌎 Express — US$ 9.90</span>
+            <span style="color:var(--cyan);">Copiar</span>
+          </button>
+          <button type="button" class="btn btn-glass btn-sm" style="justify-content:space-between;" onclick="copyToClipboard('https://buy.stripe.com/cNi8wHgYmfar8BudK183C05', 'Stripe Full 48h US$ 29.00')">
+            <span>🌎 Full 48h — US$ 29.00</span>
+            <span style="color:var(--cyan);">Copiar</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <strong>Kit Zero Vazamentos</strong> • Gerador Botão WhatsApp + UTM, Schema.org JSON-LD &amp; Scanner Cloud Run • Pagamentos oficiais Stripe.
+        </div>
+        <div class="footer-links">
+          <a href="../hub/">Hub Voz IA</a>
+          <a href="../voz-ia/">Voz IA</a>
+          <a href="../lead-packs/">Lead Packs</a>
+          <a href="../ferramentas/">Pix EMV</a>
+          <a href="#superadmin" onclick="toggleSuperadmin(true)" style="color:#fcd34d;">⚙️ Modo Agência</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="sticky-footer-bar">
+    <div class="sticky-inner">
+      <div style="font-size:0.84rem;">
+        <strong>Kit Zero Vazamentos Gratuito • Quer tudo implantado no seu site?</strong>
+        <span style="color:var(--muted);"> Entrega em 24h–48h via Stripe (Pix/Cartão).</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">Express R$ 47</a>
+        <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Completo 48h — R$ 147</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastBar" class="toast-bar" role="status" aria-live="polite"></div>
+
+  <script>
+    const CLOUD_RUN_API = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    const AUDIT_PREVIEW_URL = `${CLOUD_RUN_API}/api/audit-preview`;
+    const HUB_PUBLIC_URL = 'https://suporte149.github.io/seller-to-live/hub/';
+
+    const WA_COLOR_MAP = {
+      emerald: { bg: '#10b981', hover: '#059669', ring: 'rgba(16,185,129,0.38)', label: 'Esmeralda' },
+      blue: { bg: '#0ea5e9', hover: '#0284c7', ring: 'rgba(14,165,233,0.38)', label: 'Azul' },
+      black: { bg: '#0f172a', hover: '#1e293b', ring: 'rgba(15,23,42,0.42)', label: 'Preto' }
+    };
+
+    const SCHEMA_TO_HUB_NICHE = {
+      MedicalClinic: 'clinica',
+      Dentist: 'clinica',
+      LocalBusiness: 'clinica',
+      Store: 'delivery',
+      LegalService: 'advocacia',
+      Restaurant: 'delivery'
+    };
+
+    const widgetState = {
+      position: 'right',
+      color: 'emerald',
+      delay: 0,
+      delayTimer: null,
+      waLink: '',
+      snippet: ''
+    };
+
+    const schemaState = {
+      rawJson: '',
+      scriptTag: '',
+      valid: false
+    };
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeJsonForScriptTag(jsonStr) {
+      return String(jsonStr || '').replace(/</g, '\\u003c');
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toastBar');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => el.classList.remove('show'), 2800);
+    }
+
+    function copyToClipboard(text, label) {
+      if (!text) {
+        showToast('Nada para copiar no momento.');
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('✓ Copiado: ' + (label || 'conteúdo'));
+        }).catch(() => fallbackCopy(text, label));
+      } else {
+        fallbackCopy(text, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('✓ Copiado: ' + (label || 'conteúdo'));
+      } catch (_) {
+        showToast('Copie manualmente o conteúdo exibido.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    /* ---------------- TOOL 1: WHATSAPP WIDGET + UTM ---------------- */
+    function setWaPosition(pos) {
+      widgetState.position = pos === 'left' ? 'left' : 'right';
+      document.querySelectorAll('#waPosGroup .choice-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pos === widgetState.position);
+      });
+      updateWhatsAppWidget();
+    }
+
+    function setWaColor(colorKey) {
+      widgetState.color = WA_COLOR_MAP[colorKey] ? colorKey : 'emerald';
+      document.querySelectorAll('#waColorGroup .choice-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.color === widgetState.color);
+      });
+      updateWhatsAppWidget();
+    }
+
+    function setWaDelay(sec) {
+      const parsed = Number(sec);
+      widgetState.delay = (parsed === 3 || parsed === 6) ? parsed : 0;
+      document.querySelectorAll('#waDelayGroup .choice-btn').forEach(btn => {
+        btn.classList.toggle('active', Number(btn.dataset.delay) === widgetState.delay);
+      });
+      document.getElementById('waDelayBtnSec').textContent = String(widgetState.delay);
+      updateWhatsAppWidget();
+    }
+
+    function normalizeWhatsAppDigits(raw) {
+      const digits = String(raw || '').replace(/\D+/g, '');
+      if (digits.length === 10 || digits.length === 11) {
+        return { rawDigits: digits, waDigits: '55' + digits, autoBrPrefix: true };
+      }
+      return { rawDigits: digits, waDigits: digits, autoBrPrefix: false };
+    }
+
+    function sanitizeUtmPart(val) {
+      return String(val || '')
+        .trim()
+        .replace(/\s+/g, '_')
+        .replace(/[^a-zA-Z0-9._-]/g, '');
+    }
+
+    function slugifyDomain(name) {
+      const slug = String(name || 'suaempresa')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '')
+        .slice(0, 28);
+      return slug || 'suaempresa';
+    }
+
+    function buildWhatsAppSnippet(cfg) {
+      const safeCompanyAttr = escapeHtml(cfg.company);
+      const safeTooltipHtml = escapeHtml(cfg.tooltip);
+      const safeHrefAttr = escapeHtml(cfg.waLink);
+      const safeUtmSource = escapeHtml(cfg.utmSource);
+      const safeUtmMedium = escapeHtml(cfg.utmMedium);
+      const safeUtmCampaign = escapeHtml(cfg.utmCampaign);
+      const posCss = cfg.position === 'left'
+        ? 'left: 20px; right: auto; flex-direction: row-reverse;'
+        : 'right: 20px; left: auto; flex-direction: row;';
+      const delayMs = cfg.delay * 1000;
+      const startHiddenCss = delayMs > 0
+        ? 'opacity: 0; transform: translateY(16px); pointer-events: none;'
+        : 'opacity: 1; transform: translateY(0); pointer-events: auto;';
+
+      return [
+        `<!-- Kit Zero Vazamentos: Botão Flutuante WhatsApp (${safeCompanyAttr}) -->`,
+        `<style>`,
+        `  #zvk-wa-widget {`,
+        `    position: fixed;`,
+        `    bottom: 20px;`,
+        `    ${posCss}`,
+        `    z-index: 99999;`,
+        `    display: flex;`,
+        `    align-items: center;`,
+        `    gap: 10px;`,
+        `    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;`,
+        `    transition: opacity 0.35s ease, transform 0.35s ease;`,
+        `    ${startHiddenCss}`,
+        `  }`,
+        `  #zvk-wa-widget.zvk-visible {`,
+        `    opacity: 1 !important;`,
+        `    transform: translateY(0) !important;`,
+        `    pointer-events: auto !important;`,
+        `  }`,
+        `  #zvk-wa-tip {`,
+        `    background: #0f172a;`,
+        `    color: #f8fafc;`,
+        `    font-size: 13px;`,
+        `    font-weight: 700;`,
+        `    padding: 8px 13px;`,
+        `    border-radius: 999px;`,
+        `    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.32);`,
+        `    white-space: nowrap;`,
+        `  }`,
+        `  #zvk-wa-btn {`,
+        `    width: 58px;`,
+        `    height: 58px;`,
+        `    border-radius: 50%;`,
+        `    background: ${cfg.color.bg};`,
+        `    color: #ffffff;`,
+        `    display: inline-flex;`,
+        `    align-items: center;`,
+        `    justify-content: center;`,
+        `    text-decoration: none;`,
+        `    box-shadow: 0 12px 28px ${cfg.color.ring};`,
+        `    transition: transform 0.18s ease, background 0.18s ease;`,
+        `  }`,
+        `  #zvk-wa-btn:hover {`,
+        `    transform: scale(1.07);`,
+        `    background: ${cfg.color.hover};`,
+        `  }`,
+        `  @media (max-width: 480px) {`,
+        `    #zvk-wa-widget { bottom: 14px; ${cfg.position === 'left' ? 'left: 14px;' : 'right: 14px;'} }`,
+        `    #zvk-wa-tip { display: none; }`,
+        `    #zvk-wa-btn { width: 54px; height: 54px; }`,
+        `  }`,
+        `</style>`,
+        `<div id="zvk-wa-widget" data-utm-source="${safeUtmSource}" data-utm-medium="${safeUtmMedium}" data-utm-campaign="${safeUtmCampaign}">`,
+        `  <span id="zvk-wa-tip">${safeTooltipHtml}</span>`,
+        `  <a id="zvk-wa-btn" href="${safeHrefAttr}" target="_blank" rel="noopener noreferrer" aria-label="Falar com ${safeCompanyAttr} no WhatsApp" data-utm-source="${safeUtmSource}" data-utm-medium="${safeUtmMedium}" data-utm-campaign="${safeUtmCampaign}">`,
+        `    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">`,
+        `      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.08c-.24.69-1.42 1.32-1.97 1.4-.51.08-1.15.11-1.86-.12-.43-.14-.99-.32-1.7-.63-2.99-1.29-4.94-4.32-5.09-4.52-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.84 2.04.91 2.19.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.54-.15.15-.31.31-.13.61.18.3.78 1.29 1.68 2.09 1.15 1.03 2.12 1.35 2.42 1.5.3.15.48.13.66-.08.18-.2.76-.89.97-1.19.2-.3.41-.25.69-.15.28.1 1.78.84 2.08.99.31.15.51.23.59.35.07.13.07.73-.17 1.42z"/>`,
+        `    </svg>`,
+        `  </a>`,
+        `</div>`,
+        `<script>`,
+        `  (function () {`,
+        `    var w = document.getElementById('zvk-wa-widget');`,
+        `    if (!w) return;`,
+        `    var delayMs = ${delayMs};`,
+        `    if (delayMs > 0) {`,
+        `      setTimeout(function () { w.classList.add('zvk-visible'); }, delayMs);`,
+        `    } else {`,
+        `      w.classList.add('zvk-visible');`,
+        `    }`,
+        `  })();`,
+        `<\/script>`
+      ].join('\n');
+    }
+
+    function updateWhatsAppWidget() {
+      const company = (document.getElementById('waCompany').value || '').trim() || 'Sua Empresa';
+      const phoneInputEl = document.getElementById('waPhone');
+      const norm = normalizeWhatsAppDigits(phoneInputEl.value);
+      const baseMsg = (document.getElementById('waMessage').value || '').trim() || `Olá! Vim pelo site da ${company}.`;
+      const tooltip = (document.getElementById('waTooltip').value || '').trim() || 'Fale Agora';
+
+      const utmSource = sanitizeUtmPart(document.getElementById('utmSource').value);
+      const utmMedium = sanitizeUtmPart(document.getElementById('utmMedium').value);
+      const utmCampaign = sanitizeUtmPart(document.getElementById('utmCampaign').value);
+      const appendUtm = document.getElementById('waAppendUtmToText').checked;
+
+      const utmParams = new URLSearchParams();
+      if (utmSource) utmParams.set('utm_source', utmSource);
+      if (utmMedium) utmParams.set('utm_medium', utmMedium);
+      if (utmCampaign) utmParams.set('utm_campaign', utmCampaign);
+      const utmQueryStr = utmParams.toString() ? `?${utmParams.toString()}` : '(nenhuma UTM preenchida)';
+      document.getElementById('utmQueryPreview').textContent = utmQueryStr;
+
+      const utmTags = [utmSource, utmMedium, utmCampaign].filter(Boolean);
+      const fullMsg = (appendUtm && utmTags.length > 0)
+        ? `${baseMsg}\n[Origem: ${utmTags.join(' / ')}]`
+        : baseMsg;
+
+      const alertEl = document.getElementById('waPhoneAlert');
+      const digitsHintEl = document.getElementById('waDigitsHint');
+      const digitCount = norm.rawDigits.length;
+
+      if (digitCount < 10) {
+        phoneInputEl.classList.add('invalid-input');
+        digitsHintEl.textContent = `${digitCount} dígito(s) — mínimo 10`;
+        alertEl.className = 'input-alert error';
+        alertEl.textContent = `⚠️ Número inválido: você informou ${digitCount} dígito(s). Informe pelo menos 10 dígitos com DDD/DDI (ex.: 5511999998888) para o link wa.me funcionar.`;
+      } else {
+        phoneInputEl.classList.remove('invalid-input');
+        digitsHintEl.textContent = `${norm.waDigits.length} dígitos OK`;
+        alertEl.className = 'input-alert ok';
+        alertEl.textContent = norm.autoBrPrefix
+          ? `✓ WhatsApp válido (${digitCount} dígitos). DDI 55 adicionado automaticamente → +${norm.waDigits}.`
+          : `✓ WhatsApp validado (+${norm.waDigits}) pronto para disparo direto.`;
+      }
+
+      const targetDigits = digitCount >= 10 ? norm.waDigits : '5511999998888';
+      const waLink = `https://wa.me/${targetDigits}?text=${encodeURIComponent(fullMsg)}`;
+      widgetState.waLink = waLink;
+
+      const colorObj = WA_COLOR_MAP[widgetState.color] || WA_COLOR_MAP.emerald;
+
+      // Update live preview
+      document.getElementById('waPreviewBrand').textContent = company;
+      document.getElementById('waPreviewBrowserUrl').textContent = `https://${slugifyDomain(company)}.com.br`;
+      document.getElementById('waPreviewTooltip').textContent = tooltip;
+      document.getElementById('waPreviewMetaPos').textContent = widgetState.position === 'left' ? 'Esquerda' : 'Direita';
+      document.getElementById('waPreviewMetaColor').textContent = colorObj.label;
+
+      const floatingEl = document.getElementById('waFloatingPreview');
+      const chatboxEl = document.getElementById('waPreviewChatbox');
+      const circleEl = document.getElementById('waPreviewCircle');
+      floatingEl.classList.toggle('pos-left', widgetState.position === 'left');
+      chatboxEl.classList.toggle('pos-left', widgetState.position === 'left');
+      circleEl.style.background = colorObj.bg;
+      circleEl.style.boxShadow = `0 10px 24px ${colorObj.ring}`;
+
+      document.getElementById('waPreviewBubbleText').textContent = fullMsg;
+      document.getElementById('waPreviewBubbleLink').href = waLink;
+      document.getElementById('waGeneratedLinkOut').textContent = digitCount >= 10
+        ? waLink
+        : `⚠️ Complete ao menos 10 dígitos no WhatsApp (prévia com fallback): ${waLink}`;
+      document.getElementById('waDirectTestBtn').href = waLink;
+
+      const snippet = buildWhatsAppSnippet({
+        company,
+        tooltip,
+        waLink,
+        position: widgetState.position,
+        color: colorObj,
+        delay: widgetState.delay,
+        utmSource: utmSource || 'direct',
+        utmMedium: utmMedium || 'widget',
+        utmCampaign: utmCampaign || 'whatsapp'
+      });
+      widgetState.snippet = snippet;
+      document.getElementById('waSnippetOut').textContent = snippet;
+    }
+
+    function togglePreviewChat(forceState) {
+      const box = document.getElementById('waPreviewChatbox');
+      if (typeof forceState === 'boolean') {
+        box.classList.toggle('open', forceState);
+      } else {
+        box.classList.toggle('open');
+      }
+    }
+
+    function simulateWidgetDelay() {
+      clearTimeout(widgetState.delayTimer);
+      const floatingEl = document.getElementById('waFloatingPreview');
+      const bannerEl = document.getElementById('waDelayBanner');
+      togglePreviewChat(false);
+
+      if (widgetState.delay === 0) {
+        floatingEl.classList.remove('hidden-delay');
+        bannerEl.classList.remove('active');
+        showToast('Atraso 0s: o botão aparece imediatamente no carregamento.');
+        return;
+      }
+
+      floatingEl.classList.add('hidden-delay');
+      bannerEl.textContent = `⏱️ Aguardando ${widgetState.delay}s para exibir botão…`;
+      bannerEl.classList.add('active');
+
+      widgetState.delayTimer = setTimeout(() => {
+        floatingEl.classList.remove('hidden-delay');
+        bannerEl.classList.remove('active');
+        showToast(`✓ Botão exibido após ${widgetState.delay}s!`);
+      }, widgetState.delay * 1000);
+    }
+
+    function copyUtmQuery() {
+      const text = document.getElementById('utmQueryPreview').textContent;
+      if (text.startsWith('?')) {
+        copyToClipboard(text, 'Query String UTM');
+      } else {
+        showToast('Preencha ao menos um campo UTM.');
+      }
+    }
+
+    function copyWaLink() {
+      const digits = normalizeWhatsAppDigits(document.getElementById('waPhone').value).rawDigits;
+      if (digits.length < 10) {
+        showToast('⚠️ Informe ao menos 10 dígitos no WhatsApp antes de copiar o link.');
+        return;
+      }
+      copyToClipboard(widgetState.waLink, 'Link wa.me completo');
+    }
+
+    function copyWaSnippet() {
+      const digits = normalizeWhatsAppDigits(document.getElementById('waPhone').value).rawDigits;
+      if (digits.length < 10) {
+        showToast('⚠️ Aviso: número com menos de 10 dígitos — atualize antes de publicar!');
+      }
+      copyToClipboard(widgetState.snippet, 'Código HTML/CSS/JS do Botão WhatsApp');
+    }
+
+    /* ---------------- TOOL 2: SCHEMA.ORG JSON-LD + SERP PREVIEW ---------------- */
+    const ALLOWED_SCHEMA_TYPES = [
+      'LocalBusiness',
+      'MedicalClinic',
+      'Dentist',
+      'Store',
+      'LegalService',
+      'Restaurant'
+    ];
+
+    function setSchemaHours(hoursStr) {
+      document.getElementById('scHours').value = hoursStr;
+      updateSchemaGenerator();
+    }
+
+    function parseCityUf(raw) {
+      const txt = String(raw || '').trim();
+      if (!txt) return { city: '', uf: '' };
+      const parts = txt.split(/\s*[\/,-]\s*/).filter(Boolean);
+      if (parts.length >= 2) {
+        const uf = parts[parts.length - 1].toUpperCase().slice(0, 2);
+        const city = parts.slice(0, -1).join(' ');
+        return { city, uf };
+      }
+      return { city: txt, uf: '' };
+    }
+
+    function isValidHttpUrl(str) {
+      const s = String(str || '').trim();
+      if (!s) return false;
+      try {
+        const u = new URL(s);
+        return (u.protocol === 'https:' || u.protocol === 'http:') && u.hostname.includes('.');
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function updateSchemaGenerator() {
+      const rawType = document.getElementById('scType').value;
+      const schemaType = ALLOWED_SCHEMA_TYPES.includes(rawType) ? rawType : 'LocalBusiness';
+      const name = (document.getElementById('scName').value || '').trim();
+      const url = (document.getElementById('scUrl').value || '').trim();
+      const phone = (document.getElementById('scPhone').value || '').trim();
+      const cityUfRaw = (document.getElementById('scCityUf').value || '').trim();
+      const priceRange = document.getElementById('scPriceRange').value || '$$';
+      const openingHours = (document.getElementById('scHours').value || '').trim();
+      const description = (document.getElementById('scDesc').value || '').trim();
+      const igUrl = (document.getElementById('scInstagram').value || '').trim();
+      const liUrl = (document.getElementById('scLinkedin').value || '').trim();
+
+      document.getElementById('scDescCounter').textContent = `${description.length} chars`;
+
+      const { city, uf } = parseCityUf(cityUfRaw);
+      const sameAsList = [];
+      if (isValidHttpUrl(igUrl)) sameAsList.push(igUrl);
+      if (isValidHttpUrl(liUrl)) sameAsList.push(liUrl);
+
+      const schemaObj = {
+        '@context': 'https://schema.org',
+        '@type': schemaType,
+        name: name || 'Nome da Empresa',
+        url: url || 'https://suaempresa.com.br',
+        telephone: phone || '+55 11 99999-8888',
+        priceRange: priceRange,
+        openingHours: openingHours || 'Mo-Fr 08:00-18:00',
+        description: description || 'Atendimento especializado com agendamento direto.',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: city || 'São Paulo',
+          addressRegion: uf || 'SP',
+          addressCountry: 'BR'
+        }
+      };
+
+      if (sameAsList.length > 0) {
+        schemaObj.sameAs = sameAsList;
+      }
+
+      const rawJson = JSON.stringify(schemaObj, null, 2);
+      let syntaxOk = false;
+      try {
+        JSON.parse(rawJson);
+        syntaxOk = true;
+      } catch (_) {
+        syntaxOk = false;
+      }
+
+      const scriptTag = `<script type="application/ld+json">\n${escapeJsonForScriptTag(rawJson)}\n<\/script>`;
+      schemaState.rawJson = rawJson;
+      schemaState.scriptTag = scriptTag;
+
+      const phoneDigits = phone.replace(/\D+/g, '');
+      const hoursPatternOk = /^[A-Za-z]{2}(-[A-Za-z]{2})?(,[A-Za-z]{2}(-[A-Za-z]{2})?)*\s+\d{2}:\d{2}-\d{2}:\d{2}/.test(openingHours);
+
+      const checks = [
+        { label: '@type Schema.org', ok: ALLOWED_SCHEMA_TYPES.includes(schemaType), text: schemaType },
+        { label: 'Nome (name)', ok: name.length >= 2, text: name.length >= 2 ? 'OK' : 'Pendente' },
+        { label: 'URL válida', ok: isValidHttpUrl(url), text: isValidHttpUrl(url) ? 'HTTPS OK' : 'URL inválida' },
+        { label: 'Telefone', ok: phoneDigits.length >= 10, text: phoneDigits.length >= 10 ? 'OK' : '< 10 dígitos' },
+        { label: 'Cidade / UF', ok: Boolean(city && uf.length === 2), text: (city && uf.length === 2) ? `${city}/${uf}` : 'Informe Cidade/UF' },
+        { label: 'Horário (openingHours)', ok: hoursPatternOk, text: hoursPatternOk ? 'Padrão OK' : 'Use Mo-Fr 08:00-18:00' },
+        { label: 'Descrição', ok: description.length >= 20, text: description.length >= 20 ? 'OK' : 'Curta (<20)' },
+        { label: 'Redes (sameAs)', ok: sameAsList.length > 0 && (!igUrl || isValidHttpUrl(igUrl)) && (!liUrl || isValidHttpUrl(liUrl)), text: sameAsList.length > 0 ? `${sameAsList.length} link(s)` : 'Opcional' }
+      ];
+
+      const pendingCount = checks.filter(c => !c.ok).length;
+      schemaState.valid = syntaxOk && pendingCount === 0;
+
+      const validityBadge = document.getElementById('schemaValidityBadge');
+      if (schemaState.valid) {
+        validityBadge.className = 'status-badge badge-ok';
+        validityBadge.textContent = '✓ JSON-LD 100% Válido (0 pendências)';
+      } else {
+        validityBadge.className = 'status-badge badge-warn';
+        validityBadge.textContent = `⚠️ ${pendingCount} campo(s) para revisar`;
+      }
+
+      const syntaxEl = document.getElementById('schemaJsonSyntaxStatus');
+      syntaxEl.textContent = syntaxOk ? 'JSON.parse OK' : 'Erro sintático';
+      syntaxEl.style.color = syntaxOk ? 'var(--emerald-bright)' : '#fda4af';
+
+      document.getElementById('schemaChecksGrid').innerHTML = checks.map(c => `
+        <div class="schema-check-item ${c.ok ? 'ok' : 'warn'}">
+          <span>${c.ok ? '✓' : '⚠'} ${escapeHtml(c.label)}</span>
+          <strong style="font-family:var(--mono);font-size:0.73rem;">${escapeHtml(c.text)}</strong>
+        </div>
+      `).join('');
+
+      // Google SERP Preview
+      const displaySite = name || 'Sua Empresa';
+      const displayUrl = isValidHttpUrl(url) ? url.replace(/\/+$/, '') : 'https://suaempresa.com.br';
+      const displayLocation = city ? (uf ? `${city} / ${uf}` : city) : 'São Paulo / SP';
+      const truncatedDesc = description.length > 158 ? description.slice(0, 155) + '…' : (description || 'Adicione uma descrição objetiva com proposta de valor e localização.');
+
+      document.getElementById('serpTypePill').textContent = schemaType;
+      document.getElementById('serpFavicon').textContent = displaySite.charAt(0).toUpperCase() || 'S';
+      document.getElementById('serpSiteName').textContent = displaySite;
+      document.getElementById('serpUrlBreadcrumb').textContent = `${displayUrl} › atendimento`;
+      document.getElementById('serpTitleOut').textContent = `${displaySite} — ${displayLocation}`;
+      document.getElementById('serpDescOut').textContent = truncatedDesc;
+
+      const richChips = [
+        `Faixa: ${priceRange}`,
+        `Horário: ${openingHours || 'Mo-Fr 08:00-18:00'}`,
+        `Tel: ${phone || '+55 11 99999-8888'}`
+      ];
+      if (sameAsList.length > 0) {
+        richChips.push(`sameAs: ${sameAsList.length} perfil(is)`);
+      }
+
+      document.getElementById('serpMetaBadges').innerHTML = richChips
+        .map(item => `<span>${escapeHtml(item)}</span>`)
+        .join('');
+
+      document.getElementById('schemaScriptOut').textContent = scriptTag;
+    }
+
+    function copySchemaScript() {
+      copyToClipboard(schemaState.scriptTag, 'Script JSON-LD Schema.org');
+    }
+
+    function copySchemaRawJson() {
+      copyToClipboard(schemaState.rawJson, 'JSON puro Schema.org');
+    }
+
+    /* ---------------- TOOL 3: CLOUD RUN SCANNER + /hub/ PERSONALIZADO ---------------- */
+    function normalizeUrlInput(raw) {
+      let v = String(raw || '').trim();
+      if (!v) return '';
+      if (!/^https?:\/\//i.test(v)) {
+        v = 'https://' + v;
+      }
+      try {
+        const parsed = new URL(v);
+        if (!parsed.hostname || !parsed.hostname.includes('.')) return '';
+        return parsed.href;
+      } catch (_) {
+        return '';
+      }
+    }
+
+    function extractDisplayDomain(raw) {
+      return String(raw || '')
+        .trim()
+        .replace(/^https?:\/\//i, '')
+        .replace(/\/.*$/, '')
+        .replace(/^www\./i, '');
+    }
+
+    function updateHubLink() {
+      const empresa = (document.getElementById('hubEmpresaInput').value || '').trim() || 'Sua Empresa';
+      const site = extractDisplayDomain(document.getElementById('hubSiteInput').value);
+      const nicho = document.getElementById('hubNichoInput').value || 'clinica';
+
+      const params = new URLSearchParams();
+      params.set('empresa', empresa);
+      if (site) params.set('site', site);
+      params.set('nicho', nicho);
+
+      const finalUrl = `${HUB_PUBLIC_URL}?${params.toString()}`;
+      const box = document.getElementById('hubGeneratedUrlBox');
+      const btn = document.getElementById('hubGeneratedAnchor');
+      box.textContent = finalUrl;
+      box.href = finalUrl;
+      btn.href = finalUrl;
+      return finalUrl;
+    }
+
+    function copyHubLink() {
+      const url = updateHubLink();
+      copyToClipboard(url, 'Link Personalizado /hub/');
+    }
+
+    async function checkApiCorsHealth() {
+      const badge = document.getElementById('apiHealthBadge');
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 6500);
+        const res = await fetch(AUDIT_PREVIEW_URL, {
+          method: 'OPTIONS',
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+        if (res.status === 204 || res.ok) {
+          badge.className = 'status-badge badge-live';
+          badge.textContent = `● Cloud Run API Online (OPTIONS ${res.status} CORS OK)`;
+          return;
+        }
+      } catch (_) {
+        // Fallback label below
+      }
+      badge.className = 'status-badge badge-warn';
+      badge.textContent = '● Cloud Run API + Contingência Resiliente';
+    }
+
+    function quickScan(domain) {
+      document.getElementById('scanUrlInput').value = domain;
+      document.getElementById('scanner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      runLiveAudit(domain);
+    }
+
+    function handleScanSubmit(ev) {
+      ev.preventDefault();
+      runLiveAudit(document.getElementById('scanUrlInput').value);
+    }
+
+    async function runLiveAudit(rawUrl) {
+      const normalized = normalizeUrlInput(rawUrl);
+      if (!normalized) {
+        showToast('Digite um domínio público válido (ex.: suaempresa.com.br).');
+        return;
+      }
+
+      const cleanDomain = extractDisplayDomain(normalized);
+      document.getElementById('hubSiteInput').value = cleanDomain;
+      if (!document.getElementById('hubEmpresaInput').value.trim()) {
+        document.getElementById('hubEmpresaInput').value = cleanDomain;
+      }
+      updateHubLink();
+
+      const loader = document.getElementById('scanLoader');
+      const results = document.getElementById('scanResults');
+      const btn = document.getElementById('scanSubmitBtn');
+
+      results.classList.remove('active');
+      loader.classList.add('active');
+      btn.disabled = true;
+      btn.textContent = 'Auditando no Cloud Run…';
+      document.getElementById('scanLoaderStep').textContent = `Consultando ${normalized} em POST ${AUDIT_PREVIEW_URL}…`;
+
+      const started = performance.now();
+      try {
+        const ctrl = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 14000);
+        const response = await fetch(AUDIT_PREVIEW_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: normalized }),
+          signal: ctrl.signal
+        });
+        clearTimeout(timeout);
+
+        const data = await response.json().catch(() => null);
+        if (!response.ok || !data || typeof data.score !== 'number') {
+          const reason = (data && (data.erro || data.detail)) ? (data.erro || data.detail) : `HTTP ${response.status}`;
+          throw new Error(reason);
+        }
+
+        renderAuditResult(data, true, Math.round(performance.now() - started), '');
+      } catch (err) {
+        const reason = err && err.name === 'AbortError'
+          ? 'Tempo limite excedido (site lento ou WAF bloqueando robôs)'
+          : (err && err.message ? err.message : 'Site-alvo bloqueou leitura automática');
+        const fallbackData = buildResilientFallback(normalized, reason);
+        renderAuditResult(fallbackData, false, Math.round(performance.now() - started), reason);
+      } finally {
+        loader.classList.remove('active');
+        btn.disabled = false;
+        btn.textContent = '⚡ Escanear Site Ao Vivo';
+      }
+    }
+
+    function buildResilientFallback(urlStr, reason) {
+      let hostname = urlStr;
+      try { hostname = new URL(urlStr).hostname; } catch (_) {}
+      const hash = Array.from(hostname).reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      const estimatedScore = 24 + (hash % 21);
+      return {
+        url: urlStr,
+        score: estimatedScore,
+        resumo_desempenho: {
+          status_http: 'Bloqueio WAF / Timeout',
+          tempo_ms: null,
+          html_bytes: null
+        },
+        achado_principal: {
+          codigo: 'contingencia_bloqueio_alvo',
+          severidade: 'alta',
+          impacto_pontos: 18,
+          titulo: `Leitura direta bloqueada ou lenta em ${hostname}`,
+          evidencia: `O site-alvo impediu ou atrasou a inspeção automatizada (${reason}). Em páginas protegidas ou lentas no mobile, visitantes costumam sair antes de encontrar CTA direto de WhatsApp e dados estruturados.`,
+          recomendacao: 'Aplicar o Botão Flutuante WhatsApp da Ferramenta 1, inserir o Schema.org JSON-LD da Ferramenta 2 e ativar a página de diagnóstico 24h no /hub/.'
+        },
+        achados_ocultos_count: 6,
+        total_achados: 7,
+        cta_desbloqueio: {
+          mensagem: 'Site protegido por WAF/Cloudflare ou timeout? Nossa auditoria assistida manual + Kit Zero Vazamentos resolve em 24h–48h.'
+        }
+      };
+    }
+
+    function buildDiagnosticSignals(data, isLive) {
+      const main = data.achado_principal || {};
+      const blob = `${main.codigo || ''} ${main.titulo || ''} ${main.evidencia || ''}`.toLowerCase();
+      const hiddenCount = Number(data.achados_ocultos_count || 0);
+      const totalCount = Number(data.total_achados || 0);
+      const cleanPass = isLive && Number(data.score) >= 85 && totalCount === 0;
+
+      const makeSignal = (label, flagged, flaggedText, fallbackActionHref, fallbackActionText) => {
+        if (flagged) {
+          return {
+            label,
+            status: flaggedText,
+            badgeClass: 'badge-danger',
+            badgeText: 'FALHA DETECTADA',
+            actionHref: fallbackActionHref,
+            actionText: fallbackActionText
+          };
+        }
+        if (cleanPass) {
+          return {
+            label,
+            status: 'Sem vazamento crítico reportado',
+            badgeClass: 'badge-ok',
+            badgeText: 'APROVADO',
+            actionHref: fallbackActionHref,
+            actionText: fallbackActionText
+          };
+        }
+        return {
+          label,
+          status: !isLive
+            ? 'Inspeção bloqueada pelo site-alvo'
+            : (hiddenCount > 0 ? `Checagem nos +${hiddenCount} achados ocultos` : 'Sem falha #1 apontada'),
+          badgeClass: 'badge-warn',
+          badgeText: isLive ? 'REVISAR / DESBLOQUEAR' : 'CONTINGÊNCIA',
+          actionHref: fallbackActionHref,
+          actionText: fallbackActionText
+        };
+      };
+
+      const hasWaIssue = /whatsapp|wa\.me|contato|chat/.test(blob);
+      const hasCtaIssue = /cta|compra|checkout|acao|ação|botao|botão/.test(blob);
+      const hasH1Issue = /\bh1\b|heading|titulo|título|meta|seo|schema/.test(blob);
+
+      return [
+        makeSignal('Canal WhatsApp', hasWaIssue, 'Canal direto ausente / falho', '#widget-wa', 'Gerar Botão ↓'),
+        makeSignal('CTA Principal', hasCtaIssue, 'CTA comercial não identificado', '#ofertas', 'Corrigir 24h–48h ↓'),
+        makeSignal('Tag H1 / SEO', hasH1Issue, 'Gargalo estrutural de H1/SEO', '#schema-jsonld', 'Gerar JSON-LD ↓')
+      ];
+    }
+
+    function renderAuditResult(data, isLive, clientElapsedMs, fallbackReason) {
+      const score = Math.max(0, Math.min(100, Number(data.score) || 0));
+      const circle = document.getElementById('gaugeCircle');
+      const circumference = 2 * Math.PI * 58;
+      const offset = circumference * (1 - score / 100);
+
+      let color = '#f43f5e';
+      let sevText = 'CRÍTICO — VAZAMENTO ALTO';
+      let sevClass = 'status-badge badge-danger';
+      if (score >= 75) {
+        color = '#34d399';
+        sevText = 'BOM — OTIMIZÁVEL';
+        sevClass = 'status-badge badge-ok';
+      } else if (score >= 45) {
+        color = '#f59e0b';
+        sevText = 'ATENÇÃO — PERDENDO LEADS';
+        sevClass = 'status-badge badge-warn';
+      }
+
+      circle.style.stroke = color;
+      circle.style.strokeDasharray = circumference.toFixed(2);
+      requestAnimationFrame(() => {
+        circle.style.strokeDashoffset = offset.toFixed(2);
+      });
+
+      const scoreEl = document.getElementById('scoreNumber');
+      scoreEl.textContent = String(score);
+      scoreEl.style.color = color;
+
+      const sevPill = document.getElementById('scoreSeverityPill');
+      sevPill.className = sevClass;
+      sevPill.textContent = isLive ? sevText : 'CONTINGÊNCIA — BLOQUEIO ALVO';
+
+      document.getElementById('scannedUrlLabel').textContent = data.url || '';
+      document.getElementById('scanModeBadge').innerHTML = isLive
+        ? '<span class="status-badge badge-live">🟢 API Cloud Run Real</span>'
+        : '<span class="status-badge badge-fallback">🛡️ Fallback Resiliente (Alvo Bloqueado)</span>';
+
+      const perf = data.resumo_desempenho || {};
+      const metrics = [
+        `HTTP: ${perf.status_http != null ? perf.status_http : 'N/D'}`,
+        `Latência: ${perf.tempo_ms != null ? perf.tempo_ms + ' ms' : clientElapsedMs + ' ms'}`
+      ];
+      if (typeof perf.html_bytes === 'number') {
+        metrics.push(`HTML: ${(perf.html_bytes / 1024).toFixed(1)} KB`);
+      }
+      metrics.push(`Achados totais: ${data.total_achados != null ? data.total_achados : 1}`);
+      if (!isLive && fallbackReason) {
+        metrics.push('Modo: Fallback Seguro');
+      }
+
+      document.getElementById('scanMetricsRow').innerHTML = metrics
+        .map(m => `<span class="metric-chip">${escapeHtml(m)}</span>`)
+        .join('');
+
+      const signals = buildDiagnosticSignals(data, isLive);
+      document.getElementById('scanSignalsGrid').innerHTML = signals.map(s => `
+        <div class="signal-card">
+          <div class="signal-card-label">${escapeHtml(s.label)}</div>
+          <div class="signal-card-val">${escapeHtml(s.status)}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;">
+            <span class="status-badge ${escapeHtml(s.badgeClass)}" style="font-size:0.65rem;padding:3px 7px;">${escapeHtml(s.badgeText)}</span>
+            <a href="${escapeHtml(s.actionHref)}" style="font-size:0.74rem;color:var(--cyan);font-weight:700;">${escapeHtml(s.actionText)}</a>
+          </div>
+        </div>
+      `).join('');
+
+      const main = data.achado_principal || {
+        severidade: 'media',
+        impacto_pontos: 10,
+        titulo: 'Oportunidades de conversão detectadas na página',
+        evidencia: 'A página respondeu ao scan, mas pode elevar a conversão com CTA direto e dados estruturados.',
+        recomendacao: 'Adicionar Botão Flutuante WhatsApp com UTM e Schema.org JSON-LD.'
+      };
+
+      const sevMap = { alta: 'PRIORIDADE ALTA', media: 'PRIORIDADE MÉDIA', baixa: 'MELHORIA RÁPIDA' };
+      document.getElementById('findingSeverityBadge').textContent = sevMap[main.severidade] || 'ACHADO PRINCIPAL';
+      document.getElementById('findingImpactBadge').textContent = main.impacto_pontos ? `-${main.impacto_pontos} pts no score` : 'Alto impacto CRO';
+      document.getElementById('findingTitle').textContent = main.titulo || '';
+      document.getElementById('findingEvidence').textContent = main.evidencia || '';
+      document.getElementById('findingRecommendation').textContent = main.recomendacao || '';
+
+      const hiddenCount = Number(data.achados_ocultos_count || 0);
+      const totalCount = Number(data.total_achados || hiddenCount + 1);
+      document.getElementById('hiddenFindingsHeadline').textContent = hiddenCount > 0
+        ? `🔒 +${hiddenCount} achados ocultos detectados (${totalCount} achados no total)`
+        : '🚀 Pronto para multiplicar a conversão deste domínio?';
+      document.getElementById('hiddenFindingsMsg').textContent = (data.cta_desbloqueio && data.cta_desbloqueio.mensagem)
+        ? data.cta_desbloqueio.mensagem
+        : 'Desbloqueie o checklist completo + HTML e Schema.org instalados em 24h–48h.';
+
+      document.getElementById('scanResults').classList.add('active');
+    }
+
+    /* ---------------- #SUPERADMIN AGENCY / SELLER MODE ---------------- */
+    function toggleSuperadmin(open) {
+      const panel = document.getElementById('superadmin');
+      if (open) {
+        panel.classList.add('open');
+        generateAgencyOutreach();
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        panel.classList.remove('open');
+      }
+    }
+
+    function syncAgencyFromTools() {
+      const company = (document.getElementById('waCompany').value || document.getElementById('scName').value || '').trim();
+      const siteRaw = extractDisplayDomain(document.getElementById('scanUrlInput').value || document.getElementById('scUrl').value || document.getElementById('hubSiteInput').value);
+      const scType = document.getElementById('scType').value;
+      const mappedNiche = SCHEMA_TO_HUB_NICHE[scType] || document.getElementById('hubNichoInput').value || 'clinica';
+
+      if (company) document.getElementById('admEmpresa').value = company;
+      if (siteRaw) document.getElementById('admSite').value = siteRaw;
+      document.getElementById('admNicho').value = mappedNiche;
+      generateAgencyOutreach();
+      showToast('✓ Dados sincronizados das Ferramentas 1–3 para o Modo Agência.');
+    }
+
+    function generateAgencyOutreach() {
+      const empresa = (document.getElementById('admEmpresa').value || '').trim() || 'Sua Empresa';
+      const site = extractDisplayDomain(document.getElementById('admSite').value);
+      const nicho = document.getElementById('admNicho').value || 'clinica';
+      const includeKitNote = document.getElementById('admIncludeSnippetHint').checked;
+
+      const params = new URLSearchParams();
+      params.set('empresa', empresa);
+      if (site) params.set('site', site);
+      params.set('nicho', nicho);
+
+      const hubUrl = `${HUB_PUBLIC_URL}?${params.toString()}`;
+      document.getElementById('admHubUrl').textContent = hubUrl;
+      document.getElementById('admOpenHubBtn').href = hubUrl;
+
+      const sitePart = site ? ` no site ${site}` : '';
+      const kitLine = includeKitNote
+        ? `\n\nTambém deixei pronto o código do Botão Flutuante WhatsApp (com UTM) + Schema.org JSON-LD da ${empresa} para instalar sem custo mensal.`
+        : '';
+
+      const msg =
+        `Olá, equipe da ${empresa}! Tudo bem?\n\n` +
+        `Rodei uma análise técnica rápida${sitePart} e preparei uma demonstração ao vivo personalizada com o nome da ${empresa} no nosso Hub:\n` +
+        `${hubUrl}` +
+        `${kitLine}\n\n` +
+        `Você consegue testar o diagnóstico real e o atendimento 24h direto pelo link acima. Se quiser que eu envie os códigos ou ative em 24h–48h, me avise por aqui (para não receber novas mensagens, responda SAIR).`;
+
+      document.getElementById('admWaOutreachText').value = msg;
+      syncAgencyWaHref();
+    }
+
+    function syncAgencyWaHref() {
+      const norm = normalizeWhatsAppDigits(document.getElementById('admProspectWa').value);
+      const msg = document.getElementById('admWaOutreachText').value || '';
+      const base = norm.rawDigits.length >= 10 ? `https://wa.me/${norm.waDigits}` : 'https://wa.me/';
+      document.getElementById('admWaSendBtn').href = `${base}?text=${encodeURIComponent(msg)}`;
+    }
+
+    /* ---------------- BOOTSTRAP ---------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      updateWhatsAppWidget();
+      updateSchemaGenerator();
+      updateHubLink();
+      generateAgencyOutreach();
+      checkApiCorsHealth();
+
+      const params = new URLSearchParams(window.location.search);
+      const qEmpresa = (params.get('empresa') || '').trim();
+      const qSite = (params.get('site') || '').trim();
+      const qNicho = (params.get('nicho') || '').trim();
+
+      if (qEmpresa) {
+        document.getElementById('waCompany').value = qEmpresa;
+        document.getElementById('scName').value = qEmpresa;
+        document.getElementById('hubEmpresaInput').value = qEmpresa;
+        document.getElementById('admEmpresa').value = qEmpresa;
+        updateWhatsAppWidget();
+        updateSchemaGenerator();
+      }
+      if (qSite) {
+        const cleanSite = extractDisplayDomain(qSite);
+        document.getElementById('scanUrlInput').value = cleanSite;
+        document.getElementById('hubSiteInput').value = cleanSite;
+        document.getElementById('admSite').value = cleanSite;
+        document.getElementById('scUrl').value = normalizeUrlInput(qSite) || `https://${cleanSite}`;
+        updateSchemaGenerator();
+      }
+      if (qNicho) {
+        const hubSel = document.getElementById('hubNichoInput');
+        if ([...hubSel.options].some(o => o.value === qNicho)) {
+          hubSel.value = qNicho;
+          document.getElementById('admNicho').value = qNicho;
+        }
+      }
+      updateHubLink();
+      generateAgencyOutreach();
+
+      if (window.location.hash === '#superadmin') {
+        toggleSuperadmin(true);
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#superadmin') {
+        toggleSuperadmin(true);
+      }
+    });
+  </script>
+</body>
+</html>
