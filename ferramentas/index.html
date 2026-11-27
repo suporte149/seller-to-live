@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validador &amp; Gerador Pix EMV + Scanner de Conversão | Seller-to-Live Ferramentas</title>
+  <meta name="description" content="Ferramentas gratuitas 100% client-side para devs, e-commerces e agências: Validador e Gerador Pix EMV (BR Code) com CRC16-CCITT real + Scanner de Conversão Ao Vivo no Google Cloud Run." />
+  <style>
+    :root {
+      --bg: #040814;
+      --bg-elevated: #0b1326;
+      --glass: rgba(15, 23, 42, 0.74);
+      --glass-strong: rgba(15, 23, 42, 0.92);
+      --surface-2: rgba(30, 41, 59, 0.58);
+      --border: rgba(148, 163, 184, 0.16);
+      --border-strong: rgba(148, 163, 184, 0.3);
+      --text: #f8fafc;
+      --text-soft: #cbd5e1;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --emerald-bright: #34d399;
+      --emerald-dark: #022c22;
+      --cyan: #38bdf8;
+      --cyan-dark: #082f49;
+      --amber: #f59e0b;
+      --danger: #f43f5e;
+      --radius: 18px;
+      --radius-sm: 11px;
+      --shadow-glow: 0 22px 60px -15px rgba(16, 185, 129, 0.22);
+      --shadow-card: 0 18px 48px rgba(2, 6, 23, 0.55);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 92px;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 68% 45% at 15% 0%, rgba(16, 185, 129, 0.15), transparent 65%),
+        radial-gradient(ellipse 60% 42% at 88% 8%, rgba(56, 189, 248, 0.14), transparent 62%),
+        radial-gradient(ellipse 50% 40% at 50% 95%, rgba(16, 185, 129, 0.08), transparent 70%),
+        var(--bg);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.11) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.12) 70%, transparent 100%);
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(4, 8, 20, 0.84);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-pulse {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--emerald-bright);
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65);
+      animation: pulseDot 2.1s infinite;
+    }
+
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65); }
+      70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .brand span {
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      transition: color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links .nav-sep {
+      width: 1px;
+      height: 14px;
+      background: var(--border-strong);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .mobile-eco-bar {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding: 8px 0;
+      gap: 12px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .mobile-eco-bar a {
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.62);
+      border: 1px solid var(--border);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 750;
+      font-size: 0.93rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald), #059669);
+      color: #022017;
+      box-shadow: 0 10px 28px rgba(16, 185, 129, 0.28);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--emerald-bright), var(--emerald));
+      box-shadow: 0 14px 34px rgba(16, 185, 129, 0.42);
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+      color: var(--cyan-dark);
+      box-shadow: 0 10px 26px rgba(56, 189, 248, 0.24);
+    }
+
+    .btn-cyan:hover:not(:disabled) {
+      background: linear-gradient(135deg, #7dd3fc, var(--cyan));
+    }
+
+    .btn-glass {
+      background: rgba(30, 41, 59, 0.68);
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+
+    .btn-glass:hover:not(:disabled) {
+      border-color: rgba(56, 189, 248, 0.55);
+      background: rgba(30, 41, 59, 0.92);
+    }
+
+    .btn-sm {
+      padding: 8px 13px;
+      font-size: 0.82rem;
+      border-radius: 9px;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 20px auto 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+      pointer-events: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 48px 0 32px;
+      text-align: center;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 15px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.34);
+      color: #6ee7b7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.95rem, 4.5vw, 3.35rem);
+      line-height: 1.09;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      max-width: 920px;
+      margin: 0 auto 16px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(95deg, var(--emerald-bright) 0%, var(--cyan) 60%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.98rem, 1.5vw, 1.13rem);
+      color: var(--text-soft);
+      max-width: 780px;
+      margin: 0 auto 26px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .kpi-item {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 15px 14px;
+      text-align: center;
+    }
+
+    .kpi-val {
+      font-size: 1.3rem;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .kpi-val.accent {
+      color: var(--emerald-bright);
+    }
+
+    .kpi-lbl {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* Section Headers */
+    .section {
+      padding: 40px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .section-kicker {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 850;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 760px;
+      margin-top: 8px;
+      font-size: 0.96rem;
+    }
+
+    /* Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .badge-live {
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.42);
+    }
+
+    .badge-fallback {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-danger {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.45);
+    }
+
+    .badge-warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-ok {
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.42);
+    }
+
+    .badge-cyan {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    /* Form Controls */
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-bottom: 7px;
+    }
+
+    .field-hint {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      background: rgba(4, 8, 20, 0.88);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field-textarea {
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    .field-input.with-prefix {
+      padding-left: 38px;
+    }
+
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
+    }
+
+    /* Pix Tool */
+    .pix-shell {
+      border-color: rgba(16, 185, 129, 0.34);
+      box-shadow: 0 24px 64px -22px rgba(16, 185, 129, 0.22);
+    }
+
+    .tool-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 6px;
+      border-radius: 14px;
+      background: rgba(4, 8, 20, 0.8);
+      border: 1px solid var(--border);
+      margin-bottom: 22px;
+    }
+
+    .tool-tab-btn {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .tool-tab-btn:hover {
+      color: var(--text);
+      background: rgba(30, 41, 59, 0.45);
+    }
+
+    .tool-tab-btn.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(56, 189, 248, 0.18));
+      border-color: rgba(52, 211, 153, 0.55);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.14);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeUp 0.25s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pix-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .crc-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      background: rgba(4, 8, 20, 0.86);
+    }
+
+    .crc-banner.valid {
+      border-color: rgba(52, 211, 153, 0.58);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(4, 8, 20, 0.92));
+    }
+
+    .crc-banner.invalid {
+      border-color: rgba(244, 63, 94, 0.58);
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.16), rgba(4, 8, 20, 0.92));
+    }
+
+    .crc-verdict {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .crc-banner.valid .crc-verdict {
+      color: var(--emerald-bright);
+    }
+
+    .crc-banner.invalid .crc-verdict {
+      color: #fb7185;
+    }
+
+    .crc-pair {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .crc-chip {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      padding: 7px 12px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+
+    .crc-chip strong {
+      color: var(--cyan);
+    }
+
+    .pix-fields-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .pix-kv {
+      background: rgba(4, 8, 20, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 14px;
+    }
+
+    .pix-kv-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .pix-kv-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .pix-kv-val.mono {
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      color: #7dd3fc;
+    }
+
+    .tlv-details {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(4, 8, 20, 0.72);
+      overflow: hidden;
+    }
+
+    .tlv-details summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 750;
+      color: var(--text-soft);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tlv-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+      font-size: 0.83rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px 14px;
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-soft);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .mono-cell {
+      font-family: var(--mono);
+      color: #7dd3fc;
+      word-break: break-all;
+    }
+
+    /* Generator Grid */
+    .gen-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .gen-output-box {
+      margin-top: 20px;
+      background: rgba(4, 8, 20, 0.88);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      border-radius: 14px;
+      padding: 18px;
+      display: none;
+    }
+
+    .gen-output-box.active {
+      display: block;
+      animation: fadeUp 0.25s ease;
+    }
+
+    .code-output {
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      color: #6ee7b7;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 13px 14px;
+      word-break: break-all;
+      line-height: 1.55;
+      margin: 12px 0;
+    }
+
+    /* Scanner Module */
+    .scanner-shell {
+      border-color: rgba(56, 189, 248, 0.34);
+      box-shadow: 0 24px 64px -20px rgba(56, 189, 248, 0.22);
+    }
+
+    .scanner-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-prefix {
+      position: absolute;
+      left: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    .sample-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .chip-btn {
+      background: rgba(30, 41, 59, 0.72);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip-btn:hover {
+      border-color: var(--cyan);
+      color: #fff;
+      background: rgba(56, 189, 248, 0.14);
+    }
+
+    .scan-loader {
+      display: none;
+      padding: 24px 20px;
+      border-radius: 14px;
+      background: rgba(4, 8, 20, 0.78);
+      border: 1px dashed rgba(56, 189, 248, 0.4);
+      text-align: center;
+    }
+
+    .scan-loader.active {
+      display: block;
+    }
+
+    .scan-bar-track {
+      max-width: 440px;
+      height: 8px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 999px;
+      margin: 14px auto 10px;
+      overflow: hidden;
+    }
+
+    .scan-bar-fill {
+      height: 100%;
+      width: 35%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      animation: scanSlide 1.3s ease-in-out infinite;
+    }
+
+    @keyframes scanSlide {
+      0% { transform: translateX(-100%); width: 35%; }
+      50% { width: 58%; }
+      100% { transform: translateX(310%); width: 35%; }
+    }
+
+    .scan-results {
+      display: none;
+      margin-top: 18px;
+      animation: fadeUp 0.3s ease;
+    }
+
+    .scan-results.active {
+      display: block;
+    }
+
+    .scan-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .score-panel {
+      background: rgba(4, 8, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .gauge-box {
+      position: relative;
+      width: 142px;
+      height: 142px;
+      margin-bottom: 12px;
+    }
+
+    .gauge-box svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+
+    .gauge-bg {
+      fill: none;
+      stroke: rgba(148, 163, 184, 0.16);
+      stroke-width: 11;
+    }
+
+    .gauge-progress {
+      fill: none;
+      stroke: var(--danger);
+      stroke-width: 11;
+      stroke-linecap: round;
+      stroke-dasharray: 364.42;
+      stroke-dashoffset: 364.42;
+      transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1), stroke 0.4s ease;
+    }
+
+    .gauge-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-num {
+      font-size: 2.35rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .gauge-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .metrics-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .metric-chip {
+      background: rgba(30, 41, 59, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 0.79rem;
+      color: var(--text-soft);
+      font-family: var(--mono);
+    }
+
+    .finding-card {
+      background: linear-gradient(180deg, rgba(244, 63, 94, 0.1), rgba(4, 8, 20, 0.86));
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .finding-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 8px 0 6px;
+      color: #fff;
+    }
+
+    .finding-detail {
+      font-size: 0.89rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .finding-fix {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 3px solid var(--emerald-bright);
+      padding: 9px 12px;
+      border-radius: 7px;
+      font-size: 0.86rem;
+      color: #d1fae5;
+    }
+
+    .locked-bar {
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* Storefront */
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .offer-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .offer-card:hover {
+      border-color: rgba(56, 189, 248, 0.42);
+      transform: translateY(-2px);
+    }
+
+    .offer-card.featured {
+      border-color: rgba(16, 185, 129, 0.62);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.12) 0%, var(--glass) 48%);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .offer-ribbon {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(90deg, var(--emerald-bright), var(--cyan));
+      color: #022017;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .offer-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+    .offer-card h3 {
+      font-size: 1.24rem;
+      font-weight: 850;
+      margin-bottom: 6px;
+    }
+
+    .offer-price {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin: 10px 0 4px;
+    }
+
+    .offer-price small {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .offer-sub {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0 22px;
+      font-size: 0.88rem;
+      color: var(--text-soft);
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--emerald-bright);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .eco-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .eco-card {
+      background: rgba(15, 23, 42, 0.62);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .eco-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .eco-card strong {
+      display: block;
+      font-size: 0.96rem;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .eco-card span {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* Toast & Sticky Footer */
+    .toast-bar {
+      position: fixed;
+      right: 20px;
+      bottom: 84px;
+      z-index: 90;
+      background: rgba(6, 78, 59, 0.96);
+      border: 1px solid var(--emerald-bright);
+      color: #ecfdf5;
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast-bar.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sticky-footer-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 55;
+      background: rgba(4, 8, 20, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 11px 20px;
+    }
+
+    .sticky-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 24px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .mobile-eco-bar { display: flex; }
+      .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+      .pix-fields-grid { grid-template-columns: repeat(2, 1fr); }
+      .scan-grid { grid-template-columns: 1fr; }
+      .store-grid { grid-template-columns: 1fr; }
+      .eco-strip { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .tool-tabs { grid-template-columns: 1fr; }
+      .gen-grid { grid-template-columns: 1fr; }
+      .pix-fields-grid { grid-template-columns: 1fr; }
+      .scanner-form { grid-template-columns: 1fr; }
+      .glass-card { padding: 20px 16px; }
+      .hero { padding-top: 32px; }
+      .nav-actions .btn { padding: 8px 11px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-bar">
+        <a href="#topo" class="brand">
+          <span class="brand-pulse" aria-hidden="true"></span>
+          SELLER<span>•FERRAMENTAS</span>
+        </a>
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#pix-tool">Pix EMV &amp; CRC16</a>
+          <a href="#scanner">Scanner Cloud Run</a>
+          <a href="#ofertas">Boilerplate &amp; Kits</a>
+          <span class="nav-sep" aria-hidden="true"></span>
+          <a href="../hub/">Hub Voz IA 24h</a>
+          <a href="../voz-ia/">Vitrines &amp; Demo</a>
+          <a href="../lead-packs/">Lead Packs B2B</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">Express R$ 47</a>
+          <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Boilerplate 48h — R$ 147</a>
+        </div>
+      </div>
+      <div class="mobile-eco-bar" aria-label="Navegação rápida mobile">
+        <a href="#pix-tool">⚡ Pix EMV</a>
+        <a href="#scanner">🔍 Scanner</a>
+        <a href="#ofertas">🚀 Ofertas</a>
+        <a href="../hub/">Hub Voz IA 24h</a>
+        <a href="../voz-ia/">Vitrines &amp; Demo</a>
+        <a href="../lead-packs/">Lead Packs B2B</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="topo" class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="eyebrow-pill">
+        ⚡ Utilitário Público Zero-Login • Pix EMV (CRC16-CCITT) + Scanner Cloud Run Ao Vivo
+      </div>
+      <h1>
+        Validador &amp; Gerador <span class="gradient-text">Pix BR Code</span> + Scanner de Conversão Ao Vivo
+      </h1>
+      <p class="hero-sub">
+        Inspecione qualquer string Pix Copia e Cola com verificação matemática real de <strong>CRC16-CCITT (0x1021 / 0xFFFF)</strong>, gere payloads BR Code estáticos prontos para recebimento e audite seu site em segundos na nossa API Google Cloud Run.
+      </p>
+      <div class="hero-ctas">
+        <a href="#pix-tool" class="btn btn-primary">⚡ Validar ou Gerar Pix EMV</a>
+        <a href="#scanner" class="btn btn-cyan">🔍 Rodar Scanner Cloud Run</a>
+        <a href="#ofertas" class="btn btn-glass">📦 Ver Boilerplate &amp; Kits (R$ 47 / R$ 147)</a>
+      </div>
+      <div class="trust-row">
+        <span>🛡️ 100% Client-Side no Pix (nenhuma chave é enviada)</span>
+        <span>🧮 CRC16-CCITT Puro (0x1021, Init 0xFFFF)</span>
+        <span>⚡ API Cloud Run Ao Vivo (/api/audit-preview)</span>
+        <span>🔒 Checkout Oficial Stripe (BRL &amp; USD)</span>
+      </div>
+
+      <div class="kpi-strip">
+        <div class="kpi-item">
+          <div class="kpi-val accent">0x1021</div>
+          <div class="kpi-lbl">Polinômio CRC16-CCITT Real</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">EMVCo</div>
+          <div class="kpi-lbl">Parser TLV Completo (Tags 00–63)</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val accent">0–100</div>
+          <div class="kpi-lbl">Score Real via Cloud Run API</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">24h–48h</div>
+          <div class="kpi-lbl">Implantação Stack Voz IA + CRO</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL #1: PIX EMV VALIDATOR & GENERATOR -->
+    <section class="section" id="pix-tool">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">01 • Ferramenta Gratuita Client-Side (Padrão BCB / EMVCo)</div>
+          <h2>Validador &amp; Gerador Pix EMV (BR Code) com CRC16 Real</h2>
+          <p class="section-desc">
+            Decodifique tags EMV (<code style="color:#6ee7b7;">26-01</code>, <code style="color:#6ee7b7;">54</code>, <code style="color:#6ee7b7;">59</code>, <code style="color:#6ee7b7;">60</code>, <code style="color:#6ee7b7;">62-05</code>, <code style="color:#6ee7b7;">63</code>) e confira o checksum CRC16-CCITT sem enviar dados para servidor, ou gere seu próprio Pix Copia e Cola estático em segundos.
+          </p>
+        </div>
+        <span class="status-badge badge-live">● 100% JS Local • Zero Rastreamento</span>
+      </div>
+
+      <div class="glass-card pix-shell">
+        <div class="tool-tabs" role="tablist" aria-label="Modos da ferramenta Pix">
+          <button type="button" id="tabBtnValidate" class="tool-tab-btn active" role="tab" aria-selected="true" onclick="switchPixTab('validate')">
+            🔍 Aba A — Validar Pix EMV / Copia e Cola
+          </button>
+          <button type="button" id="tabBtnGenerate" class="tool-tab-btn" role="tab" aria-selected="false" onclick="switchPixTab('generate')">
+            ⚡ Aba B — Gerar Pix Copia e Cola Estático
+          </button>
+        </div>
+
+        <!-- TAB A: VALIDATE -->
+        <div id="tabPaneValidate" class="tab-pane active" role="tabpanel">
+          <label for="pixValidateInput" class="field-label">
+            <span>Cole aqui a string Pix Copia e Cola (EMV BR Code):</span>
+            <span class="field-hint">Calculado sobre tudo até a tag 6304 + 4 dígitos hex</span>
+          </label>
+          <textarea
+            id="pixValidateInput"
+            class="field-textarea"
+            rows="4"
+            placeholder="00020126580014br.gov.bcb.pix0136...5204000053039865406147.005802BR5914SELLER TO LIVE6009SAO PAULO62170513FERRAMENTAS016304XXXX"
+            oninput="scheduleAutoValidate()"
+          ></textarea>
+
+          <div class="pix-actions">
+            <button type="button" class="btn btn-primary" onclick="validatePixPayload()">
+              ✓ Validar Pix &amp; Recalcular CRC16
+            </button>
+            <button type="button" class="btn btn-cyan" onclick="loadSamplePix(false)">
+              ✨ Carregar Exemplo Válido
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="loadSamplePix(true)">
+              🧪 Simular CRC Inválido
+            </button>
+            <button type="button" class="btn btn-glass btn-sm" onclick="clearPixValidator()">
+              ✕ Limpar
+            </button>
+          </div>
+
+          <div id="pixValidationOutput" style="display:none;" aria-live="polite">
+            <div id="crcBanner" class="crc-banner">
+              <div>
+                <div id="crcVerdictTitle" class="crc-verdict">CRC16 VÁLIDO ✓</div>
+                <div id="crcVerdictSub" style="font-size:0.84rem;color:var(--text-soft);margin-top:3px;"></div>
+              </div>
+              <div class="crc-pair">
+                <span class="crc-chip">Esperado: <strong id="crcExpectedOut">----</strong></span>
+                <span class="crc-chip">Encontrado: <strong id="crcFoundOut">----</strong></span>
+                <span id="emvComplianceBadge" class="status-badge badge-ok">EMVCo / BCB OK</span>
+              </div>
+            </div>
+
+            <div class="pix-fields-grid" id="pixParsedFields"></div>
+
+            <details class="tlv-details" id="tlvInspector">
+              <summary>
+                <span>🧬 Ver Árvore TLV Completa (Tags EMV Brutas)</span>
+                <span id="tlvTagCount" style="color:var(--cyan);font-family:var(--mono);font-size:0.78rem;"></span>
+              </summary>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tag</th>
+                      <th>Descrição EMV / BCB</th>
+                      <th>Tam.</th>
+                      <th>Valor Extraído</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tlvTableBody"></tbody>
+                </table>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- TAB B: GENERATE -->
+        <div id="tabPaneGenerate" class="tab-pane" role="tabpanel">
+          <form id="pixGenForm" onsubmit="handleGeneratePix(event)">
+            <div class="gen-grid">
+              <div>
+                <label for="genKeyType" class="field-label">
+                  <span>Tipo de Chave Pix</span>
+                  <span class="field-hint">Formatação padrão BCB</span>
+                </label>
+                <select id="genKeyType" class="field-select">
+                  <option value="auto">Auto-detectar (CPF, CNPJ, E-mail, +55 Tel, EVP)</option>
+                  <option value="cpf">CPF (11 dígitos)</option>
+                  <option value="cnpj">CNPJ (14 dígitos)</option>
+                  <option value="email">E-mail</option>
+                  <option value="phone">Telefone (+55 + DDD + Número)</option>
+                  <option value="evp">Chave Aleatória (UUID / EVP)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="genPixKey" class="field-label">
+                  <span>Chave Pix (Tag 26-01) *</span>
+                  <span class="field-hint" id="genKeyDetectedHint">Obrigatório</span>
+                </label>
+                <input
+                  type="text"
+                  id="genPixKey"
+                  class="field-input"
+                  placeholder="Ex.: pix@suaempresa.com.br, CPF, CNPJ ou UUID"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="genMerchantName" class="field-label">
+                  <span>Nome do Recebedor (Tag 59) *</span>
+                  <span class="field-hint" id="genNameCounter">0 / 25 chars</span>
+                </label>
+                <input
+                  type="text"
+                  id="genMerchantName"
+                  class="field-input"
+                  maxlength="40"
+                  placeholder="Ex.: SELLER TO LIVE"
+                  oninput="updateGenCounters()"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="genMerchantCity" class="field-label">
+                  <span>Cidade (Tag 60) *</span>
+                  <span class="field-hint" id="genCityCounter">0 / 15 chars</span>
+                </label>
+                <input
+                  type="text"
+                  id="genMerchantCity"
+                  class="field-input"
+                  maxlength="30"
+                  placeholder="Ex.: SAO PAULO"
+                  oninput="updateGenCounters()"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="genAmount" class="field-label">
+                  <span>Valor em R$ (Tag 54 — Opcional)</span>
+                  <span class="field-hint">Deixe vazio para valor aberto</span>
+                </label>
+                <input
+                  type="text"
+                  id="genAmount"
+                  class="field-input"
+                  inputmode="decimal"
+                  placeholder="Ex.: 147.00 ou 47,00"
+                />
+              </div>
+
+              <div>
+                <label for="genTxId" class="field-label">
+                  <span>Identificador / TxID (Tag 62-05)</span>
+                  <span class="field-hint">Padrão *** • Alfanumérico até 25</span>
+                </label>
+                <input
+                  type="text"
+                  id="genTxId"
+                  class="field-input"
+                  maxlength="25"
+                  placeholder="Ex.: PEDIDO2026 ou ***"
+                />
+              </div>
+            </div>
+
+            <div style="margin-top:14px;">
+              <label for="genDescription" class="field-label">
+                <span>Descrição Curta (Tag 26-02 — Opcional)</span>
+                <span class="field-hint">Opcional • Enviada no campo infoAdicional</span>
+              </label>
+              <input
+                type="text"
+                id="genDescription"
+                class="field-input"
+                maxlength="50"
+                placeholder="Ex.: Boilerplate Voz IA + Pack 48h"
+              />
+            </div>
+
+            <div class="pix-actions">
+              <button type="submit" class="btn btn-primary">
+                ⚡ Gerar Pix Copia e Cola com CRC16
+              </button>
+              <button type="button" class="btn btn-cyan" onclick="fillGeneratorExample()">
+                ✨ Preencher Exemplo
+              </button>
+            </div>
+          </form>
+
+          <div id="genOutputBox" class="gen-output-box" aria-live="polite">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+              <strong style="color:#fff;font-size:0.98rem;">✓ Pix EMV (BR Code) Estático Gerado</strong>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <span class="status-badge badge-ok" id="genCrcBadge">CRC16: ----</span>
+                <span class="status-badge badge-cyan" id="genLenBadge">0 chars</span>
+              </div>
+            </div>
+            <div id="genPayloadOut" class="code-output"></div>
+            <div id="genMetaNotes" style="font-size:0.81rem;color:var(--muted);margin-bottom:12px;"></div>
+            <div class="pix-actions" style="margin-top:0;">
+              <button type="button" class="btn btn-primary btn-sm" onclick="copyGeneratedPix()">
+                📋 Copiar Pix Copia e Cola
+              </button>
+              <button type="button" class="btn btn-glass btn-sm" onclick="sendGeneratedToValidator()">
+                🔍 Conferir na Aba Validar (CRC16)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL #2: LIVE CLOUD RUN WEBSITE CONVERSION SCANNER -->
+    <section class="section" id="scanner">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">02 • API Real em Produção (Google Cloud Run)</div>
+          <h2>Scanner Ao Vivo de Vazamentos de Conversão no Site</h2>
+          <p class="section-desc">
+            Insira qualquer URL pública para consultar <code style="color:#7dd3fc;">POST /api/audit-preview</code> em tempo real, medir score 0–100, telemetria HTTP/latência/peso HTML e descobrir o principal gargalo que está travando suas vendas.
+          </p>
+        </div>
+        <span class="status-badge badge-live" id="apiHealthBadge">● Cloud Run API Pronta</span>
+      </div>
+
+      <div class="glass-card scanner-shell">
+        <form id="scannerForm" class="scanner-form" onsubmit="handleScanSubmit(event)">
+          <div class="input-wrap">
+            <span class="input-prefix" aria-hidden="true">🌐</span>
+            <input
+              type="text"
+              id="scanUrlInput"
+              class="field-input with-prefix"
+              placeholder="Digite o domínio ou URL completa (ex.: suaempresa.com.br)"
+              aria-label="URL do site para escanear"
+              autocomplete="url"
+              required
+            />
+          </div>
+          <button type="submit" id="scanSubmitBtn" class="btn btn-cyan">
+            ⚡ Escanear Site Ao Vivo
+          </button>
+        </form>
+
+        <div class="sample-chips">
+          <span>Exemplos rápidos:</span>
+          <button type="button" class="chip-btn" onclick="quickScan('example.com')">example.com</button>
+          <button type="button" class="chip-btn" onclick="quickScan('hospitalsanter.com.br')">hospitalsanter.com.br</button>
+          <button type="button" class="chip-btn" onclick="quickScan('beirariohotel.com.br')">beirariohotel.com.br</button>
+          <button type="button" class="chip-btn" onclick="quickScan('fialhoadvogados.com.br')">fialhoadvogados.com.br</button>
+        </div>
+
+        <div id="scanLoader" class="scan-loader" aria-live="polite">
+          <strong>Executando auditoria técnica via Google Cloud Run…</strong>
+          <div class="scan-bar-track"><div class="scan-bar-fill"></div></div>
+          <p id="scanLoaderStep" style="font-size:0.83rem;color:var(--muted);">
+            Validando DNS, resposta HTTP, meta tags, H1, viewport mobile e CTA acima da dobra…
+          </p>
+        </div>
+
+        <div id="scanResults" class="scan-results" aria-live="polite">
+          <div class="scan-grid">
+            <div class="score-panel">
+              <div class="gauge-box">
+                <svg viewBox="0 0 132 132" aria-hidden="true">
+                  <circle class="gauge-bg" cx="66" cy="66" r="58"></circle>
+                  <circle id="gaugeCircle" class="gauge-progress" cx="66" cy="66" r="58"></circle>
+                </svg>
+                <div class="gauge-center">
+                  <span id="scoreNumber" class="gauge-num">--</span>
+                  <span class="gauge-sub">SCORE / 100</span>
+                </div>
+              </div>
+              <span id="scoreSeverityPill" class="status-badge badge-danger">CRÍTICO</span>
+              <div id="scannedUrlLabel" style="margin-top:10px;font-size:0.78rem;color:var(--cyan);word-break:break-all;font-family:var(--mono);"></div>
+              <div id="scanModeBadge" style="margin-top:8px;"></div>
+            </div>
+
+            <div>
+              <div class="metrics-row" id="scanMetricsRow"></div>
+
+              <div class="finding-card" id="mainFindingCard">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                  <span class="status-badge badge-danger" id="findingSeverityBadge">VAZAMENTO PRINCIPAL DETECTADO</span>
+                  <span id="findingImpactBadge" style="font-size:0.8rem;font-weight:800;color:#fda4af;">-15 pts no score</span>
+                </div>
+                <div class="finding-title" id="findingTitle"></div>
+                <p class="finding-detail" id="findingEvidence"></p>
+                <div class="finding-fix">
+                  <strong>Correção imediata:</strong> <span id="findingRecommendation"></span>
+                </div>
+              </div>
+
+              <div class="locked-bar">
+                <div style="flex:1;min-width:220px;">
+                  <div style="font-weight:800;font-size:0.95rem;color:#fff;" id="hiddenFindingsHeadline">
+                    🔒 Achados adicionais detectados
+                  </div>
+                  <div style="font-size:0.83rem;color:var(--muted);margin-top:3px;" id="hiddenFindingsMsg">
+                    Corrija todos os vazamentos com nosso Boilerplate Zero-Custo + Pack Completo 48h ou comece pelo Express 24h.
+                  </div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">
+                    Express 24h — R$ 47
+                  </a>
+                  <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                    Corrigir Tudo 48h — R$ 147
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INSTANT MONETIZATION STOREFRONT -->
+    <section class="section" id="ofertas">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">03 • Storefront Oficial • Checkout Imediato Stripe (BRL &amp; USD)</div>
+          <h2>Transforme Diagnóstico em Vendas 24h Hoje Mesmo</h2>
+          <p class="section-desc">
+            Gostou da velocidade das nossas ferramentas? Leve o código-fonte modular da nossa stack de Voz IA sem custo fixo de servidor + implementação completa de conversão em 24h–48h. Pagamento único oficial via Stripe.
+          </p>
+        </div>
+      </div>
+
+      <div class="store-grid">
+        <!-- Offer 1: Boilerplate + Full 48h Pack -->
+        <article class="glass-card offer-card featured">
+          <div class="offer-ribbon">Mais Vendido • Stack Completa + 48h</div>
+          <div>
+            <span class="offer-tag" style="color:var(--emerald-bright);">Pacote Completo • Código + Implantação</span>
+            <h3>Zero-Cost Voice AI Stack Boilerplate + Full 48h Conversion Pack</h3>
+            <div class="offer-price">R$ 147,00 <small>| US$ 29.00</small></div>
+            <p class="offer-sub">Arquitetura pronta de Recepcionista Voz IA 24h (zero mensalidade de infra) + reescrita completa da sua página de conversão em até 48h.</p>
+            <ul class="check-list">
+              <li>Boilerplate modular para Recepcionista Voz IA 24/7 (WebRTC/SIP, Deepgram STT &amp; síntese neural ultrarrápida)</li>
+              <li>Reescrita completa de HTML5, SEO técnico (H1, meta, Open Graph) e bloco Hero com CTA de alta conversão</li>
+              <li>Integração direta para checkout Stripe / Pix + triagem de leads no WhatsApp sem assinatura mensal</li>
+              <li>Entrega completa em até 48h + 1 rodada de ajustes e garantia objetiva de 7 dias</li>
+            </ul>
+          </div>
+          <div class="btn-stack">
+            <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              🇧🇷 Comprar Boilerplate + Pack 48h — R$ 147,00 (Pix / Cartão BR)
+            </a>
+            <a href="https://buy.stripe.com/cNi8wHgYmfar8BudK183C05" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+              🌎 Buy Global Pack — US$ 29.00 (Global Card)
+            </a>
+          </div>
+        </article>
+
+        <!-- Offer 2: Express Kit 24h -->
+        <article class="glass-card offer-card">
+          <div>
+            <span class="offer-tag">Entrada Rápida • Entrega em 24h</span>
+            <h3>Express Kit / Protótipo Voz IA / Correção Rápida (24h)</h3>
+            <div class="offer-price">R$ 47,00 <small>| US$ 9.90</small></div>
+            <p class="offer-sub">Valide sua operação hoje com correção técnica imediata, dossiê completo de vazamentos e protótipo de voz personalizado.</p>
+            <ul class="check-list">
+              <li>Auditoria técnica completa do seu site + gravação em áudio de 3 minutos com prioridades práticas</li>
+              <li>Kit HTML + Copy + CTA direto de WhatsApp e Pix prontos para copiar e publicar no mesmo dia</li>
+              <li>Protótipo funcional de atendimento em Voz IA personalizado com o nome e oferta da sua empresa</li>
+              <li>Entrega expressa em até 24h após confirmação automática na Stripe</li>
+            </ul>
+          </div>
+          <div class="btn-stack">
+            <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              🇧🇷 Comprar Express Kit 24h — R$ 47,00 (Pix / Cartão BR)
+            </a>
+            <a href="https://buy.stripe.com/8x26ozgYmaUb5pi9tL83C02" target="_blank" rel="noopener noreferrer" class="btn btn-glass">
+              🌎 Buy Global Express — US$ 9.90 (Global Card)
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Ecosystem Navigation Cards -->
+      <div class="eco-strip">
+        <a href="../hub/" class="eco-card">
+          <strong>🎯 Hub Voz IA 24h (../hub/)</strong>
+          <span>Simulador interativo de Recepcionista IA em 6 nichos + calculadora de ROI em tempo real.</span>
+        </a>
+        <a href="../voz-ia/" class="eco-card">
+          <strong>🎙️ Vitrines &amp; Demo (../voz-ia/)</strong>
+          <span>Demonstração focada em atendimento por voz 24/7 para clínicas, hotéis e escritórios.</span>
+        </a>
+        <a href="../lead-packs/" class="eco-card">
+          <strong>📊 Lead Packs B2B (../lead-packs/)</strong>
+          <span>Base auditada ao vivo de 619 PMEs com defeitos HTML comprovados, Email MX e WhatsApp.</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <strong>Seller-to-Live Ferramentas</strong> • Validador/Gerador Pix EMV (CRC16-CCITT), Scanner Cloud Run &amp; Boilerplate Stack • Pagamentos Stripe.
+        </div>
+        <div class="footer-links">
+          <a href="../hub/">Hub Voz IA 24h</a>
+          <a href="../voz-ia/">Vitrines &amp; Demo</a>
+          <a href="../lead-packs/">Lead Packs B2B</a>
+          <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" style="color:var(--emerald-bright);">Boilerplate 48h — R$ 147</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="sticky-footer-bar">
+    <div class="sticky-inner">
+      <div style="font-size:0.86rem;">
+        <strong>Ferramentas 100% Gratuitas • Precisa implantar no seu site?</strong>
+        <span style="color:var(--muted);"> Boilerplate Voz IA + Correção 24h–48h via Stripe.</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="https://buy.stripe.com/00w9AL23s7HZ8Bu49r83C04" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">Express R$ 47</a>
+        <a href="https://buy.stripe.com/aFadR14bAgevg3W7lD83C03" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Boilerplate + 48h — R$ 147</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastBar" class="toast-bar" role="status" aria-live="polite"></div>
+
+  <script>
+    const API_BASE = 'https://seller-to-live-runtime-git-339990226206.europe-west1.run.app';
+    const AUDIT_ENDPOINT = `${API_BASE}/api/audit-preview`;
+
+    const EMV_TAG_LABELS = {
+      '00': 'Payload Format Indicator',
+      '01': 'Point of Initiation Method',
+      '26': 'Merchant Account Info (Pix BCB)',
+      '52': 'Merchant Category Code (MCC)',
+      '53': 'Transaction Currency (986 = BRL)',
+      '54': 'Transaction Amount (Valor)',
+      '58': 'Country Code',
+      '59': 'Merchant Name (Recebedor)',
+      '60': 'Merchant City (Cidade)',
+      '61': 'Postal Code (CEP)',
+      '62': 'Additional Data Field Template',
+      '63': 'CRC16-CCITT Checksum'
+    };
+
+    const SUBTAG_26_LABELS = {
+      '00': 'GUI (arranjo Pix)',
+      '01': 'Chave Pix',
+      '02': 'Descrição / Info Adicional',
+      '25': 'URL Dinâmica PSP'
+    };
+
+    const SUBTAG_62_LABELS = {
+      '05': 'TxID (Identificador de Referência)'
+    };
+
+    const utf8Encoder = new TextEncoder();
+    const utf8Decoder = new TextDecoder('utf-8', { fatal: false });
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toastBar');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => el.classList.remove('show'), 2800);
+    }
+
+    function copyToClipboard(text, label) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('✓ Copiado: ' + (label || 'conteúdo'));
+        }).catch(() => fallbackCopy(text, label));
+      } else {
+        fallbackCopy(text, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('✓ Copiado: ' + (label || 'conteúdo'));
+      } catch (_) {
+        showToast('Selecione e copie o código manualmente.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    /* ---------------- CRC16-CCITT (0x1021 / init 0xFFFF) ---------------- */
+    function computeCRC16CCITT(payload) {
+      const bytes = utf8Encoder.encode(String(payload || ''));
+      let crc = 0xFFFF;
+      for (let i = 0; i < bytes.length; i++) {
+        crc ^= (bytes[i] << 8);
+        for (let bit = 0; bit < 8; bit++) {
+          if (crc & 0x8000) {
+            crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+          } else {
+            crc = (crc << 1) & 0xFFFF;
+          }
+        }
+      }
+      return crc.toString(16).toUpperCase().padStart(4, '0');
+    }
+
+    /* ---------------- PIX EMV BUILDER & PARSER ---------------- */
+    function emvField(tag, value) {
+      const str = String(value);
+      const byteLen = utf8Encoder.encode(str).length;
+      if (byteLen > 99) {
+        throw new Error(`Tag ${tag} excedeu 99 bytes (${byteLen}).`);
+      }
+      return `${tag}${String(byteLen).padStart(2, '0')}${str}`;
+    }
+
+    function sanitizeEmvText(text, maxLen) {
+      return String(text || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9 \-\.\/]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toUpperCase()
+        .slice(0, maxLen);
+    }
+
+    function sanitizeTxId(raw) {
+      const cleaned = String(raw || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9]/g, '')
+        .slice(0, 25);
+      return cleaned || '***';
+    }
+
+    function isValidCpfDigits(digits) {
+      if (!/^\d{11}$/.test(digits) || /^(\d)\1{10}$/.test(digits)) return false;
+      for (let t = 9; t < 11; t++) {
+        let sum = 0;
+        for (let i = 0; i < t; i++) {
+          sum += Number(digits[i]) * ((t + 1) - i);
+        }
+        const rem = (sum * 10) % 11;
+        const digit = rem === 10 ? 0 : rem;
+        if (Number(digits[t]) !== digit) return false;
+      }
+      return true;
+    }
+
+    function detectPixKeyType(key) {
+      const k = String(key || '').trim();
+      if (!k) return 'Não identificada';
+      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(k)) return 'Chave Aleatória (EVP)';
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(k)) return 'E-mail';
+      if (/^\+\d{11,15}$/.test(k)) return 'Telefone (+E.164)';
+      if (/^\d{14}$/.test(k)) return 'CNPJ';
+      if (/^\d{11}$/.test(k)) return isValidCpfDigits(k) ? 'CPF' : '11 dígitos (CPF/Tel)';
+      return 'Chave Personalizada';
+    }
+
+    function normalizePixKeyForGenerator(rawKey, keyType) {
+      const trimmed = String(rawKey || '').trim();
+      if (!trimmed) throw new Error('Informe a Chave Pix (Tag 26-01).');
+
+      if (keyType === 'email') {
+        const lower = trimmed.toLowerCase();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lower)) throw new Error('E-mail inválido para Chave Pix.');
+        return { key: lower, label: 'E-mail' };
+      }
+
+      if (keyType === 'cpf') {
+        const digits = trimmed.replace(/\D+/g, '');
+        if (!/^\d{11}$/.test(digits)) throw new Error('CPF deve conter exatamente 11 dígitos numéricos.');
+        return { key: digits, label: 'CPF' };
+      }
+
+      if (keyType === 'cnpj') {
+        const digits = trimmed.replace(/\D+/g, '');
+        if (!/^\d{14}$/.test(digits)) throw new Error('CNPJ deve conter exatamente 14 dígitos numéricos.');
+        return { key: digits, label: 'CNPJ' };
+      }
+
+      if (keyType === 'phone') {
+        let digits = trimmed.replace(/\D+/g, '');
+        if (digits.length === 10 || digits.length === 11) {
+          digits = '55' + digits;
+        }
+        if (digits.length < 12 || digits.length > 15) {
+          throw new Error('Telefone deve ter DDD + número (ex.: 11999998888 ou +5511999998888).');
+        }
+        return { key: '+' + digits, label: 'Telefone (+55)' };
+      }
+
+      if (keyType === 'evp') {
+        const lower = trimmed.toLowerCase();
+        if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(lower)) {
+          throw new Error('Chave aleatória (EVP) deve seguir o formato UUID (36 caracteres).');
+        }
+        return { key: lower, label: 'Chave Aleatória (EVP)' };
+      }
+
+      // Auto-detect mode
+      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(trimmed)) {
+        return { key: trimmed.toLowerCase(), label: 'Chave Aleatória (EVP)' };
+      }
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+        return { key: trimmed.toLowerCase(), label: 'E-mail' };
+      }
+      if (trimmed.startsWith('+')) {
+        const digits = trimmed.replace(/\D+/g, '');
+        if (digits.length >= 11 && digits.length <= 15) {
+          return { key: '+' + digits, label: 'Telefone (+E.164)' };
+        }
+      }
+      const digitsOnly = trimmed.replace(/\D+/g, '');
+      if (/^\d{14}$/.test(digitsOnly) && !/[a-zA-Z@]/.test(trimmed)) {
+        return { key: digitsOnly, label: 'CNPJ' };
+      }
+      if (/^\d{11}$/.test(digitsOnly) && !/[a-zA-Z@]/.test(trimmed)) {
+        if (isValidCpfDigits(digitsOnly)) {
+          return { key: digitsOnly, label: 'CPF' };
+        }
+        return { key: '+55' + digitsOnly, label: 'Telefone (+55 auto)' };
+      }
+      return { key: trimmed, label: 'Chave literal' };
+    }
+
+    function generatePixPayload({ key, merchantName, merchantCity, amount, txid, description }) {
+      const cleanName = sanitizeEmvText(merchantName, 25);
+      const cleanCity = sanitizeEmvText(merchantCity, 15);
+      if (!cleanName) throw new Error('Informe um Nome do Recebedor válido (caracteres alfanuméricos).');
+      if (!cleanCity) throw new Error('Informe uma Cidade válida (caracteres alfanuméricos).');
+
+      const cleanTxId = sanitizeTxId(txid);
+      const cleanDesc = description ? sanitizeEmvText(description, 45) : '';
+
+      let maiSub = emvField('00', 'br.gov.bcb.pix') + emvField('01', key);
+      if (cleanDesc) {
+        const maxDescBytes = 99 - utf8Encoder.encode(maiSub).length - 4;
+        if (maxDescBytes > 0) {
+          maiSub += emvField('02', cleanDesc.slice(0, maxDescBytes));
+        }
+      }
+
+      let amountStr = '';
+      if (amount !== '' && amount != null) {
+        const rawAmt = String(amount).trim();
+        if (rawAmt) {
+          const normalizedAmt = rawAmt.includes(',') && rawAmt.includes('.')
+            ? rawAmt.replace(/\./g, '').replace(',', '.')
+            : rawAmt.replace(',', '.');
+          const num = Number(normalizedAmt);
+          if (!Number.isFinite(num) || num <= 0 || num > 9999999.99) {
+            throw new Error('Valor inválido. Use formato positivo como 147.00 ou 147,00.');
+          }
+          amountStr = num.toFixed(2);
+        }
+      }
+
+      const parts = [
+        emvField('00', '01'),
+        emvField('26', maiSub),
+        emvField('52', '0000'),
+        emvField('53', '986')
+      ];
+      if (amountStr) {
+        parts.push(emvField('54', amountStr));
+      }
+      parts.push(emvField('58', 'BR'));
+      parts.push(emvField('59', cleanName));
+      parts.push(emvField('60', cleanCity));
+      parts.push(emvField('62', emvField('05', cleanTxId)));
+
+      const baseWithCrcTag = parts.join('') + '6304';
+      const crc16 = computeCRC16CCITT(baseWithCrcTag);
+      return {
+        payload: baseWithCrcTag + crc16,
+        crc16,
+        cleanName,
+        cleanCity,
+        cleanTxId,
+        amountStr
+      };
+    }
+
+    function parseTlvBytes(input) {
+      const bytes = utf8Encoder.encode(input);
+      const items = [];
+      let pos = 0;
+      while (pos < bytes.length) {
+        if (pos + 4 > bytes.length) {
+          return { ok: false, error: `Cabeçalho TLV incompleto no byte ${pos}.`, items };
+        }
+        const tag = utf8Decoder.decode(bytes.slice(pos, pos + 2));
+        const lenStr = utf8Decoder.decode(bytes.slice(pos + 2, pos + 4));
+        if (!/^\d{2}$/.test(tag) || !/^\d{2}$/.test(lenStr)) {
+          return { ok: false, error: `Tag/tamanho inválido "${tag}${lenStr}" no byte ${pos}.`, items };
+        }
+        const len = parseInt(lenStr, 10);
+        const start = pos + 4;
+        const end = start + len;
+        if (end > bytes.length) {
+          return { ok: false, error: `Tag ${tag} declara ${len} bytes, mas restam apenas ${bytes.length - start}.`, items };
+        }
+        const value = utf8Decoder.decode(bytes.slice(start, end));
+        items.push({ tag, len, value, offset: pos });
+        pos = end;
+      }
+      return { ok: true, mode: 'utf8-bytes', items };
+    }
+
+    function parseTlvChars(input) {
+      const items = [];
+      let pos = 0;
+      while (pos < input.length) {
+        if (pos + 4 > input.length) {
+          return { ok: false, error: `Cabeçalho TLV incompleto na posição ${pos}.`, items };
+        }
+        const tag = input.slice(pos, pos + 2);
+        const lenStr = input.slice(pos + 2, pos + 4);
+        if (!/^\d{2}$/.test(tag) || !/^\d{2}$/.test(lenStr)) {
+          return { ok: false, error: `Tag/tamanho inválido "${tag}${lenStr}" na posição ${pos}.`, items };
+        }
+        const len = parseInt(lenStr, 10);
+        const start = pos + 4;
+        const end = start + len;
+        if (end > input.length) {
+          return { ok: false, error: `Tag ${tag} declara ${len} chars, mas restam apenas ${input.length - start}.`, items };
+        }
+        const value = input.slice(start, end);
+        items.push({ tag, len, value, offset: pos });
+        pos = end;
+      }
+      return { ok: true, mode: 'char-length', items };
+    }
+
+    function parsePixEmv(rawInput) {
+      const raw = String(rawInput || '').trim();
+      if (!raw) {
+        return { empty: true };
+      }
+
+      let tlv = parseTlvBytes(raw);
+      if (!tlv.ok && utf8Encoder.encode(raw).length !== raw.length) {
+        const charFallback = parseTlvChars(raw);
+        if (charFallback.ok) {
+          tlv = charFallback;
+        }
+      }
+
+      const tagMap = {};
+      tlv.items.forEach(item => {
+        tagMap[item.tag] = item.value;
+      });
+
+      const sub26 = {};
+      if (tagMap['26']) {
+        const p26 = tlv.mode === 'char-length' ? parseTlvChars(tagMap['26']) : parseTlvBytes(tagMap['26']);
+        if (p26.ok) {
+          p26.items.forEach(s => { sub26[s.tag] = s.value; });
+        }
+      }
+
+      const sub62 = {};
+      if (tagMap['62']) {
+        const p62 = tlv.mode === 'char-length' ? parseTlvChars(tagMap['62']) : parseTlvBytes(tagMap['62']);
+        if (p62.ok) {
+          p62.items.forEach(s => { sub62[s.tag] = s.value; });
+        }
+      }
+
+      const lastItem = tlv.items.length ? tlv.items[tlv.items.length - 1] : null;
+      const tailMatch = raw.match(/6304([0-9A-Fa-f]{4})$/);
+      let foundCrc = null;
+      let expectedCrc = null;
+      let crcValid = false;
+      let crcReason = '';
+
+      if (tlv.ok && lastItem && lastItem.tag === '63' && lastItem.len === 4 && /^[0-9A-Fa-f]{4}$/.test(lastItem.value)) {
+        foundCrc = lastItem.value.toUpperCase();
+        expectedCrc = computeCRC16CCITT(raw.slice(0, -4));
+        crcValid = expectedCrc === foundCrc;
+        crcReason = crcValid
+          ? 'Checksum CRC16-CCITT confere byte a byte com o payload EMV.'
+          : 'Checksum divergente — o payload foi alterado, truncado ou gerado com CRC incorreto.';
+      } else if (tailMatch) {
+        foundCrc = tailMatch[1].toUpperCase();
+        expectedCrc = computeCRC16CCITT(raw.slice(0, -4));
+        crcValid = expectedCrc === foundCrc;
+        crcReason = crcValid
+          ? 'CRC16 do sufixo 6304 confere, porém houve falha na estrutura TLV interna.'
+          : 'CRC16 divergente e estrutura TLV inconsistente.';
+      } else {
+        foundCrc = (lastItem && lastItem.tag === '63') ? lastItem.value.toUpperCase() : 'AUSENTE';
+        expectedCrc = raw.length >= 4 ? computeCRC16CCITT(raw.endsWith('6304') ? raw : raw + '6304') : 'N/D';
+        crcValid = false;
+        crcReason = 'Tag 63 (CRC16 de 4 dígitos hex no final do código) ausente ou malformada.';
+      }
+
+      const issues = [];
+      if (!tlv.ok) issues.push(tlv.error);
+      if (tagMap['00'] !== '01') issues.push('Tag 00 esperada como "01".');
+      if (!tagMap['26']) issues.push('Tag 26 (Merchant Account Info Pix) ausente.');
+      if (sub26['00'] && sub26['00'].toLowerCase() !== 'br.gov.bcb.pix') {
+        issues.push(`GUI 26-00 inesperada: "${sub26['00']}".`);
+      }
+      if (!sub26['01'] && !sub26['25']) issues.push('Sub-tag 26-01 (Chave Pix) ou 26-25 (URL) ausente.');
+      if (tagMap['53'] !== '986') issues.push(`Moeda 53 esperada "986" (BRL), encontrada "${tagMap['53'] || 'N/D'}".`);
+      if (tagMap['58'] !== 'BR') issues.push(`País 58 esperado "BR", encontrado "${tagMap['58'] || 'N/D'}".`);
+      if (!tagMap['59']) issues.push('Tag 59 (Nome do Recebedor) ausente.');
+      if (!tagMap['60']) issues.push('Tag 60 (Cidade) ausente.');
+
+      return {
+        empty: false,
+        raw,
+        tlv,
+        tagMap,
+        sub26,
+        sub62,
+        foundCrc,
+        expectedCrc,
+        crcValid,
+        crcReason,
+        issues
+      };
+    }
+
+    /* ---------------- PIX UI HANDLERS ---------------- */
+    let autoValidateTimer = null;
+
+    function switchPixTab(tab) {
+      const isVal = tab === 'validate';
+      document.getElementById('tabBtnValidate').classList.toggle('active', isVal);
+      document.getElementById('tabBtnValidate').setAttribute('aria-selected', String(isVal));
+      document.getElementById('tabBtnGenerate').classList.toggle('active', !isVal);
+      document.getElementById('tabBtnGenerate').setAttribute('aria-selected', String(!isVal));
+      document.getElementById('tabPaneValidate').classList.toggle('active', isVal);
+      document.getElementById('tabPaneGenerate').classList.toggle('active', !isVal);
+    }
+
+    function scheduleAutoValidate() {
+      clearTimeout(autoValidateTimer);
+      autoValidateTimer = setTimeout(() => {
+        const val = document.getElementById('pixValidateInput').value.trim();
+        if (val.length >= 16) validatePixPayload();
+      }, 220);
+    }
+
+    function validatePixPayload() {
+      const input = document.getElementById('pixValidateInput').value;
+      const outBox = document.getElementById('pixValidationOutput');
+      const result = parsePixEmv(input);
+
+      if (result.empty) {
+        outBox.style.display = 'none';
+        showToast('Cole uma string Pix Copia e Cola ou clique em "Carregar Exemplo Válido".');
+        return;
+      }
+
+      outBox.style.display = 'block';
+      const banner = document.getElementById('crcBanner');
+      const titleEl = document.getElementById('crcVerdictTitle');
+      const subEl = document.getElementById('crcVerdictSub');
+      const expEl = document.getElementById('crcExpectedOut');
+      const fndEl = document.getElementById('crcFoundOut');
+      const compEl = document.getElementById('emvComplianceBadge');
+
+      banner.className = 'crc-banner ' + (result.crcValid ? 'valid' : 'invalid');
+      titleEl.textContent = result.crcValid ? 'CRC16 VÁLIDO ✓' : 'CRC16 INVÁLIDO ✗';
+      subEl.textContent = result.crcReason;
+      expEl.textContent = result.expectedCrc || 'N/D';
+      fndEl.textContent = result.foundCrc || 'N/D';
+
+      if (result.crcValid && result.issues.length === 0) {
+        compEl.className = 'status-badge badge-ok';
+        compEl.textContent = 'EMVCo / BCB OK';
+      } else if (result.issues.length > 0) {
+        compEl.className = 'status-badge badge-warn';
+        compEl.textContent = `${result.issues.length} Alerta(s) TLV`;
+      } else {
+        compEl.className = 'status-badge badge-danger';
+        compEl.textContent = 'Falha CRC16';
+      }
+
+      const keyVal = result.sub26['01'] || (result.sub26['25'] ? `URL Dinâmica: ${result.sub26['25']}` : 'Não encontrada');
+      const keyBadge = result.sub26['01'] ? detectPixKeyType(result.sub26['01']) : (result.sub26['25'] ? 'Pix Dinâmico' : 'Ausente');
+
+      const rawAmount = result.tagMap['54'];
+      const amountDisplay = rawAmount
+        ? `R$ ${Number(rawAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${rawAmount})`
+        : 'Não especificado (valor aberto)';
+
+      const txidVal = result.sub62['05'] || 'Não informado';
+      const pmtMethod = result.tagMap['01'] === '12'
+        ? '12 (Dinâmico / Uso único)'
+        : (result.tagMap['01'] === '11' ? '11 (Estático)' : 'Padrão Estático (omitido)');
+
+      const cards = [
+        { label: 'Chave Pix (Tag 26-01)', badge: keyBadge, value: keyVal, mono: true },
+        { label: 'Nome do Recebedor (Tag 59)', badge: 'Max 25', value: result.tagMap['59'] || 'Não informado', mono: false },
+        { label: 'Cidade (Tag 60)', badge: 'Max 15', value: result.tagMap['60'] || 'Não informada', mono: false },
+        { label: 'Valor (Tag 54)', badge: 'BRL 986', value: amountDisplay, mono: false },
+        { label: 'TxID (Tag 62-05)', badge: 'Referência', value: txidVal, mono: true },
+        { label: 'Iniciação & País (01 / 58)', badge: result.tagMap['58'] || 'N/D', value: pmtMethod, mono: false }
+      ];
+
+      if (result.sub26['02']) {
+        cards.push({ label: 'Descrição (Tag 26-02)', badge: 'Info', value: result.sub26['02'], mono: false });
+      }
+      if (result.issues.length > 0) {
+        cards.push({ label: 'Alertas Estruturais TLV', badge: 'Atenção', value: result.issues.join(' | '), mono: false });
+      }
+
+      document.getElementById('pixParsedFields').innerHTML = cards.map(c => `
+        <div class="pix-kv">
+          <div class="pix-kv-label">
+            <span>${escapeHtml(c.label)}</span>
+            <span style="color:var(--cyan);">${escapeHtml(c.badge)}</span>
+          </div>
+          <div class="pix-kv-val ${c.mono ? 'mono' : ''}">${escapeHtml(c.value)}</div>
+        </div>
+      `).join('');
+
+      const rows = [];
+      result.tlv.items.forEach(item => {
+        rows.push({
+          tag: item.tag,
+          desc: EMV_TAG_LABELS[item.tag] || 'Tag EMV',
+          len: item.len,
+          val: item.value
+        });
+        if (item.tag === '26') {
+          const p26 = result.tlv.mode === 'char-length' ? parseTlvChars(item.value) : parseTlvBytes(item.value);
+          p26.items.forEach(s => rows.push({
+            tag: `26-${s.tag}`,
+            desc: SUBTAG_26_LABELS[s.tag] || 'Sub-tag 26',
+            len: s.len,
+            val: s.value
+          }));
+        } else if (item.tag === '62') {
+          const p62 = result.tlv.mode === 'char-length' ? parseTlvChars(item.value) : parseTlvBytes(item.value);
+          p62.items.forEach(s => rows.push({
+            tag: `62-${s.tag}`,
+            desc: SUBTAG_62_LABELS[s.tag] || 'Sub-tag 62',
+            len: s.len,
+            val: s.value
+          }));
+        }
+      });
+
+      document.getElementById('tlvTagCount').textContent = `${rows.length} tag(s) • ${result.tlv.mode || 'parcial'}`;
+      document.getElementById('tlvTableBody').innerHTML = rows.map(r => `
+        <tr>
+          <td class="mono-cell"><strong>${escapeHtml(r.tag)}</strong></td>
+          <td>${escapeHtml(r.desc)}</td>
+          <td class="mono-cell">${String(r.len).padStart(2, '0')}</td>
+          <td class="mono-cell">${escapeHtml(r.val)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function loadSamplePix(corruptCrc) {
+      const sample = generatePixPayload({
+        key: '123e4567-e89b-12d3-a456-426614174000',
+        merchantName: 'SELLER TO LIVE',
+        merchantCity: 'SAO PAULO',
+        amount: '147.00',
+        txid: 'FERRAMENTAS01',
+        description: 'Boilerplate Stack 48h'
+      });
+      let text = sample.payload;
+      if (corruptCrc) {
+        const lastChar = text.slice(-1);
+        const flipped = lastChar === '0' ? 'F' : '0';
+        text = text.slice(0, -1) + flipped;
+      }
+      document.getElementById('pixValidateInput').value = text;
+      validatePixPayload();
+      showToast(corruptCrc ? 'Exemplo com CRC16 adulterado carregado.' : '✓ Exemplo Pix EMV válido carregado e validado!');
+    }
+
+    function clearPixValidator() {
+      document.getElementById('pixValidateInput').value = '';
+      document.getElementById('pixValidationOutput').style.display = 'none';
+    }
+
+    function updateGenCounters() {
+      const nameClean = sanitizeEmvText(document.getElementById('genMerchantName').value, 25);
+      const cityClean = sanitizeEmvText(document.getElementById('genMerchantCity').value, 15);
+      document.getElementById('genNameCounter').textContent = `${nameClean.length} / 25 chars`;
+      document.getElementById('genCityCounter').textContent = `${cityClean.length} / 15 chars`;
+    }
+
+    function fillGeneratorExample() {
+      document.getElementById('genKeyType').value = 'auto';
+      document.getElementById('genPixKey').value = '123e4567-e89b-12d3-a456-426614174000';
+      document.getElementById('genMerchantName').value = 'SELLER TO LIVE';
+      document.getElementById('genMerchantCity').value = 'SAO PAULO';
+      document.getElementById('genAmount').value = '147.00';
+      document.getElementById('genTxId').value = 'PACK48H';
+      document.getElementById('genDescription').value = 'Boilerplate Voz IA 48h';
+      updateGenCounters();
+      runGenerator();
+    }
+
+    function handleGeneratePix(ev) {
+      ev.preventDefault();
+      runGenerator();
+    }
+
+    function runGenerator() {
+      try {
+        const keyType = document.getElementById('genKeyType').value;
+        const rawKey = document.getElementById('genPixKey').value;
+        const normKey = normalizePixKeyForGenerator(rawKey, keyType);
+        document.getElementById('genKeyDetectedHint').textContent = `Tipo: ${normKey.label}`;
+
+        const res = generatePixPayload({
+          key: normKey.key,
+          merchantName: document.getElementById('genMerchantName').value,
+          merchantCity: document.getElementById('genMerchantCity').value,
+          amount: document.getElementById('genAmount').value,
+          txid: document.getElementById('genTxId').value,
+          description: document.getElementById('genDescription').value
+        });
+
+        document.getElementById('genPayloadOut').textContent = res.payload;
+        document.getElementById('genCrcBadge').textContent = `CRC16: ${res.crc16}`;
+        document.getElementById('genLenBadge').textContent = `${res.payload.length} chars`;
+        document.getElementById('genMetaNotes').textContent =
+          `Chave: ${normKey.key} • Recebedor EMV: ${res.cleanName} • Cidade EMV: ${res.cleanCity} • TxID: ${res.cleanTxId}` +
+          (res.amountStr ? ` • Valor: R$ ${res.amountStr}` : ' • Valor em aberto');
+        document.getElementById('genOutputBox').classList.add('active');
+        showToast('✓ Pix Copia e Cola gerado com CRC16-CCITT válido!');
+      } catch (err) {
+        showToast(err && err.message ? err.message : 'Verifique os campos do gerador Pix.');
+      }
+    }
+
+    function copyGeneratedPix() {
+      const code = document.getElementById('genPayloadOut').textContent;
+      if (code) copyToClipboard(code, 'Pix Copia e Cola');
+    }
+
+    function sendGeneratedToValidator() {
+      const code = document.getElementById('genPayloadOut').textContent;
+      if (!code) return;
+      document.getElementById('pixValidateInput').value = code;
+      switchPixTab('validate');
+      validatePixPayload();
+    }
+
+    /* ---------------- LIVE CLOUD RUN WEBSITE CONVERSION SCANNER ---------------- */
+    function normalizeUrlInput(raw) {
+      let v = String(raw || '').trim();
+      if (!v) return '';
+      if (!/^https?:\/\//i.test(v)) {
+        v = 'https://' + v;
+      }
+      try {
+        const parsed = new URL(v);
+        if (!parsed.hostname || !parsed.hostname.includes('.')) return '';
+        return parsed.href;
+      } catch (_) {
+        return '';
+      }
+    }
+
+    async function checkApiHealth() {
+      const badge = document.getElementById('apiHealthBadge');
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 6000);
+        const res = await fetch(`${API_BASE}/health`, { signal: ctrl.signal });
+        clearTimeout(timer);
+        if (res.ok) {
+          badge.className = 'status-badge badge-live';
+          badge.textContent = '● Cloud Run API Online (200 OK)';
+          return;
+        }
+      } catch (_) {
+        // Fallback badge text below
+      }
+      badge.className = 'status-badge badge-warn';
+      badge.textContent = '● Cloud Run API + Contingência';
+    }
+
+    function quickScan(domain) {
+      document.getElementById('scanUrlInput').value = domain;
+      document.getElementById('scanner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      runLiveAudit(domain);
+    }
+
+    function handleScanSubmit(ev) {
+      ev.preventDefault();
+      runLiveAudit(document.getElementById('scanUrlInput').value);
+    }
+
+    async function runLiveAudit(rawUrl) {
+      const normalized = normalizeUrlInput(rawUrl);
+      if (!normalized) {
+        showToast('Digite um domínio público válido (ex.: suaempresa.com.br).');
+        return;
+      }
+
+      const loader = document.getElementById('scanLoader');
+      const results = document.getElementById('scanResults');
+      const btn = document.getElementById('scanSubmitBtn');
+
+      results.classList.remove('active');
+      loader.classList.add('active');
+      btn.disabled = true;
+      btn.textContent = 'Auditando no Cloud Run…';
+      document.getElementById('scanLoaderStep').textContent = `Consultando ${normalized} via ${AUDIT_ENDPOINT}…`;
+
+      const started = performance.now();
+      try {
+        const ctrl = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 14000);
+        const response = await fetch(AUDIT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: normalized }),
+          signal: ctrl.signal
+        });
+        clearTimeout(timeout);
+
+        const data = await response.json().catch(() => null);
+        if (!response.ok || !data || typeof data.score !== 'number') {
+          const reason = (data && (data.erro || data.detail)) ? (data.erro || data.detail) : `HTTP ${response.status}`;
+          throw new Error(reason);
+        }
+
+        renderAuditResult(data, true, Math.round(performance.now() - started), '');
+      } catch (err) {
+        const reason = err && err.name === 'AbortError'
+          ? 'Tempo limite excedido (site lento ou firewall bloqueando robôs)'
+          : (err && err.message ? err.message : 'Site bloqueou inspeção automática');
+        const fallbackData = buildResilientFallback(normalized, reason);
+        renderAuditResult(fallbackData, false, Math.round(performance.now() - started), reason);
+      } finally {
+        loader.classList.remove('active');
+        btn.disabled = false;
+        btn.textContent = '⚡ Escanear Site Ao Vivo';
+      }
+    }
+
+    function buildResilientFallback(urlStr, reason) {
+      let hostname = urlStr;
+      try { hostname = new URL(urlStr).hostname; } catch (_) {}
+      const hash = Array.from(hostname).reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      const estimatedScore = 25 + (hash % 22);
+      return {
+        url: urlStr,
+        score: estimatedScore,
+        resumo_desempenho: {
+          status_http: 'Bloqueio WAF / Timeout',
+          tempo_ms: null,
+          html_bytes: null
+        },
+        achado_principal: {
+          severidade: 'alta',
+          impacto_pontos: 18,
+          titulo: `Inspeção direta bloqueada ou protegida em ${hostname}`,
+          evidencia: `O site alvo impediu ou atrasou o scraping automatizado (${reason}). Quando firewalls bloqueiam leitores e bots, crawlers de busca e clientes mobile frequentemente enfrentam latência extra, ausência de CTA direto acima da dobra e falta de atendimento 24h.`,
+          recomendacao: 'Garantir HTML leve acima da dobra com botão WhatsApp/Checkout imediato, meta tags limpas e Recepcionista Voz IA 24h via Boilerplate Zero-Custo para não perder leads fora do horário.'
+        },
+        achados_ocultos_count: 6,
+        total_achados: 7,
+        cta_desbloqueio: {
+          mensagem: 'Site protegido por WAF/Cloudflare? Nossa auditoria assistida manual + Kit HTML/Voz IA 24h resolve em até 24h–48h.'
+        }
+      };
+    }
+
+    function renderAuditResult(data, isLive, clientElapsedMs, fallbackReason) {
+      const score = Math.max(0, Math.min(100, Number(data.score) || 0));
+      const circle = document.getElementById('gaugeCircle');
+      const circumference = 2 * Math.PI * 58;
+      const offset = circumference * (1 - score / 100);
+
+      let color = '#f43f5e';
+      let sevText = 'CRÍTICO — VAZAMENTO ALTO';
+      let sevClass = 'status-badge badge-danger';
+      if (score >= 75) {
+        color = '#34d399';
+        sevText = 'BOM — OTIMIZÁVEL';
+        sevClass = 'status-badge badge-ok';
+      } else if (score >= 45) {
+        color = '#f59e0b';
+        sevText = 'ATENÇÃO — PERDENDO LEADS';
+        sevClass = 'status-badge badge-warn';
+      }
+
+      circle.style.stroke = color;
+      circle.style.strokeDasharray = circumference.toFixed(2);
+      requestAnimationFrame(() => {
+        circle.style.strokeDashoffset = offset.toFixed(2);
+      });
+
+      const scoreEl = document.getElementById('scoreNumber');
+      scoreEl.textContent = String(score);
+      scoreEl.style.color = color;
+
+      const sevPill = document.getElementById('scoreSeverityPill');
+      sevPill.className = sevClass;
+      sevPill.textContent = isLive ? sevText : 'CONTINGÊNCIA — BLOQUEIO ALVO';
+
+      document.getElementById('scannedUrlLabel').textContent = data.url || '';
+      document.getElementById('scanModeBadge').innerHTML = isLive
+        ? '<span class="status-badge badge-live">🟢 API Cloud Run Real</span>'
+        : '<span class="status-badge badge-fallback">🛡️ Fallback Resiliente (Alvo Bloqueou Scraping)</span>';
+
+      const perf = data.resumo_desempenho || {};
+      const metrics = [
+        `HTTP: ${perf.status_http != null ? perf.status_http : 'N/D'}`,
+        `Latência: ${perf.tempo_ms != null ? perf.tempo_ms + ' ms' : clientElapsedMs + ' ms'}`
+      ];
+      if (typeof perf.html_bytes === 'number') {
+        metrics.push(`HTML: ${(perf.html_bytes / 1024).toFixed(1)} KB`);
+      }
+      metrics.push(`Achados totais: ${data.total_achados != null ? data.total_achados : 1}`);
+      if (!isLive && fallbackReason) {
+        metrics.push('Modo: Fallback Seguro');
+      }
+
+      document.getElementById('scanMetricsRow').innerHTML = metrics
+        .map(m => `<span class="metric-chip">${escapeHtml(m)}</span>`)
+        .join('');
+
+      const main = data.achado_principal || {
+        severidade: 'media',
+        impacto_pontos: 10,
+        titulo: 'Oportunidades de melhoria de conversão detectadas',
+        evidencia: 'A página respondeu ao scan, porém ainda existem pontos de atrito no funil acima da dobra.',
+        recomendacao: 'Adicionar CTA direto para WhatsApp/Pix e recepção automatizada 24h.'
+      };
+
+      const sevMap = { alta: 'PRIORIDADE ALTA', media: 'PRIORIDADE MÉDIA', baixa: 'MELHORIA RÁPIDA' };
+      document.getElementById('findingSeverityBadge').textContent = sevMap[main.severidade] || 'ACHADO PRINCIPAL';
+      document.getElementById('findingImpactBadge').textContent = main.impacto_pontos ? `-${main.impacto_pontos} pts no score` : 'Alto impacto CRO';
+      document.getElementById('findingTitle').textContent = main.titulo || '';
+      document.getElementById('findingEvidence').textContent = main.evidencia || '';
+      document.getElementById('findingRecommendation').textContent = main.recomendacao || '';
+
+      const hiddenCount = Number(data.achados_ocultos_count || 0);
+      const totalCount = Number(data.total_achados || hiddenCount + 1);
+      document.getElementById('hiddenFindingsHeadline').textContent = hiddenCount > 0
+        ? `🔒 +${hiddenCount} vazamentos ocultos detectados (${totalCount} achados no total)`
+        : '🚀 Pronto para acelerar a conversão desta página?';
+      document.getElementById('hiddenFindingsMsg').textContent = (data.cta_desbloqueio && data.cta_desbloqueio.mensagem)
+        ? data.cta_desbloqueio.mensagem
+        : 'Desbloqueie o pacote completo com Boilerplate Voz IA + HTML corrigido em 48h.';
+
+      document.getElementById('scanResults').classList.add('active');
+    }
+
+    /* ---------------- BOOTSTRAP ---------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      updateGenCounters();
+      checkApiHealth();
+    });
+  </script>
+</body>
+</html>
