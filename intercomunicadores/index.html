@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MotoLink Pro — Intercomunicadores para Capacetes | Campina Grande/PB para Todo o Brasil</title>
-  <meta name="description" content="MotoLink Pro: intercomunicadores EJEAS V6 Pro+, Q8 Mesh 3.0 e F6 para piloto, garupa, motoclubes, entregadores, árbitros e frotas B2B. Confirmação de disponibilidade, frete e Pix 5% off pelo WhatsApp." />
+  <title>MotoLink Pro — Intercomunicadores EJEAS | Compra Direta e Checkout Seguro</title>
+  <meta name="description" content="MotoLink Pro: intercomunicadores EJEAS V6 Pro+, Q8 Mesh 3.0 e F6 para piloto, garupa, motoclubes, entregadores, árbitros e frotas B2B. Checkout seguro Stripe com Pix, Cartão, Apple Pay, Google Pay, Link e Boleto. Cupom PIX5 (5% off)." />
   <meta name="theme-color" content="#0B0F17" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0F17'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='%23F97316' stroke-width='3'/%3E%3Cpath d='M18 42v-8c0-9.9 7.8-18 17.5-18C44.6 16 50 22.3 50 30.5V34H37l-5 8H18z' fill='none' stroke='%23F8FAFC' stroke-width='3.2' stroke-linejoin='round'/%3E%3Cpath d='M35 28h14' stroke='%23F97316' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M13 24c-2.5 3-2.5 9 0 12' fill='none' stroke='%2310B981' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -257,6 +257,25 @@
       background: rgba(249, 115, 22, 0.08);
     }
 
+    .btn-coupon {
+      background: var(--pix-soft);
+      border-color: var(--pix-border);
+      color: var(--pix-hover);
+      font-weight: 700;
+    }
+
+    .btn-coupon:hover {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: var(--pix-hover);
+      color: #ECFDF5;
+    }
+
+    .btn-coupon.copied {
+      background: var(--pix);
+      border-color: var(--pix);
+      color: #03150F;
+    }
+
     .btn-ghost {
       background: rgba(148, 163, 184, 0.08);
       border-color: var(--border);
@@ -270,7 +289,12 @@
 
     .btn-sm {
       padding: 8px 13px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
+    }
+
+    .btn-xs {
+      padding: 7px 11px;
+      font-size: 0.79rem;
     }
 
     .btn-block {
@@ -337,13 +361,13 @@
 
     /* Section framing */
     section {
-      padding: 58px 0;
+      padding: 54px 0;
       scroll-margin-top: 78px;
     }
 
     .section-head {
       max-width: 760px;
-      margin-bottom: 32px;
+      margin-bottom: 30px;
     }
 
     .eyebrow {
@@ -382,7 +406,7 @@
 
     /* Hero */
     .hero {
-      padding: 44px 0 56px;
+      padding: 40px 0 32px;
     }
 
     .hero-grid {
@@ -394,7 +418,7 @@
 
     @media (min-width: 960px) {
       .hero {
-        padding: 64px 0 68px;
+        padding: 56px 0 38px;
       }
       .hero-grid {
         grid-template-columns: 1.15fr 0.85fr;
@@ -403,7 +427,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(2rem, 4.4vw, 3.15rem);
+      font-size: clamp(2rem, 4.4vw, 3.1rem);
       line-height: 1.09;
       margin-bottom: 16px;
       color: var(--text);
@@ -416,15 +440,15 @@
     .hero-lead {
       font-size: 1.04rem;
       color: var(--text-soft);
-      max-width: 620px;
-      margin-bottom: 22px;
+      max-width: 610px;
+      margin-bottom: 20px;
     }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 26px;
+      gap: 9px;
+      margin-bottom: 24px;
     }
 
     .spec-pill {
@@ -449,32 +473,28 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
-    .hero-trust-strip {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-      background: rgba(18, 24, 38, 0.72);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--pix);
+    .hero-value-note {
       font-size: 0.86rem;
       color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
     }
 
-    .hero-trust-strip strong {
-      color: var(--text);
+    .hero-value-note strong {
+      color: var(--pix-hover);
     }
 
-    /* Hero Telemetry Card */
+    /* Hero Fast-Pick Panel */
     .hero-panel {
       background: linear-gradient(175deg, rgba(23, 31, 48, 0.94), rgba(11, 15, 23, 0.98));
       border: 1px solid var(--border-strong);
       border-radius: 20px;
-      padding: 22px;
+      padding: 20px;
       box-shadow: var(--shadow-card);
       position: relative;
       overflow: hidden;
@@ -494,10 +514,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding-bottom: 14px;
+      gap: 10px;
+      padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .panel-title {
@@ -519,60 +539,66 @@
       border-radius: 999px;
     }
 
-    .lineup-mini-list {
+    .fast-pick-list {
       display: grid;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
-    .lineup-mini-item {
+    .fast-pick-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       padding: 12px 13px;
       border-radius: 12px;
-      background: rgba(11, 15, 23, 0.72);
+      background: rgba(11, 15, 23, 0.74);
       border: 1px solid var(--border);
     }
 
-    .lineup-mini-item.featured {
+    .fast-pick-item.featured {
       border-color: var(--accent-border);
       background: rgba(249, 115, 22, 0.08);
     }
 
-    .lineup-mini-meta {
+    .fast-pick-meta {
       min-width: 0;
     }
 
-    .lineup-mini-name {
+    .fast-pick-kicker {
+      font-size: 0.71rem;
       font-weight: 700;
-      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-hover);
+      margin-bottom: 2px;
+    }
+
+    .fast-pick-name {
+      font-weight: 700;
+      font-size: 0.94rem;
       color: var(--text);
     }
 
-    .lineup-mini-sub {
-      font-size: 0.78rem;
-      color: var(--muted);
+    .fast-pick-price {
+      font-size: 0.8rem;
+      color: var(--text-soft);
     }
 
-    .lineup-mini-price {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .lineup-mini-price strong {
-      display: block;
+    .fast-pick-price strong {
+      color: var(--text);
       font-family: var(--font-display);
-      font-size: 0.96rem;
-      color: var(--text);
+      font-size: 0.92rem;
     }
 
-    .lineup-mini-price span {
-      display: block;
-      font-size: 0.74rem;
+    .fast-pick-price span {
       color: var(--pix-hover);
       font-weight: 600;
+    }
+
+    .fast-pick-cta {
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .panel-footer-note {
@@ -580,14 +606,105 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 10px;
-      font-size: 0.8rem;
+      gap: 8px;
+      font-size: 0.79rem;
       color: var(--muted);
       padding-top: 12px;
       border-top: 1px solid var(--border);
     }
 
     .panel-footer-note strong {
+      color: var(--text-soft);
+    }
+
+    /* Fast Payment Trust Bar */
+    .trust-bar-wrap {
+      padding: 0 0 20px;
+    }
+
+    .payment-trust-bar {
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.96), rgba(11, 15, 23, 0.98));
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--pix);
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: grid;
+      gap: 12px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .trust-bar-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .trust-methods {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .trust-methods-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-right: 4px;
+    }
+
+    .pay-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      background: rgba(11, 15, 23, 0.85);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .pay-chip.highlight {
+      color: var(--pix-hover);
+      background: var(--pix-soft);
+      border-color: var(--pix-border);
+    }
+
+    .trust-coupon-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .coupon-code-pill {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--pix-hover);
+      background: var(--pix-soft);
+      border: 1px dashed var(--pix-border);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+
+    .trust-bar-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 18px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .trust-bar-bottom strong {
       color: var(--text-soft);
     }
 
@@ -686,7 +803,7 @@
       padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 13px;
     }
 
     .rec-result-kicker {
@@ -701,32 +818,31 @@
     }
 
     .rec-result-title {
-      font-size: 1.35rem;
-      line-height: 1.2;
+      font-size: 1.3rem;
+      line-height: 1.22;
       color: var(--text);
     }
 
     .rec-price-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 10px;
-      padding: 10px 12px;
+      display: grid;
+      gap: 4px;
+      padding: 11px 13px;
       border-radius: 10px;
       background: rgba(18, 24, 38, 0.85);
       border: 1px solid var(--border);
     }
 
-    .rec-price-pix {
+    .rec-price-full {
       font-family: var(--font-display);
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-weight: 700;
-      color: var(--pix-hover);
+      color: var(--text);
     }
 
-    .rec-price-full {
-      font-size: 0.84rem;
-      color: var(--muted);
+    .rec-price-pix {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--pix-hover);
     }
 
     .rec-reason {
@@ -765,8 +881,20 @@
 
     .rec-actions {
       display: grid;
-      gap: 9px;
+      gap: 8px;
       margin-top: 4px;
+    }
+
+    .rec-sub-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .rec-sub-actions {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     /* Catalog Cards */
@@ -801,6 +929,7 @@
       transition: transform 0.18s ease, border-color 0.18s ease;
       position: relative;
       min-width: 0;
+      scroll-margin-top: 90px;
     }
 
     .sku-card:hover {
@@ -862,8 +991,8 @@
     }
 
     .sku-visual {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
       background: rgba(11, 15, 23, 0.8);
       border: 1px solid var(--border);
@@ -875,13 +1004,13 @@
     }
 
     .sku-title {
-      font-size: 1.18rem;
+      font-size: 1.16rem;
       line-height: 1.25;
       color: var(--text);
     }
 
     .sku-desc {
-      font-size: 0.89rem;
+      font-size: 0.88rem;
       color: var(--text-soft);
     }
 
@@ -889,7 +1018,7 @@
       list-style: none;
       display: grid;
       gap: 7px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       color: var(--text-soft);
       padding-top: 10px;
       border-top: 1px solid var(--border);
@@ -952,84 +1081,61 @@
       flex-wrap: wrap;
     }
 
-    .sku-pix-label {
-      font-size: 0.75rem;
+    .sku-price-label {
+      font-size: 0.74rem;
       font-weight: 700;
-      color: var(--pix-hover);
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
-    .sku-pix-value {
+    .sku-price-value {
       font-family: var(--font-display);
-      font-size: 1.48rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      color: var(--pix-hover);
+      color: var(--text);
     }
 
-    .sku-full-line {
+    .sku-coupon-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      font-size: 0.82rem;
-      color: var(--muted);
       flex-wrap: wrap;
+      padding: 6px 9px;
+      border-radius: 8px;
+      background: var(--pix-soft);
+      border: 1px solid var(--pix-border);
+      font-size: 0.82rem;
     }
 
-    .sku-full-line strong {
+    .sku-coupon-row span {
       color: var(--text-soft);
     }
 
-    .qty-row {
+    .sku-coupon-row strong {
+      font-family: var(--font-display);
+      color: var(--pix-hover);
+      font-size: 0.96rem;
+    }
+
+    .sku-unit-math {
+      font-size: 0.78rem;
+      color: var(--text-soft);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 6px;
     }
 
-    .qty-label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-soft);
+    .sku-unit-math strong {
+      color: var(--pix-hover);
     }
 
-    .qty-stepper {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(11, 15, 23, 0.9);
-      border: 1px solid var(--border-strong);
-      border-radius: 9px;
-      overflow: hidden;
-    }
-
-    .qty-btn {
-      width: 34px;
-      height: 32px;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.14s ease;
-    }
-
-    .qty-btn:hover {
-      background: rgba(249, 115, 22, 0.18);
-      color: var(--accent-hover);
-    }
-
-    .qty-val {
-      min-width: 34px;
-      text-align: center;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.94rem;
-      color: var(--text);
+    .sku-checkout-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.35;
     }
 
     .sku-card-foot {
@@ -1037,64 +1143,41 @@
       gap: 8px;
     }
 
-    .sku-honest-note {
-      font-size: 0.74rem;
-      color: var(--muted);
-      text-align: center;
+    .sku-secondary-actions {
+      display: grid;
+      gap: 7px;
     }
 
-    /* B2B Banner Section */
-    .b2b-banner {
-      margin-top: 28px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.11), rgba(18, 24, 38, 0.96) 55%, rgba(249, 115, 22, 0.10));
+    /* Compact B2B Callout */
+    .b2b-compact-callout {
+      margin-top: 22px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.09), rgba(18, 24, 38, 0.96));
       border: 1px solid var(--pix-border);
-      border-radius: 20px;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      justify-content: space-between;
+      gap: 14px;
       scroll-margin-top: 84px;
     }
 
-    @media (min-width: 860px) {
-      .b2b-banner {
-        grid-template-columns: 1.35fr 0.65fr;
-        padding: 28px 32px;
-      }
-    }
-
-    .b2b-banner h3 {
-      font-size: 1.35rem;
-      margin-bottom: 8px;
+    .b2b-compact-copy h3 {
+      font-size: 1.08rem;
       color: var(--text);
+      margin-bottom: 3px;
     }
 
-    .b2b-banner p {
-      font-size: 0.94rem;
+    .b2b-compact-copy p {
+      font-size: 0.87rem;
       color: var(--text-soft);
-      margin-bottom: 12px;
     }
 
-    .b2b-tags {
+    .b2b-compact-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-    }
-
-    .b2b-tag {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text);
-      background: rgba(11, 15, 23, 0.75);
-      border: 1px solid var(--border);
-      padding: 5px 11px;
-      border-radius: 999px;
-    }
-
-    .b2b-actions {
-      display: grid;
-      gap: 10px;
     }
 
     /* Comparison Table */
@@ -1178,7 +1261,7 @@
       border-color: var(--accent-border);
     }
 
-    /* Technical Anti-Defect & Transparency */
+    /* Technical Anti-Defect & Warranty */
     .tech-alert-banner {
       background: linear-gradient(135deg, rgba(239, 68, 68, 0.14), rgba(245, 158, 11, 0.12));
       border: 1px solid rgba(245, 158, 11, 0.5);
@@ -1368,7 +1451,7 @@
       color: var(--accent-hover);
     }
 
-    /* Quick Order Modal */
+    /* WhatsApp Assistance & Optional Quote Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1409,7 +1492,7 @@
     }
 
     .modal-head h3 {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--text);
     }
 
@@ -1437,11 +1520,43 @@
       gap: 14px;
     }
 
+    .modal-direct-links {
+      display: grid;
+      gap: 9px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(249, 115, 22, 0.08);
+      border: 1px solid var(--accent-border);
+    }
+
+    .modal-direct-links-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-hover);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-direct-desc {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    .modal-direct-desc strong {
+      color: #FFFFFF;
+    }
+
+    .modal-direct-btns {
+      display: grid;
+      gap: 8px;
+    }
+
     .modal-sku-summary {
       background: rgba(11, 15, 23, 0.78);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 13px 15px;
+      padding: 12px 14px;
       display: grid;
       gap: 8px;
     }
@@ -1457,53 +1572,40 @@
     .modal-sku-name {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.98rem;
       color: var(--text);
     }
 
-    .modal-total-bar {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-
-    .modal-total-label {
-      font-size: 0.83rem;
-      color: var(--text-soft);
-    }
-
-    .modal-total-amount {
+    .modal-price-pill {
       font-family: var(--font-display);
-      font-size: 1.38rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--pix-hover);
     }
 
-    .modal-direct-links {
-      display: grid;
-      gap: 8px;
-      padding: 12px;
-      border-radius: 11px;
-      background: rgba(249, 115, 22, 0.08);
-      border: 1px solid var(--accent-border);
+    .modal-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
     }
 
-    .modal-direct-links-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-hover);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .modal-divider::before,
+    .modal-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 11px;
     }
 
     @media (min-width: 520px) {
@@ -1518,7 +1620,7 @@
     }
 
     .field label {
-      font-size: 0.81rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-soft);
     }
@@ -1531,7 +1633,7 @@
       border-radius: 9px;
       padding: 10px 12px;
       color: var(--text);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       outline: none;
       transition: border-color 0.16s ease;
     }
@@ -1541,34 +1643,26 @@
       border-color: var(--accent);
     }
 
-    .field input.input-error {
-      border-color: var(--danger);
-    }
-
     .form-feedback {
       font-size: 0.82rem;
       min-height: 18px;
-      color: #FCA5A5;
-    }
-
-    .form-feedback.ok {
       color: var(--pix-hover);
     }
 
     .modal-actions {
       display: grid;
-      gap: 9px;
+      gap: 8px;
     }
 
     .modal-honest-foot {
-      font-size: 0.77rem;
+      font-size: 0.76rem;
       color: var(--muted);
       text-align: center;
     }
   </style>
 </head>
 <body>
-  <!-- 1. Header Fixo Limpo -->
+  <!-- 1. Header Fixo -->
   <header class="site-header">
     <div class="container">
       <div class="nav-bar">
@@ -1588,17 +1682,17 @@
         </a>
 
         <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#recomendador">Guia 10s</a>
           <a href="#ofertas">Ofertas</a>
-          <a href="#recomendador">Recomendador</a>
           <a href="#comparativo">Comparativo</a>
-          <a href="#cuidados">Cuidados Técnicos</a>
-          <a href="#atacado">Atacado B2B</a>
+          <a href="#cuidados">5V/1A &amp; Garantia</a>
+          <a href="#faq">FAQ</a>
         </nav>
 
         <div class="nav-actions">
           <a
             class="btn btn-pix btn-sm"
-            href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Gostaria%20de%20confirmar%20disponibilidade%20e%20frete%20de%20intercomunicadores."
+            href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20ou%20cotar%20frete%20de%20intercomunicadores."
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Falar no WhatsApp da MotoLink Pro"
@@ -1606,7 +1700,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12.04 2a9.9 9.9 0 0 0-8.46 15.05L2 22l5.12-1.52A9.9 9.9 0 1 0 12.04 2zm5.75 14.07c-.24.68-1.4 1.3-1.93 1.38-.51.08-1.15.11-1.86-.12-.44-.14-1-.33-1.73-.64-3.04-1.31-5.02-4.38-5.17-4.58-.15-.2-1.24-1.65-1.24-3.15s.78-2.24 1.06-2.55c.28-.31.61-.39.81-.39h.58c.19 0 .44-.07.69.52.24.6.83 2.08.9 2.23.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.63.18.3.78 1.29 1.67 2.09 1.15 1.02 2.11 1.34 2.41 1.49.3.15.48.13.66-.08.18-.2.76-.89.96-1.2.2-.3.4-.25.68-.15.28.1 1.77.84 2.07.99.3.15.5.23.58.35.08.13.08.73-.16 1.41z"/>
             </svg>
-            <span class="nav-wa-label">WhatsApp Direto</span>
+            <span class="nav-wa-label">WhatsApp</span>
           </a>
           <button
             type="button"
@@ -1627,10 +1721,10 @@
 
       <div class="mobile-drawer" id="mobileDrawer">
         <div class="mobile-drawer-links">
-          <a href="#ofertas">Ofertas Oficiais</a>
-          <a href="#recomendador">Recomendador de Modelo</a>
+          <a href="#recomendador">Guia em 10 Segundos</a>
+          <a href="#ofertas">Ofertas com Checkout Direto</a>
           <a href="#comparativo">Tabela Comparativa</a>
-          <a href="#cuidados">Cuidados Técnicos 5V/1A</a>
+          <a href="#cuidados">Cuidados 5V/1A &amp; Garantia CDC</a>
           <a href="#atacado">Atacado B2B &amp; Motoclubes</a>
           <a href="#faq">Dúvidas Frequentes</a>
         </div>
@@ -1639,7 +1733,7 @@
   </header>
 
   <main id="top">
-    <!-- 2. Hero Section de Alta Conversão -->
+    <!-- 2. Hero Direto e Comercial -->
     <section class="hero">
       <div class="container">
         <div class="hero-grid">
@@ -1649,11 +1743,11 @@
                 <circle cx="12" cy="12" r="9"/>
                 <path d="M12 7v5l3 2"/>
               </svg>
-              MotoLink Pro &bull; Intercomunicadores para Capacetes
+              MotoLink Pro &bull; Linha Oficial EJEAS
             </span>
-            <h1>Comunicação nítida no capacete, <span class="highlight">do trânsito urbano à estrada em grupo.</span></h1>
+            <h1>Fale no capacete com <span class="highlight">áudio limpo</span> e compre direto no checkout seguro.</h1>
             <p class="hero-lead">
-              Linha completa EJEAS (V6 Pro+, Q8 Mesh 3.0 e F6) para piloto, garupa, motoclubes, entregadores, instrutores de autoescola e arbitragem. Atendimento direto de Campina Grande/PB para todo o Brasil.
+              EJEAS <strong>V6 Pro+</strong>, <strong>Q8 Mesh 3.0</strong> e <strong>F6</strong> para piloto, garupa, motoclubes, entregadores, instrutores e árbitros. Sem etapa burocrática: escolha seu kit, aplique o cupom <strong>PIX5 (-5%)</strong> e pague direto na Stripe ou tire dúvidas no WhatsApp.
             </p>
 
             <div class="hero-badges" aria-label="Especificações principais">
@@ -1661,7 +1755,7 @@
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M6.5 6.5l11 11L12 22V2l5.5 4.5-11 11"/>
                 </svg>
-                Bluetooth 5.1 / Mesh 3.0
+                Bluetooth 5.1 &amp; Mesh 3.0
               </span>
               <span class="spec-pill">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1675,105 +1769,139 @@
                   <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
                   <line x1="12" y1="19" x2="12" y2="23"/>
                 </svg>
-                Cancelamento de ruído DSP/CVC
+                Redução de ruído DSP/CVC
               </span>
               <span class="spec-pill">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                   <circle cx="12" cy="10" r="3"/>
                 </svg>
-                Atendimento direto Brasil
+                Envio de Campina Grande/PB para todo o Brasil
               </span>
             </div>
 
             <div class="hero-ctas">
-              <a href="#recomendador" class="btn btn-primary">
-                Descobrir meu modelo ideal
+              <a href="#ofertas" class="btn btn-primary">
+                Escolher Meu Intercomunicador
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                   <line x1="5" y1="12" x2="19" y2="12"/>
                   <polyline points="12 5 19 12 12 19"/>
                 </svg>
               </a>
-              <a href="#ofertas" class="btn btn-outline">
-                Ver Kits &amp; Ofertas
+              <a href="#sku-v6-par" class="btn btn-outline">
+                Ir Direto ao Mais Vendido (V6 Pro+)
               </a>
             </div>
 
-            <div class="hero-trust-strip">
-              <span><strong>Transparência Comercial:</strong> Confirmação de disponibilidade, frete e pagamento (<strong>Pix com 5% off</strong> ou <strong>Cartão até 12x</strong>) em minutos pelo WhatsApp.</span>
-              <span><strong>Atacado &amp; Grupos:</strong> Condições especiais B2B para Motoclubes, Lojas de Motopeças, Autoescolas e Frotas.</span>
+            <div class="hero-value-note">
+              <span>Checkout imediato com <strong>Pix (cupom PIX5 = 5% OFF)</strong>, Cartão, Apple Pay, Google Pay, Link e Boleto.</span>
             </div>
           </div>
 
-          <aside class="hero-panel" aria-label="Resumo rápido das linhas MotoLink Pro">
+          <!-- Hero Fast-Pick Panel (Top 3) -->
+          <aside class="hero-panel" aria-label="Escolhas rápidas MotoLink Pro">
             <div class="panel-header">
-              <span class="panel-title">Linha Oficial MotoLink Pro</span>
-              <span class="panel-tag">5% OFF no Pix</span>
+              <span class="panel-title">Top 3 Escolhas Rápidas</span>
+              <span class="panel-tag">Checkout Direto</span>
             </div>
 
-            <div class="lineup-mini-list">
-              <div class="lineup-mini-item featured">
-                <div class="lineup-mini-meta">
-                  <div class="lineup-mini-name">EJEAS V6 Pro+ Kit Par (2 un.)</div>
-                  <div class="lineup-mini-sub">Piloto + Garupa &bull; Bluetooth 5.1 &bull; USB-C</div>
+            <div class="fast-pick-list">
+              <div class="fast-pick-item featured">
+                <div class="fast-pick-meta">
+                  <div class="fast-pick-kicker">1. Entrada / Garupa</div>
+                  <div class="fast-pick-name">EJEAS V6 Pro+ (Unitário)</div>
+                  <div class="fast-pick-price">
+                    <strong>R$ 239,00</strong> &bull; <span>R$ 227,05 c/ PIX5</span>
+                  </div>
                 </div>
-                <div class="lineup-mini-price">
-                  <strong>R$ 449,00</strong>
-                  <span>R$ 426,55 no Pix</span>
-                </div>
+                <a
+                  href="https://buy.stripe.com/8x214fcI6gev7xqfS983C06"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-primary btn-sm fast-pick-cta"
+                >
+                  Comprar
+                </a>
               </div>
 
-              <div class="lineup-mini-item">
-                <div class="lineup-mini-meta">
-                  <div class="lineup-mini-name">EJEAS V6 Pro+ (Unitário)</div>
-                  <div class="lineup-mini-sub">Entregas / Uso solo &bull; Até 1.200m</div>
+              <div class="fast-pick-item">
+                <div class="fast-pick-meta">
+                  <div class="fast-pick-kicker">2. Grupo Simultâneo (até 6)</div>
+                  <div class="fast-pick-name">EJEAS Q8 Mesh 3.0</div>
+                  <div class="fast-pick-price">
+                    <strong>R$ 629,00</strong> &bull; <span>R$ 597,55 c/ PIX5</span>
+                  </div>
                 </div>
-                <div class="lineup-mini-price">
-                  <strong>R$ 239,00</strong>
-                  <span>R$ 227,05 no Pix</span>
-                </div>
+                <a
+                  href="https://buy.stripe.com/eVqaEP4bA2nFaJCaxP83C09"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-outline btn-sm fast-pick-cta"
+                >
+                  Comprar
+                </a>
               </div>
 
-              <div class="lineup-mini-item">
-                <div class="lineup-mini-meta">
-                  <div class="lineup-mini-name">EJEAS Q8 Mesh 3.0 (Unitário / Par)</div>
-                  <div class="lineup-mini-sub">Até 6 simultâneos &bull; Reconexão Mesh &bull; IP67</div>
+              <div class="fast-pick-item">
+                <div class="fast-pick-meta">
+                  <div class="fast-pick-kicker">3. Frota / Motoclube B2B</div>
+                  <div class="fast-pick-name">Packs 10x V6 Pro+ ou 6x Q8 Mesh</div>
+                  <div class="fast-pick-price">
+                    <strong>A partir de R$ 1.790,00</strong> &bull; <span>R$ 1.700,50 c/ PIX5</span>
+                  </div>
                 </div>
-                <div class="lineup-mini-price">
-                  <strong>A partir de R$ 629,00</strong>
-                  <span>R$ 597,55 no Pix</span>
-                </div>
-              </div>
-
-              <div class="lineup-mini-item">
-                <div class="lineup-mini-meta">
-                  <div class="lineup-mini-name">EJEAS F6 &amp; Packs B2B (CNPJ/Grupos)</div>
-                  <div class="lineup-mini-sub">Árbitros, Autoescolas, Motoclubes e Frotas</div>
-                </div>
-                <div class="lineup-mini-price">
-                  <strong>F6 R$ 379 | B2B R$ 1.790+</strong>
-                  <span>Com NF-e para CNPJ</span>
-                </div>
+                <a href="#sku-b2b" class="btn btn-pix btn-sm fast-pick-cta">
+                  Ver Packs
+                </a>
               </div>
             </div>
 
             <div class="panel-footer-note">
-              <span><strong>Carregamento seguro:</strong> Exclusivo 5V/1A</span>
-              <span><strong>WhatsApp:</strong> +55 83 99946-5290</span>
+              <span><strong>Carregamento:</strong> Exclusivo 5V/1A</span>
+              <span><strong>Dúvidas/Frete:</strong> +55 83 99946-5290</span>
             </div>
           </aside>
         </div>
       </div>
     </section>
 
-    <!-- 3. Recomendador Interativo -->
+    <!-- Fast Payment Trust Bar -->
+    <div class="trust-bar-wrap">
+      <div class="container">
+        <div class="payment-trust-bar" aria-label="Formas de pagamento aceitas no checkout seguro Stripe">
+          <div class="trust-bar-top">
+            <div class="trust-methods">
+              <span class="trust-methods-label">Pagamento Seguro Stripe:</span>
+              <span class="pay-chip highlight">Pix</span>
+              <span class="pay-chip">Cartão (à vista)</span>
+              <span class="pay-chip">Apple Pay</span>
+              <span class="pay-chip">Google Pay</span>
+              <span class="pay-chip">Link (1-clique)</span>
+              <span class="pay-chip">Boleto (1 dia útil)</span>
+            </div>
+
+            <div class="trust-coupon-box">
+              <span class="coupon-code-pill">Cupom PIX5 = 5% OFF</span>
+              <button type="button" class="btn btn-coupon btn-xs" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+            </div>
+          </div>
+
+          <div class="trust-bar-bottom">
+            <span><strong>Identificação na fatura/comprovante:</strong> aparece como <strong>Code 14 (CODE14)</strong>.</span>
+            <span><strong>Adaptive Pricing:</strong> conversão automática para moeda local se comprado fora do BRL. Parcelamento/condições especiais sob consulta via WhatsApp ou marketplaces quando disponíveis.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Guia Rápido em 10 Segundos -->
     <section id="recomendador">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Recomendador Técnico</span>
-          <h2 class="section-title">Qual o modelo ideal para você?</h2>
+          <span class="eyebrow">Guia 10 Segundos</span>
+          <h2 class="section-title">Qual escolher em 10 segundos?</h2>
           <p class="section-desc">
-            Responda às 3 perguntas abaixo e veja em tempo real qual modelo ou kit atende melhor ao seu capacete, distância e orçamento.
+            Marque seu uso, prioridade e orçamento para ir direto para o checkout seguro do modelo certo para o seu capacete.
           </p>
         </div>
 
@@ -1825,17 +1953,28 @@
                 </svg>
                 Recomendação calculada para o seu perfil
               </span>
-              <h3 class="rec-result-title" id="recTitle">EJEAS V6 Pro+ Kit Par (2 Unidades — Piloto + Garupa)</h3>
+              <h3 class="rec-result-title" id="recTitle">EJEAS V6 Pro+ Kit Par (2 un.)</h3>
               <div class="rec-price-row">
-                <span class="rec-price-pix" id="recPricePix">R$ 426,55 no Pix (-5%)</span>
-                <span class="rec-price-full" id="recPriceFull">ou R$ 449,00 (até 12x no cartão)</span>
+                <span class="rec-price-full" id="recPriceFull">R$ 449,00</span>
+                <span class="rec-price-pix" id="recPricePix">R$ 426,55 com cupom PIX5 (-5%)</span>
               </div>
               <p class="rec-reason" id="recReason"></p>
               <div class="rec-note" id="recNote" hidden></div>
               <ul class="rec-specs" id="recSpecs"></ul>
               <div class="rec-actions">
-                <button type="button" class="btn btn-primary btn-block" id="recOrderBtn">Pedir este modelo</button>
-                <a href="#ofertas" class="btn btn-ghost btn-sm btn-block" id="recScrollBtn">Comparar com todos os kits abaixo</a>
+                <a
+                  href="https://buy.stripe.com/bJedR18rQgev2d635n83C08"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-primary btn-block"
+                  id="recStripeLink"
+                >
+                  Comprar Agora (Stripe) &rarr;
+                </a>
+                <div class="rec-sub-actions">
+                  <button type="button" class="btn btn-coupon btn-sm" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                  <button type="button" class="btn btn-ghost btn-sm" id="recWhatsappBtn">Dúvida / Frete WhatsApp</button>
+                </div>
               </div>
             </div>
           </div>
@@ -1843,20 +1982,20 @@
       </div>
     </section>
 
-    <!-- 4. Catálogo com as 6 Ofertas Oficiais -->
+    <!-- 4. Catálogo com 6 Cards Oficiais -->
     <section id="ofertas">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Catálogo Oficial MotoLink Pro</span>
-          <h2 class="section-title">6 Ofertas Oficiais com Preço Transparente e Pix (-5%)</h2>
+          <h2 class="section-title">Compra Direta no Checkout Seguro Stripe</h2>
           <p class="section-desc">
-            Ajuste a quantidade diretamente no card para simular o valor total na hora. Confirmação de disponibilidade, frete e pagamento em minutos pelo WhatsApp.
+            Clique para finalizar direto com <strong>Pix</strong>, <strong>Cartão</strong>, <strong>Apple Pay</strong>, <strong>Google Pay</strong>, <strong>Link</strong> ou <strong>Boleto</strong>. Use o código <strong>PIX5</strong> no checkout para aplicar <strong>5% OFF</strong> na hora. Quantidade ajustável (1–99) direto no checkout.
           </p>
         </div>
 
         <div class="catalog-grid">
           <!-- SKU 1: V6 Pro+ Unitário -->
-          <article class="sku-card" data-sku="v6_pro_plus_unit">
+          <article class="sku-card" id="sku-v6-unit" data-sku="v6_pro_plus_unit">
             <div class="sku-card-top">
               <div class="sku-badge-row">
                 <span class="sku-badge">Uso Solo &amp; Entregas</span>
@@ -1878,7 +2017,7 @@
                 </li>
                 <li>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Conexão USB-C (carregamento 5V/1A)</span>
+                  <span>USB-C (carregamento exclusivo 5V/1A)</span>
                 </li>
                 <li>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1890,32 +2029,36 @@
             <div class="sku-card-foot">
               <div class="sku-pricing-box">
                 <div class="sku-price-main">
-                  <span class="sku-pix-label">Pix (5% off)</span>
-                  <span class="sku-pix-value" data-role="pix-total">R$ 227,05</span>
+                  <span class="sku-price-label">Checkout Seguro</span>
+                  <span class="sku-price-value">R$ 239,00</span>
                 </div>
-                <div class="sku-full-line">
-                  <span>Valor cheio / Cartão até 12x:</span>
-                  <strong data-role="full-total">R$ 239,00</strong>
+                <div class="sku-coupon-row">
+                  <span>Com cupom <strong>PIX5</strong> (-5%):</span>
+                  <strong>R$ 227,05</strong>
                 </div>
-                <div class="qty-row">
-                  <span class="qty-label">Quantidade</span>
-                  <div class="qty-stepper">
-                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS V6 Pro+ Unitário">&minus;</button>
-                    <span class="qty-val" data-role="qty-val">1</span>
-                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS V6 Pro+ Unitário">+</button>
-                  </div>
-                </div>
+                <span class="sku-checkout-note">Quantidade ajustável (1–99) direto no checkout &bull; Frete/CEP calculado no envio</span>
               </div>
-              <button type="button" class="btn btn-primary btn-block" data-buy-sku="v6_pro_plus_unit">Comprar / Reservar</button>
-              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+              <a
+                href="https://buy.stripe.com/8x214fcI6gev7xqfS983C06"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-block"
+                data-stripe-cta
+              >
+                Comprar Agora no Checkout Seguro &rarr;
+              </a>
+              <div class="sku-secondary-actions">
+                <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                <button type="button" class="btn btn-ghost btn-sm btn-block" data-open-order="v6_pro_plus_unit">Tirar Dúvida / Cotar Frete no WhatsApp</button>
+              </div>
             </div>
           </article>
 
           <!-- SKU 2: V6 Pro+ Kit Par (Featured) -->
-          <article class="sku-card featured" data-sku="v6_pro_plus_par">
+          <article class="sku-card featured" id="sku-v6-par" data-sku="v6_pro_plus_par">
             <div class="sku-card-top">
               <div class="sku-badge-row">
-                <span class="sku-badge best">MAIS VENDIDO / MELHOR CUSTO-BENEFÍCIO</span>
+                <span class="sku-badge best">MAIS VENDIDO &bull; PILOTO + GARUPA</span>
                 <span class="sku-visual" aria-hidden="true">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
                     <circle cx="8" cy="10" r="4"/>
@@ -1926,7 +2069,7 @@
                 </span>
               </div>
               <div>
-                <h3 class="sku-title">EJEAS V6 Pro+ Kit Par (2 Unidades — Piloto + Garupa)</h3>
+                <h3 class="sku-title">EJEAS V6 Pro+ Kit Par (2 un.)</h3>
                 <p class="sku-desc">Kit completo para equipar 2 capacetes com microfones, fones e fixação, pronto para viagens em dupla com conversa clara.</p>
               </div>
               <ul class="sku-specs">
@@ -1948,29 +2091,33 @@
             <div class="sku-card-foot">
               <div class="sku-pricing-box">
                 <div class="sku-price-main">
-                  <span class="sku-pix-label">Pix (5% off)</span>
-                  <span class="sku-pix-value" data-role="pix-total">R$ 426,55</span>
+                  <span class="sku-price-label">Checkout Seguro</span>
+                  <span class="sku-price-value">R$ 449,00</span>
                 </div>
-                <div class="sku-full-line">
-                  <span>Valor cheio / Cartão até 12x:</span>
-                  <strong data-role="full-total">R$ 449,00</strong>
+                <div class="sku-coupon-row">
+                  <span>Com cupom <strong>PIX5</strong> (-5%):</span>
+                  <strong>R$ 426,55</strong>
                 </div>
-                <div class="qty-row">
-                  <span class="qty-label">Quantidade de Kits</span>
-                  <div class="qty-stepper">
-                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS V6 Pro+ Kit Par">&minus;</button>
-                    <span class="qty-val" data-role="qty-val">1</span>
-                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS V6 Pro+ Kit Par">+</button>
-                  </div>
-                </div>
+                <span class="sku-checkout-note">Quantidade ajustável (1–99) direto no checkout &bull; Frete/CEP calculado no envio</span>
               </div>
-              <button type="button" class="btn btn-primary btn-block" data-buy-sku="v6_pro_plus_par">Comprar / Reservar</button>
-              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+              <a
+                href="https://buy.stripe.com/bJedR18rQgev2d635n83C08"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-block"
+                data-stripe-cta
+              >
+                Comprar Agora no Checkout Seguro &rarr;
+              </a>
+              <div class="sku-secondary-actions">
+                <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                <button type="button" class="btn btn-ghost btn-sm btn-block" data-open-order="v6_pro_plus_par">Tirar Dúvida / Cotar Frete no WhatsApp</button>
+              </div>
             </div>
           </article>
 
           <!-- SKU 3: Q8 Mesh 3.0 Unitário -->
-          <article class="sku-card" data-sku="q8_mesh_unit">
+          <article class="sku-card" id="sku-q8-unit" data-sku="q8_mesh_unit">
             <div class="sku-card-top">
               <div class="sku-badge-row">
                 <span class="sku-badge mesh">Mesh 3.0 &bull; IP67</span>
@@ -2008,29 +2155,33 @@
             <div class="sku-card-foot">
               <div class="sku-pricing-box">
                 <div class="sku-price-main">
-                  <span class="sku-pix-label">Pix (5% off)</span>
-                  <span class="sku-pix-value" data-role="pix-total">R$ 597,55</span>
+                  <span class="sku-price-label">Checkout Seguro</span>
+                  <span class="sku-price-value">R$ 629,00</span>
                 </div>
-                <div class="sku-full-line">
-                  <span>Valor cheio / Cartão até 12x:</span>
-                  <strong data-role="full-total">R$ 629,00</strong>
+                <div class="sku-coupon-row">
+                  <span>Com cupom <strong>PIX5</strong> (-5%):</span>
+                  <strong>R$ 597,55</strong>
                 </div>
-                <div class="qty-row">
-                  <span class="qty-label">Quantidade</span>
-                  <div class="qty-stepper">
-                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS Q8 Mesh Unitário">&minus;</button>
-                    <span class="qty-val" data-role="qty-val">1</span>
-                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS Q8 Mesh Unitário">+</button>
-                  </div>
-                </div>
+                <span class="sku-checkout-note">Quantidade ajustável (1–99) direto no checkout &bull; Frete/CEP calculado no envio</span>
               </div>
-              <button type="button" class="btn btn-primary btn-block" data-buy-sku="q8_mesh_unit">Comprar / Reservar</button>
-              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+              <a
+                href="https://buy.stripe.com/eVqaEP4bA2nFaJCaxP83C09"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-block"
+                data-stripe-cta
+              >
+                Comprar Agora no Checkout Seguro &rarr;
+              </a>
+              <div class="sku-secondary-actions">
+                <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                <button type="button" class="btn btn-ghost btn-sm btn-block" data-open-order="q8_mesh_unit">Tirar Dúvida / Cotar Frete no WhatsApp</button>
+              </div>
             </div>
           </article>
 
           <!-- SKU 4: Q8 Mesh 3.0 Kit Par -->
-          <article class="sku-card" data-sku="q8_mesh_par">
+          <article class="sku-card" id="sku-q8-par" data-sku="q8_mesh_par">
             <div class="sku-card-top">
               <div class="sku-badge-row">
                 <span class="sku-badge mesh">Kit Estrada &amp; Líderes</span>
@@ -2041,13 +2192,13 @@
                 </span>
               </div>
               <div>
-                <h3 class="sku-title">EJEAS Q8 Mesh 3.0 Kit Par (2 Unidades + Opção Controle EUC)</h3>
-                <p class="sku-desc">Feito para casais viajantes e líderes de comboio exigentes que precisam de Mesh simultâneo e controle prático no guidão.</p>
+                <h3 class="sku-title">EJEAS Q8 Mesh 3.0 Kit Par (2 un.)</h3>
+                <p class="sku-desc">Feito para casais viajantes e líderes de comboio exigentes que precisam de Mesh simultâneo e proteção IP67 em estrada.</p>
               </div>
               <ul class="sku-specs">
                 <li>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>2 unidades Q8 Mesh 3.0 com opção de Controle EUC no guidão</span>
+                  <span>2 unidades Q8 Mesh 3.0 com kits completos para 2 capacetes</span>
                 </li>
                 <li>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2063,29 +2214,33 @@
             <div class="sku-card-foot">
               <div class="sku-pricing-box">
                 <div class="sku-price-main">
-                  <span class="sku-pix-label">Pix (5% off)</span>
-                  <span class="sku-pix-value" data-role="pix-total">R$ 1.139,05</span>
+                  <span class="sku-price-label">Checkout Seguro</span>
+                  <span class="sku-price-value">R$ 1.199,00</span>
                 </div>
-                <div class="sku-full-line">
-                  <span>Valor cheio / Cartão até 12x:</span>
-                  <strong data-role="full-total">R$ 1.199,00</strong>
+                <div class="sku-coupon-row">
+                  <span>Com cupom <strong>PIX5</strong> (-5%):</span>
+                  <strong>R$ 1.139,05</strong>
                 </div>
-                <div class="qty-row">
-                  <span class="qty-label">Quantidade de Kits</span>
-                  <div class="qty-stepper">
-                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS Q8 Mesh Kit Par">&minus;</button>
-                    <span class="qty-val" data-role="qty-val">1</span>
-                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS Q8 Mesh Kit Par">+</button>
-                  </div>
-                </div>
+                <span class="sku-checkout-note">Quantidade ajustável (1–99) direto no checkout &bull; Frete/CEP calculado no envio</span>
               </div>
-              <button type="button" class="btn btn-primary btn-block" data-buy-sku="q8_mesh_par">Comprar / Reservar</button>
-              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+              <a
+                href="https://buy.stripe.com/3cI3cn5fE1jB19249r83C07"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-block"
+                data-stripe-cta
+              >
+                Comprar Agora no Checkout Seguro &rarr;
+              </a>
+              <div class="sku-secondary-actions">
+                <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                <button type="button" class="btn btn-ghost btn-sm btn-block" data-open-order="q8_mesh_par">Tirar Dúvida / Cotar Frete no WhatsApp</button>
+              </div>
             </div>
           </article>
 
           <!-- SKU 5: EJEAS F6 -->
-          <article class="sku-card" data-sku="f6_unit">
+          <article class="sku-card" id="sku-f6" data-sku="f6_unit">
             <div class="sku-card-top">
               <div class="sku-badge-row">
                 <span class="sku-badge">Árbitros &amp; Autoescolas</span>
@@ -2098,7 +2253,7 @@
                 </span>
               </div>
               <div>
-                <h3 class="sku-title">EJEAS F6 (Unitário — Árbitros &amp; Pilotos)</h3>
+                <h3 class="sku-title">EJEAS F6 (Árbitros, Instrutores e Pilotos)</h3>
                 <p class="sku-desc">Formato leve, ergonômico e prático, indicado para arbitragem esportiva, instrutores de autoescola e pilotos urbanos.</p>
               </div>
               <ul class="sku-specs">
@@ -2120,29 +2275,33 @@
             <div class="sku-card-foot">
               <div class="sku-pricing-box">
                 <div class="sku-price-main">
-                  <span class="sku-pix-label">Pix (5% off)</span>
-                  <span class="sku-pix-value" data-role="pix-total">R$ 360,05</span>
+                  <span class="sku-price-label">Checkout Seguro</span>
+                  <span class="sku-price-value">R$ 379,00</span>
                 </div>
-                <div class="sku-full-line">
-                  <span>Valor cheio / Cartão até 12x:</span>
-                  <strong data-role="full-total">R$ 379,00</strong>
+                <div class="sku-coupon-row">
+                  <span>Com cupom <strong>PIX5</strong> (-5%):</span>
+                  <strong>R$ 360,05</strong>
                 </div>
-                <div class="qty-row">
-                  <span class="qty-label">Quantidade</span>
-                  <div class="qty-stepper">
-                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade EJEAS F6">&minus;</button>
-                    <span class="qty-val" data-role="qty-val">1</span>
-                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade EJEAS F6">+</button>
-                  </div>
-                </div>
+                <span class="sku-checkout-note">Quantidade ajustável (1–99) direto no checkout &bull; Frete/CEP calculado no envio</span>
               </div>
-              <button type="button" class="btn btn-primary btn-block" data-buy-sku="f6_unit">Comprar / Reservar</button>
-              <span class="sku-honest-note">Confirmação de disponibilidade e frete via WhatsApp</span>
+              <a
+                href="https://buy.stripe.com/9B628jcI69Q7eZS9tL83C0d"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-block"
+                data-stripe-cta
+              >
+                Comprar Agora no Checkout Seguro &rarr;
+              </a>
+              <div class="sku-secondary-actions">
+                <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                <button type="button" class="btn btn-ghost btn-sm btn-block" data-open-order="f6_unit">Tirar Dúvida / Cotar Frete no WhatsApp</button>
+              </div>
             </div>
           </article>
 
-          <!-- SKU 6: Pack B2B -->
-          <article class="sku-card" data-sku="pack_b2b">
+          <!-- SKU 6: Pack B2B Dinâmico (10x V6 Pro+ / 6x Q8 Mesh 3.0) -->
+          <article class="sku-card" id="sku-b2b" data-sku="pack_b2b_v6">
             <div class="sku-card-top">
               <div class="sku-badge-row">
                 <span class="sku-badge b2b">Atacado B2B &bull; NF-e CNPJ</span>
@@ -2155,23 +2314,23 @@
                 </span>
               </div>
               <div>
-                <h3 class="sku-title">Pack B2B Motoclube / Frota / Lojista</h3>
-                <p class="sku-desc">10x V6 Pro+ (R$ 1.790,00) ou 6x Q8 Mesh (R$ 3.190,00). Condição direta com emissão de NF-e para CNPJ, motoclubes e frotas.</p>
+                <h3 class="sku-title" id="b2bCardTitle">Pack B2B 10x V6 Pro+</h3>
+                <p class="sku-desc" id="b2bCardDesc">Lote direto para motoclubes, frotas, autoescolas e revenda com opção de CPF/CNPJ no checkout e emissão de NF-e.</p>
               </div>
 
               <div class="b2b-pack-toggle" role="group" aria-label="Escolher configuração do Pack B2B">
-                <button type="button" class="b2b-pack-opt active" data-b2b-opt="v6_10x">10x V6 Pro+ (R$ 1.790)</button>
-                <button type="button" class="b2b-pack-opt" data-b2b-opt="q8_6x">6x Q8 Mesh (R$ 3.190)</button>
+                <button type="button" class="b2b-pack-opt active" data-b2b-sku="pack_b2b_v6">10x V6 Pro+ (R$ 1.790)</button>
+                <button type="button" class="b2b-pack-opt" data-b2b-sku="pack_b2b_q8">6x Q8 Mesh (R$ 3.190)</button>
               </div>
 
               <ul class="sku-specs">
                 <li>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>A partir de R$ 1.790,00 (10x V6 Pro+) ou R$ 3.190,00 (6x Q8 Mesh)</span>
+                  <span id="b2bSpecUnit">10 unidades EJEAS V6 Pro+ (R$ 179,00/un.)</span>
                 </li>
                 <li>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Emissão de NF-e e condições exclusivas B2B</span>
+                  <span>Emissão de NF-e para CNPJ, motoclubes e frotas</span>
                 </li>
               </ul>
             </div>
@@ -2179,63 +2338,62 @@
             <div class="sku-card-foot">
               <div class="sku-pricing-box">
                 <div class="sku-price-main">
-                  <span class="sku-pix-label">Pix (5% off)</span>
-                  <span class="sku-pix-value" data-role="pix-total">R$ 1.700,50</span>
+                  <span class="sku-price-label">Checkout Seguro</span>
+                  <span class="sku-price-value" id="b2bFullPrice">R$ 1.790,00</span>
                 </div>
-                <div class="sku-full-line">
-                  <span>Valor do lote / Cotação B2B:</span>
-                  <strong data-role="full-total">R$ 1.790,00</strong>
+                <div class="sku-coupon-row">
+                  <span>Com cupom <strong>PIX5</strong> (-5%):</span>
+                  <strong id="b2bPixPrice">R$ 1.700,50</strong>
                 </div>
-                <div class="qty-row">
-                  <span class="qty-label">Quantidade de Packs</span>
-                  <div class="qty-stepper">
-                    <button type="button" class="qty-btn" data-qty-delta="-1" aria-label="Diminuir quantidade Pack B2B">&minus;</button>
-                    <span class="qty-val" data-role="qty-val">1</span>
-                    <button type="button" class="qty-btn" data-qty-delta="1" aria-label="Aumentar quantidade Pack B2B">+</button>
-                  </div>
+                <div class="sku-unit-math">
+                  <span>Custo unitário base:</span>
+                  <strong id="b2bUnitPrice">R$ 179,00/un.</strong>
                 </div>
+                <span class="sku-checkout-note">Quantidade ajustável (1–99) e campo CPF/CNPJ direto no checkout</span>
               </div>
-              <button type="button" class="btn btn-pix btn-block" data-buy-sku="pack_b2b">Comprar / Reservar</button>
-              <span class="sku-honest-note">Confirmação de disponibilidade, NF-e e frete via WhatsApp</span>
+              <a
+                href="https://buy.stripe.com/00w3cn8rQ1jBdVOeO583C0b"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary btn-block"
+                id="b2bStripeLink"
+                data-stripe-cta
+              >
+                Comprar Agora no Checkout Seguro &rarr;
+              </a>
+              <div class="sku-secondary-actions">
+                <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+                <button type="button" class="btn btn-ghost btn-sm btn-block" id="b2bWhatsappBtn" data-open-order="pack_b2b_v6">Tirar Dúvida / Cotar Frete no WhatsApp</button>
+              </div>
             </div>
           </article>
         </div>
 
-        <!-- Bloco Dedicado Atacado B2B -->
-        <div class="b2b-banner" id="atacado">
-          <div>
-            <span class="eyebrow eyebrow-pix">Atacado B2B &amp; Compras Coletivas</span>
-            <h3>Condições especiais B2B para Motoclubes, Lojas de Motopeças, Autoescolas e Frotas</h3>
-            <p>
-              Precisa equipar a diretoria do motoclube, padronizar a frota de entregas, atender alunos de autoescola ou revender na sua loja de motopeças? Montamos cotação direta com emissão de NF-e para CNPJ ou compra coletiva do grupo.
-            </p>
-            <div class="b2b-tags">
-              <span class="b2b-tag">10x V6 Pro+ a R$ 1.790,00</span>
-              <span class="b2b-tag">6x Q8 Mesh a R$ 3.190,00</span>
-              <span class="b2b-tag">Emissão de NF-e (CNPJ)</span>
-              <span class="b2b-tag">Envio de Campina Grande/PB para Todo o Brasil</span>
-            </div>
+        <!-- Callout Compacto B2B / Pedidos Sob Medida -->
+        <div class="b2b-compact-callout" id="atacado">
+          <div class="b2b-compact-copy">
+            <h3>Precisa de volume diferente ou parcelamento/cotação B2B para CNPJ?</h3>
+            <p>Motoclubes, lojas de motopeças, autoescolas e frotas: fale direto no WhatsApp com NF-e e envio para todo o Brasil.</p>
           </div>
-          <div class="b2b-actions">
-            <button type="button" class="btn btn-pix btn-block" data-buy-sku="pack_b2b">Solicitar Cotação B2B</button>
+          <div class="b2b-compact-actions">
             <a
-              class="btn btn-outline btn-block"
-              href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Tenho%20interesse%20em%20condi%C3%A7%C3%B5es%20B2B%20para%20Motoclube%2FLoja%2FAutoescola%2FFrota%20com%20NF-e."
+              class="btn btn-pix btn-sm"
+              href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Gostaria%20de%20cota%C3%A7%C3%A3o%20B2B%20com%20NF-e%20para%20Motoclube%2FLoja%2FAutoescola%2FFrota."
               target="_blank"
               rel="noopener noreferrer"
             >
-              Falar direto no WhatsApp B2B
+              Cotar B2B no WhatsApp (+55 83 99946-5290)
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Tabela Comparativa Técnica -->
+    <!-- 5. Comparativo Rápido -->
     <section id="comparativo">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Comparativo Técnico</span>
+          <span class="eyebrow">Comparativo Rápido</span>
           <h2 class="section-title">V6 Pro+ vs Q8 Mesh 3.0 vs F6</h2>
           <p class="section-desc">
             Compare tecnologia de rádio, conversa simultânea, proteção contra chuva, alimentação elétrica e indicação prática antes de escolher.
@@ -2310,14 +2468,14 @@
       </div>
     </section>
 
-    <!-- 6. Bloco Técnico Anti-Defeito & Transparência Regulatória -->
+    <!-- 6. Cuidados & Garantia 5V/1A + CDC 7 dias -->
     <section id="cuidados">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Preservação de Hardware &amp; Transparência</span>
-          <h2 class="section-title">Cuidados Técnicos Anti-Defeito &amp; Conformidade</h2>
+          <span class="eyebrow">Cuidados Técnicos &amp; Garantia</span>
+          <h2 class="section-title">Alimentação 5V/1A, Chuva &amp; Política CDC 7 Dias</h2>
           <p class="section-desc">
-            Orientação técnica clara antes da compra evita a causa número 1 de defeitos prematuros e garante transparência total sobre uso na chuva e documentação.
+            Orientação técnica clara antes da compra evita a causa número 1 de defeitos prematuros e garante transparência total sobre proteção contra chuva, garantia e devolução.
           </p>
         </div>
 
@@ -2373,34 +2531,34 @@
                 <line x1="16" y1="17" x2="8" y2="17"/>
               </svg>
             </span>
-            <h4>Homologação Anatel &amp; Nota Fiscal</h4>
+            <h4>Política CDC 7 Dias, Anatel &amp; NF-e</h4>
             <p>
-              Transparência total para compras individuais e corporativas: orientamos sobre conformidade de radiofrequência (Anatel) do lote escolhido e emitimos Nota Fiscal (NF-e) para compras formais, CNPJ, motoclubes e frotas.
+              Compras online contam com direito de arrependimento em até <strong>7 dias corridos</strong> após o recebimento (Art. 49 do CDC, com produto completo e sem avaria por mau uso/carregador turbo). Emitimos NF-e para CNPJ/B2B e orientamos sobre conformidade Anatel.
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 8. FAQ -->
+    <!-- 7. FAQ -->
     <section id="faq">
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Perguntas Frequentes</span>
           <h2 class="section-title">Dúvidas Diretas Antes de Fechar o Pedido</h2>
           <p class="section-desc">
-            Respostas objetivas sobre funcionamento, prazos, compatibilidade de capacete e atendimento comercial.
+            Respostas objetivas sobre pagamento na Stripe, uso do cupom PIX5, funcionamento técnico, capacetes e política CDC.
           </p>
         </div>
 
         <div class="faq-list">
           <details class="faq-item" open>
             <summary>
-              <span>Como funciona a disponibilidade, frete e pagamento após escolher meu kit?</span>
+              <span>Como funciona o pagamento online e o cupom PIX5?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
             <div class="faq-body">
-              Ao clicar em <strong>Comprar / Reservar</strong>, você envia seu resumo direto no nosso WhatsApp (+55 83 99946-5290) com modelo, quantidade, cidade/UF e tipo de capacete. Em minutos confirmamos a disponibilidade do lote, calculamos o frete de Campina Grande/PB para o seu CEP e liberamos o pagamento via Pix (com 5% de desconto) ou Cartão em até 12x.
+              Ao clicar em <strong>Comprar Agora no Checkout Seguro</strong>, você vai direto para a página oficial da Stripe (<code>buy.stripe.com</code>), onde escolhe a quantidade (1 a 99), informa endereço de entrega no Brasil, telefone e opcionalmente CPF/CNPJ. Os meios disponíveis são <strong>Pix</strong>, <strong>Cartão de Crédito/Débito (à vista na Stripe)</strong>, <strong>Apple Pay</strong>, <strong>Google Pay</strong>, <strong>Link</strong> e <strong>Boleto Bancário</strong> (compensação em 1 dia útil). Digite o cupom <strong>PIX5</strong> para obter <strong>5% OFF</strong>. Na fatura ou comprovante, a cobrança aparece como <strong>Code 14 (CODE14)</strong>. Se precisar de parcelamento ou condição especial, consulte pelo WhatsApp ou marketplaces quando disponíveis.
             </div>
           </details>
 
@@ -2420,17 +2578,17 @@
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
             <div class="faq-body">
-              <strong>Não.</strong> Use exclusivamente fonte <strong>5V/1A</strong> (ou porta USB de notebook/computador/TV). Carregadores Turbo / Fast Charger aumentam a tensão/corrente e podem danificar permanentemente a placa de carregamento e a bateria.
+              <strong>Não.</strong> Use exclusivamente fonte <strong>5V/1A</strong> (ou porta USB de notebook/computador/TV). Carregadores Turbo / Fast Charger / Power Delivery aumentam a tensão/corrente e podem danificar permanentemente a placa de carregamento e a bateria.
             </div>
           </details>
 
           <details class="faq-item">
             <summary>
-              <span>Serve em capacete fechado, articulado (escamoteável) e aberto?</span>
+              <span>Serve em capacete fechado, articulado (escamoteável) e aberto? Como funciona a devolução CDC 7 dias?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
             <div class="faq-body">
-              Sim. No pedido rápido você informa se seu capacete é <strong>Fechado</strong>, <strong>Articulado / Escamoteável</strong> ou <strong>Aberto / Cross</strong> para orientarmos corretamente a fixação e o posicionamento do microfone e dos alto-falantes antes do envio.
+              Sim, os modelos atendem capacetes <strong>Fechados</strong>, <strong>Articulados / Escamoteáveis</strong> e <strong>Abertos / Cross</strong>. Em caso de dúvida antes da compra, chame no WhatsApp para orientarmos a fixação. Compras à distância contam com direito de arrependimento em até <strong>7 dias corridos</strong> do recebimento (Art. 49 do CDC), com o item completo e sem sinais de mau uso ou sobrecarga elétrica.
             </div>
           </details>
 
@@ -2440,7 +2598,7 @@
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
             <div class="faq-body">
-              Sim! Temos packs iniciais a partir de R$ 1.790,00 (10x V6 Pro+) e R$ 3.190,00 (6x Q8 Mesh) com emissão de Nota Fiscal (NF-e) e condição direta para CNPJ, motoclubes, lojas de motopeças, autoescolas e frotas.
+              Sim! Os dois packs B2B têm checkout direto na Stripe com campo CPF/CNPJ: <strong>10x V6 Pro+ por R$ 1.790,00</strong> (R$ 1.700,50 com cupom <strong>PIX5</strong>, R$ 179,00/un.) e <strong>6x Q8 Mesh 3.0 por R$ 3.190,00</strong> (R$ 3.030,50 com cupom <strong>PIX5</strong>, R$ 531,67/un.). Também fazemos cotação personalizada via WhatsApp com emissão de NF-e.
             </div>
           </details>
         </div>
@@ -2468,6 +2626,7 @@
           </a>
           <div class="footer-legal">
             <span><strong>Operação Comercial:</strong> TA SERVICOS DE INFORMACAO NA INTERNET LTDA</span>
+            <span><strong>Comprovante Stripe:</strong> Code 14 (CODE14) &bull; <strong>Cupom:</strong> PIX5 (-5%)</span>
             <span><strong>Base Operacional:</strong> Campina Grande/PB &rarr; Atendimento para Todo o Brasil</span>
             <span><strong>WhatsApp Comercial:</strong> <a href="https://wa.me/5583999465290" target="_blank" rel="noopener noreferrer">+55 83 99946-5290</a></span>
           </div>
@@ -2476,10 +2635,10 @@
         <div class="footer-col">
           <h4>Navegação</h4>
           <div class="footer-links">
-            <a href="#ofertas">Ofertas Oficiais</a>
-            <a href="#recomendador">Recomendador de Modelo</a>
+            <a href="#recomendador">Guia em 10 Segundos</a>
+            <a href="#ofertas">Ofertas Checkout Direto</a>
             <a href="#comparativo">Comparativo Técnico</a>
-            <a href="#cuidados">Cuidados 5V/1A &amp; Anatel</a>
+            <a href="#cuidados">Cuidados 5V/1A &amp; CDC 7 Dias</a>
             <a href="#atacado">Atacado B2B &amp; Motoclubes</a>
           </div>
         </div>
@@ -2487,7 +2646,7 @@
         <div class="footer-col">
           <h4>Atendimento Direto</h4>
           <div class="footer-links">
-            <a href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Quero%20confirmar%20disponibilidade%20e%20frete." target="_blank" rel="noopener noreferrer">Confirmar disponibilidade no WhatsApp</a>
+            <a href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Quero%20tirar%20uma%20d%C3%BAvida%20sobre%20frete%20ou%20compatibilidade." target="_blank" rel="noopener noreferrer">Cotar frete ou tirar dúvida no WhatsApp</a>
             <a href="https://wa.me/5583999465290?text=Ol%C3%A1%2C%20MotoLink%20Pro!%20Gostaria%20de%20cota%C3%A7%C3%A3o%20B2B%20com%20NF-e." target="_blank" rel="noopener noreferrer">Cotação B2B / CNPJ / Motoclube</a>
             <a href="#faq">Perguntas Frequentes</a>
           </div>
@@ -2496,12 +2655,12 @@
     </div>
   </footer>
 
-  <!-- 7. Modal de Pedido Rápido / Checkout -->
+  <!-- Modal Opcional: Dúvida / Frete / WhatsApp (Sem barreira antes do Stripe) -->
   <div class="modal-backdrop" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-head">
-        <h3 id="modalTitle">Pedido Rápido &bull; MotoLink Pro</h3>
-        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Fechar janela de pedido">
+        <h3 id="modalTitle">Dúvida, Frete ou Atendimento WhatsApp</h3>
+        <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Fechar janela">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
@@ -2510,71 +2669,67 @@
       </div>
 
       <div class="modal-body">
+        <div class="modal-direct-links">
+          <span class="modal-direct-links-title">Prefere pagar online agora?</span>
+          <p class="modal-direct-desc">
+            Use o <strong>Checkout Seguro Stripe</strong> com <strong>Pix, Cartão, Boleto, Apple Pay, Google Pay ou Link</strong> (cupom <strong>PIX5</strong> para <strong>5% OFF</strong>; identificação na fatura: <strong>Code 14 (CODE14)</strong>).
+          </p>
+          <div class="modal-direct-btns">
+            <a href="https://buy.stripe.com/bJedR18rQgev2d635n83C08" class="btn btn-primary btn-block" id="modalStripeBtn" target="_blank" rel="noopener noreferrer">
+              Ir Direto ao Checkout Seguro Stripe &rarr;
+            </a>
+            <button type="button" class="btn btn-coupon btn-sm btn-block" data-copy-coupon="PIX5">Copiar cupom PIX5 (-5%)</button>
+          </div>
+        </div>
+
         <div class="modal-sku-summary">
           <div class="modal-sku-top">
             <span class="modal-sku-name" id="modalSkuName">EJEAS V6 Pro+ Kit Par (2 un.)</span>
-            <div class="qty-stepper">
-              <button type="button" class="qty-btn" id="modalQtyMinus" aria-label="Diminuir quantidade no pedido">&minus;</button>
-              <span class="qty-val" id="modalQtyVal">1</span>
-              <button type="button" class="qty-btn" id="modalQtyPlus" aria-label="Aumentar quantidade no pedido">+</button>
-            </div>
+            <span class="modal-price-pill" id="modalPricePill">R$ 449,00 (R$ 426,55 c/ PIX5)</span>
           </div>
-
           <div class="field" id="modalB2bWrap" hidden>
-            <label for="modalB2bSelect">Configuração do Pack B2B</label>
+            <label for="modalB2bSelect">Pack B2B selecionado</label>
             <select id="modalB2bSelect">
-              <option value="v6_10x">10x EJEAS V6 Pro+ — R$ 1.790,00</option>
-              <option value="q8_6x">6x EJEAS Q8 Mesh 3.0 — R$ 3.190,00</option>
+              <option value="pack_b2b_v6">Pack B2B 10x V6 Pro+ — R$ 1.790,00 (R$ 1.700,50 c/ PIX5)</option>
+              <option value="pack_b2b_q8">Pack B2B 6x Q8 Mesh 3.0 — R$ 3.190,00 (R$ 3.030,50 c/ PIX5)</option>
             </select>
           </div>
-
-          <div class="modal-total-bar">
-            <span class="modal-total-label" id="modalTotalLabel">Total estimado com 5% off no Pix</span>
-            <span class="modal-total-amount" id="modalTotalAmount">R$ 426,55</span>
-          </div>
         </div>
 
-        <div class="modal-direct-links" id="modalDirectLinks" hidden>
-          <span class="modal-direct-links-title">Checkout / Oferta Direta Verificada</span>
-          <a href="#ofertas" class="btn btn-primary btn-block" id="modalStripeBtn" target="_blank" rel="noopener noreferrer" hidden>Pagar Direto no Checkout Stripe</a>
-          <a href="#ofertas" class="btn btn-outline btn-block" id="modalAffiliateBtn" target="_blank" rel="noopener noreferrer" hidden>Ir para Oferta Oficial Verificada (Marketplace)</a>
-        </div>
+        <div class="modal-divider">Ou tire dúvidas / cote frete no WhatsApp</div>
 
         <form id="quickOrderForm" novalidate>
           <div class="form-grid">
-            <div class="field">
-              <label for="orderName">Seu Nome Completo *</label>
-              <input type="text" id="orderName" name="name" placeholder="Ex.: Carlos Henrique Silva" autocomplete="name" required />
-            </div>
-
             <div class="form-grid two-col">
               <div class="field">
-                <label for="orderCity">Cidade / UF *</label>
-                <input type="text" id="orderCity" name="city" placeholder="Ex.: Campina Grande / PB" required />
-              </div>
-              <div class="field">
-                <label for="orderCep">CEP (opcional)</label>
+                <label for="orderCep">CEP para frete (opcional)</label>
                 <input type="text" id="orderCep" name="cep" placeholder="00000-000" inputmode="numeric" maxlength="9" />
               </div>
+              <div class="field">
+                <label for="orderCity">Cidade / UF (opcional)</label>
+                <input type="text" id="orderCity" name="city" placeholder="Ex.: Campina Grande / PB" />
+              </div>
             </div>
 
             <div class="form-grid two-col">
               <div class="field">
-                <label for="orderHelmet">Tipo de Capacete</label>
+                <label for="orderHelmet">Capacete (opcional)</label>
                 <select id="orderHelmet" name="helmet">
                   <option value="Fechado">Fechado</option>
                   <option value="Articulado / Escamoteável">Articulado / Escamoteável</option>
                   <option value="Aberto / Cross">Aberto / Cross</option>
+                  <option value="Ainda vou confirmar">Ainda vou confirmar</option>
                 </select>
               </div>
               <div class="field">
-                <label for="orderPayment">Forma de Pagamento</label>
-                <select id="orderPayment" name="payment">
-                  <option value="Pix (-5%)">Pix (-5%)</option>
-                  <option value="Cartão até 12x">Cartão até 12x</option>
-                  <option value="Cotação B2B / CNPJ">Cotação B2B / CNPJ</option>
-                </select>
+                <label for="orderName">Seu Nome (opcional)</label>
+                <input type="text" id="orderName" name="name" placeholder="Ex.: Carlos Henrique" autocomplete="name" />
               </div>
+            </div>
+
+            <div class="field">
+              <label for="orderQuestion">Dúvida / Observação (opcional)</label>
+              <input type="text" id="orderQuestion" name="question" placeholder="Ex.: Prazo de entrega, parcelamento ou cotação CNPJ" />
             </div>
 
             <div class="form-feedback" id="orderFeedback" role="status" aria-live="polite"></div>
@@ -2584,18 +2739,14 @@
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12.04 2a9.9 9.9 0 0 0-8.46 15.05L2 22l5.12-1.52A9.9 9.9 0 1 0 12.04 2zm5.75 14.07c-.24.68-1.4 1.3-1.93 1.38-.51.08-1.15.11-1.86-.12-.44-.14-1-.33-1.73-.64-3.04-1.31-5.02-4.38-5.17-4.58-.15-.2-1.24-1.65-1.24-3.15s.78-2.24 1.06-2.55c.28-.31.61-.39.81-.39h.58c.19 0 .44-.07.69.52.24.6.83 2.08.9 2.23.08.15.13.33.03.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.63.18.3.78 1.29 1.67 2.09 1.15 1.02 2.11 1.34 2.41 1.49.3.15.48.13.66-.08.18-.2.76-.89.96-1.2.2-.3.4-.25.68-.15.28.1 1.77.84 2.07.99.3.15.5.23.58.35.08.13.08.73-.16 1.41z"/>
                 </svg>
-                Enviar Pedido no WhatsApp
+                Abrir WhatsApp (+55 83 99946-5290)
               </button>
               <button type="button" class="btn btn-outline btn-block" id="copySummaryBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                </svg>
-                <span id="copySummaryLabel">Copiar Resumo do Pedido</span>
+                <span id="copySummaryLabel">Copiar Mensagem de Atendimento</span>
               </button>
             </div>
             <p class="modal-honest-foot">
-              Confirmação de disponibilidade, frete e pagamento (Pix com 5% off ou Cartão até 12x) em minutos pelo WhatsApp.
+              Atendimento direto de Campina Grande/PB para frete, compatibilidade de capacete, parcelamento sob consulta ou B2B.
             </p>
           </div>
         </form>
@@ -2607,25 +2758,58 @@
     const CHECKOUT_CONFIG = {
       whatsappNumber: "5583999465290",
       brandName: "MotoLink Pro",
+      promoCode: "PIX5",
       pixDiscountRate: 0.05,
+      statementDescriptor: "Code 14 (CODE14)",
       skus: {
-        v6_pro_plus_unit: { name: "EJEAS V6 Pro+ (Unitário)", price: 239.00, affiliateUrl: "", stripeUrl: "" },
-        v6_pro_plus_par: { name: "EJEAS V6 Pro+ Kit Par (2 un.)", price: 449.00, affiliateUrl: "", stripeUrl: "" },
-        q8_mesh_unit: { name: "EJEAS Q8 Mesh 3.0 (Unitário)", price: 629.00, affiliateUrl: "", stripeUrl: "" },
-        q8_mesh_par: { name: "EJEAS Q8 Mesh 3.0 Kit Par (2 un.)", price: 1199.00, affiliateUrl: "", stripeUrl: "" },
-        f6_unit: { name: "EJEAS F6 (Árbitros & Pilotos)", price: 379.00, affiliateUrl: "", stripeUrl: "" },
-        pack_b2b: { name: "Pack B2B Motoclube / Frota (10x V6 Pro+)", price: 1790.00, affiliateUrl: "", stripeUrl: "" }
-      }
-    };
-
-    const B2B_VARIANTS = {
-      v6_10x: {
-        label: "Pack B2B Motoclube / Frota (10x V6 Pro+)",
-        price: CHECKOUT_CONFIG.skus.pack_b2b.price
-      },
-      q8_6x: {
-        label: "Pack B2B Motoclube / Frota (6x Q8 Mesh 3.0)",
-        price: 3190.00
+        v6_pro_plus_unit: {
+          name: "EJEAS V6 Pro+ (Unitário)",
+          price: 239.00,
+          pixPrice: 227.05,
+          stripeUrl: "https://buy.stripe.com/8x214fcI6gev7xqfS983C06"
+        },
+        v6_pro_plus_par: {
+          name: "EJEAS V6 Pro+ Kit Par (2 un.)",
+          price: 449.00,
+          pixPrice: 426.55,
+          stripeUrl: "https://buy.stripe.com/bJedR18rQgev2d635n83C08"
+        },
+        q8_mesh_unit: {
+          name: "EJEAS Q8 Mesh 3.0 (Unitário)",
+          price: 629.00,
+          pixPrice: 597.55,
+          stripeUrl: "https://buy.stripe.com/eVqaEP4bA2nFaJCaxP83C09"
+        },
+        q8_mesh_par: {
+          name: "EJEAS Q8 Mesh 3.0 Kit Par (2 un.)",
+          price: 1199.00,
+          pixPrice: 1139.05,
+          stripeUrl: "https://buy.stripe.com/3cI3cn5fE1jB19249r83C07"
+        },
+        f6_unit: {
+          name: "EJEAS F6 (Árbitros, Instrutores e Pilotos)",
+          price: 379.00,
+          pixPrice: 360.05,
+          stripeUrl: "https://buy.stripe.com/9B628jcI69Q7eZS9tL83C0d"
+        },
+        pack_b2b_v6: {
+          name: "Pack B2B 10x V6 Pro+",
+          price: 1790.00,
+          pixPrice: 1700.50,
+          unitPriceLabel: "R$ 179,00/un.",
+          specLine: "10 unidades EJEAS V6 Pro+ (R$ 179,00/un.)",
+          shortOpt: "10x V6 Pro+",
+          stripeUrl: "https://buy.stripe.com/00w3cn8rQ1jBdVOeO583C0b"
+        },
+        pack_b2b_q8: {
+          name: "Pack B2B 6x Q8 Mesh 3.0",
+          price: 3190.00,
+          pixPrice: 3030.50,
+          unitPriceLabel: "R$ 531,67/un.",
+          specLine: "6 unidades EJEAS Q8 Mesh 3.0 (R$ 531,67/un.)",
+          shortOpt: "6x Q8 Mesh 3.0",
+          stripeUrl: "https://buy.stripe.com/cNicMX6jI5zR8Bu9tL83C0c"
+        }
       }
     };
 
@@ -2646,8 +2830,8 @@
         "Proteção IP67 contra chuva forte e USB-C 5V/1A"
       ],
       q8_mesh_par: [
-        "2 unidades Q8 Mesh 3.0 com opção de Controle EUC no guidão",
-        "Comunicação simultânea para até 6 participantes no comboio",
+        "2 unidades Q8 Mesh 3.0 para estrada e líderes de comboio",
+        "Comunicação simultânea para até 6 participantes na rede",
         "Proteção IP67 indicada para estrada em qualquer clima"
       ],
       f6_unit: [
@@ -2655,10 +2839,15 @@
         "Ideal para árbitros esportivos, instrutores de autoescola e uso urbano",
         "Carregamento USB-C 5V/1A e proteção contra chuva"
       ],
-      pack_b2b: [
-        "10x EJEAS V6 Pro+ (R$ 1.790,00) ou 6x Q8 Mesh 3.0 (R$ 3.190,00)",
-        "Condições diretas B2B para Motoclubes, Lojas, Autoescolas e Frotas",
-        "Emissão de Nota Fiscal (NF-e) para CNPJ ou grupos"
+      pack_b2b_v6: [
+        "10x EJEAS V6 Pro+ por R$ 1.790,00 (R$ 179,00/un.)",
+        "Com cupom PIX5 (-5%): R$ 1.700,50 direto na Stripe",
+        "Opção CPF/CNPJ no checkout e emissão de NF-e para CNPJ"
+      ],
+      pack_b2b_q8: [
+        "6x EJEAS Q8 Mesh 3.0 por R$ 3.190,00 (R$ 531,67/un.)",
+        "Com cupom PIX5 (-5%): R$ 3.030,50 direto na Stripe",
+        "Opção CPF/CNPJ no checkout e emissão de NF-e para CNPJ"
       ]
     };
 
@@ -2671,9 +2860,47 @@
       return currencyFormatter.format(value);
     }
 
-    function calcPix(value) {
-      return Number((value * (1 - CHECKOUT_CONFIG.pixDiscountRate)).toFixed(2));
+    function copyTextFallback(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const copied = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return copied;
     }
+
+    async function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (err) {
+          return copyTextFallback(text);
+        }
+      }
+      return copyTextFallback(text);
+    }
+
+    // 1-Click Coupon Copy Feedback across page
+    document.querySelectorAll("[data-copy-coupon]").forEach((btn) => {
+      const defaultLabel = btn.textContent;
+      btn.addEventListener("click", async () => {
+        const code = btn.getAttribute("data-copy-coupon") || CHECKOUT_CONFIG.promoCode;
+        const ok = await copyToClipboard(code);
+        if (ok) {
+          btn.classList.add("copied");
+          btn.textContent = "PIX5 copiado!";
+          setTimeout(() => {
+            btn.classList.remove("copied");
+            btn.textContent = defaultLabel;
+          }, 2200);
+        }
+      });
+    });
 
     // Mobile Drawer Toggle
     const menuToggle = document.getElementById("menuToggle");
@@ -2693,74 +2920,47 @@
       });
     }
 
-    // Card State & Steppers
-    const cardState = {
-      v6_pro_plus_unit: { qty: 1 },
-      v6_pro_plus_par: { qty: 1 },
-      q8_mesh_unit: { qty: 1 },
-      q8_mesh_par: { qty: 1 },
-      f6_unit: { qty: 1 },
-      pack_b2b: { qty: 1, variant: "v6_10x" }
-    };
+    // Dynamic B2B Pack Card Toggle (pack_b2b_v6 vs pack_b2b_q8)
+    let activeB2bSku = "pack_b2b_v6";
+    const b2bCard = document.getElementById("sku-b2b");
+    const b2bCardTitle = document.getElementById("b2bCardTitle");
+    const b2bSpecUnit = document.getElementById("b2bSpecUnit");
+    const b2bFullPrice = document.getElementById("b2bFullPrice");
+    const b2bPixPrice = document.getElementById("b2bPixPrice");
+    const b2bUnitPrice = document.getElementById("b2bUnitPrice");
+    const b2bStripeLink = document.getElementById("b2bStripeLink");
+    const b2bWhatsappBtn = document.getElementById("b2bWhatsappBtn");
 
-    function getUnitPrice(skuKey, b2bVariant) {
-      if (skuKey === "pack_b2b" && b2bVariant && B2B_VARIANTS[b2bVariant]) {
-        return B2B_VARIANTS[b2bVariant].price;
-      }
-      return CHECKOUT_CONFIG.skus[skuKey].price;
-    }
+    function renderB2bCard(skuKey) {
+      const sku = CHECKOUT_CONFIG.skus[skuKey];
+      if (!sku || !b2bCard) return;
+      activeB2bSku = skuKey;
 
-    function getDisplayName(skuKey, b2bVariant) {
-      if (skuKey === "pack_b2b" && b2bVariant && B2B_VARIANTS[b2bVariant]) {
-        return B2B_VARIANTS[b2bVariant].label;
-      }
-      return CHECKOUT_CONFIG.skus[skuKey].name;
-    }
+      b2bCard.setAttribute("data-sku", skuKey);
+      b2bCardTitle.textContent = sku.name;
+      b2bSpecUnit.textContent = sku.specLine;
+      b2bFullPrice.textContent = formatBRL(sku.price);
+      b2bPixPrice.textContent = formatBRL(sku.pixPrice);
+      b2bUnitPrice.textContent = sku.unitPriceLabel;
+      b2bStripeLink.href = sku.stripeUrl;
+      b2bWhatsappBtn.setAttribute("data-open-order", skuKey);
 
-    function renderSkuCard(skuKey) {
-      const card = document.querySelector('.sku-card[data-sku="' + skuKey + '"]');
-      if (!card) return;
-      const state = cardState[skuKey];
-      const unitPrice = getUnitPrice(skuKey, state.variant);
-      const totalFull = unitPrice * state.qty;
-      const totalPix = calcPix(totalFull);
-
-      const qtyEl = card.querySelector('[data-role="qty-val"]');
-      const fullEl = card.querySelector('[data-role="full-total"]');
-      const pixEl = card.querySelector('[data-role="pix-total"]');
-
-      if (qtyEl) qtyEl.textContent = String(state.qty);
-      if (fullEl) fullEl.textContent = formatBRL(totalFull);
-      if (pixEl) pixEl.textContent = formatBRL(totalPix);
-    }
-
-    document.querySelectorAll(".sku-card").forEach((card) => {
-      const skuKey = card.getAttribute("data-sku");
-      if (!skuKey || !cardState[skuKey]) return;
-
-      card.querySelectorAll("[data-qty-delta]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const delta = Number(btn.getAttribute("data-qty-delta"));
-          const next = Math.min(50, Math.max(1, cardState[skuKey].qty + delta));
-          cardState[skuKey].qty = next;
-          renderSkuCard(skuKey);
-        });
+      b2bCard.querySelectorAll("[data-b2b-sku]").forEach((optBtn) => {
+        optBtn.classList.toggle("active", optBtn.getAttribute("data-b2b-sku") === skuKey);
       });
+    }
 
-      card.querySelectorAll("[data-b2b-opt]").forEach((optBtn) => {
+    if (b2bCard) {
+      b2bCard.querySelectorAll("[data-b2b-sku]").forEach((optBtn) => {
         optBtn.addEventListener("click", () => {
-          const variant = optBtn.getAttribute("data-b2b-opt");
-          if (!B2B_VARIANTS[variant]) return;
-          cardState[skuKey].variant = variant;
-          card.querySelectorAll("[data-b2b-opt]").forEach((b) => {
-            b.classList.toggle("active", b === optBtn);
-          });
-          renderSkuCard(skuKey);
+          const nextSku = optBtn.getAttribute("data-b2b-sku");
+          if (nextSku && CHECKOUT_CONFIG.skus[nextSku]) {
+            renderB2bCard(nextSku);
+          }
         });
       });
-
-      renderSkuCard(skuKey);
-    });
+      renderB2bCard("pack_b2b_v6");
+    }
 
     // Recommender Logic
     const recSelection = {
@@ -2771,7 +2971,6 @@
 
     function computeRecommendation(sel) {
       let skuKey = "v6_pro_plus_par";
-      let b2bVariant = "v6_10x";
       let reason = "";
       let note = "";
 
@@ -2780,7 +2979,7 @@
           skuKey = "v6_pro_plus_unit";
           reason = "Para uso urbano solo ou entregas com orçamento até R$ 250, o EJEAS V6 Pro+ Unitário entrega GPS, música e chamadas por Bluetooth 5.1 com proteção IP65.";
           if (sel.prioridade === "mesh") {
-            note = "Observação técnica: a tecnologia Mesh 3.0 começa na linha Q8 (R$ 629,00). Dentro da faixa até R$ 250, o V6 Pro+ é a escolha certa.";
+            note = "Observação técnica: a tecnologia Mesh 3.0 começa na linha Q8 (R$ 629,00 / R$ 597,55 c/ PIX5). Dentro da faixa até R$ 250, o V6 Pro+ é a escolha certa.";
           }
         } else if (sel.prioridade === "compacto") {
           skuKey = "f6_unit";
@@ -2790,24 +2989,24 @@
           reason = "Com orçamento acima de R$ 500 e foco em conexão Mesh automática, o EJEAS Q8 Mesh 3.0 garante reconexão instantânea e proteção IP67.";
         } else {
           skuKey = "v6_pro_plus_unit";
-          reason = "Para piloto solo ou entregas, o EJEAS V6 Pro+ oferece o melhor custo-benefício para ouvir rotas do GPS, atender chamadas e ainda parear com outros pilotos quando precisar.";
+          reason = "Para piloto solo ou entregas, o EJEAS V6 Pro+ oferece o melhor custo-benefício para ouvir rotas do GPS, atender chamadas e parear com outros pilotos quando precisar.";
           if (sel.prioridade === "mesh") {
-            note = "Para conversa simultânea Mesh 3.0, o modelo indicado é o EJEAS Q8 Mesh 3.0 Unitário (R$ 629,00 / R$ 597,55 no Pix).";
+            note = "Para conversa simultânea Mesh 3.0, o modelo indicado é o EJEAS Q8 Mesh 3.0 Unitário (R$ 629,00 / R$ 597,55 c/ PIX5).";
           }
         }
       } else if (sel.uso === "piloto_garupa") {
         if (sel.orcamento === "ate_250") {
           skuKey = "v6_pro_plus_unit";
           reason = "Na faixa até R$ 250, o EJEAS V6 Pro+ Unitário atende uma unidade completa com Bluetooth 5.1, USB-C e redução de ruído.";
-          note = "Dica de kit: para equipar os 2 capacetes (Piloto + Garupa) juntos, o EJEAS V6 Pro+ Kit Par sai por R$ 449,00 (R$ 426,55 no Pix).";
+          note = "Dica de kit: para equipar os 2 capacetes (Piloto + Garupa) juntos, o EJEAS V6 Pro+ Kit Par sai por R$ 449,00 (R$ 426,55 c/ PIX5).";
         } else if (sel.orcamento === "acima_500" && sel.prioridade !== "custo_beneficio") {
           skuKey = "q8_mesh_par";
-          reason = "Para casais viajantes e líderes exigentes com orçamento acima de R$ 500, o Kit Par Q8 Mesh 3.0 oferece IP67, conversa simultânea em grupo e opção de controle EUC.";
+          reason = "Para casais viajantes e líderes exigentes com orçamento acima de R$ 500, o Kit Par Q8 Mesh 3.0 oferece IP67 e conversa simultânea em grupo.";
         } else {
           skuKey = "v6_pro_plus_par";
           reason = "O Kit Par EJEAS V6 Pro+ é o campeão de custo-benefício para Piloto + Garupa: já vem completo para 2 capacetes com comunicação clara e proteção IP65.";
           if (sel.prioridade === "mesh") {
-            note = "Se você rodar em grupos grandes e quiser Mesh 3.0 no kit duplo, veja também o Q8 Mesh 3.0 Kit Par (R$ 1.199,00).";
+            note = "Se você rodar em grupos grandes e quiser Mesh 3.0 no kit duplo, veja também o Q8 Mesh 3.0 Kit Par (R$ 1.199,00 / R$ 1.139,05 c/ PIX5).";
           }
         }
       } else if (sel.uso === "grupo") {
@@ -2821,9 +3020,7 @@
         } else if (sel.prioridade === "compacto" && sel.orcamento === "250_500") {
           skuKey = "f6_unit";
           reason = "Se sua prioridade é formato compacto e leve na faixa de R$ 250 a R$ 500, o EJEAS F6 entrega agilidade e conforto no capacete.";
-          if (sel.orcamento === "250_500") {
-            note = "Para conversa simultânea em comboio (até 6 pessoas falando juntas), o degrau Mesh é o Q8 Mesh 3.0 (R$ 629,00).";
-          }
+          note = "Para conversa simultânea em comboio (até 6 pessoas falando juntas), o degrau Mesh é o Q8 Mesh 3.0 (R$ 629,00).";
         } else {
           skuKey = "v6_pro_plus_par";
           reason = "Na faixa de R$ 250 a R$ 500, o Kit Par V6 Pro+ equipa duas pessoas do grupo pelo melhor custo-benefício, com pareamento para até 6 unidades em modo alternado.";
@@ -2833,38 +3030,36 @@
         }
       } else if (sel.uso === "frota_b2b") {
         if (sel.orcamento === "acima_500" && sel.prioridade !== "compacto") {
-          skuKey = "pack_b2b";
-          b2bVariant = sel.prioridade === "mesh" ? "q8_6x" : "v6_10x";
-          reason = sel.prioridade === "mesh"
-            ? "Para frotas e motoclubes que exigem comunicação Mesh simultânea em grupo, o Pack B2B com 6x Q8 Mesh 3.0 (R$ 3.190,00) inclui condição direta e NF-e para CNPJ."
-            : "Para equipar frotas, motoclubes, autoescolas ou revenda em loja, o Pack B2B com 10x V6 Pro+ (R$ 1.790,00) reduz o custo unitário com emissão de NF-e.";
+          skuKey = sel.prioridade === "mesh" ? "pack_b2b_q8" : "pack_b2b_v6";
+          reason = skuKey === "pack_b2b_q8"
+            ? "Para frotas e motoclubes que exigem comunicação Mesh simultânea em grupo, o Pack B2B com 6x Q8 Mesh 3.0 (R$ 3.190,00 / R$ 531,67 un.) inclui compra direta e NF-e."
+            : "Para equipar frotas, motoclubes, autoescolas ou revenda em loja, o Pack B2B com 10x V6 Pro+ (R$ 1.790,00 / R$ 179,00 un.) reduz o custo unitário com emissão de NF-e.";
         } else if (sel.orcamento === "ate_250") {
           skuKey = "v6_pro_plus_unit";
           reason = "Para validar 1 unidade dentro da faixa até R$ 250 antes de fechar lote, o V6 Pro+ Unitário é a porta de entrada mais econômica para frotas.";
-          note = "Para compras a partir de 10 unidades com valor B2B (R$ 1.790,00) e NF-e, confira o Pack B2B no catálogo.";
+          note = "Para compras em lote de 10 unidades com valor B2B (R$ 1.790,00) e NF-e, confira o Pack B2B no catálogo.";
         } else {
           skuKey = "f6_unit";
           reason = "Indicado especificamente para árbitros esportivos, instrutores de autoescola e operações em equipe, o EJEAS F6 alia leveza, praticidade e clareza na voz.";
         }
       }
 
-      return { skuKey, b2bVariant, reason, note };
+      return { skuKey, reason, note };
     }
 
-    let currentRec = { skuKey: "v6_pro_plus_par", b2bVariant: "v6_10x" };
+    let currentRecSku = "v6_pro_plus_par";
+    const recStripeLink = document.getElementById("recStripeLink");
 
     function renderRecommender() {
       const rec = computeRecommendation(recSelection);
-      currentRec = { skuKey: rec.skuKey, b2bVariant: rec.b2bVariant };
+      const sku = CHECKOUT_CONFIG.skus[rec.skuKey] || CHECKOUT_CONFIG.skus.v6_pro_plus_par;
+      currentRecSku = rec.skuKey;
 
-      const name = getDisplayName(rec.skuKey, rec.b2bVariant);
-      const price = getUnitPrice(rec.skuKey, rec.b2bVariant);
-      const pix = calcPix(price);
-
-      document.getElementById("recTitle").textContent = name;
-      document.getElementById("recPricePix").textContent = formatBRL(pix) + " no Pix (-5%)";
-      document.getElementById("recPriceFull").textContent = "ou " + formatBRL(price) + " (Cartão até 12x)";
+      document.getElementById("recTitle").textContent = sku.name;
+      document.getElementById("recPriceFull").textContent = formatBRL(sku.price);
+      document.getElementById("recPricePix").textContent = formatBRL(sku.pixPrice) + " com cupom PIX5 (-5%)";
       document.getElementById("recReason").textContent = rec.reason;
+      recStripeLink.href = sku.stripeUrl;
 
       const noteEl = document.getElementById("recNote");
       if (rec.note) {
@@ -2900,108 +3095,57 @@
       });
     });
 
-    document.getElementById("recOrderBtn").addEventListener("click", () => {
-      openOrderModal(currentRec.skuKey, 1, currentRec.b2bVariant);
+    document.getElementById("recWhatsappBtn").addEventListener("click", () => {
+      openOrderModal(currentRecSku);
     });
 
     renderRecommender();
 
-    // Quick Order Modal & Checkout Logic
+    // WhatsApp Assistance & Optional Quote Modal Logic
     const orderModal = document.getElementById("orderModal");
     const modalCloseBtn = document.getElementById("modalCloseBtn");
     const modalSkuName = document.getElementById("modalSkuName");
-    const modalQtyVal = document.getElementById("modalQtyVal");
-    const modalQtyMinus = document.getElementById("modalQtyMinus");
-    const modalQtyPlus = document.getElementById("modalQtyPlus");
+    const modalPricePill = document.getElementById("modalPricePill");
     const modalB2bWrap = document.getElementById("modalB2bWrap");
     const modalB2bSelect = document.getElementById("modalB2bSelect");
-    const modalTotalLabel = document.getElementById("modalTotalLabel");
-    const modalTotalAmount = document.getElementById("modalTotalAmount");
-    const modalDirectLinks = document.getElementById("modalDirectLinks");
     const modalStripeBtn = document.getElementById("modalStripeBtn");
-    const modalAffiliateBtn = document.getElementById("modalAffiliateBtn");
 
     const quickOrderForm = document.getElementById("quickOrderForm");
     const orderNameInput = document.getElementById("orderName");
     const orderCityInput = document.getElementById("orderCity");
     const orderCepInput = document.getElementById("orderCep");
     const orderHelmetSelect = document.getElementById("orderHelmet");
-    const orderPaymentSelect = document.getElementById("orderPayment");
+    const orderQuestionInput = document.getElementById("orderQuestion");
     const orderFeedback = document.getElementById("orderFeedback");
     const copySummaryBtn = document.getElementById("copySummaryBtn");
     const copySummaryLabel = document.getElementById("copySummaryLabel");
 
-    const modalState = {
-      skuKey: "v6_pro_plus_par",
-      qty: 1,
-      b2bVariant: "v6_10x"
-    };
+    let modalSkuKey = "v6_pro_plus_par";
 
-    function refreshModalTotals() {
-      const skuKey = modalState.skuKey;
-      const b2bVariant = modalState.b2bVariant;
-      const unitPrice = getUnitPrice(skuKey, b2bVariant);
-      const displayName = getDisplayName(skuKey, b2bVariant);
-      const subtotal = unitPrice * modalState.qty;
-      const payment = orderPaymentSelect.value;
-
-      modalSkuName.textContent = displayName;
-      modalQtyVal.textContent = String(modalState.qty);
-
-      if (payment === "Pix (-5%)") {
-        modalTotalLabel.textContent = "Total estimado com 5% off no Pix (de " + formatBRL(subtotal) + ")";
-        modalTotalAmount.textContent = formatBRL(calcPix(subtotal));
-      } else if (payment === "Cotação B2B / CNPJ") {
-        modalTotalLabel.textContent = "Base estimada para cotação B2B / CNPJ (Pix: " + formatBRL(calcPix(subtotal)) + ")";
-        modalTotalAmount.textContent = formatBRL(subtotal);
-      } else {
-        modalTotalLabel.textContent = "Total estimado no Cartão (até 12x)";
-        modalTotalAmount.textContent = formatBRL(subtotal);
-      }
-    }
-
-    function openOrderModal(skuKey, qty, b2bVariant) {
+    function refreshModalSku(skuKey) {
       const sku = CHECKOUT_CONFIG.skus[skuKey];
       if (!sku) return;
+      modalSkuKey = skuKey;
+      modalSkuName.textContent = sku.name;
+      modalPricePill.textContent = formatBRL(sku.price) + " (" + formatBRL(sku.pixPrice) + " c/ PIX5)";
+      modalStripeBtn.href = sku.stripeUrl;
+    }
 
-      modalState.skuKey = skuKey;
-      modalState.qty = Math.max(1, Number(qty) || 1);
-      modalState.b2bVariant = b2bVariant || (cardState.pack_b2b ? cardState.pack_b2b.variant : "v6_10x");
+    function openOrderModal(skuKey) {
+      const targetSku = CHECKOUT_CONFIG.skus[skuKey] ? skuKey : "v6_pro_plus_par";
+      const isB2b = targetSku === "pack_b2b_v6" || targetSku === "pack_b2b_q8";
 
-      if (skuKey === "pack_b2b") {
-        modalB2bWrap.hidden = false;
-        modalB2bSelect.value = modalState.b2bVariant;
-        if (orderPaymentSelect.value === "Pix (-5%)" && !orderPaymentSelect.dataset.userChanged) {
-          orderPaymentSelect.value = "Cotação B2B / CNPJ";
-        }
-      } else {
-        modalB2bWrap.hidden = true;
+      modalB2bWrap.hidden = !isB2b;
+      if (isB2b) {
+        modalB2bSelect.value = targetSku;
       }
 
-      const hasStripe = Boolean(sku.stripeUrl && sku.stripeUrl.trim());
-      const hasAffiliate = Boolean(sku.affiliateUrl && sku.affiliateUrl.trim());
-
-      if (hasStripe || hasAffiliate) {
-        modalDirectLinks.hidden = false;
-        modalStripeBtn.hidden = !hasStripe;
-        modalAffiliateBtn.hidden = !hasAffiliate;
-        if (hasStripe) modalStripeBtn.href = sku.stripeUrl.trim();
-        if (hasAffiliate) modalAffiliateBtn.href = sku.affiliateUrl.trim();
-      } else {
-        modalDirectLinks.hidden = true;
-        modalStripeBtn.hidden = true;
-        modalAffiliateBtn.hidden = true;
-      }
-
+      refreshModalSku(targetSku);
       orderFeedback.textContent = "";
-      orderFeedback.classList.remove("ok");
-      orderNameInput.classList.remove("input-error");
-      orderCityInput.classList.remove("input-error");
 
-      refreshModalTotals();
       orderModal.classList.add("open");
       orderModal.setAttribute("aria-hidden", "false");
-      orderNameInput.focus();
+      modalCloseBtn.focus();
     }
 
     function closeOrderModal() {
@@ -3009,12 +3153,10 @@
       orderModal.setAttribute("aria-hidden", "true");
     }
 
-    document.querySelectorAll("[data-buy-sku]").forEach((btn) => {
+    document.querySelectorAll("[data-open-order]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const skuKey = btn.getAttribute("data-buy-sku");
-        if (!skuKey || !CHECKOUT_CONFIG.skus[skuKey]) return;
-        const st = cardState[skuKey] || { qty: 1 };
-        openOrderModal(skuKey, st.qty, st.variant);
+        const skuKey = btn.getAttribute("data-open-order");
+        openOrderModal(skuKey);
       });
     });
 
@@ -3032,24 +3174,8 @@
       }
     });
 
-    modalQtyMinus.addEventListener("click", () => {
-      modalState.qty = Math.max(1, modalState.qty - 1);
-      refreshModalTotals();
-    });
-
-    modalQtyPlus.addEventListener("click", () => {
-      modalState.qty = Math.min(50, modalState.qty + 1);
-      refreshModalTotals();
-    });
-
     modalB2bSelect.addEventListener("change", () => {
-      modalState.b2bVariant = modalB2bSelect.value;
-      refreshModalTotals();
-    });
-
-    orderPaymentSelect.addEventListener("change", () => {
-      orderPaymentSelect.dataset.userChanged = "1";
-      refreshModalTotals();
+      refreshModalSku(modalB2bSelect.value);
     });
 
     orderCepInput.addEventListener("input", () => {
@@ -3057,110 +3183,49 @@
       orderCepInput.value = digits.length > 5 ? digits.slice(0, 5) + "-" + digits.slice(5) : digits;
     });
 
-    function buildOrderSummary() {
-      const skuKey = modalState.skuKey;
-      const unitPrice = getUnitPrice(skuKey, modalState.b2bVariant);
-      const productName = getDisplayName(skuKey, modalState.b2bVariant);
-      const subtotal = unitPrice * modalState.qty;
-      const pixTotal = calcPix(subtotal);
-      const payment = orderPaymentSelect.value;
-      const finalDisplay = payment === "Pix (-5%)"
-        ? formatBRL(pixTotal) + " (com 5% off no Pix)"
-        : formatBRL(subtotal) + " (opção Pix 5% off: " + formatBRL(pixTotal) + ")";
+    function buildWhatsappMessage() {
+      const sku = CHECKOUT_CONFIG.skus[modalSkuKey] || CHECKOUT_CONFIG.skus.v6_pro_plus_par;
+      const lines = [
+        "Olá, equipe " + CHECKOUT_CONFIG.brandName + "! Gostaria de tirar uma dúvida / cotar frete sobre:",
+        "",
+        "• Modelo: " + sku.name + " (" + formatBRL(sku.price) + " | " + formatBRL(sku.pixPrice) + " c/ PIX5)"
+      ];
 
-      const name = orderNameInput.value.trim() || "A informar";
-      const city = orderCityInput.value.trim() || "A informar";
-      const cep = orderCepInput.value.trim() || "Não informado";
+      const cep = orderCepInput.value.trim();
+      const city = orderCityInput.value.trim();
       const helmet = orderHelmetSelect.value;
+      const name = orderNameInput.value.trim();
+      const question = orderQuestionInput.value.trim();
 
-      return [
-        "Olá, equipe " + CHECKOUT_CONFIG.brandName + "! Gostaria de confirmar disponibilidade, frete e finalizar meu pedido:",
-        "",
-        "• Produto: " + productName,
-        "• Quantidade: " + modalState.qty,
-        "• Tipo de Capacete: " + helmet,
-        "• Forma de Pagamento: " + payment,
-        "• Valor Estimado: " + finalDisplay,
-        "• Nome: " + name,
-        "• Cidade/UF: " + city,
-        "• CEP: " + cep,
-        "",
-        "Aguardo confirmação de disponibilidade, cálculo de frete e orientações para pagamento."
-      ].join("\n");
-    }
+      if (name) lines.push("• Nome: " + name);
+      if (city) lines.push("• Cidade/UF: " + city);
+      if (cep) lines.push("• CEP: " + cep);
+      if (helmet && helmet !== "Ainda vou confirmar") lines.push("• Capacete: " + helmet);
+      if (question) lines.push("• Dúvida/Obs.: " + question);
 
-    function validateOrderFields() {
-      let valid = true;
-      orderNameInput.classList.remove("input-error");
-      orderCityInput.classList.remove("input-error");
-      orderFeedback.classList.remove("ok");
-
-      if (!orderNameInput.value.trim()) {
-        orderNameInput.classList.add("input-error");
-        orderNameInput.focus();
-        orderFeedback.textContent = "Informe seu nome para personalizar o atendimento no WhatsApp.";
-        valid = false;
-      } else if (!orderCityInput.value.trim()) {
-        orderCityInput.classList.add("input-error");
-        orderCityInput.focus();
-        orderFeedback.textContent = "Informe sua Cidade / UF para agilizar a cotação do frete.";
-        valid = false;
-      } else {
-        orderFeedback.textContent = "";
-      }
-
-      return valid;
+      lines.push("", "Aguardo retorno para envio ou orientações.");
+      return lines.join("\n");
     }
 
     quickOrderForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (!validateOrderFields()) return;
-
-      const message = buildOrderSummary();
+      const message = buildWhatsappMessage();
       const waUrl = "https://wa.me/" + CHECKOUT_CONFIG.whatsappNumber + "?text=" + encodeURIComponent(message);
       window.open(waUrl, "_blank", "noopener,noreferrer");
-      orderFeedback.classList.add("ok");
-      orderFeedback.textContent = "Abrindo WhatsApp da MotoLink Pro com o resumo do pedido.";
+      orderFeedback.textContent = "Abrindo WhatsApp da MotoLink Pro (+55 83 99946-5290).";
     });
 
-    function copyTextFallback(text) {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.setAttribute("readonly", "");
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      const copied = document.execCommand("copy");
-      document.body.removeChild(ta);
-      return copied;
-    }
-
     copySummaryBtn.addEventListener("click", async () => {
-      const summary = buildOrderSummary();
-      let success = false;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        try {
-          await navigator.clipboard.writeText(summary);
-          success = true;
-        } catch (err) {
-          success = copyTextFallback(summary);
-        }
-      } else {
-        success = copyTextFallback(summary);
-      }
-
-      if (success) {
+      const message = buildWhatsappMessage();
+      const ok = await copyToClipboard(message);
+      if (ok) {
         copySummaryLabel.textContent = "Copiado!";
-        orderFeedback.classList.add("ok");
-        orderFeedback.textContent = "Resumo copiado para a área de transferência.";
+        orderFeedback.textContent = "Mensagem copiada para a área de transferência.";
         setTimeout(() => {
-          copySummaryLabel.textContent = "Copiar Resumo do Pedido";
-        }, 2500);
+          copySummaryLabel.textContent = "Copiar Mensagem de Atendimento";
+        }, 2400);
       } else {
-        orderFeedback.classList.remove("ok");
-        orderFeedback.textContent = "Não foi possível copiar automaticamente. Use o botão Enviar Pedido no WhatsApp.";
+        orderFeedback.textContent = "Não foi possível copiar automaticamente. Clique em Abrir WhatsApp.";
       }
     });
   </script>
